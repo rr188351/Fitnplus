@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitnplus — Track. Improve. Achieve.</title>
+  <meta name="description" content="Fitnplus — your personal health companion. Track your health, understand your progress, and improve with AI-powered insights." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='48' y2='48' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%2316A34A'/%3E%3Cstop offset='1' stop-color='%230891B2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='24' cy='24' r='23' fill='url(%23g)'/%3E%3Cpolyline points='6,32 11,32 14,19 18,35 22,22 26,28 32,28 38,28' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Shared SVG defs — the exact Fitnplus brand gradients -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="fpGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#16A34A" />
+        <stop offset="1" stop-color="#0891B2" />
+      </linearGradient>
+      <linearGradient id="fpGradLight" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#34D399" />
+        <stop offset="0.5" stop-color="#22D3EE" />
+        <stop offset="1" stop-color="#60A5FA" />
+      </linearGradient>
+      <linearGradient id="fpTextGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4ADE80" />
+        <stop offset="0.55" stop-color="#22D3EE" />
+        <stop offset="1" stop-color="#60A5FA" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Preloader — mirrors the app splash: logo enter, calm, brief -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-core">
+      <div class="preloader-glow" aria-hidden="true"></div>
+      <div class="preloader-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="23" fill="url(#fpGrad)" />
+          <circle cx="24" cy="24" r="23" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" />
+          <polyline points="6,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="preloader-name">Fitnplus</div>
+      <div class="preloader-tag">Track&nbsp;·&nbsp;Improve&nbsp;·&nbsp;Achieve</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="site-nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#hero" aria-label="Fitnplus home">
+        <svg class="brand-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="23" fill="url(#fpGrad)" />
+          <circle cx="24" cy="24" r="23" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" />
+          <polyline points="6,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="brand-name">Fitnplus</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#ai-insights">AI Insights</a>
+        <a href="#data">Progress</a>
+        <a href="#community">Community</a>
+        <a href="#about">About</a>
+      </nav>
+
+            <div class="nav-actions">
+        <a href="#cta" class="btn btn-grad btn-sm">Open App</a>
+        <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-label="Toggle light / dark theme"
+          aria-pressed="false"
+          data-theme="dark">
+          <span class="tt-track">
+            <span class="tt-ch" data-tt-side="light"><span class="tt-i" aria-hidden="true">☀</span><span>Light</span></span>
+            <span class="tt-ch" data-tt-side="dark"><span class="tt-i" aria-hidden="true">🌙</span><span>Dark</span></span>
+          </span>
+          <i class="tt-thumb" aria-hidden="true"></i>
+        </button>
+        <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+<!-- ═══════════════ 1 · HERO ═══════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="orb orb-c"></div>
+        <div class="orb orb-d"></div>
+        <div class="hero-grid-lines"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow reveal" style="--d:60ms">Your Health. Your Data. Your Progress.</div>
+          <h1 class="hero-title reveal" style="--d:120ms">
+            Track. <span class="grad-text">Improve.</span><br />
+            Achieve.
+          </h1>
+          <p class="hero-sub reveal" style="--d:200ms">
+            Your personal health companion, designed to turn everyday activity into meaningful progress.
+          </p>
+          <div class="hero-cta reveal" style="--d:280ms">
+            <a href="#cta" class="btn btn-grad btn-lg">Open Fitnplus</a>
+            <a href="#features" class="btn btn-glass btn-lg">Explore Features</a>
+          </div>
+          <div class="hero-chips reveal" style="--d:360ms">
+            <span class="chip"><span class="chip-emoji">⌚</span>Syncs with your smartwatch</span>
+            <span class="chip"><span class="chip-emoji">🔐</span>Private by design</span>
+            <span class="chip"><span class="chip-emoji">📊</span>128K+ weekly goals</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-phone-wrap reveal" style="--d:240ms">
+            <div class="phone-glow" aria-hidden="true"></div>
+
+            <div class="phone">
+              <div class="screen screen-home">
+                <div class="screen-orbs" aria-hidden="true"></div>
+
+                <div class="ph-status">
+                  <span>9:41</span>
+                  <span class="ph-status-icons">󾓌 󾓍 󾓎</span>
+                </div>
+
+                <div class="ph-header">
+                  <div class="ph-avatar" aria-hidden="true">👩‍🦱</div>
+                  <div class="ph-ident">
+                    <div class="ph-hi">Good Morning 👋</div>
+                    <div class="ph-name">Ananya</div>
+                  </div>
+                  <div class="ph-streak">🔥 14</div>
+                  <div class="ph-bell">🔔<span class="ph-bell-badge">4</span></div>
+                </div>
+
+                <div class="ph-card ph-steps">
+                  <div class="ph-card-top">
+                    <div>
+                      <div class="ph-label">Today's Steps</div>
+                      <div class="ph-num ph-count" data-count="12847">0</div>
+                    </div>
+                    <div class="ph-tag">128% Goal</div>
+                  </div>
+                  <div class="ph-up">↑ 28% vs yesterday</div>
+                  <div class="ph-bars" data-bars>
+                    <div style="--h:48%"></div>
+                    <div style="--h:63%"></div>
+                    <div style="--h:58%"></div>
+                    <div style="--h:76%"></div>
+                    <div style="--h:67%"></div>
+                    <div style="--h:87%"></div>
+                    <div class="hot" style="--h:100%"></div>
+                  </div>
+                  <div class="ph-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
+                </div>
+<div class="ph-row">
+                  <div class="ph-card ph-hr">
+                    <div class="ph-card-head">
+                      <span class="ph-pulse" aria-hidden="true"></span><span class="ph-label">Heart Rate</span>
+                    </div>
+                    <div class="ph-num ph-inline">72<span class="ph-unit">bpm</span></div>
+                  </div>
+                  <div class="ph-card ph-cal">
+                    <div class="ph-card-head"><span class="ph-emoji">🔥</span><span class="ph-label">Calories</span></div>
+                    <div class="ph-num ph-inline">1,240<span class="ph-unit">kcal</span></div>
+                  </div>
+                </div>
+
+                <div class="ph-row">
+                  <div class="ph-card ph-sleep">
+                    <div class="ph-card-head"><span class="ph-emoji">😴</span><span class="ph-label">Sleep</span></div>
+                    <div class="ph-num ph-inline">7h<span class="ph-unit">42m</span></div>
+                  </div>
+                  <div class="ph-card ph-hyd">
+                    <div class="ph-card-head"><span class="ph-emoji">💧</span><span class="ph-label">Hydration</span></div>
+                    <div class="ph-num ph-inline">1.9<span class="ph-unit">/ 2L</span></div>
+                  </div>
+                </div>
+
+                <div class="ph-card ph-ai">
+                  <div class="ph-ai-icon" aria-hidden="true">✨</div>
+                  <div class="ph-ai-body">
+                    <div class="ph-label">AI Insight</div>
+                    <div class="ph-ai-text">Great progress this week</div>
+                  </div>
+                  <div class="ph-pill">+12%</div>
+                </div>
+
+                <div class="ph-nav">
+                  <div class="ph-tab active"><span>🏠</span>Home</div>
+                  <div class="ph-tab"><span>📊</span>Progress</div>
+                  <div class="ph-tab"><span>👥</span>Community</div>
+                  <div class="ph-tab"><span>👤</span>Profile</div>
+                  <div class="ph-nav-ind" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="float-chip fc-1">
+              <span class="fc-dot" aria-hidden="true"></span>
+              <div><div class="fc-k">Steps synced</div><div class="fc-v">12,847</div></div>
+            </div>
+            <div class="float-chip fc-2">
+              <span class="fc-ring" style="--p:92%" aria-hidden="true"><i>92%</i></span>
+              <div><div class="fc-k">Daily goal</div><div class="fc-v">Almost there</div></div>
+            </div>
+            <div class="float-chip fc-3">
+              <span class="fc-emoji" aria-hidden="true">❤️</span>
+              <div><div class="fc-k">Resting HR</div><div class="fc-v">72 bpm · improved</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true"><span></span></div>
+    </section>
+<!-- ═══════════════ 2 · PRODUCT SHOWCASE ═══════════════ -->
+    <section class="showcase section" id="product">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">The Fitnplus experience</div>
+          <h2 class="section-title">Everything You Need.<br />One <span class="grad-text">Pulse</span> Away.</h2>
+          <p class="section-sub">Step, heart rate, insights and community — gathered into one calm, connected dashboard.</p>
+        </div>
+
+        <div class="showcase-stage">
+          <div class="showcase-glow" aria-hidden="true"></div>
+          <div class="showcase-halo" aria-hidden="true"></div>
+
+          <div class="showcase-card sc-daily reveal" style="--d:60ms">
+            <div class="sc-head"><span class="sc-ic" aria-hidden="true">❤️</span>Daily Health</div>
+            <div class="sc-rows">
+              <div class="sc-row"><span class="sc-e">👟</span><span class="sc-k">Steps</span><b>12,847</b></div>
+              <div class="sc-row"><span class="sc-e">❤️</span><span class="sc-k">Heart Rate</span><b>72 bpm</b></div>
+              <div class="sc-row"><span class="sc-e">🔥</span><span class="sc-k">Calories</span><b>1,240</b></div>
+              <div class="sc-row"><span class="sc-e">💧</span><span class="sc-k">Hydration</span><b>1.9 L</b></div>
+            </div>
+          </div>
+
+          <div class="showcase-card sc-ai reveal" style="--d:140ms">
+            <div class="sc-head"><span class="sc-ic" aria-hidden="true">✨</span>AI Insights</div>
+            <ul class="sc-check">
+              <li>Personalized recommendations</li>
+              <li>Goal analysis</li>
+              <li>Weekly health summary</li>
+            </ul>
+            <div class="sc-mini-spark" aria-hidden="true">
+              <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+                <path pathLength="1" class="line-draw" d="M0 30 C14 28 20 18 34 20 C48 22 54 10 70 12 C86 14 96 6 120 4" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="showcase-card sc-progress reveal" style="--d:220ms">
+            <div class="sc-head"><span class="sc-ic" aria-hidden="true">📈</span>Progress</div>
+            <ul class="sc-check">
+              <li>Weekly trends</li>
+              <li>Monthly statistics</li>
+              <li>Achievements</li>
+            </ul>
+          </div>
+
+          <div class="showcase-card sc-community reveal" style="--d:300ms">
+            <div class="sc-head"><span class="sc-ic" aria-hidden="true">👥</span>Community</div>
+            <ul class="sc-check">
+              <li>Challenges</li>
+              <li>Leaderboards</li>
+              <li>Friends' progress</li>
+            </ul>
+          </div>
+
+          <div class="showcase-phone reveal" style="--d:180ms">
+            <div class="phone phone-sm">
+              <div class="screen screen-sm">
+                <div class="screen-orbs" aria-hidden="true"></div>
+                <div class="ph-status"><span>9:41</span></div>
+                <div class="sm-hello">
+                  <div class="ph-label">Today's Steps</div>
+                  <div class="ph-num">12,847</div>
+                </div>
+                <div class="ring ring-lg" data-ring data-ring-label="steps">
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring-fill" cx="60" cy="60" r="52" data-pct="0.82"></circle>
+                  </svg>
+                  <div class="ring-center">
+                    <span class="ring-num ph-count" data-count="12847">0</span>
+                    <span class="ring-lbl">steps</span>
+                  </div>
+                </div>
+                <div class="ph-bars" data-bars>
+                  <div style="--h:48%"></div>
+                  <div style="--h:63%"></div>
+                  <div style="--h:58%"></div>
+                  <div style="--h:76%"></div>
+                  <div style="--h:67%"></div>
+                  <div style="--h:87%"></div>
+                  <div class="hot" style="--h:100%"></div>
+                </div>
+                <div class="ph-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 3 · FEATURES ═══════════════ -->
+    <section class="features section" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Deep health intelligence</div>
+          <h2 class="section-title">Built to understand<br />your everyday <span class="grad-text">rhythm</span>.</h2>
+          <p class="section-sub">Activity, recovery, and goals — translated into clear, actionable data.</p>
+        </div>
+
+        <div class="feat-grid">
+
+          <article class="feat-card feat-smart reveal" style="--d:60ms">
+            <div class="feat-head">
+              <span class="feat-ic" aria-hidden="true">📡</span>
+              <div><h3>Smart Activity Tracking</h3><p>Six health signals, one timeline.</p></div>
+            </div>
+            <div class="metric-grid">
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">👟</span><span class="mt-l">Steps</span></div>
+                <div class="mt-v ph-count" data-count="12847">0</div>
+                <div class="mt-track"><i style="--w:92%"></i></div>
+              </div>
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">❤️</span><span class="mt-l">Heart Rate</span></div>
+                <div class="mt-v mt-v-num">72 <small>bpm</small></div>
+                <svg class="mt-pulse" viewBox="0 0 96 22" preserveAspectRatio="none" aria-hidden="true">
+                  <path pathLength="1" class="line-draw" d="M0 12 H14 l5 -8 l6 16 l5 -11 l4 6 H40 l-2 -4 h12 l12 0 l4 -6 l5 10 l4 -4 h17" />
+                </svg>
+              </div>
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">🔥</span><span class="mt-l">Calories</span></div>
+                <div class="mt-v ph-count" data-count="1240">0</div>
+                <div class="mt-track mt-track-cyan"><i style="--w:64%"></i></div>
+              </div>
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">😴</span><span class="mt-l">Sleep</span></div>
+                <div class="mt-v"><small class="mt-suffix">7h</small>42m</div>
+                <div class="mt-track"><i style="--w:78%"></i></div>
+              </div>
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">🧘</span><span class="mt-l">Stress</span></div>
+                <div class="mt-v mt-v-num">Low</div>
+                <div class="mt-track mt-track-cyan"><i style="--w:24%"></i></div>
+              </div>
+              <div class="metric-tile">
+                <div class="metric-top"><span class="mt-e">💧</span><span class="mt-l">Hydration</span></div>
+                <div class="mt-v"><small class="mt-suffix">1.9</small>L</div>
+                <div class="mt-hyd" aria-hidden="true"><i style="--w:76%"></i></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="feat-card feat-ai reveal" id="ai-insights" style="--d:130ms">
+            <div class="feat-ai-orb" aria-hidden="true"></div>
+            <div class="feat-head">
+              <span class="feat-ic" aria-hidden="true">✨</span>
+              <div><h3>Personalized AI Insights</h3><p>Insights written around your goals.</p></div>
+            </div>
+            <div class="ai-quote">“Great progress this week.”</div>
+            <p class="ai-sub">Your activity increased by <b>12%</b> compared with last week.</p>
+            <div class="ai-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="aiFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#34D399" stop-opacity="0.35" />
+                    <stop offset="1" stop-color="#34D399" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="area-fill" d="M0 96 C40 90 62 70 96 72 C130 74 148 52 186 50 C224 48 250 30 320 22 V120 H0 Z" fill="url(#aiFill)" />
+                <path pathLength="1" class="line-draw" d="M0 96 C40 90 62 70 96 72 C130 74 148 52 186 50 C224 48 250 30 320 22" />
+                <circle class="dot-end" cx="320" cy="22" r="5" />
+              </svg>
+              <div class="ai-badge">
+                <span class="ai-badge-icon" aria-hidden="true">📈</span>
+                <div><div class="ai-badge-k">This week</div><div class="ai-badge-v ph-count" data-count="12">0%</div></div>
+              </div>
+            </div>
+          </article>
+<article class="feat-card feat-workout reveal" style="--d:200ms">
+            <div class="feat-head">
+              <span class="feat-ic" aria-hidden="true">🏋️</span>
+              <div><h3>Workout Tracking</h3><p>Every rep, lap, and drop of sweat.</p></div>
+            </div>
+            <div class="workout-body">
+              <div class="ring ring-md" data-ring>
+                <svg viewBox="0 0 120 120">
+                  <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring-fill ring-fill-blue" cx="60" cy="60" r="52" data-pct="0.92"></circle>
+                </svg>
+                <div class="ring-center">
+                  <span class="ring-num ph-count" data-count="92">0<span class="ring-unit">%</span></span>
+                  <span class="ring-lbl">Performance</span>
+                </div>
+              </div>
+              <ul class="workout-stats">
+                <li><span class="ws-e">⏱️</span><span>Duration</span><b>24:38</b></li>
+                <li><span class="ws-e">🔥</span><span>Calories</span><b>287 kcal</b></li>
+                <li><span class="ws-e">🗺️</span><span>Distance</span><b>3.2 km</b></li>
+                <li><span class="ws-e">❤️</span><span>Heart Rate</span><b>148 bpm</b></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="feat-card feat-goals reveal" style="--d:260ms">
+            <div class="feat-head">
+              <span class="feat-ic" aria-hidden="true">🎯</span>
+              <div><h3>Goal Tracking</h3><p>Circular goals, moving at your pace.</p></div>
+            </div>
+            <div class="goals-grid">
+              <div class="goal-tile">
+                <div class="ring ring-xs" data-ring>
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring-fill" cx="60" cy="60" r="52" data-pct="0.78"></circle>
+                  </svg>
+                  <div class="ring-center"><span class="ring-num" data-count="78">0<span class="ring-unit">%</span></span></div>
+                </div>
+                <div class="goal-lbl"><span class="goal-dot gd-green"></span><span>Weight Loss</span></div>
+              </div>
+              <div class="goal-tile">
+                <div class="ring ring-sm" data-ring>
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring-fill ring-fill-blue" cx="60" cy="60" r="52" data-pct="0.92"></circle>
+                  </svg>
+                  <div class="ring-center"><span class="ring-num" data-count="92">0<span class="ring-unit">%</span></span></div>
+                </div>
+                <div class="goal-lbl"><i class="goal-dot g-c"></i><span>Cardio</span></div>
+              </div>
+              <div class="goal-tile">
+                <div class="ring ring-sm" data-ring>
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring-fill" cx="60" cy="60" r="52" data-pct="0.64"></circle>
+                  </svg>
+                  <div class="ring-center"><span class="ring-num" data-count="64">0<span class="ring-unit">%</span></span></div>
+                </div>
+                <div class="goal-lbl"><i class="goal-dot g-m"></i><span>Muscle Building</span></div>
+              </div>
+              <div class="goal-tile">
+                <div class="ring ring-sm" data-ring>
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring-fill ring-fill-blue" cx="60" cy="60" r="52" data-pct="0.88"></circle>
+                  </svg>
+                  <div class="ring-center"><span class="ring-num" data-count="88">0<span class="ring-unit">%</span></span></div>
+                </div>
+                <div class="goal-lbl"><i class="goal-dot g-h"></i><span>Healthy Lifestyle</span></div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 4 · DATA VISUALIZATION ═══════════════ -->
+    <section class="data section" id="data">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Live dashboard</div>
+          <h2 class="section-title">See Your Progress.<br />Feel the <span class="grad-text">Difference</span>.</h2>
+          <p class="section-sub">Every chart draws the way it does in the app — calm, precise, and alive.</p>
+        </div>
+
+        <div class="data-grid">
+          <div class="data-card dc-bars reveal" style="--d:80ms">
+            <div class="dc-head">
+              <div><span class="dc-t">Weekly Steps</span><span class="dc-s">Last 7 days</span></div>
+              <div class="dc-total ph-count" data-count="12847">0</div>
+            </div>
+            <div class="dc-bars-chart" data-bars>
+              <div class="dc-bar" style="--h:48%"><i>6.2k</i></div>
+              <div class="dc-bar" style="--h:63%"><i>8.1k</i></div>
+              <div class="dc-bar" style="--h:58%"><i>7.4k</i></div>
+              <div class="dc-bar" style="--h:76%"><i>9.8k</i></div>
+              <div class="dc-bar" style="--h:67%"><i>8.6k</i></div>
+              <div class="dc-bar" style="--h:87%"><i>11.2k</i></div>
+              <div class="dc-bar hot" style="--h:100%"><i>12.8k</i></div>
+            </div>
+            <div class="dc-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
+            <div class="dc-foot">
+              <span class="dc-chip"><i class="dc-dot dc-dot-green"></i>Up 28% vs last week</span>
+              <span class="dc-chip ghost">Goal 10,000</span>
+            </div>
+          </div>
+
+          <div class="data-card dc-hr reveal" style="--d:140ms">
+            <div class="dc-head">
+              <div><span class="dc-t">Heart Rate</span><span class="dc-s">Today · resting 68 bpm</span></div>
+              <span class="dc-chip dc-chip-green">❤️ 72 avg</span>
+            </div>
+            <div class="dc-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 110" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="hrFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
+                    <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="area-fill" d="M0 62 C24 58 32 46 48 44 C62 50 68 34 84 26 C96 32 104 44 116 46 C130 52 138 30 152 28 C166 34 176 46 188 42 C202 36 214 44 226 40 C242 34 252 24 268 20 C284 30 300 26 320 18 V110 H0 Z" fill="url(#hrFill)" />
+                <path pathLength="1" class="line-draw" d="M0 62 C20 58 40 46 50 44 C62 50 68 34 84 26 C100 32 104 44 122 46 C134 52 142 30 152 28 C166 34 176 46 188 42 C198 36 212 44 226 40 C242 34 252 24 268 20 C284 28 296 24 320 18" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="data-card dc-cal reveal" style="--d:200ms">
+            <div class="dc-head">
+              <div><span class="dc-t">Calories Trend</span><span class="dc-s">This month</span></div>
+              <div class="dc-total"><span class="ph-count" data-count="8940">0</span> <small>kcal</small></div>
+            </div>
+            <div class="dc-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 110" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="calFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#16A34A" stop-opacity="0.35" />
+                    <stop offset="1" stop-color="#16A34A" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="area-fill" d="M0 82 C30 78 50 88 78 80 C106 72 122 56 150 58 C180 60 200 44 228 40 C256 36 286 46 320 34 L320 110 L0 110 Z" fill="url(#calFill)" />
+                <path pathLength="1" class="line-draw" d="M0 82 C30 78 50 88 78 80 C106 72 122 56 150 58 C180 60 200 44 228 40 C256 36 286 46 320 34" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="data-card dc-hyd reveal" style="--d:260ms">
+            <div class="dc-head"><span class="dc-t">Hydration</span><span class="dc-s">Daily goal</span></div>
+            <div class="dc-ring-row">
+              <div class="ring ring-sm" data-ring>
+                <svg viewBox="0 0 120 120">
+                  <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring-fill ring-fill-blue" cx="60" cy="60" r="52" data-pct="0.80"></circle>
+                </svg>
+                <div class="ring-center"><span class="ring-num"><small class="ring-small">1.9</small> L</span><span class="ring-lbl">/ 2.5L goal</span></div>
+              </div>
+              <ul class="dc-list">
+                <li><span>💧</span>8 glasses</li>
+                <li><span>⏳</span>Remaining 600ml</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="data-card dc-sleep reveal" style="--d:320ms">
+            <div class="dc-head"><span class="dc-t">Sleep Score</span><span class="dc-s">Last night</span></div>
+            <div class="dc-ring-row">
+              <div class="ring ring-sm" data-ring>
+                <svg viewBox="0 0 120 120">
+                  <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring-fill" cx="60" cy="60" r="52" data-pct="0.82"></circle>
+                </svg>
+                <div class="ring-center"><span class="ring-num ph-count" data-count="82">0</span><span class="ring-lbl">Score</span></div>
+              </div>
+              <ul class="dc-list">
+                <li><span>😴</span>7h 42m sleep</li>
+                <li><span>🌙</span>Deep sleep 2h 10m</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 5 · HOW IT WORKS ═══════════════ -->
+    <section class="how section" id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">From first sync to first milestone</div>
+          <h2 class="section-title">How <span class="grad-text">Fitnplus</span> works</h2>
+          <p class="section-sub">Three calm steps between you and your progress.</p>
+        </div>
+
+        <div class="how-flow">
+          <div class="how-line" aria-hidden="true"></div>
+          <div class="how-step reveal" style="--d:60ms">
+            <div class="how-num">01</div>
+            <div class="how-ic" aria-hidden="true">⌚</div>
+            <h3>Connect</h3>
+            <p>Pair your smartwatch or fitness band in seconds — no complicated setup.</p>
+          </div>
+          <div class="how-step reveal" style="--d:140ms">
+            <div class="how-num">02</div>
+            <div class="how-ic" aria-hidden="true">📲</div>
+            <h3>Track</h3>
+            <p>Fitnplus collects your daily health data automatically, around the clock.</p>
+          </div>
+          <div class="how-step reveal" style="--d:220ms">
+            <div class="how-num">03</div>
+            <div class="how-ic" aria-hidden="true">✨</div>
+            <h3>Improve</h3>
+            <p>Receive personalized insights and turn them into better habits and goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 6 · COMMUNITY ═══════════════ -->
+    <section class="community section" id="community">
+      <div class="community-bg" aria-hidden="true">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-c"></div>
+        <div class="orb orb-d"></div>
+      </div>
+
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">The pulse is better together</div>
+          <h2 class="section-title">Stay Motivated <span class="grad-text">Together</span>.</h2>
+          <p class="section-sub">Challenges, leaderboards, and friends' progress — momentum you can share.</p>
+        </div>
+
+        <div class="community-layout">
+          <div class="comm-panel-wrap reveal" style="--d:120ms">
+            <div class="comm-glow" aria-hidden="true"></div>
+            <div class="badge-float bf-1" aria-hidden="true">🏅</div>
+            <div class="badge-float bf-2" aria-hidden="true">🥇</div>
+            <div class="badge-float bf-3" aria-hidden="true">🔥</div>
+            <div class="badge-float bf-4" aria-hidden="true">🏆</div>
+
+            <div class="lb-panel">
+              <div class="lb-head">
+                <div class="lb-title">🏆 Leaderboard</div>
+                <span class="lb-tag">This Week</span>
+              </div>
+              <div class="lb-rows">
+                <div class="lb-row">
+                  <span class="lb-rank">🥇</span>
+                  <span class="lb-avatar" aria-hidden="true">👩‍🦱</span>
+                  <div class="lb-info"><span class="lb-name">Ananya S.</span><span class="lb-sub">🔥 21-day streak</span></div>
+                  <b class="lb-score">86,420</b>
+                </div>
+                <div class="lb-row">
+                  <span class="lb-rank">🥈</span>
+                  <span class="lb-avatar" aria-hidden="true">🧑‍🦰</span>
+                  <div class="lb-info"><span class="lb-name">Rahul K.</span><span class="lb-sub">🚀 +1,200 today</span></div>
+                  <b class="lb-score">79,100</b>
+                </div>
+                <div class="lb-row">
+                  <span class="lb-rank">🥉</span>
+                  <span class="lb-avatar" aria-hidden="true">👩‍🦳</span>
+                  <div class="lb-info"><span class="lb-name">Priya M.</span><span class="lb-sub">🏃 42 km this week</span></div>
+                  <b class="lb-score">71,850</b>
+                </div>
+                <div class="lb-row lb-you">
+                  <span class="lb-rank">4</span>
+                  <span class="lb-avatar lb-avatar-you" aria-hidden="true">🙂</span>
+                  <div class="lb-info"><span class="lb-name">You</span><span class="lb-sub">5th place → 4th 🎉</span></div>
+                  <span class="lb-score">65,947</span>
+                </div>
+              </div>
+              <div class="lb-foot">
+                <span class="lb-foot-bar" aria-hidden="true"><i></i></span>
+                <span>63 steps to reach <b>#3</b></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="community-copy reveal" style="--d:200ms">
+            <ul class="comm-list">
+              <li><span class="comm-ic" aria-hidden="true">🏆</span><div><b>Weekly Challenges</b><p>Push yourself with friends and earn badges.</p></div></li>
+              <li><span class="comm-ic" aria-hidden="true">🥇</span><div><b>Leaderboards</b><p>See your rank move in real time.</p></div></li>
+              <li><span class="comm-ic" aria-hidden="true">🎖️</span><div><b>Achievement Badges</b><p>Milestones that celebrate every win.</p></div></li>
+              <li><span class="comm-ic" aria-hidden="true">👥</span><div><b>Friends Activity</b><p>Stay connected to the people who keep you going.</p></div></li>
+              <li><span class="comm-ic" aria-hidden="true">📤</span><div><b>Share Progress</b><p>One tap to share a progress snapshot.</p></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 7 · PRIVACY ═══════════════ -->
+    <section class="privacy section" id="privacy">
+      <div class="privacy-bg" aria-hidden="true">
+        <div class="orb orb-b"></div>
+        <div class="orb orb-c"></div>
+      </div>
+      <div class="container">
+        <div class="privacy-grid">
+          <div class="privacy-visual reveal" style="--d:80ms">
+            <div class="privacy-glow" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-r1" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-r2" aria-hidden="true"></div>
+            <svg class="shield-svg" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="shieldGrad" x1="0" y1="0" x2="200" y2="200">
+                  <stop offset="0" stop-color="#34D399" />
+                  <stop offset="1" stop-color="#22D3EE" />
+                </linearGradient>
+              </defs>
+              <path class="shield-body" d="M100 26 L166 52 V102 C166 142 140 174 100 190 C60 174 34 142 34 102 V52 Z"
+                    fill="rgba(52,211,153,0.06)" stroke="url(#shieldGrad)" stroke-width="3"
+                    stroke-linejoin="round" />
+              <rect x="82" y="82" width="36" height="36" rx="10" fill="url(#shieldGrad)" opacity="0.92" />
+              <path d="M91 82 V74 C91 62 95 55 100 55 C105 55 109 62 109 74 V82" stroke="url(#shieldGrad)" stroke-width="5" fill="none" stroke-linecap="round" />
+              <circle class="shield-check" cx="100" cy="101" r="8" fill="#06080F" />
+              <path d="M95 101 L99 105 L106 96" stroke="#34D399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              <circle class="orbit-dot" cx="100" cy="4" r="4" fill="#22D3EE" />
+            </svg>
+            <div class="priv-float pf-1" aria-hidden="true">🔐</div>
+            <div class="priv-float pf-2" aria-hidden="true">⚙️</div>
+            <div class="priv-chip pchip-1"><i class="dc-dot dc-dot-green"></i>End-to-end encrypted</div>
+            <div class="priv-chip pchip-2"><i class="dc-dot dc-dot-blue"></i>Controls are yours</div>
+          </div>
+
+          <div class="privacy-body">
+            <div class="section-head section-head-left reveal">
+              <div class="eyebrow">Private by design</div>
+              <h2 class="section-title">Your Health Data.<br />Your <span class="grad-text">Control</span>.</h2>
+              <p class="section-sub">Privacy isn't an extra feature. It's part of the experience.</p>
+            </div>
+
+            <div class="privacy-cards">
+              <div class="p-card reveal" style="--d:60ms">
+                <span class="p-ic" aria-hidden="true">🛡️</span>
+                <div><h4>Privacy Controls</h4><p>Choose exactly what Fitnplus tracks and shares.</p></div>
+              </div>
+              <div class="p-card reveal" style="--d:120ms">
+                <span class="p-ic" aria-hidden="true">🔒</span>
+                <div><h4>Secure Data</h4><p>Encrypted at rest and in transit, always.</p></div>
+              </div>
+              <div class="p-card reveal" style="--d:180ms">
+                <span class="p-ic" aria-hidden="true">⚙️</span>
+                <div><h4>Permission Management</h4><p>Turn each permission on or off at any time.</p></div>
+              </div>
+              <div class="p-card reveal" style="--d:240ms">
+                <span class="p-ic" aria-hidden="true">⌚</span>
+                <div><h4>Device Sync Control</h4><p>Choose which devices connect and when.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 8 · APP EXPERIENCE ═══════════════ -->
+    <section class="experience section" id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">One app, every screen</div>
+          <h2 class="section-title">Every screen feels like <span class="grad-text">Fitnplus</span>.</h2>
+          <p class="section-sub">From your first sync to your fastest mile — the same calm product, everywhere.</p>
+        </div>
+
+        <div class="exp-stage">
+          <div class="exp-glow" aria-hidden="true"></div>
+
+          <div class="devices">
+
+            <!-- Dashboard · center focus -->
+            <div class="device dev-front reveal" style="--d:140ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-t">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-page">
+                    <div class="dev-head">
+                      <div class="ph-avatar ph-avatar-sm" aria-hidden="true">👩‍🦱</div>
+                      <div class="dev-head-txt"><span class="ph-hi">Good Morning 👋</span><span class="dev-name">Ananya</span></div>
+                      <span class="ph-streak">🔥 14</span>
+                    </div>
+                    <div class="ph-card ph-steps">
+                      <div class="ph-card-top">
+                        <div><div class="ph-label">Today's Steps</div><div class="dev-num ph-count" data-count="12847">0</div></div>
+                        <div class="ph-tag">128% Goal</div>
+                      </div>
+                      <div class="ph-bars" data-bars>
+                        <div style="--h:48%"></div><div style="--h:63%"></div><div style="--h:58%"></div>
+                        <div style="--h:76%"></div><div style="--h:67%"></div><div style="--h:87%"></div>
+                        <div class="hot" style="--h:100%"></div>
+                      </div>
+                    </div>
+                    <div class="ph-row">
+                      <div class="ph-card ph-hr"><div class="ph-card-head"><span class="ph-pulse" aria-hidden="true"></span><span class="ph-label">Heart Rate</span></div><div class="dev-num dev-num-sm">72<span class="ph-unit">bpm</span></div></div>
+                      <div class="ph-card ph-cal"><div class="ph-card-head"><span class="ph-emoji">🔥</span><span class="ph-label">Calories</span></div><div class="dev-num dev-num-sm">1,240<span class="ph-unit">kcal</span></div></div>
+                    </div>
+                    <div class="ph-card ph-ai">
+                      <div class="ph-ai-icon" aria-hidden="true">✨</div>
+                      <div class="ph-ai-body"><div class="ph-label">AI Insight</div><div class="ph-ai-text">Great progress this week</div></div>
+                      <div class="ph-pill">+12%</div>
+                    </div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="ph-tab active"><span>🏠</span>Home</div>
+                    <div class="ph-tab"><span>📊</span>Progress</div>
+                    <div class="ph-tab"><span>🏋️</span>Workouts</div>
+                    <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-nav-ind" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="dev-tag">Dashboard</div>
+            </div>
+<!-- Device · Workouts -->
+            <div class="device dev-l1 reveal" style="--d:220ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-l">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-title">Workouts</div>
+                  <div class="dev-list">
+                    <div class="dev-item"><span class="ph-emoji">🏃</span><div><b>Morning Run</b><small>Today 7:20 AM</small></div><em>412 kcal</em></div>
+                    <div class="dev-item"><span class="ph-emoji">🏋️</span><div><b>Upper Body</b><small>Yesterday</small></div><em>298 kcal</em></div>
+                    <div class="dev-item"><span class="ph-emoji">🧘</span><div><b>Yoga Flow</b><small>2 days ago</small></div><em>145 kcal</em></div>
+                  </div>
+                  <div class="dev-btn">▶ Start Workout</div>
+                </div>
+              </div>
+              <div class="dev-tag">Workouts</div>
+            </div>
+
+            <!-- Device · Activity Log -->
+            <div class="device dev-l2 reveal" style="--d:300ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-l">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-title">Activity</div>
+                  <div class="dev-metrics">
+                    <div class="dev-m"><span>👟</span><b>12,847</b><i>Steps</i></div>
+                    <div class="dev-m"><span>❤️</span><b>72</b><i>Heart Rate</i></div>
+                    <div class="dev-m"><span>😴</span><b>7h 42m</b><i>Sleep</i></div>
+                    <div class="dev-m"><span>💧</span><b>1.9L</b><i>Hydration</i></div>
+                    <div class="dev-m"><span>🧘</span><b>Low</b><i>Stress</i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="dev-tag">Activity Log</div>
+            </div>
+<!-- Device · Progress Review -->
+            <div class="device dev-r1 reveal" style="--d:260ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-r">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-title">Progress</div>
+                  <svg class="dev-chart" viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="devFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
+                        <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path class="area-fill" d="M0 60 C24 56 40 40 60 42 C84 44 100 28 124 24 C148 22 168 20 190 16 C210 12 224 12 240 8 V80 H0 Z" fill="url(#devFill)" />
+                    <path pathLength="1" class="line-draw" d="M0 60 C24 56 40 42 60 42 C84 44 100 28 124 24 C148 22 168 16 190 16 C210 12 224 12 240 8" />
+                  </svg>
+                  <div class="dev-ai-summary"><b>✨ Monthly Summary</b><span>Outstanding month — 19/30 step goals hit.</span></div>
+                  <div class="dev-badges"><span>🏅</span><span>💪</span><span>🎯</span></div>
+                </div>
+              </div>
+              <div class="dev-tag">Progress Review</div>
+            </div>
+
+            <!-- Device · Community -->
+            <div class="device dev-r2 reveal" style="--d:340ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-r">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-title">Community</div>
+                  <div class="dev-challenge"><span class="ph-emoji">👟</span><div><b>Weekly 70K</b><i>3d left</i></div><em>72%</em></div>
+                  <div class="dev-challenge cyan"><span class="ph-emoji">💧</span><div><b>Hydration Month</b><i>18d left</i></div><em>54%</em></div>
+                  <div class="dev-lb"><b>🥇 Ananya S.</b><b>🥈 Rahul K.</b><b>🥉 Priya M.</b></div>
+                </div>
+              </div>
+              <div class="dev-tag">Community</div>
+            </div>
+
+            <!-- Device · Profile -->
+            <div class="device dev-r3 reveal" style="--d:400ms">
+              <div class="phone phone-tiny">
+                <div class="screen screen-tiny screen-tint-r">
+                  <div class="screen-orbs" aria-hidden="true"></div>
+                  <div class="ph-status"><span>9:41</span></div>
+                  <div class="dev-profile">
+                    <div class="dev-avatar" aria-hidden="true">👩‍🦱</div>
+                    <b>Ananya Sharma</b>
+                    <span>Fitness · Tech</span>
+                  </div>
+                  <div class="dev-stats">
+                    <div class="dev-stat"><em class="ph-count" data-count="21">0</em><span>Day streak</span></div>
+                    <div class="dev-stat"><em>18</em><span>Badges</span></div>
+                    <div class="dev-stat"><em>4.9</em><span>Goal rate</span></div>
+                  </div>
+                  <div class="dev-badges dev-badges-row"><span>🥇</span><span>🏅</span><span>🎖️</span><span>🚀</span></div>
+                </div>
+              </div>
+              <div class="dev-tag">Profile</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- ═══════════════ 9 · TESTIMONIALS ═══════════════ -->
+    <section class="testimonial section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Real people, real goals</div>
+          <h2 class="section-title">Designed Around <span class="grad-text">Real Users</span></h2>
+          <p class="section-sub">One product, many daily rhythms.</p>
+        </div>
+
+        <div class="persona-card reveal" style="--d:140ms">
+          <div class="persona-glow" aria-hidden="true"></div>
+          <div class="persona-avatar" aria-hidden="true">
+            <span class="persona-avatar-ring"></span>
+            <span class="persona-initials">AS</span>
+          </div>
+          <div class="persona-info">
+            <div class="persona-name">Ananya Sharma</div>
+            <div class="persona-meta">24 · College Student · Fitness + Technology Enthusiast</div>
+            <blockquote>“I want my health data to be accurate, private, and easy to understand.”</blockquote>
+            <div class="persona-chips">
+              <span class="chip"><span class="chip-emoji">⌚</span>Watch syncs perfectly</span>
+              <span class="chip"><span class="chip-emoji">🎯</span>92% weekly goal rate</span>
+              <span class="chip"><span class="chip-emoji">🛡️</span>Data stays hers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 10 · FINAL CTA ═══════════════ -->
+    <section class="finalcta section" id="cta">
+      <div class="container">
+        <div class="cta-panel reveal" style="--d:100ms">
+          <div class="cta-aurora" aria-hidden="true"></div>
+          <div class="cta-circle ctc-1" aria-hidden="true"></div>
+          <div class="cta-circle ctc-2" aria-hidden="true"></div>
+          <div class="cta-circle ctc-3" aria-hidden="true"></div>
+          <div class="cta-circle ctc-4" aria-hidden="true"></div>
+
+          <div class="eyebrow">Ready when you are</div>
+          <h2 class="cta-title">Your Next Milestone<br /><span class="grad-text">Starts Here.</span></h2>
+          <p class="cta-sub">Track your health. Understand your progress. Build better habits.</p>
+          <div class="hero-cta">
+            <a href="#hero" class="btn btn-grad btn-lg">Open Fitnplus</a>
+            <a href="#experience" class="btn btn-glass btn-lg">View Prototype</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════ 11 · FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg class="footer-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="23" fill="url(#fpGrad)" />
+            <circle cx="24" cy="24" r="23" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" />
+            <polyline points="6,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div>
+            <div class="footer-name">Fitnplus</div>
+            <div class="footer-tagline">Track. Improve. Achieve.</div>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#features">Features</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#community">Community</a>
+          <a href="#about">About</a>
+          <a href="#cta">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Fitnplus Inc.</span>
+        <span>Fitnplus — Personal fitness and health tracking concept project.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
