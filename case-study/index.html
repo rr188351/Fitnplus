@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fitnpulse — UI/UX Design Case Study</title>
+  <meta
+    content="Fitnpulse — a personalized fitness and health tracking experience. A UI/UX case-study presentation: problem, research, persona, IA, flows, wireframes, visual design, interaction and implementation."
+    name="description" />
+  <link
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='48' y2='48' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%2316A34A'/%3E%3Cstop offset='1' stop-color='%230891B2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='24' cy='24' r='23' fill='url(%23g)'/%3E%3Cpolyline points='6,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    rel="icon" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;display=swap"
+    rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+  <script id="site-config" type="application/json">
+    {
+      "appUrl": "https://rr188351.github.io/Fitnpulse-app/",
+      "promoUrl": "https://rr188351.github.io/Fitnplus/#hero",
+      "githubUrl": "https://github.com/rr188351/Fitnpulse-app"
+    }
+  </script>
+  <div class="deck">
+    <div aria-hidden="true" class="progress-track"><i id="progress-bar"></i></div>
+    <div class="chapter-pill"><span id="chapter-label">INTRO</span></div>
+    <div class="top-right">
+      <button aria-label="Toggle chapter navigation" class="icon-btn" id="menu-btn" title="Chapters">☰</button>
+    </div>
+    <!-- Chapter overlay -->
+    <div aria-hidden="true" class="overlay" id="overlay">
+      <div class="overlay-panel">
+        <div class="overlay-head">
+          <span class="eyebrow">Presentation</span>
+          <h3>Chapters</h3>
+          <button aria-label="Close" class="icon-btn" id="overlay-close" title="Close">×</button>
+        </div>
+        <div class="overlay-grid" id="overlay-grid"></div>
+        <p class="overlay-hint"><kbd>←</kbd> <kbd>→</kbd> previous / next · <kbd>Home</kbd> first · <kbd>End</kbd> last
+          · <kbd>Space</kbd> next · <kbd>Esc</kbd> close</p>
+      </div>
+    </div>
+    <!-- ════════════════════════════════════════ SLIDE 01 — COVER ════════════════════════════════════════ -->
+    <section aria-hidden="false" class="slide active" data-chapter="INTRO">
+      <div aria-hidden="true" class="ambient"></div>
+      <div class="slide-inner cover-inner">
+<div class="cover-copy">
+          <span class="cover-kicker cd cd-1"><i></i> UI/UX Design Case Study · Personal Project</span>
+          <h1 class="cover-title cd cd-2">Fitnpulse</h1>
+          <p class="cover-tag cd cd-3">Track. Improve. Achieve.</p>
+          <p class="cover-sub cd cd-4">A personalized fitness and health tracking experience designed around <em>clarity</em>,
+            <em>consistency</em>, and <em>motivation</em>.</p>
+          <div class="cover-meta">
+            <div><span>Project</span><b>Fitnpulse Case Study</b></div>
+            <div><span>Role</span><b>UI/UX Designer</b></div>
+            <div><span>Type</span><b>Personal Project</b></div>
+            <div><span>Scope</span><b>Research → React</b></div>
+          </div>
+        </div>
+        <div class="cover-visual" id="cover-visual">
+          <div class="phone cover-phone" id="cover-phone">
+            <div class="cover-theme-layer cover-theme-dark">
+              <div class="cover-screens">
+                <!-- SCREEN 01 · HOME / DASHBOARD -->
+                <div class="cs-screen s-active" data-screen="home">
+                  <div class="cs-status"><span>9:41</span><span class="cs-dots">●●●</span><span>5G <i>🔋</i></span></div>
+                  <div class="cs-scroll">
+                    <div class="cs-row cs-spread cs-hdr">
+                      <div class="cs-row cs-gap">
+                        <span class="cs-avatar" aria-hidden="true">👩‍🦱</span>
+                        <div><div class="cs-mute">Good Morning 👋</div><div class="cs-name">Ananya</div></div>
+                      </div>
+                      <div class="cs-row cs-gap">
+                        <span class="cs-chip orange">🔥 14</span>
+                        <span class="cs-bell">🔔<b>4</b></span>
+                      </div>
+                    </div>
+                    <div class="cs-card">
+                      <div class="cs-row cs-spread" style="align-items:flex-start">
+                        <div>
+                          <div class="cs-mute">Today's Steps</div>
+                          <div class="cs-num">12,847</div>
+                          <div class="cs-up">↑ 28% vs yesterday</div>
+                        </div>
+                        <span class="cs-chip green">128% Goal</span>
+                      </div>
+                      <div class="cs-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:58%"></i><i style="--h:76%"></i><i style="--h:67%"></i><i style="--h:87%"></i><i class="hot" style="--h:100%"></i></div>
+                      <div class="cs-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
+                    </div>
+                    <div class="cs-row">
+                      <div class="cs-card"><div class="cs-mute">❤️ Heart Rate</div><div class="cs-num sm">72 <i>bpm</i></div><div class="cs-mute">Resting · Normal</div></div>
+                      <div class="cs-card"><div class="cs-mute">🔥 Calories</div><div class="cs-num sm">1,847 <i>kcal</i></div><div class="cs-mute">482 remaining</div></div>
+                    </div>
+                    <div class="cs-row">
+                      <div class="cs-card"><div class="cs-mute">💧 Water</div><div class="cs-num xs">1.8<i>L</i></div><div class="cs-mute">Goal: 2.5L</div></div>
+                      <div class="cs-card"><div class="cs-mute">😴 Sleep</div><div class="cs-num xs">7.4<i>h</i></div><div class="cs-mute">Deep 2.1h</div></div>
+                      <div class="cs-card"><div class="cs-mute">🧠 Stress</div><div class="cs-num xs lime">Low</div><div class="cs-mute">Score 24/100</div></div>
+                    </div>
+                    <div class="cs-card cs-ai">
+                      <div class="cs-row cs-spread"><b class="cs-t">✨ AI Insights</b><span class="cs-chip cyan">New</span></div>
+                      <p>Great progress this week! Hit step goal 5 days in a row.</p>
+                      <p>Consider a rest day — recovery maximizes muscle gains.</p>
+                    </div>
+                    <div class="cs-card">
+                      <div class="cs-row cs-spread"><b class="cs-t">🏆 Weekly Challenge</b><span class="cs-chip amber">3 days left</span></div>
+                      <div class="cs-mute">10,000 Steps Every Day</div>
+                      <div class="cs-track"><i style="--w:72%"></i></div>
+                      <div class="cs-row cs-spread cs-footnote"><span class="cs-mute">72% completed</span><span class="cs-go">1,247 participants</span></div>
+                    </div>
+                    <div class="cs-cta"><span class="cs-ico" aria-hidden="true">🏋️</span><div><div class="cs-go">Start Workout</div><div class="cs-mute">Today: Upper body strength</div></div><b aria-hidden="true">›</b></div>
+                  </div>
+                  <div class="cs-nav ind1">
+                    <div class="cs-tab on"><span>🏠</span>Home</div>
+                    <div class="cs-tab"><span>📊</span>Progress</div>
+                    <div class="cs-tab"><span>👥</span>Community</div>
+                    <div class="cs-tab"><span>👤</span>Account</div>
+                  </div>
+                </div>
+<!-- SCREEN 02 · PROGRESS -->
+                <div class="cs-screen" data-screen="progress">
+                  <div class="cs-status"><span>9:41</span><span class="cs-dots">●●●</span><span>5G <i>🔋</i></span></div>
+                  <div class="cs-scroll">
+                    <div class="cs-row cs-spread" style="margin-bottom:8px">
+                      <b class="cs-stitle">Progress</b>
+                      <span class="cs-seg"><i class="on">Week</i><i>Month</i></span>
+                    </div>
+                    <div class="cs-row" style="margin-bottom:8px">
+                      <div class="cs-card c3"><div class="cs-ico">🏋️</div><b>24</b><span class="cs-mute">Workouts</span></div>
+                      <div class="cs-card c3"><div class="cs-ico">📅</div><b>19/30</b><span class="cs-mute">Active Days</span></div>
+                      <div class="cs-card c3"><div class="cs-ico">👟</div><b>9.8k</b><span class="cs-mute">Avg Steps</span></div>
+                    </div>
+                    <div class="cs-card" style="margin-bottom:8px">
+                      <div class="cs-row cs-spread"><b class="cs-t">Weight Trend</b><span class="cs-chip green">↓ 3.2 kg</span></div>
+                      <div class="cs-mute" style="margin-bottom:2px">Lost 3.2 kg this month</div>
+                      <svg class="cs-chart" viewBox="0 0 240 58" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="cs-w" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#34d399" stop-opacity="0.3"></stop>
+                            <stop offset="1" stop-color="#34d399" stop-opacity="0"></stop>
+                          </linearGradient>
+                        </defs>
+                        <path class="cs-area" d="M0 14 C 40 12, 60 22, 100 26 C 140 30, 180 34, 240 42 L 240 58 L 0 58 Z" fill="url(#cs-w)"></path>
+                        <path class="cs-line" d="M0 14 C 40 12, 60 22, 100 26 C 140 30, 180 34, 240 42" fill="none"></path>
+                        <circle class="cs-dot" cx="240" cy="42" r="3"></circle>
+                      </svg>
+                      <div class="cs-days"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span class="hot">Now</span></div>
+                    </div>
+                    <div class="cs-card cs-bmi" style="margin-bottom:8px">
+                      <span class="cs-ico" aria-hidden="true">⚕️</span>
+                      <div><div class="cs-mute">BMI Score</div><div class="cs-num sm" style="color:var(--ct-chart)">22.4</div><span class="cs-chip green">Normal Weight</span></div>
+                      <div class="cs-bm-right"><div>178 cm</div><div>71.0 kg</div></div>
+                    </div>
+                    <div class="cs-card cs-cyan" style="margin-bottom:8px">
+                      <b class="cs-t" style="color:var(--ct-accent2)">✨ AI Monthly Summary</b>
+                      <p>Outstanding month! 19/30 step goals hit and 3.2 kg lost. Keep it up! 💪</p>
+                    </div>
+                    <div class="cs-mute cs-sec">Achievement Badges</div>
+                    <div class="cs-badges">
+                      <div class="cs-badge"><span aria-hidden="true">🔥</span><b>100 Day Streak</b></div>
+                      <div class="cs-badge"><span aria-hidden="true">👟</span><b>500K Steps</b></div>
+                      <div class="cs-badge lock"><span aria-hidden="true">💧</span><b>30-Day Hydration</b></div>
+                      <div class="cs-badge lock"><span aria-hidden="true">💪</span><b>Strength Master</b></div>
+                    </div>
+                    <div class="cs-cta cs-cta-ghost"><span class="cs-ico">📄</span><span class="cs-go">Download PDF Report</span></div>
+                  </div>
+                  <div class="cs-nav ind2">
+                    <div class="cs-tab"><span>🏠</span>Home</div>
+                    <div class="cs-tab on"><span>📊</span>Progress</div>
+                    <div class="cs-tab"><span>👥</span>Community</div>
+                    <div class="cs-tab"><span>👤</span>Account</div>
+                  </div>
+                </div>
+<!-- SCREEN 03 · COMMUNITY -->
+                <div class="cs-screen" data-screen="community">
+                  <div class="cs-status"><span>9:41</span><span class="cs-dots">●●●</span><span>5G <i>🔋</i></span></div>
+                  <div class="cs-scroll">
+                    <div class="cs-row cs-spread" style="align-items:flex-start;margin-bottom:6px">
+                      <div><b class="cs-stitle">Community</b><div class="cs-mute">Challenges, friends &amp; achievements</div></div>
+                      <span class="cs-btn">+ Join Challenge</span>
+                    </div>
+                    <div class="cs-mute cs-sec">Active Challenges</div>
+                    <div class="cs-row" style="margin-bottom:8px">
+                      <div class="cs-card c3"><div class="cs-ico">👟</div><b class="cs-t">Weekly 70K</b><div class="cs-mute">3d left</div><div class="cs-track"><i style="--w:72%"></i></div><div class="cs-go">72%</div></div>
+                      <div class="cs-card c3"><div class="cs-ico" style="color:var(--ct-accent2)">💧</div><b class="cs-t">Hydration Month</b><div class="cs-mute">18d left</div><div class="cs-track tk2"><i style="--w:54%"></i></div><div class="cs-go" style="color:var(--ct-accent2)">54%</div></div>
+                    </div>
+                    <div class="cs-card cs-lb" style="margin-bottom:8px">
+                      <div class="cs-row cs-spread" style="margin-bottom:6px"><b class="cs-t">🏆 Leaderboard</b><span class="cs-chip amber">This Week</span></div>
+                      <div class="cs-lbrow"><span aria-hidden="true">🥇</span><i class="cs-av">👩‍🦱</i><b>Ananya S.</b><em>86,420</em></div>
+                      <div class="cs-lbrow"><span aria-hidden="true">🥈</span><i class="cs-av">🧑‍🦰</i><b>Rahul K.</b><em>79,100</em></div>
+                      <div class="cs-lbrow"><span aria-hidden="true">🥉</span><i class="cs-av">👩‍🦳</i><b>Priya M.</b><em>71,850</em></div>
+                      <div class="cs-lbrow you"><span aria-hidden="true">8️⃣</span><i class="cs-av">🧑</i><b>You</b><em>65,947</em></div>
+                    </div>
+                    <div class="cs-mute cs-sec">Friends Activity</div>
+                    <div class="cs-card cs-feed"><div class="cs-row cs-gap"><span class="cs-av sm">🧑‍🦰</span><div><div class="cs-fname">Rahul K.</div><div class="cs-mute">2h ago</div></div></div><p>Completed a 5K run in 28:30 🏃 Personal best!</p></div>
+                    <div class="cs-card cs-feed"><div class="cs-row cs-gap"><span class="cs-av sm">👩‍🦳</span><div><div class="cs-fname">Priya M.</div><div class="cs-mute">4h ago</div></div></div><p>Hit 100-day streak! 🔥 So proud of this milestone.</p></div>
+                    <div class="cs-card cs-feed"><div class="cs-row cs-gap"><span class="cs-av sm">🧑‍🦱</span><div><div class="cs-fname">Dev R.</div><div class="cs-mute">6h ago</div></div></div><p>New PR: Bench Press 100kg 💪 Strength is growing!</p></div>
+                  </div>
+                  <div class="cs-nav ind3">
+                    <div class="cs-tab"><span>🏠</span>Home</div>
+                    <div class="cs-tab"><span>📊</span>Progress</div>
+                    <div class="cs-tab on"><span>👥</span>Community</div>
+                    <div class="cs-tab"><span>👤</span>Account</div>
+                  </div>
+                </div>
+<!-- SCREEN 04 · ACCOUNT -->
+                <div class="cs-screen" data-screen="account">
+                  <div class="cs-status"><span>9:41</span><span class="cs-dots">●●●</span><span>5G <i>🔋</i></span></div>
+                  <div class="cs-scroll">
+                    <div class="cs-row cs-spread" style="margin-bottom:8px">
+                      <span class="cs-ico tiny" aria-hidden="true">⚙️</span>
+                      <b class="cs-stitle">Account</b>
+                      <span class="cs-ico tiny" aria-hidden="true"></span>
+                    </div>
+                    <div class="cs-card cs-prof" style="margin-bottom:8px">
+                      <span class="cs-prof-av" aria-hidden="true">👩‍🦱</span>
+                      <div class="cs-name">Ananya Sharma</div>
+                      <div class="cs-mute">ananya@fitpulse.app</div>
+                      <span class="cs-chip lime">⭐ FitPulse Pro</span>
+                      <div class="cs-prof-stats">
+                        <div><b>247</b><span>Workouts</span></div>
+                        <div><b>100🔥</b><span>Day Streak</span></div>
+                        <div><b>18</b><span>Badges</span></div>
+                      </div>
+                    </div>
+                    <div class="cs-menu">
+                      <div class="cs-men"><span class="cs-ico tiny">✏️</span><div><b>Edit Profile</b><small>Update your information</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men"><span class="cs-ico tiny">🎯</span><div><b>Goals &amp; Progress</b><small>Track your milestones</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men"><span class="cs-ico tiny">⌚</span><div><b>Device Sync</b><small>Manage connected devices</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men"><span class="cs-ico tiny">⭐</span><div><b>Subscription</b><small>FitPulse Pro · Active</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men"><span class="cs-ico tiny">🏆</span><div><b>Personal Records</b><small>Your best performances</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men"><span class="cs-ico tiny">🔒</span><div><b>Privacy &amp; Security</b><small>Manage your data</small></div><i aria-hidden="true">›</i></div>
+                      <div class="cs-men out"><span class="cs-ico tiny">🚪</span><div><b style="color:var(--ct-red)">Sign Out</b></div></div>
+                    </div>
+                    <div class="cs-foot">FitPulse v3.2.1 · Member since Jan 2024</div>
+                  </div>
+                  <div class="cs-nav ind4">
+                    <div class="cs-tab"><span>🏠</span>Home</div>
+                    <div class="cs-tab"><span>📊</span>Progress</div>
+                    <div class="cs-tab"><span>👥</span>Community</div>
+                    <div class="cs-tab on"><span>👤</span>Account</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cover-theme-layer cover-theme-light" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 02 — PROJECT OVERVIEW ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="INTRO">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 02 · Project Overview</span>
+        <h2 class="s-title">A complete product journey</h2>
+        <p class="s-sub">From first research assumptions to a working React application — one continuous design story.
+        </p>
+      </div>
+      <div class="overview-grid">
+        <div class="glass overview-facts">
+          <div class="fact"><span>Role</span><b>UI/UX Designer</b></div>
+          <div class="fact"><span>Type</span><b>Personal Project</b></div>
+          <div class="fact"><span>Platform</span><b>Mobile App</b></div>
+          <div class="fact"><span>Focus</span><b>Health + Fitness</b></div>
+        </div>
+        <div class="glass overview-deliver">
+          <h4>Deliverables</h4>
+          <div class="deliver-tags">
+            <span>UX Research</span><span>Persona</span><span>Empathy Map</span><span>IA</span><span>User
+              Flow</span><span>Wireframes</span><span>UI Design</span><span>Motion</span><span>React
+              Implementation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 03 — PROBLEM ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="INTRO">
+    <div class="slide-inner">
+      <div class="s-head" style="align-items:flex-start">
+        <span class="eyebrow">Slide 03 · Problem Framing</span>
+        <span class="note-tag amber">Design Problem / Project Assumption</span>
+        <h2 class="s-title">Health data is easy to collect — hard to act on.</h2>
+      </div>
+      <div class="problem-statement glass">
+        <span class="prob-label">The Problem</span>
+        <p>Fitness apps can expose users to large amounts of health information without making that information <b>easy
+            to understand</b> or <b>act upon</b>.</p>
+      </div>
+      <div class="problem-points">
+        <div class="pp"><span class="pp-n">01</span>
+          <p><b>Information overload</b> — too much data raises cognitive load and buries what matters.</p>
+        </div>
+        <div class="pp"><span class="pp-n">02</span>
+          <p><b>Fragmented metrics</b> — health signals feel disconnected across screens and features.</p>
+        </div>
+        <div class="pp"><span class="pp-n">03</span>
+          <p><b>Motivation decay</b> — without visible progress, engagement quietly drops.</p>
+        </div>
+        <div class="pp"><span class="pp-n">04</span>
+          <p><b>Sync friction</b> — unreliable device syncing creates frustration and distrust.</p>
+        </div>
+        <div class="pp"><span class="pp-n">05</span>
+          <p><b>Privacy anxiety</b> — constant health-collection raises legitimate privacy concerns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 04 — DESIGN GOAL ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="INTRO">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 04 · Design Goal</span>
+        <h2 class="s-title">Three pillars guide every screen</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar glass">
+          <span class="pillar-num">01</span>
+          <h3>Clarity</h3>
+          <p>Make important health information visible at a glance — one glance, one decision.</p>
+        </div>
+        <div class="pillar glass">
+          <span class="pillar-num">02</span>
+          <h3>Consistency</h3>
+          <p>Help users maintain daily habits through predictable structure and calm repetition.</p>
+        </div>
+        <div class="pillar glass">
+          <span class="pillar-num">03</span>
+          <h3>Motivation</h3>
+          <p>Use progress, achievements and challenges to encourage continued engagement.</p>
+        </div>
+      </div>
+      <div aria-hidden="true" class="goal-line"><i></i></div>
+      <p class="goal-statement">Everything downstream — IA, flows, UI, motion — is measured against these three words.
+      </p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 05 — RESEARCH ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 05 · UX Research</span>
+        <h2 class="s-title">Research artifacts that shaped the product</h2>
+        <p class="s-sub">Exploratory research artifacts identified the needs around tracking, motivation,
+          personalization, privacy and community.</p>
+      </div>
+      <div class="research-grid">
+        <div class="r-card glass"><span class="r-meta">Artifact 01</span>
+          <h4>Quantitative Feedback</h4>
+          <ul>
+            <li>Usage frequency, step satisfaction, heart-rate usefulness, nutrition logging, badge motivation and
+              privacy confidence.</li>
+          </ul>
+        </div>
+        <div class="r-card glass"><span class="r-meta">Artifact 02</span>
+          <h4>Qualitative Feedback</h4>
+          <ul>
+            <li>Personalized insights, nutrition logging, community motivation, sleep/stress, glassmorphic UI,
+              challenges and AI recommendations.</li>
+          </ul>
+        </div>
+        <div class="r-card glass"><span class="r-meta">Artifact 03</span>
+          <h4>Persona Map</h4>
+          <ul>
+            <li>Ananya Sharma — 24, college student, fitness &amp; technology enthusiast, using smartwatch, fitness band
+              and mobile app.</li>
+          </ul>
+        </div>
+        <div class="r-card glass"><span class="r-meta">Artifact 04</span>
+          <h4>Empathy Map</h4>
+          <ul>
+            <li>Says, Thinks, Does and Feels — with privacy, simplicity, consistency and motivation as recurring themes.
+            </li>
+          </ul>
+        </div>
+        <div class="r-card glass"><span class="r-meta">Artifact 05</span>
+          <h4>Journey Map</h4>
+          <ul>
+            <li>Onboarding, daily tracking, progress review, community engagement, feedback/support and long-term
+              retention.</li>
+          </ul>
+        </div>
+        <div class="r-card glass"><span class="r-meta">Artifact 06</span>
+          <h4>Architecture &amp; Flows</h4>
+          <ul>
+            <li>Information architecture, onboarding flow, workflow and navigation structure connecting the full
+              experience.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 06 — COMPETITIVE ANALYSIS ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 06 · Competitive Analysis</span>
+        <h2 class="s-title">Feature benchmark — where Fitnpulse is positioned</h2>
+      </div>
+      <div class="table-wrap glass">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Fitbit</th>
+              <th>Apple Watch</th>
+              <th>Garmin</th>
+              <th>Samsung</th>
+              <th class="brand-col">Fitnpulse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Step Tracking</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Heart Rate Monitoring</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Sleep Analysis</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Stress Tracking</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>GPS Tracking</td>
+              <td class="n">✗</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Workout Mode</td>
+              <td class="n">✗</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Nutrition Tracking</td>
+              <td class="n">✗</td>
+              <td class="n">✗</td>
+              <td class="n">✗</td>
+              <td class="n">✗</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>Community Challenges</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+            <tr>
+              <td>AI-Based Insights</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y">✓</td>
+              <td class="y brand-col">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="vision-note"><b>Read:</b> This table mirrors the supplied Fitnpulse comparison artifact; it is presented
+        as a project benchmark, not as an audited market claim.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 07 — QUANTITATIVE ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 07 · Quantitative Findings</span>
+        <h2 class="s-title">Quantitative feedback — the signals we tracked</h2>
+      </div>
+      <div class="quant-grid">
+        <div class="q-card glass">
+          <h4>Daily Usage Frequency</h4>
+          <div class="q-key"><span><i style="background:#22d3ee"></i> 2–3 Times/Day</span></div>
+          <div class="bars"><i style="--w:60%;--c:#22d3ee"></i></div>
+          <p>Exploratory feedback signal: 2–3 Times/Day (60%).</p>
+        </div>
+        <div class="q-card glass">
+          <h4>Step Tracking Satisfaction</h4>
+          <div class="q-key"><span><i style="background:#34d399"></i> Rated 4+ Stars</span></div>
+          <div class="bars"><i style="--w:80%;--c:#34d399"></i></div>
+          <p>Exploratory feedback signal: Rated 4+ Stars (80%).</p>
+        </div>
+        <div class="q-card glass">
+          <h4>Heart Rate Usefulness</h4>
+          <div class="q-key"><span><i style="background:#a78bfa"></i> Very Useful</span></div>
+          <div class="bars"><i style="--w:75%;--c:#a78bfa"></i></div>
+          <p>Exploratory feedback signal: Very Useful (75%).</p>
+        </div>
+        <div class="q-card glass">
+          <h4>Nutrition Logging Daily</h4>
+          <div class="q-key"><span><i style="background:#fb923c"></i> Daily Log</span></div>
+          <div class="bars"><i style="--w:40%;--c:#fb923c"></i></div>
+          <p>Exploratory feedback signal: Daily Log (40%).</p>
+        </div>
+        <div class="q-card glass">
+          <h4>Motivation from Badges</h4>
+          <div class="q-key"><span><i style="background:#f59e0b"></i> Highly Motivating</span></div>
+          <div class="bars"><i style="--w:70%;--c:#f59e0b"></i></div>
+          <p>Exploratory feedback signal: Highly Motivating (70%).</p>
+        </div>
+        <div class="q-card glass">
+          <h4>Data Privacy Confidence</h4>
+          <div class="q-key"><span><i style="background:#3b82f6"></i> 55% Confident</span></div>
+          <div class="bars"><i style="--w:55%;--c:#3b82f6"></i></div>
+          <p>Exploratory feedback signal: 55% Confident (55%).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 08 — QUALITATIVE ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 08 · Qualitative Findings</span>
+        <h2 class="s-title">Qualitative feedback — what users want improved</h2>
+      </div>
+      <div class="quote-grid">
+        <figure class="q-quote">
+          <blockquote><b>Personalized insights &amp; gamification</b> — Users want the app to understand their goals.
+          </blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>Nutrition logging</b> — A simpler nutrition logging experience is desired.</blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>Community motivation</b> — Community features should feel motivating and connected.
+          </blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>Sleep quality &amp; stress tracking</b> — Sleep and stress are important health aspects.
+          </blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>Modern &amp; premium UI</b> — The glassmorphic direction is perceived as modern and premium.
+          </blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>Challenges + streak rewards</b> — Challenges and streaks can support long-term engagement.
+          </blockquote>
+        </figure>
+        <figure class="q-quote">
+          <blockquote><b>AI-based workout recommendations</b> — Users want more personalized recommendations.
+          </blockquote>
+        </figure>
+      </div>
+      <p class="persona-insight">Users don't need more data — they need <em>meaning, momentum and reassurance</em>.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 09 — PERSONA ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 09 · Persona</span>
+        <h2 class="s-title">Designing for Ananya, 24</h2>
+      </div>
+      <div class="persona-grid">
+        <div class="persona-card glass">
+          <div class="persona-top">
+            <span aria-hidden="true" class="css-avatar"><svg viewbox="0 0 84 84">
+                <defs>
+                  <lineargradient gradientunits="userSpaceOnUse" id="pav" x1="0" x2="84" y1="0" y2="84">
+                    <stop stop-color="#16a34a"></stop>
+                    <stop offset="1" stop-color="#0891b2"></stop>
+                  </lineargradient>
+                </defs>
+                <rect fill="url(#pav)" height="84" width="84"></rect>
+                <circle cx="42" cy="33" fill="rgba(255,255,255,0.92)" r="14"></circle>
+                <path d="M14 78c4-17 15-25 28-25s24 8 28 25" fill="rgba(255,255,255,0.92)"></path>
+              </svg></span>
+            <div>
+              <h3>Ananya Sharma</h3>
+              <p class="persona-sub">24 · College Student · Fitness &amp; Tech Enthusiast · Smartwatch + Fitness Band +
+                Mobile App</p>
+              <div class="persona-tags"><span>🏃 Daily fitness tracking</span><span>📱 Mobile-first</span><span>🔒
+                  Privacy conscious</span></div>
+            </div>
+          </div>
+          <div class="persona-goal">
+            <span class="pg-ic">🎯</span>
+            <div><b>Primary Goal</b>
+              <p>Stay consistent with daily fitness tracking and get personalized health insights.</p>
+            </div>
+          </div>
+          <div class="persona-quotes">
+            <blockquote>“I want my health data to be accurate and private.”</blockquote>
+            <blockquote>“I need an app that understands my goals.”</blockquote>
+          </div>
+        </div>
+        <div class="persona-side">
+          <div class="p-row"><span class="p-tag does">Does</span>
+            <p>Tracks steps and workouts daily; logs meals and hydration regularly.</p>
+          </div>
+          <div class="p-row"><span class="p-tag thinks">Thinks</span>
+            <p>Fitnpulse must give consistent insights; simplicity and privacy matter most.</p>
+          </div>
+          <div class="p-row"><span class="p-tag feels">Feels</span>
+            <p>Motivated when hitting milestones; frustrated when syncing fails.</p>
+          </div>
+        </div>
+      </div>
+      <p class="persona-insight">The opportunity: make health data feel <em>clear, personal and trustworthy</em>.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 10 — EMPATHY MAP ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="RESEARCH">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 10 · Empathy Map</span>
+        <h2 class="s-title">Inside Ananya's head</h2>
+      </div>
+      <div class="empathy-map">
+        <div class="e-quad e-says glass">
+          <span class="e-tag">Says &amp; Thinks</span>
+          <blockquote>“I want my health data to be accurate and private.”</blockquote>
+          <ul>
+            <li>Needs an app that understands her goals.</li>
+          </ul>
+        </div>
+        <div class="e-quad e-thinks glass">
+          <span class="e-tag">Thinks</span>
+          <blockquote>“Fitnpulse must give consistent insights.”</blockquote>
+          <ul>
+            <li>Privacy and personalization matter more than flashy features.</li>
+          </ul>
+        </div>
+        <div class="e-quad e-does glass">
+          <span class="e-tag">Does</span>
+          <blockquote>Tracks daily steps and workouts.</blockquote>
+          <ul>
+            <li>Logs meals and hydration.</li>
+          </ul>
+        </div>
+        <div class="e-quad e-feels glass">
+          <span class="e-tag">Feels</span>
+          <blockquote>Motivated when hitting milestones.</blockquote>
+          <ul>
+            <li>Frustrated when syncing fails.</li>
+          </ul>
+        </div>
+        <div aria-hidden="true" class="e-center">
+          <svg aria-hidden="true" fill="none" viewbox="0 0 48 48">
+            <path d="M24 42s-16-9.8-16-21A9 9 0 0 1 24 15a9 9 0 0 1 16 6c0 11.2-16 21-16 21z"
+              fill="rgba(52,211,153,0.14)" stroke="#34d399" stroke-width="2.4"></path>
+            <circle cx="24" cy="22" fill="#34d399" r="4.2"></circle>
+            <path d="M12 34c4-3 8-4 12-4s8 1 12 4" stroke="#34d399" stroke-width="2"></path>
+          </svg>
+          <b>Ananya</b>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 11 — JOURNEY MAP ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 11 · Journey Map</span>
+        <h2 class="s-title">Journey map — from onboarding to long-term engagement</h2>
+      </div>
+      <div class="journey">
+        <div aria-hidden="true" class="j-emotion">
+          <svg preserveaspectratio="none" viewbox="0 0 1200 72">
+            <defs>
+              <lineargradient id="jgrad" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#34d399"></stop>
+                <stop offset="0.42" stop-color="#34d399"></stop>
+                <stop offset="0.58" stop-color="#fb923c"></stop>
+                <stop offset="0.76" stop-color="#f87171"></stop>
+                <stop offset="1" stop-color="#4ade80"></stop>
+              </lineargradient>
+            </defs>
+            <path class="draw-path"
+              d="M0 22 C 150 8, 260 14, 360 24 C 470 34, 540 46, 620 52 C 720 58, 800 58, 880 50 C 980 42, 1060 22, 1200 12"
+              fill="none" stroke="url(#jgrad)" stroke-linecap="round" stroke-width="3.5"></path>
+          </svg>
+          <div class="j-axis"><i>▲ delight</i><i>▼ frustration</i></div>
+        </div>
+        <div class="j-stages">
+          <div class="j-stage"><span class="j-num">STAGE 01</span>
+            <h4>Onboarding</h4>
+            <p class="j-act">Create profile, connect device and set goals.</p>
+            <p class="j-opp"><b>Opportunity →</b> Smooth setup and sensible defaults.</p>
+          </div>
+          <div class="j-stage"><span class="j-num">STAGE 02</span>
+            <h4>Daily Tracking</h4>
+            <p class="j-act">Check steps, heart rate, hydration and nutrition.</p>
+            <p class="j-opp"><b>Opportunity →</b> Keep the dashboard focused and useful.</p>
+          </div>
+          <div class="j-stage"><span class="j-num">STAGE 03</span>
+            <h4>Progress Review</h4>
+            <p class="j-act">Review weekly/monthly progress and insights.</p>
+            <p class="j-opp"><b>Opportunity →</b> Turn data into understandable meaning.</p>
+          </div>
+          <div class="j-stage"><span class="j-num">STAGE 04</span>
+            <h4>Community Engagement</h4>
+            <p class="j-act">Join challenges, compare progress and share wins.</p>
+            <p class="j-opp"><b>Opportunity →</b> Use community to reinforce motivation.</p>
+          </div>
+          <div class="j-stage"><span class="j-num">STAGE 05</span>
+            <h4>Feedback &amp; Support</h4>
+            <p class="j-act">Report bugs, request features and get help.</p>
+            <p class="j-opp"><b>Opportunity →</b> Keep support responsive and user-led.</p>
+          </div>
+          <div class="j-stage"><span class="j-num">STAGE 06</span>
+            <h4>Long-Term Retention</h4>
+            <p class="j-act">Continue habits through features and reminders.</p>
+            <p class="j-opp"><b>Opportunity →</b> Celebrate consistency and avoid guilt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 12 — INFORMATION ARCHITECTURE ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 12 · Information Architecture</span>
+        <h2 class="s-title">Information architecture that keeps the experience discoverable</h2>
+        <p class="s-sub">Four primary tabs — Home, Progress, Community and Account — carry the daily experience, with
+          Settings nested under Account and deeper health data under Activity Log.</p>
+      </div>
+      <div class="ia">
+        <div class="ia-root">Fitnpulse</div>
+        <div class="ia-branches">
+          <div class="ia-branch">
+            <div class="ia-node home">🏠 Home</div>
+            <ul>
+              <li>Dashboard</li>
+              <li>AI Insights</li>
+              <li>Weekly Challenge</li>
+              <li>Workouts</li>
+              <li>Activity Log</li>
+            </ul>
+          </div>
+          <div class="ia-branch">
+            <div class="ia-node progress">📊 Progress</div>
+            <ul>
+              <li>Stats</li>
+              <li>Weight Trend</li>
+              <li>BMI</li>
+              <li>Achievements</li>
+            </ul>
+          </div>
+          <div class="ia-branch">
+            <div class="ia-node community">👥 Community</div>
+            <ul>
+              <li>Challenges</li>
+              <li>Leaderboard</li>
+              <li>Friends Activity</li>
+            </ul>
+          </div>
+          <div class="ia-branch">
+            <div class="ia-node account">👤 Account</div>
+            <ul>
+              <li>Profile</li>
+              <li>Subscription</li>
+              <li>Personal Records</li>
+              <li>Privacy &amp; Security</li>
+            </ul>
+          </div>
+          <div class="ia-branch">
+            <div class="ia-node settings">⚙️ Settings</div>
+            <ul>
+              <li>Notifications</li>
+              <li>Theme</li>
+              <li>Language</li>
+              <li>Backup &amp; Restore</li>
+              <li>Help Center</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 13 — USER FLOW ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 13 · User Flow</span>
+        <h2 class="s-title">User flow — from first launch to the home dashboard</h2>
+      </div>
+      <div class="userflow">
+        <div class="uf-list">
+          <div class="uf-step"><span>01</span> Splash Screen</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>02</span> Walkthrough</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>03</span> Login / Sign Up</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>04</span> Profile Setup</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>05</span> Device Sync</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>06</span> Goal Selection</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>07</span> Permissions</div>
+          <div class="uf-arrow">▼</div>
+          <div class="uf-step"><span>08</span> Home Dashboard</div>
+        </div>
+        <div class="uf-fan">
+          <div class="uf-bus">Home Dashboard branches into daily tracking, workouts, community, progress, account and
+            settings.</div>
+          <div class="uf-grid">
+            <div class="uf-chip">Dashboard</div>
+            <div class="uf-chip">Workouts</div>
+            <div class="uf-chip">Activity Log</div>
+            <div class="uf-chip">Community</div>
+            <div class="uf-chip">Progress Review</div>
+            <div class="uf-chip">Account</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 14 — WORKFLOW ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 14 · System Workflow</span>
+        <h2 class="s-title">Workflow — how users move through the product</h2>
+      </div>
+      <div class="wf-lanes">
+        <div class="wf-lane">
+          <h4>Start / Setup</h4>
+          <div class="wf-flow">
+            <div class="wf-node">Download &amp; Install</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node">New user? → Sign Up : Existing → Login</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node">Home</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node done">Set Fitness Goal</div>
+          </div>
+        </div>
+        <div class="wf-lane">
+          <h4>Health / Activity</h4>
+          <div class="wf-flow">
+            <div class="wf-node">Connect Device</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node">Check Activity Logs</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node done">Track steps, heart rate, sleep, calories, hydration and stress</div>
+          </div>
+        </div>
+        <div class="wf-lane">
+          <h4>Engagement / Review</h4>
+          <div class="wf-flow">
+            <div class="wf-node">Progress Review</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node">Community Challenges</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node">Feedback &amp; Support</div>
+            <div class="wf-arrow">▼</div>
+            <div class="wf-node done">Return to ongoing tracking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 15 — UX DECISIONS ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 15 · UX Decisions</span>
+        <h2 class="s-title">Five calls that shaped the product</h2>
+      </div>
+      <div class="decision-grid">
+        <div class="d-card glass"><span class="d-n">D-01</span>
+          <h4>One glanceable dashboard</h4>
+          <p>The top card answers "how am I doing?" in under five seconds — no scrolling required.</p>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-02</span>
+          <h4>Progressive disclosure</h4>
+          <p>Deep charts live one tap down. The surface stays calm; detail is available, not shouted.</p>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-03</span>
+          <h4>Insight before data</h4>
+          <p>Every metric card pairs the number with a plain-language action — "what to do", not just "what is".</p>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-04</span>
+          <h4>Forgiving streaks</h4>
+          <p>Grace days protect motivation when life happens. A broken streak never punishes a sick week.</p>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-05</span>
+          <h4>Privacy as a feature</h4>
+          <p>Per-metric sharing toggles, private by default. Users see exactly who sees what.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 16 — WIREFRAMES ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 16 · Wireframes</span>
+        <h2 class="s-title">Structure before style</h2>
+      </div>
+      <div class="wire-grid">
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <div class="wf-row"><i></i><i></i></div>
+            <i class="wf-block" style="--hh:26%"></i>
+            <div class="wf-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:56%"></i><i
+                style="--h:74%"></i><i style="--h:88%"></i><i style="--h:66%"></i><i style="--h:96%"></i></div>
+          </div>
+          <figcaption>01 · Dashboard<small>Hierarchy: one hero metric, weekly rhythm below</small></figcaption>
+        </figure>
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <span class="wf-seg"></span>
+            <i class="wf-block" style="--hh:34%"></i>
+            <div class="wf-bars"><i style="--h:40%"></i><i style="--h:58%"></i><i style="--h:50%"></i><i
+                style="--h:72%"></i><i style="--h:85%"></i></div>
+          </div>
+          <figcaption>02 · Progress<small>Week / month view over a progress trend chart</small></figcaption>
+        </figure>
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <i class="wf-block tall" style="--hh:38%"></i>
+            <div class="wf-row"><i></i><i></i><i></i></div>
+            <i class="wf-block" style="--hh:16%"></i>
+          </div>
+          <figcaption>03 · Workout<small>Live session card with inline metrics</small></figcaption>
+        </figure>
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <div class="wf-list"><i></i><i></i><i></i></div>
+            <i class="wf-block" style="--hh:14%"></i>
+          </div>
+          <figcaption>04 · Insights<small>Plain-language cards, one action each</small></figcaption>
+        </figure>
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <div class="wf-circles"></div>
+            <div class="wf-grid2"><i></i><i></i><i></i></div>
+          </div>
+          <figcaption>05 · Challenges<small>Avatar loop + grid of open challenges</small></figcaption>
+        </figure>
+        <figure class="wire">
+          <div class="wf-screen">
+            <i class="wf-bar wf-head"></i>
+            <span class="wf-seg short"></span>
+            <div class="wf-list"><i></i><i></i><i></i></div>
+            <i class="wf-block" style="--hh:12%"></i>
+          </div>
+          <figcaption>06 · Settings<small>Privacy controls grouped first</small></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 17 — VISUAL DESIGN ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 17 · Visual Design</span>
+        <h2 class="s-title">From skeleton to signature look</h2>
+      </div>
+      <div aria-hidden="true" class="vd-transition">
+        <div class="v-step done"><b>16</b><span>WIREFRAME</span></div>
+        <i></i>
+        <div class="v-step"><b>17</b><span>VISUAL</span></div>
+        <div class="vd-arrow">→</div>
+        <div class="v-step"><b>18</b><span>SYSTEM</span></div>
+      </div>
+      <div class="vd-comparison">
+        <figure>
+          <div class="wf-screen wire-dash">
+            <i class="w-head"></i>
+            <i class="w-hero"></i>
+            <div class="w-cards"><i></i><i></i></div>
+            <i class="w-strip"></i>
+            <div class="w-footer"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <figcaption>Before — grey-box structure</figcaption>
+        </figure>
+        <figure>
+          <div class="phone-box" style="--ps:0.34">
+            <div class="phone-stage">
+              <div class="ph-device">
+                <div class="ph-island"></div>
+                <div class="ph-screen">
+                  <div class="ph-sb"><span>9:41</span><span class="ph-dots">···</span><span>5G</span></div>
+                  <div class="ph-scroll">
+                    <div class="ph-row" style="justify-content:space-between;margin-bottom:10px">
+                      <div class="ph-row"><span class="ph-avatar">👤</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Good Morning ☀️</div>
+                          <div class="ph-val" style="font-size:15px;color:#111827">Ananya</div>
+                        </div>
+                      </div>
+                      <span class="ph-tag amber">🔥 14</span>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:10px">
+                      <div class="ph-metric">
+                        <div class="ph-lbl">Today's Steps</div>
+                        <div class="ph-val" style="font-size:26px;color:#111827">12,847</div>
+                      </div>
+                      <div class="ph-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:58%"></i><i
+                          style="--h:76%"></i><i style="--h:67%"></i><i style="--h:87%"></i><i class="hot"
+                          style="--h:100%"></i></div>
+                    </div>
+                    <div class="ph-grid2" style="margin-bottom:10px">
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(220,38,38,.12)">❤️</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Heart Rate</div>
+                          <div class="ph-val" style="color:#111827">72 <small>bpm</small></div>
+                        </div>
+                      </div>
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(234,88,12,.12)">🔥</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Calories</div>
+                          <div class="ph-val" style="color:#111827">1,847</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ph-card">
+                      <div class="ph-bullet">Great progress → step goal hit 5 days in a row.</div>
+                      <div class="ph-bullet">Heart rate improved by 8% → cardio working!</div>
+                    </div>
+                  </div>
+                  <div class="ph-nav"><span class="pn on"><span>🏠</span>Home</span><span
+                      class="pn"><span>📊</span>Progress</span><span class="pn"><span>👥</span>Community</span><span
+                      class="pn"><span>👤</span>Account</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>After — brand color, depth &amp; hierarchy</figcaption>
+        </figure>
+      </div>
+      <p class="vision-note" style="text-align:center;max-width:none"><b>What changed:</b> a single mint-to-cyan accent
+        system, real depth via layered glass cards, and type that scales with importance.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 18 — DESIGN SYSTEM ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 18 · Design System</span>
+        <h2 class="s-title">Tokens, type &amp; components</h2>
+      </div>
+      <div class="ds-grid">
+        <div class="ds-col glass">
+          <h4>🎨 Color Tokens</h4>
+          <div class="theme-token-heading">DARK THEME</div>
+          <div class="theme-token-list">
+            <div class="theme-token"><i style="background:#06080f"></i><div><b>Dark Background</b><small>#06080F</small></div></div>
+            <div class="theme-token"><i style="background:rgba(255,255,255,.07)"></i><div><b>Dark Surface / Glass</b><small>rgba(255,255,255,.07)</small></div></div>
+            <div class="theme-token"><i style="background:#e8eef7"></i><div><b>Dark Text</b><small>#E8EEF7</small></div></div>
+            <div class="theme-token"><i style="background:#7e8ca3"></i><div><b>Dark Muted</b><small>#7E8CA3</small></div></div>
+            <div class="theme-token"><i style="background:rgba(255,255,255,.09)"></i><div><b>Dark Border</b><small>rgba(255,255,255,.09)</small></div></div>
+            <div class="theme-token"><i style="background:#16a34a"></i><div><b>Emerald Accent</b><small>#16A34A</small></div></div>
+            <div class="theme-token"><i style="background:#0891b2"></i><div><b>Cyan Accent</b><small>#0891B2</small></div></div>
+            <div class="theme-token"><i style="background:#3b82f6"></i><div><b>Blue Accent</b><small>#3B82F6</small></div></div>
+          </div>
+          <p class="theme-token-note">Light mode keeps the same emerald/cyan identity while switching the canvas, surface, text, muted text and border values for higher-light environments.</p>
+          <div class="theme-token-heading light">LIGHT THEME</div>
+          <div class="theme-token-list" style="margin-top:10px">
+            <div class="theme-token"><i style="background:#f8fafc"></i><div><b>Light Background</b><small>#F8FAFC</small></div></div>
+            <div class="theme-token"><i style="background:rgba(255,255,255,.72)"></i><div><b>Light Surface / Glass</b><small>rgba(255,255,255,.72)</small></div></div>
+            <div class="theme-token"><i style="background:#111827"></i><div><b>Light Text</b><small>#111827</small></div></div>
+            <div class="theme-token"><i style="background:#6b7280"></i><div><b>Light Muted</b><small>#6B7280</small></div></div>
+          </div>
+        </div>
+        <div class="ds-col glass">
+          <h4>🔤 Typography</h4>
+          <div class="type-sample">
+            <span class="type-label">Outfit · Display / Headings</span>
+            <div class="tp-outfit">Fitnpulse</div>
+          </div>
+          <div class="type-sample">
+            <span class="type-label">DM Sans · Body / UI</span>
+            <p class="tp-dm">Your step goal is 128% complete — great pace today.</p>
+          </div>
+          <div class="type-sample">
+            <span class="type-label">Scale</span>
+            <div class="comp-grid" style="margin-top:6px">
+              <span class="ds-chip">H1 · clamp 64–128</span>
+              <span class="ds-chip">Body · 13–16</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-col glass">
+          <h4>🧩 Components</h4>
+          <div class="comp-grid">
+            <div class="ds-btn-primary">Start Workout</div>
+            <div class="ds-btn-glass">View Progress</div>
+            <span class="ds-chip on">🔥 Streak · 14 days</span>
+            <span class="ds-chip">📊 Weekly report</span>
+            <div class="ds-input">🔍 <span>Search workouts…</span></div>
+            <div aria-hidden="true" class="ds-toggle on"><i></i></div>
+            <div class="ds-card"><b>DAILY SCORE</b><span class="ds-big">82</span><i class="ds-min">+6 vs yesterday</i>
+            </div>
+            <div class="ds-ring" data-ring style="--p:76%"><b data-count="76" data-suffix="%">76%</b><small>of
+                goal</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 19 — MOTION ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 19 · Motion</span>
+        <h2 class="s-title">Micro-interactions that reward progress</h2>
+      </div>
+      <div class="motion-grid">
+        <div class="m-card glass">
+          <h4>Logo pop — first launch</h4>
+          <div class="m-demo">
+            <div aria-hidden="true" class="m-logo"><svg fill="none" viewbox="0 0 48 48">
+                <rect fill="url(#lg1)" height="44" rx="12" width="44" x="2" y="2"></rect>
+                <path d="M12 26h6l4-8 5 14 4-10h5" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="3.4"></path>
+                <defs>
+                  <lineargradient id="lg1" x1="2" x2="46" y1="2" y2="46">
+                    <stop stop-color="#16a34a"></stop>
+                    <stop offset="1" stop-color="#0891b2"></stop>
+                  </lineargradient>
+                </defs>
+              </svg></div>
+          </div>
+        </div>
+        <div class="m-card glass">
+          <h4>Staggered bar rise — dashboard</h4>
+          <div aria-hidden="true" class="m-demo stagger">
+            <i style="animation-delay:80ms"></i><i style="animation-delay:180ms"></i><i
+              style="animation-delay:280ms"></i><i style="animation-delay:380ms"></i><i
+              style="animation-delay:480ms"></i><i style="animation-delay:580ms"></i>
+          </div>
+        </div>
+        <div class="m-card glass">
+          <h4>Count-up — step total</h4>
+          <div class="m-demo" style="flex-direction:column;gap:2px">
+            <span class="m-step" data-target="12847">0</span>
+            <span class="m-sublabel">steps today · counting on view</span>
+          </div>
+        </div>
+        <div class="m-card glass">
+          <h4>Ring glide — daily goal</h4>
+          <div class="m-demo">
+            <div aria-hidden="true" class="m-ring"><b>82%</b></div>
+          </div>
+        </div>
+        <div class="m-card glass">
+          <h4>Chart fill — progress trend</h4>
+          <div class="m-demo">
+            <div aria-hidden="true" class="m-chart-bars">
+              <i style="--h:45%"></i><i style="--h:62%;animation-delay:120ms"></i><i
+                style="--h:38%;animation-delay:240ms"></i><i style="--h:74%;animation-delay:360ms"></i><i
+                style="--h:58%;animation-delay:480ms"></i><i style="--h:88%;animation-delay:600ms"></i>
+            </div>
+          </div>
+        </div>
+        <div class="m-card glass">
+          <h4>Theme morph — light / dark</h4>
+          <div class="m-demo theme-demo" id="theme-demo">
+            <div aria-hidden="true" class="td-screen td-dark"><span class="td-logo"></span><span
+                class="td-card a"></span><span class="td-card b"></span><span class="td-card c"></span></div>
+            <button class="td-btn" id="theme-demo-btn" type="button">🌗 Toggle theme</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 20 — FINAL PRODUCT — CORE EXPERIENCE ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 20 · Final Product</span>
+        <h2 class="s-title">Final Product — Core Experience</h2>
+        <p class="s-sub">The shipped React app's four primary tabs — Home, Progress, Community and Account — recreated
+          1:1 with HTML, CSS and SVG. Every label, metric and navigation item is taken from the current build.</p>
+      </div>
+      <div class="final-ui">
+        <figure>
+          <div class="phone-box" style="--ps:0.46">
+            <div class="phone-stage">
+              <div class="ph-device">
+                <div class="ph-island"></div>
+                <div class="ph-screen">
+                  <div class="ph-sb"><span>9:41</span><span class="ph-dots">●●●</span><span>5G</span></div>
+                  <div class="ph-scroll">
+                    <div class="ph-row" style="justify-content:space-between;margin-bottom:10px">
+                      <div class="ph-row"><span class="ph-avatar">👩‍🦱</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Good Morning 👋</div>
+                          <div class="ph-val" style="font-size:16px;color:#111827">Ananya</div>
+                        </div>
+                      </div>
+                      <div class="ph-row"><span class="ph-tag">🔥 14</span><span class="ph-icon"
+                          style="position:relative">🔔<i class="pf-badge-n">4</i></span></div>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:8px">
+                      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Today's Steps</div>
+                          <div class="ph-val" style="font-size:24px;color:#16a34a" data-count="12847">12,847</div>
+                          <div class="ph-lbl green">↑ 28% vs yesterday</div>
+                        </div>
+                        <span class="ph-chip">128% Goal</span>
+                      </div>
+                      <div class="ph-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:58%"></i><i
+                          style="--h:76%"></i><i style="--h:67%"></i><i style="--h:87%"></i><i class="hot"
+                          style="--h:100%"></i></div>
+                    </div>
+                    <div class="ph-grid2" style="margin-bottom:8px">
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(220,38,38,.12)">❤️</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Heart Rate</div>
+                          <div class="ph-val" style="color:#dc2626">72 <small>BPM</small></div>
+                          <div class="ph-lbl">Resting · Normal</div>
+                        </div>
+                      </div>
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(234,88,12,.12)">🔥</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Calories</div>
+                          <div class="ph-val" style="color:#ea580c">1,847 <small>kcal</small></div>
+                          <div class="ph-lbl">482 remaining</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ph-grid3" style="margin-bottom:8px">
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(8,145,178,.12)">💧</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Water</div>
+                          <div class="ph-val" style="font-size:13px;color:#0891b2">1.8 <small>L</small></div>
+                          <div class="ph-lbl">Goal: 2.5 L</div>
+                        </div>
+                      </div>
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(124,58,237,.12)">😴</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Sleep</div>
+                          <div class="ph-val" style="font-size:13px;color:#7c3aed">7.4 <small>hrs</small></div>
+                          <div class="ph-lbl">Deep 2.1h</div>
+                        </div>
+                      </div>
+                      <div class="ph-card"><span class="ph-ico" style="background:rgba(101,163,13,.12)">🧠</span>
+                        <div class="ph-metric">
+                          <div class="ph-lbl">Stress</div>
+                          <div class="ph-val" style="font-size:13px;color:#65a30d">Low</div>
+                          <div class="ph-lbl">Score 24/100</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ph-card pf-ai" style="margin-bottom:8px">
+                      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><b
+                          style="font-size:11px;color:#111827">✨ AI Insights</b><span class="ph-tag cyan">New</span>
+                      </div>
+                      <div class="ph-bullet">Great progress this week! Hit step goal 5 days in a row.</div>
+                      <div class="ph-bullet">Heart rate improved by 8% — cardio sessions are working!</div>
+                      <div class="ph-bullet">Consider a rest day — recovery maximizes muscle gains.</div>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:8px">
+                      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><b
+                          style="font-size:11px;color:#111827">🏆 Weekly Challenge</b><span class="ph-tag amber">3 days
+                          left</span></div>
+                      <div class="ph-lbl" style="margin-bottom:5px">10,000 Steps Every Day</div>
+                      <div class="ph-progress"><i style="--w:72%"></i></div>
+                      <div class="ph-row" style="justify-content:space-between;margin-top:5px"><span class="ph-lbl">72%
+                          completed</span><span class="ph-lbl green">1,247 participants</span></div>
+                    </div>
+                    <div class="pf-start">🏋️<div class="ph-metric">
+                        <div class="pf-start-t">Start Workout</div>
+                        <div class="pf-start-s">Today: Upper body strength</div>
+                      </div><span class="pf-start-a">›</span></div>
+                  </div>
+                  <div aria-hidden="true" class="ph-fab">+</div>
+                  <div class="ph-nav">
+                    <div class="pn on"><span>🏠</span>Home</div>
+                    <div class="pn"><span>📊</span>Progress</div>
+                    <div class="pn"><span>👥</span>Community</div>
+                    <div class="pn"><span>👤</span>Account</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Home — one glanceable dashboard</figcaption>
+        </figure>
+        <figure>
+          <div class="phone-box" style="--ps:0.46">
+            <div class="phone-stage">
+              <div class="ph-device">
+                <div class="ph-island"></div>
+                <div class="ph-screen">
+                  <div class="ph-sb"><span>9:41</span><span class="ph-dots">●●●</span><span>5G</span></div>
+                  <div class="ph-scroll">
+                    <div class="ph-row" style="justify-content:space-between;margin-bottom:10px">
+                      <div class="ph-val" style="font-size:18px;color:#111827">Progress</div>
+                      <div class="ph-seg"><span>Week</span><span class="on">Month</span></div>
+                    </div>
+                    <div class="pf-statrow" style="margin-bottom:8px">
+                      <div class="pf-stat"><span class="e">🏋️</span><b style="color:#16a34a"
+                          data-count="24">24</b><small>Workouts</small></div>
+                      <div class="pf-stat"><span class="e">📅</span><b style="color:#0891b2">19/30</b><small>Active
+                          Days</small></div>
+                      <div class="pf-stat"><span class="e">👟</span><b style="color:#65a30d">9.8k</b><small>Avg
+                          Steps</small></div>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:8px">
+                      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                        <div class="ph-metric">
+                          <div class="ph-lbl" style="font-size:10.5px;font-weight:700;color:#111827">Weight Trend</div>
+                          <div class="ph-lbl">Lost 3.2 kg this month</div>
+                        </div>
+                        <span class="ph-tag">↓ 3.2 kg</span>
+                      </div>
+                      <div class="pf-chart">
+                        <svg viewBox="0 0 300 96" fill="none" aria-hidden="true">
+                          <defs>
+                            <linearGradient id="pfwg" x1="0" x2="0" y1="0" y2="1">
+                              <stop offset="0" stop-color="#16a34a" stop-opacity="0.22" />
+                              <stop offset="1" stop-color="#16a34a" stop-opacity="0" />
+                            </linearGradient>
+                          </defs>
+                          <path class="pf-area"
+                            d="M8,20.8 C34,23 46,25 55,27.2 C71,31 89,35 103,38.4 C119,42 136,44.5 150,46.4 C166,48.7 183,52.4 197,56 C213,59.8 229,62.6 245,65.6 C261,68.4 276,70.6 292,72 L292,88 L8,88 Z"
+                            fill="url(#pfwg)" />
+                          <path class="draw-path"
+                            d="M8,20.8 C34,23 46,25 55,27.2 C71,31 89,35 103,38.4 C119,42 136,44.5 150,46.4 C166,48.7 183,52.4 197,56 C213,59.8 229,62.6 245,65.6 C261,68.4 276,70.6 292,72"
+                            stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" />
+                          <circle cx="8" cy="20.8" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="55" cy="27.2" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="103" cy="38.4" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="150" cy="46.4" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="197" cy="56" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="245" cy="65.6" r="3" fill="#fff" stroke="#16a34a" stroke-width="2" />
+                          <circle cx="292" cy="72" r="4.2" fill="#16a34a" stroke="#fff" stroke-width="2" />
+                        </svg>
+                        <div class="pf-xlbls">
+                          <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>Now</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ph-card" style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+                      <div class="pf-bmi-ic">⚕️</div>
+                      <div class="ph-metric">
+                        <div class="ph-lbl" style="font-weight:700;color:#111827">BMI Score</div>
+                        <div class="ph-val" style="font-size:21px;color:#16a34a" data-count="22.4" data-dec="1">22.4
+                        </div>
+                      </div>
+                      <span class="ph-chip" style="margin-top:6px">Normal Weight</span>
+                      <div class="pf-bmi-meta">
+                        <div>178 cm</div>
+                        <div>71.0 kg</div>
+                      </div>
+                    </div>
+                    <div class="ph-card pf-ai-cyan" style="margin-bottom:8px">
+                      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><b
+                          style="font-size:11px;color:#111827">✨ AI Monthly Summary</b></div>
+                      <div class="ph-bullet">Outstanding month! 19/30 step goals hit, resting HR improved by 8 BPM, and
+                        3.2kg lost. Cardio and strength both trending upward — keep it up! 💪</div>
+                      <div class="ph-row" style="margin-top:5px"><span class="ph-tag cyan">Top 5% of users this
+                          month</span></div>
+                    </div>
+                    <div class="pf-badgegrid" style="margin-bottom:8px">
+                      <div class="pf-badge"><span>🔥</span><b>100 Day Streak</b></div>
+                      <div class="pf-badge"><span>👟</span><b>500K Steps</b></div>
+                      <div class="pf-badge"><span>🏃</span><b>50 Workouts</b></div>
+                      <div class="pf-badge locked"><span>💧</span><b>30-Day Hydration</b></div>
+                      <div class="pf-badge locked"><span>💪</span><b>Strength Master</b></div>
+                      <div class="pf-badge locked"><span>🧘</span><b>Zen Master</b></div>
+                    </div>
+                    <div class="pf-report">📄 Download PDF Report</div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="pn"><span>🏠</span>Home</div>
+                    <div class="pn on"><span>📊</span>Progress</div>
+                    <div class="pn"><span>👥</span>Community</div>
+                    <div class="pn"><span>👤</span>Account</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Progress — trends, BMI &amp; achievements</figcaption>
+        </figure>
+        <figure>
+          <div class="phone-box" style="--ps:0.46">
+            <div class="phone-stage">
+              <div class="ph-device">
+                <div class="ph-island"></div>
+                <div class="ph-screen">
+                  <div class="ph-sb"><span>9:41</span><span class="ph-dots">●●●</span><span>5G</span></div>
+                  <div class="ph-scroll">
+                    <div class="ph-row" style="justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                      <div class="ph-metric">
+                        <div class="ph-val" style="font-size:18px;color:#111827">Community</div>
+                        <div class="ph-lbl">Challenges, friends &amp; achievements</div>
+                      </div>
+                      <span class="pf-join">+ Join Challenge</span>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:8px">
+                      <b style="font-size:11px;color:#111827;display:block;margin-bottom:6px">🔥 Active Challenges</b>
+                      <div class="pf-chal">
+                        <div class="ph-row" style="justify-content:space-between;margin-bottom:4px">
+                          <div class="ph-row" style="gap:5px"><span class="ph-ico"
+                              style="width:22px;height:22px;font-size:11px;background:rgba(22,163,74,.12)">👟</span><b
+                              style="font-size:10px;color:#111827">Weekly 70K</b></div><span class="ph-lbl">3d
+                            left</span>
+                        </div>
+                        <div class="ph-progress"><i style="--w:72%"></i></div>
+                        <div class="ph-row" style="justify-content:space-between;margin-top:3px"><span
+                            class="ph-lbl green">72% complete</span><span class="ph-lbl">This Week</span></div>
+                      </div>
+                      <div class="pf-chal">
+                        <div class="ph-row" style="justify-content:space-between;margin-bottom:4px">
+                          <div class="ph-row" style="gap:5px"><span class="ph-ico"
+                              style="width:22px;height:22px;font-size:11px;background:rgba(8,145,178,.12)">💧</span><b
+                              style="font-size:10px;color:#111827">Hydration Month</b></div><span class="ph-lbl">18d
+                            left</span>
+                        </div>
+                        <div class="ph-progress pf-prog-cyan"><i style="--w:54%"></i></div>
+                        <div class="ph-row" style="justify-content:space-between;margin-top:3px"><span
+                            class="ph-lbl cyan">54% complete</span><span class="ph-lbl">This Month</span></div>
+                      </div>
+                    </div>
+                    <div class="ph-card" style="margin-bottom:8px">
+                      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><b
+                          style="font-size:11px;color:#111827">🏆 Leaderboard</b><span class="ph-tag amber">This
+                          Week</span></div>
+                      <div class="pf-lb-row"><span class="pf-lb-rank">🥇</span><span class="pf-lb-av">👩‍🦱</span><span
+                          class="pf-lb-name">Ananya S.</span><span class="pf-lb-score" data-count="86420">86,420</span>
+                      </div>
+                      <div class="pf-lb-row"><span class="pf-lb-rank">🥈</span><span class="pf-lb-av">🧑‍🦰</span><span
+                          class="pf-lb-name">Rahul K.</span><span class="pf-lb-score">79,100</span></div>
+                      <div class="pf-lb-row"><span class="pf-lb-rank">🥉</span><span class="pf-lb-av">👩</span><span
+                          class="pf-lb-name">Priya M.</span><span class="pf-lb-score">71,850</span></div>
+                      <div class="pf-lb-row hl"><span class="pf-lb-rank">8️⃣</span><span class="pf-lb-av">🧑</span><span
+                          class="pf-lb-name">You</span><span class="pf-lb-score" style="color:#16a34a">65,947</span>
+                      </div>
+                    </div>
+                    <div class="ph-card">
+                      <b style="font-size:11px;color:#111827;display:block;margin-bottom:6px">👥 Friends Activity</b>
+                      <div class="pf-post">
+                        <div class="pf-post-h"><span class="pf-post-av">🧑‍🦰</span><span class="pf-post-n">Rahul
+                            K.</span><span class="pf-post-t">2h ago</span></div>
+                        <div class="pf-post-x">Completed a 5K run in 28:30 🏃 Personal best!</div>
+                        <div class="pf-post-a"><span>🤍 14</span><span>💬 Comment</span><span>↗️ Share</span></div>
+                      </div>
+                      <div class="pf-post">
+                        <div class="pf-post-h"><span class="pf-post-av">👩‍🦳</span><span class="pf-post-n">Priya
+                            M.</span><span class="pf-post-t">4h ago</span></div>
+                        <div class="pf-post-x">Hit 100-day streak! 🔥 So proud of this milestone.</div>
+                        <div class="pf-post-a"><span>🤍 42</span><span>💬 Comment</span><span>↗️ Share</span></div>
+                      </div>
+                      <div class="pf-post">
+                        <div class="pf-post-h"><span class="pf-post-av">🧑‍🦱</span><span class="pf-post-n">Dev
+                            R.</span><span class="pf-post-t">6h ago</span></div>
+                        <div class="pf-post-x">New PR: Bench Press 100kg 💪 Strength is growing!</div>
+                        <div class="pf-post-a"><span>🤍 28</span><span>💬 Comment</span><span>↗️ Share</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="pn"><span>🏠</span>Home</div>
+                    <div class="pn"><span>📊</span>Progress</div>
+                    <div class="pn on"><span>👥</span>Community</div>
+                    <div class="pn"><span>👤</span>Account</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Community — challenges, leaderboard &amp; friends</figcaption>
+        </figure>
+        <figure>
+          <div class="phone-box" style="--ps:0.46">
+            <div class="phone-stage">
+              <div class="ph-device">
+                <div class="ph-island"></div>
+                <div class="ph-screen">
+                  <div class="ph-sb"><span>9:41</span><span class="ph-dots">●●●</span><span>5G</span></div>
+                  <div class="ph-scroll">
+                    <div class="ph-row" style="justify-content:space-between;margin-bottom:12px"><span class="ph-lbl"
+                        style="width:16px"></span>
+                      <div class="ph-val" style="font-size:16px;color:#111827">Account</div><span
+                        class="ph-icon">⚙️</span>
+                    </div>
+                    <div class="pf-prof">
+                      <div class="pf-prof-av">👩‍🦱<i>✏️</i></div>
+                      <div class="ph-val" style="font-size:15px;color:#111827">Ananya Sharma</div>
+                      <div class="ph-lbl" style="margin:1px 0 5px">ananya@fitpulse.app</div>
+                      <span class="ph-tag"
+                        style="color:#65a30d;background:rgba(101,163,13,.12);border-color:rgba(101,163,13,.3)">⭐
+                        FitPulse Pro</span>
+                    </div>
+                    <div class="pf-userstats" style="margin:8px 0">
+                      <div><b data-count="247">247</b><small>Workouts</small></div>
+                      <div><b>100🔥</b><small>Day Streak</small></div>
+                      <div><b>18</b><small>Badges</small></div>
+                    </div>
+                    <div class="pf-menu">
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.25)">✏️</span>
+                        <div class="tx">
+                          <div class="t">Edit Profile</div>
+                          <div class="s">Update your information</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(8,145,178,.12);border:1px solid rgba(8,145,178,.25)">🎯</span>
+                        <div class="tx">
+                          <div class="t">Goals &amp; Progress</div>
+                          <div class="s">Track your milestones</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(101,163,13,.12);border:1px solid rgba(101,163,13,.25)">⌚</span>
+                        <div class="tx">
+                          <div class="t">Device Sync</div>
+                          <div class="s">Manage connected devices</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(234,88,12,.12);border:1px solid rgba(234,88,12,.25)">⭐</span>
+                        <div class="tx">
+                          <div class="t">Subscription</div>
+                          <div class="s">FitPulse Pro · Active</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25)">🏆</span>
+                        <div class="tx">
+                          <div class="t">Personal Records</div>
+                          <div class="s">Your best performances</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow"><span class="ic"
+                          style="background:rgba(15,23,42,.06);border:1px solid rgba(15,23,42,.12)">🔒</span>
+                        <div class="tx">
+                          <div class="t">Privacy &amp; Security</div>
+                          <div class="s">Manage your data</div>
+                        </div><span class="pf-chev">›</span>
+                      </div>
+                      <div class="pf-menurow signout"><span class="ic"
+                          style="background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25)">🚪</span>
+                        <div class="tx">
+                          <div class="t" style="color:#dc2626">Sign Out</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pf-foot">FitPulse v3.2.1 · Member since Jan 2024</div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="pn"><span>🏠</span>Home</div>
+                    <div class="pn"><span>📊</span>Progress</div>
+                    <div class="pn"><span>👥</span>Community</div>
+                    <div class="pn on"><span>👤</span>Account</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Account — profile, subscription &amp; settings</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 21 — DARK VS LIGHT APP UI ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 21 · Theme Adaptation</span>
+        <h2 class="s-title">One interface, two visual modes</h2>
+        <p class="s-sub">The same Fitnpulse Dashboard structure, content and hierarchy — adapted through theme tokens only.</p>
+      </div>
+      <div class="theme-compare">
+        <figure class="theme-compare-card glass">
+          <div class="theme-mode-label"><span></span>DARK MODE</div>
+          <div class="theme-app-phone theme-app-dark">
+            <div class="theme-device"><div class="theme-island"></div><div class="theme-screen">
+              <div class="theme-status"><span>9:41</span><span>●●●</span><span>5G</span></div>
+              <div class="theme-scroll">
+                <div class="theme-header"><div class="theme-avatar">👩‍🦱</div><div><div class="theme-muted">Good Morning 👋</div><div class="theme-name">Ananya</div></div><span class="theme-spacer"></span><span class="theme-streak">🔥 14</span><span class="theme-bell">🔔</span></div>
+                <div class="theme-card theme-steps"><div class="theme-card-top"><div><div class="theme-muted">Today's Steps</div><b>12,847</b></div><span class="theme-tag">128% Goal</span></div><div class="theme-positive">↑ 28% vs yesterday</div><div class="theme-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:58%"></i><i style="--h:76%"></i><i style="--h:67%"></i><i style="--h:87%"></i><i class="hot" style="--h:100%"></i></div><div class="theme-dayrow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div></div>
+                <div class="theme-metrics"><div class="theme-card"><div class="theme-muted">❤️ Heart Rate</div><b>72 <small>bpm</small></b></div><div class="theme-card"><div class="theme-muted">🔥 Calories</div><b>1,847 <small>kcal</small></b></div></div>
+                <div class="theme-metrics"><div class="theme-card"><div class="theme-muted">😴 Sleep</div><b>7.4 <small>hrs</small></b></div><div class="theme-card"><div class="theme-muted">💧 Hydration</div><b>1.8 <small>L</small></b></div></div>
+                <div class="theme-card theme-insight"><span class="theme-ai">✦</span><div><div class="theme-muted">AI Insight</div><strong>Great progress this week</strong></div><span class="theme-pill">+12%</span></div>
+              </div>
+              <div class="theme-nav"><span class="on">🏠<small>Home</small></span><span>📊<small>Progress</small></span><span>👥<small>Community</small></span><span>👤<small>Account</small></span></div>
+            </div></div>
+          </div>
+        </figure>
+        <figure class="theme-compare-card glass">
+          <div class="theme-mode-label"><span></span>LIGHT MODE</div>
+          <div class="theme-app-phone theme-app-light">
+            <div class="theme-device"><div class="theme-island"></div><div class="theme-screen">
+              <div class="theme-status"><span>9:41</span><span>●●●</span><span>5G</span></div>
+              <div class="theme-scroll">
+                <div class="theme-header"><div class="theme-avatar">👩‍🦱</div><div><div class="theme-muted">Good Morning 👋</div><div class="theme-name">Ananya</div></div><span class="theme-spacer"></span><span class="theme-streak">🔥 14</span><span class="theme-bell">🔔</span></div>
+                <div class="theme-card theme-steps"><div class="theme-card-top"><div><div class="theme-muted">Today's Steps</div><b>12,847</b></div><span class="theme-tag">128% Goal</span></div><div class="theme-positive">↑ 28% vs yesterday</div><div class="theme-bars"><i style="--h:48%"></i><i style="--h:63%"></i><i style="--h:58%"></i><i style="--h:76%"></i><i style="--h:67%"></i><i style="--h:87%"></i><i class="hot" style="--h:100%"></i></div><div class="theme-dayrow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div></div>
+                <div class="theme-metrics"><div class="theme-card"><div class="theme-muted">❤️ Heart Rate</div><b>72 <small>bpm</small></b></div><div class="theme-card"><div class="theme-muted">🔥 Calories</div><b>1,847 <small>kcal</small></b></div></div>
+                <div class="theme-metrics"><div class="theme-card"><div class="theme-muted">😴 Sleep</div><b>7.4 <small>hrs</small></b></div><div class="theme-card"><div class="theme-muted">💧 Hydration</div><b>1.8 <small>L</small></b></div></div>
+                <div class="theme-card theme-insight"><span class="theme-ai">✦</span><div><div class="theme-muted">AI Insight</div><strong>Great progress this week</strong></div><span class="theme-pill">+12%</span></div>
+              </div>
+              <div class="theme-nav"><span class="on">🏠<small>Home</small></span><span>📊<small>Progress</small></span><span>👥<small>Community</small></span><span>👤<small>Account</small></span></div>
+            </div></div>
+          </div>
+        </figure>
+      </div>
+      <p class="theme-caption">One interface, two visual modes.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 22 — IMPLEMENTATION ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="SHIP">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 22 · Implementation</span>
+        <h2 class="s-title">From Figma to working React</h2>
+      </div>
+      <div class="impl-layout">
+        <div class="impl-pipeline">
+          <div class="impl-step done"><b>Design</b><span>Figma tokens</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step done"><b>Components</b><span>9 primitives</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step done"><b>Screens</b><span>4 core tabs · 17 screens</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step done"><b>State</b><span>Local + mock API</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step"><b>Motion</b><span>CSS keyframes</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step"><b>Tests</b><span>Interaction specs</span></div>
+          <div class="impl-down">→</div>
+          <div class="impl-step"><b>Handoff</b><span>Docs + tokens</span></div>
+        </div>
+        <div class="impl-tech"><span class="tech-tag">React 19</span><span class="tech-tag">Vite</span><span
+            class="tech-tag">TypeScript</span><span class="tech-tag">Tailwind CSS</span><span
+            class="tech-tag">Recharts</span><span class="tech-tag">CSS animations</span><span
+            class="tech-tag">localStorage</span></div>
+        <p class="vision-note" style="text-align:center;max-width:none">The implementation bridges the UX architecture
+          to a working React application with reusable components, responsive layouts, charts, theme state and
+          interaction feedback.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 23 — CHALLENGES ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="SHIP">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 23 · Challenges</span>
+        <h2 class="s-title">What was hard — and how it was solved</h2>
+      </div>
+      <div class="challenge-grid">
+        <div class="ch-card glass">
+          <span class="ch-n">CHALLENGE 01</span>
+          <h4>Too many metrics, one screen</h4>
+          <p>Early dashboards tried to show everything. Solution: a <b>priority pyramid</b> — one hero metric, three
+            supporting cards, everything else progressive-disclosed.</p>
+        </div>
+        <div class="ch-card glass">
+          <span class="ch-n">CHALLENGE 02</span>
+          <h4>Motivation without guilt</h4>
+          <p>Streaks punish real life. Solution: <b>grace days</b> and comeback celebrations — the system forgives, then
+            re-motivates.</p>
+        </div>
+        <div class="ch-card glass">
+          <span class="ch-n">CHALLENGE 03</span>
+          <h4>Trust in "AI" insights</h4>
+          <p>Black-box advice feels like horoscopes. Solution: rule-based insights that <b>show their evidence</b> —
+            every card links to the data behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 24 — LEARNINGS ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="SHIP">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 24 · Learnings</span>
+        <h2 class="s-title">What this project taught me</h2>
+      </div>
+      <div class="learn-grid">
+        <div class="learn-item glass">
+          <span class="learn-ic">🔍</span>
+          <h4>Research beats assumptions</h4>
+          <p>The "more features" instinct was wrong. Interviews and the survey pointed at <b>less, framed better</b> —
+            and every major decision traces back to a quote or a number.</p>
+        </div>
+        <div class="learn-item glass">
+          <span class="learn-ic">🪜</span>
+          <h4>Calm is a feature</h4>
+          <p>Restraint is hard. Removing four charts improved comprehension in every test round — <b>subtraction is a
+              design skill</b>, not a compromise.</p>
+        </div>
+        <div class="learn-item glass">
+          <span class="learn-ic">🧠</span>
+          <h4>Design for the bad day</h4>
+          <p>The sick-week journey stage shaped more of the product than the happy path. <b>Edge-case emotions</b>
+            define how much users trust an app.</p>
+        </div>
+        <div class="learn-item glass">
+          <span class="learn-ic">🛠️</span>
+          <h4>Systems make shipping fast</h4>
+          <p>Because tokens were defined before screens, the React build took days, not weeks — and every tweak
+            propagated itself. <b>Design systems pay rent.</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 24 — FINAL ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide final-slide" data-chapter="SHIP">
+    <div aria-hidden="true" class="ambient"></div>
+    <div class="slide-inner">
+      <span class="eyebrow">Slide 25 · Thank You</span>
+      <h2 class="final-heading">Track. Improve. Achieve.</h2>
+      <p class="final-sub">Fitnpulse proves that a fitness app can be clear, motivating and private —<br />one glance,
+        one decision, one small win at a time.</p>
+      <div class="cover-meta">
+        <div><span>Project</span><b>Fitnpulse Case Study</b></div>
+        <div><span>Role</span><b>UI/UX Designer</b></div>
+        <div><span>Type</span><b>Personal Project</b></div>
+        <div><span>Scope</span><b>Research → React</b></div>
+      </div>
+      <div class="final-cta">
+        <a class="btn-grad" href="https://rr188351.github.io/Fitnpulse-app/" rel="noopener" target="_blank">📱 View the
+          App</a>
+        <a class="btn-ghost" href="https://github.com/rr188351/Fitnpulse-app" rel="noopener" target="_blank">⭐ Star on
+          GitHub</a>
+      </div>
+    </div>
+  </section>
+  <!-- Bottom controller -->
+  <div aria-label="Slide navigation" class="controller" role="navigation">
+    <button aria-label="Previous slide" class="ctrl-btn" id="prev-btn">← <span>Prev</span></button>
+    <div aria-label="Slides" class="ctrl-dots" id="ctrl-dots" role="tablist"></div>
+    <span class="ctrl-count"><b id="slide-current">1</b> / <span id="slide-total">24</span></span>
+    <button aria-label="Next slide" class="ctrl-btn" id="next-btn"><span>Next</span> →</button>
+  </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
