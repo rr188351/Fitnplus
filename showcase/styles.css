@@ -1,0 +1,420 @@
+/* ══════════════════════════════════════════════════════════════
+   Fitnpulse — Complete Screen Showcase (static)
+   Light & dark themes via <html data-theme> — mirrors the live
+   app's visual language (see src/index.css).
+   Default is dark; switch with the top-right toggle.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* tokens — dark variant (mirrors src/index.css) */
+  --bg: linear-gradient(145deg,#05070d 0%,#0a111d 45%,#06080f 100%);
+  --glass: rgba(255,255,255,0.055);
+  --glass2: rgba(255,255,255,0.09);
+  --track: rgba(255,255,255,0.1);
+  --field: rgba(255,255,255,0.09);
+  --border: rgba(255,255,255,0.09);
+  --bstrong: rgba(255,255,255,0.16);
+  --inbg: rgba(255,255,255,0.05);
+  --surf: #E8EEF7;
+  --faint: rgba(255,255,255,0.35);
+  --t: #E8EEF7;       /* text */
+  --t2: #C2CFE0;      /* text-2 */
+  --m: #7E8CA3;       /* muted */
+  --lighter: rgba(255,255,255,0.35);
+  --sh: rgba(0,0,0,0.25);
+  --shs: rgba(0,0,0,0.15);
+  --glow: rgba(52,211,153,0.14);
+  --glow2: rgba(34,211,238,0.12);
+  --glow3: rgba(139,92,246,0.12);
+  --page-bg: #05070B;
+  --scrim: rgba(6,10,18,0.85);
+  --notif: rgba(10,16,28,0.94);
+  --amb1: rgba(34,211,238,0.10);
+  --amb2: rgba(52,211,153,0.12);
+  --amb3: rgba(139,92,246,0.07);
+
+  /* App accent constants (literal, same as screens.tsx) */
+  --g: #16A34A;
+  --line: #65A30D;
+  --cy: #0891B2;
+  --og: #EA580C;
+  --rd: #DC2626;
+  --pu: #7C3AED;
+  --pk: #DB2777;
+  --ff: 'Outfit','DM Sans',system-ui,sans-serif;
+}
+
+:root[data-theme='light'] {
+  /* tokens — light variant (mirrors src/index.css light theme) */
+  --bg: linear-gradient(145deg,#f0fdf4 0%,#dcfce7 16%,#cffafe 42%,#e0f2fe 60%,#faf5ff 82%,#fdf4ff 100%);
+  --glass: rgba(255,255,255,0.72);
+  --glass2: rgba(255,255,255,0.8);
+  --track: #F3F4F6;
+  --field: #E5E7EB;
+  --border: rgba(15,23,42,0.09);
+  --bstrong: rgba(15,23,42,0.16);
+  --inbg: #F9FAFB;
+  --surf: #FFFFFF;
+  --faint: #D1D5DB;
+  --t: #1F2937;       /* text */
+  --t2: #374151;      /* text-2 */
+  --m: #6B7280;       /* muted */
+  --lighter: rgba(31,41,55,0.35);
+  --sh: rgba(0,0,0,0.07);
+  --shs: rgba(0,0,0,0.04);
+  --glow: rgba(22,163,74,0.28);
+  --glow2: rgba(8,145,178,0.22);
+  --glow3: rgba(124,58,237,0.14);
+  --page-bg: #EAF6FF;
+  --scrim: rgba(248,251,255,0.92);
+  --notif: rgba(255,255,255,0.96);
+  --amb1: rgba(22,163,74,0.09);
+  --amb2: rgba(8,145,178,0.07);
+  --amb3: rgba(124,58,237,0.04);
+
+  /* App accent constants (inherited from :root; kept for clarity) */
+  --g: #16A34A;
+  --line: #65A30D;
+  --cy: #0891B2;
+  --og: #EA580C;
+  --rd: #DC2626;
+  --pu: #7C3AED;
+  --pk: #DB2777;
+  --ff: 'Outfit','DM Sans',system-ui,sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--t);
+  font-family: var(--ff);
+  -webkit-font-smoothing: antialiased;
+  transition: background .35s ease, color .35s ease;
+}
+
+/* fixed ambient glows behind everything */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 8%, var(--amb1), transparent 40%),
+    radial-gradient(circle at 80% 15%, var(--amb2), transparent 45%),
+    radial-gradient(circle at 50% 60%, var(--amb3), transparent 50%);
+  transition: background .3s ease;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 90px 24px 40px; text-align: center;
+}
+.hero h1 {
+  font-size: clamp(30px, 4vw, 52px); font-weight: 900; letter-spacing: -1;
+  background: linear-gradient(120deg, var(--t), #9ad1e8, var(--t));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .sub { color: var(--m); font-size: 15px; margin-top: 10px; }
+.hero .meta {
+  display: inline-flex; align-items: center; gap: 8;
+  margin-top: 18px; padding: 8px 16px; border-radius: 999px;
+  background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(16px); color: var(--t2); font-size: 12.5px;
+}
+.hero .meta .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--g); box-shadow: 0 0 10px var(--g); }
+
+/* top-right theme toggle (fixed — mirrors the app's theme switch) */
+.theme-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 8;
+  padding: 9px 14px; border-radius: 999px; cursor: pointer;
+  background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  color: var(--t); font-family: var(--ff); font-size: 13px; font-weight: 700;
+  box-shadow: 0 4px 16px var(--sh), 0 1px 4px var(--shs);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+.theme-toggle:active { transform: scale(.94); }
+.theme-toggle .tt-ico { font-size: 15px; line-height: 1; }
+
+/* ── Gallery & phone presentation ─────────────────────── */
+.gallery { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+
+/* screen label strip */
+.phone-label { padding: 34px 0 26px; text-align: center; }
+.phone-label .num {
+  font-size: 34px; font-weight: 800; color: var(--t); letter-spacing: -0.5;
+}
+.phone-label .name { display: inline-block; margin-top: 4px; font-size: 15px; color: var(--m); font-weight: 500; }
+.phone-label .cat {
+  display: inline-block; margin-top: 14px; padding: 3px 12px; border-radius: 999px;
+  background: var(--glass); border: 1px solid var(--border);
+  color: var(--t2); font-size: 10px; letter-spacing: 1.2; text-transform: uppercase;
+}
+
+/* iPhone 14 style device */
+.device {
+  position: relative; z-index: 1; width: 426px; height: 908px; margin: 0 auto;
+  cursor: pointer;
+  background: linear-gradient(160deg, #17181c, #08090c);
+  border-radius: 54px; padding: 17px; padding-top: 44px;
+  box-shadow:
+    0 40px 90px rgba(0,0,0,0.65), 0 6px 18px rgba(0,0,0,0.5),
+    inset 0 0 0 2px rgba(255,255,255,0.05);
+}
+/* dynamic island cutout */
+.island {
+  position: absolute; top: 14px; left: 50%; width: 122px; height: 26px;
+  transform: translateX(-50%); border-radius: 13px; background: #0c0d10;
+  border: 1px solid rgba(255,255,255,0.08); z-index: 5;
+}
+.island::after {
+  content: ''; position: absolute; inset: 0; border-radius: 13px;
+  background: radial-gradient(ellipse at 30% 0%, #13151a, #050609 90%);
+}
+
+.screen {
+  position: relative; width: 390px; height: 844px; overflow: hidden;
+  border-radius: 30px; background: var(--bg);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.6);
+}
+/* inner scrollable body for long screens */
+.scroll {
+  position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+.screen::-webkit-scrollbar, .scroll::-webkit-scrollbar { width: 0; }
+
+/* ambient blobs inside each screen */
+.blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.blobs::before, .blobs::after {
+  content: '';
+  position: absolute; width: 320px; height: 320px; border-radius: 50%;
+  filter: blur(44px); pointer-events: none;
+}
+.blobs::before { top: -60px; right: -70px; background: radial-gradient(circle, var(--glow), transparent 70%); }
+.blobs::after { bottom: 80px; left: -60px; background: radial-gradient(circle, var(--glow2), transparent 70%); }
+.blob3 {
+  position: absolute; top: 45%; right: 25%; width: 200px; height: 200px;
+  border-radius: 50%; filter: blur(40px);
+  background: radial-gradient(circle, var(--glow3), transparent 70%); pointer-events:none;
+}
+
+/* status bar */
+.sb {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--t2); font-weight: 600;
+  padding: 0 18px; padding-top: 6px;
+}
+.sb .r { display:flex; gap:5; font-size:11px; align-items:center; }
+
+/* glass card */
+.glass {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 18px; backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 6px 24px var(--sh), 0 1px 4px var(--shs);
+}
+.card { background: var(--glass2); border: 1px solid var(--border); border-radius: 20px; }
+
+/* text helpers */
+.t { color: var(--t); } .t2 { color: var(--t2); } .m { color: var(--m); }
+.ac { color: var(--g); } .ac2 { color: var(--cyan); }
+/* ── compact containers ─────────────────────────────── */
+.row { display: flex; align-items: center; gap: 10; }
+.grow { flex: 1; }
+.center { text-align: center; }
+.info { display: flex; justify-content: space-between; font-size: 11px; }
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--g), #0f766e);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  box-shadow: 0 4px 14px rgba(22,163,74,0.4);
+}
+.avatar.sm { width: 34px; height: 34px; font-size: 18px; }
+
+/* tag pill */
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+  background: var(--tagbg, rgba(22,163,74,0.18));
+  border: 1px solid var(--tagb, rgba(22,163,74,0.35));
+  color: var(--tagc, var(--g));
+}
+
+/* primary gradient button + variants */
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 8;
+  border: none; border-radius: 30px; padding: 15px 20px; width: 100%;
+  font-family: var(--ff); font-weight: 700; font-size: 15px; cursor: pointer;
+  color: #fff; background: linear-gradient(135deg, var(--g) 0%, #15803d 100%);
+  box-shadow: 0 8px 24px rgba(22,163,74,0.4);
+}
+.btn.rd { border-radius: 14px; }
+.btn.ghost { background: transparent; border: none; color: var(--m); font-size: 14px; }
+.btn.out {
+  background: var(--glass); border: 1px solid var(--border); color: var(--t);
+  border-radius: 999px; font-size: 14px;
+}
+.btn.sm { padding: 8px 14px; font-size: 12px; border-radius: 14px; box-shadow: none; }
+.btn.raw { border-radius: 14px; box-shadow: 0 8px 22px rgba(22,163,74,0.3); }
+
+/* toggle switch (mirrors Toggle) */
+.sw { width: 46px; height: 26px; border-radius: 13px; position: relative; flex-shrink: 0; }
+.sw::after {
+  content: ''; position: absolute; top: 3px; left: var(--knob, 23px);
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--surf); box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.sw.on { background: var(--g); box-shadow: 0 2px 8px rgba(22,163,74,0.5); --knob: 23px; }
+.sw.off { background: var(--faint); --knob: 3px; }
+
+/* input field */
+.field {
+  position: relative; display: flex; align-items: center;
+  background: var(--glass); border: 1px solid var(--field);
+  border-radius: 14px; padding: 14px 16px; padding-left: 44px; margin-bottom: 12px;
+}
+.field .ic { position: absolute; left: 16px; font-size: 17px; }
+.field .ph { font-size: 15px; color: var(--m); width: 100%; border: none; background: none; }
+
+/* icon tile */
+.icon {
+  width: 42px; height: 42px; border-radius: 11px; flex-shrink: 0;
+  background: var(--ibg, rgba(22,163,74,0.15)); border: 1px solid var(--ib, rgba(22,163,74,0.25));
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.icon.lg { width: 54px; height: 54px; border-radius: 50%; font-size: 26px; }
+.icon.xl { width: 70px; height: 70px; border-radius: 16px; font-size: 32px; }
+.icon.mo { width: 46px; height: 46px;margin-right: 10px; border-radius: 14px; font-size: 22px; }
+
+/* stat mini card */
+.stat {
+  flex: 1; background: var(--glass2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 12px 8px; text-align: center;
+}
+.stat .v { font-size: 15px; font-weight: 800; color: var(--vc, var(--g)); }
+.stat .l { font-size: 9.5px; color: var(--m); margin-top: 2px; }
+
+/* progress track */
+.track { height: 6px; border-radius: 3px; background: var(--track); }
+.fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--g), var(--lime)); width: var(--w, 50%); }
+
+/* bar chart — flex bars */
+.bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; }
+.bar { flex: 1; border-radius: 5px 5px 0 0; background: var(--bar, rgba(22,163,74,0.55)); height: var(--h, 50%); }
+.bar.hi { background: var(--g); }
+.axis { display: flex; justify-content: space-between; font-size: 10px; }
+.axis span { color: var(--m); }
+.axis span:last-child { color: var(--g); font-weight: 700; }
+/* ring / circular progress */
+.ring { position: relative; width: var(--sz,120px); height: var(--sz,120px); }
+.ring svg { position: absolute; inset: 0; }
+.ring .val { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--t); font-size: 22px; }
+
+/* section header + back arrow */
+.head { display: flex; align-items: center; gap: 10; padding: 2px 18px 0; }
+.back { color: var(--g); font-size: 26px; line-height: 1; }
+.head h2 { margin: 0; font-size: 26px; font-weight: 800; color: var(--t); flex: 1; }
+
+/* gallery reveal on scroll */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* FitPulse logo */
+.logoPulse {
+  position: absolute; inset: -18px; border-radius: 50%; filter: blur(16px);
+  background: radial-gradient(circle, rgba(22,163,74,0.35), transparent);
+  animation: logoPop 2.6s ease-in-out infinite;
+}
+@keyframes logoPop { 0%,100% { opacity:.5; transform:scale(1);} 50% { opacity:1; transform:scale(1.08);} }
+.fit-title { font-size: 44px; font-weight: 900; letter-spacing: -1.5; color: var(--t); }
+.tagline { font-size: 12px; font-weight: 600; letter-spacing: 3.5; color: var(--m); text-transform: uppercase; }
+
+/* bottom nav */
+.nav {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 9;
+  display: flex; padding-top: 10px; padding-bottom: 26px;
+  background: var(--glass); border-top: 1px solid var(--field); backdrop-filter: blur(30px);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.06);
+}
+.nav::before {
+  content: ''; position: absolute; top: 0; height: 3px;
+  left: var(--off, 15%); width: 17%; border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--g), var(--cy));
+}
+.nav button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3;
+  background: none; border: none; font-family: var(--ff); font-size: 10px;
+  color: var(--ac, var(--m)); padding-top: 4px;
+}
+.nav button.on { color: var(--g); font-weight: 700; }
+.nav button .e { font-size: 22px; }
+
+@keyframes ringPulse { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.floaty { animation: floatUp 2.6s ease-in-out infinite; }
+
+.pad { padding: 0 18px; }
+.mt8 { margin-top: 8px; } .mt12 { margin-top: 12px; } .mt16 { margin-top: 16px; } .mt20 { margin-top: 20px; }
+.mb8 { margin-bottom: 8px; } .mb10 { margin-bottom: 10px; } .mb12 { margin-bottom: 12px; } .mb16 { margin-bottom: 16px; }
+/* inner scrollable screens + bottom-sheet modals — keep long content
+   reachable inside the phone mockup with a thin, always-visible scrollbar
+   and no scroll-bubbling to the page. */
+.scroll,
+.sheet-content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120,138,160,0.6) transparent;
+}
+.scroll::-webkit-scrollbar,
+.sheet-content::-webkit-scrollbar { width: 5px; }
+.scroll::-webkit-scrollbar-track,
+.sheet-content::-webkit-scrollbar-track { background: transparent; }
+.scroll::-webkit-scrollbar-thumb,
+.sheet-content::-webkit-scrollbar-thumb {
+  background: rgba(120,138,160,0.6); border-radius: 5px;
+}
+
+/* ── Tap-to-view full screen (no device frame) ─────────────────────
+   Clicking a phone mockup opens a fixed overlay showing just that
+   screen's view filling the viewport (capped to phone width on wide
+   screens) with native scrolling inside. ✕ / backdrop / Esc closes. ── */
+html.fs-lock { overflow: hidden; }
+
+.phone-fullscreen {
+  position: fixed; inset: 0; z-index: 300;
+  background: var(--page-bg);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .22s ease, visibility .22s ease;
+}
+.phone-fullscreen.open { opacity: 1; visibility: visible; }
+
+/* the cloned screen — fills the overlay (phone width on desktop) */
+.phone-fullscreen .screen {
+  width: 100%; max-width: 430px; margin: 0 auto;
+  height: 100%; border-radius: 0; box-shadow: none;
+  background: var(--bg);
+  overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* close button — fixed so it stays put while the screen scrolls */
+.phone-fullscreen .fs-close {
+  position: fixed; top: 14px; right: 14px; z-index: 301;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--glass); border: 1px solid var(--border);
+  color: var(--t); font-weight: 800; font-size: 17px; line-height: 1;
+  cursor: pointer; font-family: var(--ff);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 16px var(--sh), 0 1px 4px var(--shs);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* on phones/tablets the opened screen fills the whole viewport edge-to-edge */
+@media (max-width: 600px) {
+  .phone-fullscreen .screen { max-width: none; border-radius: 0; }
+}
