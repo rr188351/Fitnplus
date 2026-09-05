@@ -589,9 +589,9 @@ table.cmp-table { width:100%; border-collapse:separate; border-spacing:0; font-s
   border-color:rgba(52,211,153,0.5); box-shadow:0 8px 30px rgba(22,163,74,0.2);
 }
 .uf-arrow { color:var(--gb); font-size:13px; line-height:1; }
-.uf-fan { flex:1; display:flex; flex-direction:column; align-items:center; gap:18px; padding-top:26px; min-width:0; }
+.uf-fan { flex:1; display:flex; flex-direction:column; align-items:center; gap:24px; padding-top:30px; min-width:0; }
 .uf-bus { font-size:12px; color:var(--muted); letter-spacing:0.4px; }
-.uf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; width:100%; }
+.uf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; width:100%; }
 .uf-chip {
   display:flex; align-items:center; justify-content:center; gap:8px;
   padding:18px 14px; border-radius:16px; background:var(--glass);
@@ -605,7 +605,7 @@ table.cmp-table { width:100%; border-collapse:separate; border-spacing:0; font-s
 .wf-lanes { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; width:100%; max-width:1200px; }
 .wf-lane { padding:22px 18px; border-radius:20px; background:var(--glass); border:1px solid var(--border); }
 .wf-lane > h4 { font-family:var(--font-head); font-size:16px; font-weight:800; letter-spacing:0.4px; margin-bottom:16px; text-align:left; }
-.wf-flow { display:flex; flex-direction:column; align-items:stretch; gap:6px; }
+.wf-flow { display:flex; flex-direction:column; align-items:stretch; gap:14px; }
 .wf-node {
   padding:10px 14px; border-radius:11px; text-align:center;
   background:rgba(255,255,255,0.05); border:1px solid var(--border-strong);
@@ -1825,4 +1825,147 @@ body {
   .solution-grid, .prob-frame, .dt-flow, .decision-grid, .persona-map { grid-template-columns:1fr; }
   .flow-pipe { flex-direction:column; align-items:stretch; }
   .flow-pipe i { transform:rotate(90deg); align-self:center; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ROUND OF POLISH
+   Quant donut graphs · persona centered · IA breathing room ·
+   completed user-flow tree · workflow branch animation ·
+   low-fidelity wireframes
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Quantitative · donut graphs ── */
+.q-donut {
+  --p: 60%; --c: #22d3ee;
+  position: relative; width: 106px; height: 106px; border-radius: 50%;
+  background: conic-gradient(var(--c) 0 var(--p), rgba(148,163,184,0.13) var(--p) 100%);
+  margin: 4px auto 14px;
+  display: grid; place-items: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28), inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.q-donut::before {
+  content: ""; position: absolute; inset: 10px; border-radius: 50%;
+  background: rgba(10,17,29,0.92);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+}
+.q-donut::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.14);
+}
+.q-donut b {
+  position: relative; z-index: 1;
+  font-family: var(--font-head); font-size: 23px; font-weight: 900;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.q-card { text-align: center; }
+
+/* ── Persona · centered card ── */
+.persona-grid.persona-solo { display: flex; justify-content: center; }
+.persona-grid.persona-solo .persona-card { width: 100%; max-width: 860px; }
+
+/* ── Information Architecture · breathing room ── */
+.ia { max-width: 1280px; }
+.ia-stem { height: 40px; }
+.ia-branches { gap: 36px 30px; padding-top: 22px; }
+.ia-branch ul { gap: 12px; margin-top: 22px; }
+.ia-branch li { padding: 10px 14px; }
+.ia-branch li::before { top: -18px; height: 18px; }
+.ia-branch li:first-child::before { top: -18px; height: 18px; }
+
+/* ── User Flow · completed decision tree ── */
+.userflow.uf-tree { flex-direction: column; gap: 16px; width: 100%; max-width: 860px; }
+.uf-step.start { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 12px 32px rgba(22,163,74,0.32); }
+.uf-step.end { background: rgba(22,163,74,0.14); border-color: rgba(52,211,153,0.55); color: var(--gb); }
+.uf-step.sm { min-width: 0; padding: 8px 14px; font-size: 13.5px; text-align: center; justify-content: center; }
+.uf-dec {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 9px 24px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.13), rgba(234,88,12,0.11));
+  border: 1.5px dashed rgba(245,158,11,0.55);
+  font-family: var(--font-head); font-size: 14.5px; font-weight: 800; letter-spacing: 0.3px; color: var(--amber);
+}
+.uf-dec::before { content: "◆"; font-size: 10px; color: var(--amber); }
+.uf-fork { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 64px; width: 100%; max-width: 780px; }
+.uf-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.uf-branch {
+  font-family: var(--font-head); font-size: 10.5px; font-weight: 800;
+  letter-spacing: 1.6px; padding: 3px 13px; border-radius: 999px;
+}
+.uf-branch.yes { color: var(--gb); background: rgba(22,163,74,0.12); border: 1px solid rgba(22,163,74,0.4); }
+.uf-branch.no { color: #f87171; background: rgba(220,38,38,0.12); border: 1px solid rgba(220,38,38,0.4); }
+.uf-fan { width: 100%; max-width: 780px; margin: 32px auto 0; }
+
+/* ── User Flow · animated connector lines (START → EXIT → dashboard bus) ── */
+.userflow.uf-tree { position: relative; align-items: center; }
+.userflow.uf-tree > div { position: relative; z-index: 1; }
+.userflow.uf-tree.uf-lines-on { gap: 26px; }
+.userflow.uf-tree.uf-lines-on .uf-arrow { display: none; }
+.rv-line.uf-flow { stroke: rgba(52,211,153,0.55); stroke-width: 1.7; }
+[data-theme="light"] .rv-line.uf-flow { stroke: rgba(22,163,74,0.5); }
+
+/* ── Workflow · branch fan animation ── */
+.wf-fan { position: relative; width: 100%; max-width: 1240px; }
+.wf-hub {
+  position: relative; z-index: 2; width: max-content; margin: 0 auto 14px;
+  padding: 10px 32px; border-radius: 999px; background: var(--grad); color: #fff;
+  font-family: var(--font-head); font-weight: 800; font-size: 14px; letter-spacing: 1.2px;
+  box-shadow: 0 12px 34px rgba(22,163,74,0.32);
+}
+.wf-lanes { position: relative; z-index: 1; }
+.rv-line.wf-line { stroke: rgba(167,139,250,0.5); stroke-width: 1.6; }
+
+/* ── Low-fidelity wireframes ── */
+.lofi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 18px; width: 100%; max-width: 1200px; }
+.lofi { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.lofi-screen {
+  position: relative; width: 100%; max-width: 152px; aspect-ratio: 9 / 16;
+  padding: 13px 11px; border-radius: 26px 26px 15px 15px;
+  background: rgba(255,255,255,0.025);
+  border: 2px dashed rgba(148,163,184,0.5);
+  display: flex; flex-direction: column; gap: 9px; align-items: stretch;
+}
+.lofi-screen i { display: block; }
+.lofi-logo {
+    padding: 20px;
+    width: 26px;
+    height: 26px;
+    align-self: center;
+    margin-top: 56px;
+    border-radius: 8px;
+    border: 1.5px dashed rgba(52, 211, 153, 0.6);
+}
+.lofi-head { height: 11px; width: 62%; align-self: center; border-radius: 6px; border: 1.5px dashed rgba(148,163,184,0.6); }
+.lofi-hero { flex: 1; min-height: 0; border-radius: 10px; border: 1.5px dashed rgba(148,163,184,0.55); background: rgba(148,163,184,0.08); }
+.lofi-illo { flex: 1; min-height: 0; border-radius: 12px; border: 2px dashed rgba(148,163,184,0.5); background: rgba(148,163,184,0.07); }
+.lofi-line { height: 8px; border-radius: 4px; border: 1.5px dashed rgba(148,163,184,0.5); }
+.lofi-line.short { width: 72%; align-self: center; }
+.lofi-field { height: 16px; border-radius: 6px; border: 1.5px dashed rgba(148,163,184,0.55); background: rgba(148,163,184,0.07); }
+.lofi-btn { height: 22px; border-radius: 9px; background: rgba(52,211,153,0.13); border: 1.5px dashed rgba(52,211,153,0.6); }
+.lofi-link { height: 9px; width: 46%; align-self: center; border-bottom: 1.5px dashed rgba(148,163,184,0.5); }
+.lofi-avatar { width: 36px; height: 36px; align-self: center; border-radius: 50%; border: 2px dashed rgba(148,163,184,0.55); }
+.lofi-device { height: 54px; width: 46px; align-self: center; border-radius: 10px; border: 2px dashed rgba(148,163,184,0.55); position: relative; }
+.lofi-device::before { content: ""; position: absolute; inset: 6px 9px; border-radius: 6px; border: 1.5px dashed rgba(148,163,184,0.4); }
+.lofi-goals { height: 17px; border-radius: 6px; border: 1.5px dashed rgba(148,163,184,0.5); }
+.lofi-goals.on { background: rgba(22,163,74,0.14); border-color: rgba(52,211,153,0.65); }
+.lofi-perms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.lofi-perms i { height: 28px; border-radius: 8px; border: 1.5px dashed rgba(148,163,184,0.5); }
+.lofi-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.lofi-cards i { height: 36px; border-radius: 8px; border: 1.5px dashed rgba(148,163,184,0.5); background: rgba(148,163,184,0.06); }
+.lofi-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: auto; }
+.lofi-nav i { height: 9px; border-radius: 4px; border: 1.5px dashed rgba(148,163,184,0.5); }
+.lofi figcaption { font-family: var(--font-head); font-size: 13px; font-weight: 800; color: var(--ink); text-align: center; }
+.lofi figcaption small { display: block; font-family: var(--font-body); font-size: 10.5px; font-weight: 400; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+/* ── Round of polish · responsive ── */
+@media (max-width:1120px) {
+  .lofi-grid { grid-template-columns: repeat(3, 1fr); }
+  .uf-fork { gap: 8px 28px; }
+}
+@media (max-width:860px) {
+  .lofi-grid { grid-template-columns: repeat(2, 1fr); }
+  .uf-fork { grid-template-columns: 1fr; }
+  .userflow.uf-tree { max-width: 560px; }
+}
+@media (max-width:560px) {
+  .lofi-grid { grid-template-columns: 1fr; }
 }

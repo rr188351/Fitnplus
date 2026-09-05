@@ -704,38 +704,38 @@
       <div class="quant-grid">
         <div class="q-card glass">
           <h4>Daily Usage Frequency</h4>
+          <div class="q-donut" data-ring="60" style="--p:60%;--c:#22d3ee"><b data-count="60" data-suffix="%">60%</b></div>
           <div class="q-key"><span><i style="background:#22d3ee"></i> 2–3 Times/Day</span></div>
-          <div class="bars"><i style="--w:60%;--c:#22d3ee"></i></div>
           <p>Exploratory feedback signal: 2–3 Times/Day (60%).</p>
         </div>
         <div class="q-card glass">
           <h4>Step Tracking Satisfaction</h4>
+          <div class="q-donut" data-ring="80" style="--p:80%;--c:#34d399"><b data-count="80" data-suffix="%">80%</b></div>
           <div class="q-key"><span><i style="background:#34d399"></i> Rated 4+ Stars</span></div>
-          <div class="bars"><i style="--w:80%;--c:#34d399"></i></div>
           <p>Exploratory feedback signal: Rated 4+ Stars (80%).</p>
         </div>
         <div class="q-card glass">
           <h4>Heart Rate Usefulness</h4>
+          <div class="q-donut" data-ring="75" style="--p:75%;--c:#a78bfa"><b data-count="75" data-suffix="%">75%</b></div>
           <div class="q-key"><span><i style="background:#a78bfa"></i> Very Useful</span></div>
-          <div class="bars"><i style="--w:75%;--c:#a78bfa"></i></div>
           <p>Exploratory feedback signal: Very Useful (75%).</p>
         </div>
         <div class="q-card glass">
           <h4>Nutrition Logging Daily</h4>
+          <div class="q-donut" data-ring="40" style="--p:40%;--c:#fb923c"><b data-count="40" data-suffix="%">40%</b></div>
           <div class="q-key"><span><i style="background:#fb923c"></i> Daily Log</span></div>
-          <div class="bars"><i style="--w:40%;--c:#fb923c"></i></div>
           <p>Exploratory feedback signal: Daily Log (40%).</p>
         </div>
         <div class="q-card glass">
           <h4>Motivation from Badges</h4>
+          <div class="q-donut" data-ring="70" style="--p:70%;--c:#f59e0b"><b data-count="70" data-suffix="%">70%</b></div>
           <div class="q-key"><span><i style="background:#f59e0b"></i> Highly Motivating</span></div>
-          <div class="bars"><i style="--w:70%;--c:#f59e0b"></i></div>
           <p>Exploratory feedback signal: Highly Motivating (70%).</p>
         </div>
         <div class="q-card glass">
           <h4>Data Privacy Confidence</h4>
+          <div class="q-donut" data-ring="55" style="--p:55%;--c:#3b82f6"><b data-count="55" data-suffix="%">55%</b></div>
           <div class="q-key"><span><i style="background:#3b82f6"></i> 55% Confident</span></div>
-          <div class="bars"><i style="--w:55%;--c:#3b82f6"></i></div>
           <p>Exploratory feedback signal: 55% Confident (55%).</p>
         </div>
       </div>
@@ -881,7 +881,7 @@
         <p class="s-sub">Ananya synthesizes the research — her profile is built from the quantitative signals, the
           qualitative themes and the empathy map, so every design decision has a face.</p>
       </div>
-      <div class="persona-grid">
+      <div class="persona-grid persona-solo">
         <div class="persona-card glass">
           <div class="persona-top">
             <span aria-hidden="true" class="css-avatar"><svg viewbox="0 0 84 84">
@@ -912,17 +912,6 @@
           <div class="persona-quotes">
             <blockquote>“I want my health data to be accurate and private.”</blockquote>
             <blockquote>“I need an app that understands my goals.”</blockquote>
-          </div>
-        </div>
-        <div class="persona-side">
-          <div class="p-row"><span class="p-tag does">Does</span>
-            <p>Tracks steps and workouts daily; logs meals and hydration regularly.</p>
-          </div>
-          <div class="p-row"><span class="p-tag thinks">Thinks</span>
-            <p>Fitnpuls must give consistent insights; simplicity and privacy matter most.</p>
-          </div>
-          <div class="p-row"><span class="p-tag feels">Feels</span>
-            <p>Motivated when hitting milestones; frustrated when syncing fails.</p>
           </div>
         </div>
       </div>
@@ -1136,35 +1125,66 @@
         <span class="eyebrow">Slide 15 · User Flow</span>
         <h2 class="s-title">User flow — from first launch to the home dashboard</h2>
       </div>
-      <div class="userflow">
-        <div class="uf-list">
-          <div class="uf-step"><span>01</span> Splash Screen</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>02</span> Walkthrough</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>03</span> Login / Sign Up</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>04</span> Profile Setup</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>05</span> Device Sync</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>06</span> Goal Selection</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>07</span> Permissions</div>
-          <div class="uf-arrow">▼</div>
-          <div class="uf-step"><span>08</span> Home Dashboard</div>
-        </div>
-        <div class="uf-fan">
-          <div class="uf-bus">Home Dashboard branches into daily tracking, workouts, community, progress, account and
-            settings.</div>
-          <div class="uf-grid">
-            <div class="uf-chip">Dashboard</div>
-            <div class="uf-chip">Workouts</div>
-            <div class="uf-chip">Activity Log</div>
-            <div class="uf-chip">Community</div>
-            <div class="uf-chip">Progress Review</div>
-            <div class="uf-chip">Account</div>
+      <div class="userflow uf-tree">
+        <div class="uf-step start"><span>●</span> START</div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-step"><span>01</span> Download &amp; Install</div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-dec">Is New User?</div>
+        <div class="uf-fork">
+          <div class="uf-col">
+            <span class="uf-branch no">NO</span>
+            <div class="uf-step sm"><span>02</span> Sign Up</div>
           </div>
+          <div class="uf-col">
+            <span class="uf-branch yes">YES</span>
+            <div class="uf-step sm"><span>03</span> Login</div>
+          </div>
+        </div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-step"><span>04</span> Home</div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-step"><span>05</span> Set Fitness Goal</div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-dec">Connect Device?</div>
+        <div class="uf-fork">
+          <div class="uf-col">
+            <span class="uf-branch no">NO</span>
+            <div class="uf-step sm"><span>06</span> Check Activity Logs</div>
+            <div class="uf-arrow">▼</div>
+            <div class="uf-step sm"><span>07</span> Progress Review</div>
+          </div>
+          <div class="uf-col">
+            <span class="uf-branch yes">YES</span>
+            <div class="uf-step sm"><span>07</span> Progress Review</div>
+          </div>
+        </div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-dec">Join a Challenge?</div>
+        <div class="uf-fork">
+          <div class="uf-col">
+            <span class="uf-branch no">NO</span>
+            <div class="uf-step sm"><span>08</span> Community Challenges</div>
+            <div class="uf-arrow">▼</div>
+            <div class="uf-step sm"><span>09</span> Feedback &amp; Support</div>
+          </div>
+          <div class="uf-col">
+            <span class="uf-branch yes">YES</span>
+            <div class="uf-step sm"><span>09</span> Feedback &amp; Support</div>
+          </div>
+        </div>
+        <div class="uf-arrow">▼</div>
+        <div class="uf-step end"><span>✓</span> EXIT</div>
+      </div>
+      <div class="uf-fan">
+        <div class="uf-bus">Once on the dashboard — the daily loops branch into</div>
+        <div class="uf-grid">
+          <div class="uf-chip">Dashboard</div>
+          <div class="uf-chip">Workouts</div>
+          <div class="uf-chip">Activity Log</div>
+          <div class="uf-chip">Community</div>
+          <div class="uf-chip">Progress Review</div>
+          <div class="uf-chip">Account</div>
         </div>
       </div>
       <div class="story-note glass rv"><b>Why the order matters —</b> identity comes first (login / sign up), then context
@@ -1180,7 +1200,9 @@
         <span class="eyebrow">Slide 16 · System Workflow</span>
         <h2 class="s-title">Workflow — how users move through the product</h2>
       </div>
-      <div class="wf-lanes">
+      <div class="wf-fan">
+        <div class="wf-hub">START</div>
+        <div class="wf-lanes">
         <div class="wf-lane">
           <h4>Start / Setup</h4>
           <div class="wf-flow">
@@ -1215,6 +1237,7 @@
             <div class="wf-node done">Return to ongoing tracking</div>
           </div>
         </div>
+        </div>
       </div>
       <div class="story-note glass rv"><b>How to read the lanes —</b> each node pairs a user action with a system response:
         connecting a device streams metrics into one place, checking activity logs turns raw data into daily context,
@@ -1222,70 +1245,102 @@
         a clear reason to come back tomorrow.</div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 17 — UX DECISIONS ════════════════════════════════════════ -->
-  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
-    <div class="slide-inner">
-      <div class="s-head">
-        <span class="eyebrow">Slide 17 · UX Decisions</span>
-        <h2 class="s-title">Five calls that shaped the product</h2>
-        <p class="s-sub">Every decision follows the same traceable chain — user need → UX decision → reason → expected
-          benefit.</p>
-      </div>
-      <div class="decision-grid">
-        <div class="d-card glass"><span class="d-n">D-01</span>
-          <h4>One glanceable dashboard</h4>
-          <div class="d-chain">
-            <p><b>Need</b> — answer "how am I doing?" without digging</p>
-            <p><b>Decision</b> — hero steps card with the weekly rhythm at the top</p>
-            <p><b>Reason</b> — reduces cognitive load on the busiest screen</p>
-            <p><b>Benefit</b> — understanding in under five seconds</p>
-          </div>
-        </div>
-        <div class="d-card glass"><span class="d-n">D-02</span>
-          <h4>Progressive disclosure</h4>
-          <div class="d-chain">
-            <p><b>Need</b> — detail without clutter</p>
-            <p><b>Decision</b> — deep charts live one tap down</p>
-            <p><b>Reason</b> — keeps the surface calm; detail available, not shouted</p>
-            <p><b>Benefit</b> — a calm first screen with depth on demand</p>
-          </div>
-        </div>
-        <div class="d-card glass"><span class="d-n">D-03</span>
-          <h4>Insight before data</h4>
-          <div class="d-chain">
-            <p><b>Need</b> — "an app that understands my goals"</p>
-            <p><b>Decision</b> — every metric card pairs the number with a plain-language action</p>
-            <p><b>Reason</b> — numbers alone don't say what to do next</p>
-            <p><b>Benefit</b> — feedback that feels personal and actionable</p>
-          </div>
-        </div>
-        <div class="d-card glass"><span class="d-n">D-04</span>
-          <h4>Forgiving streaks</h4>
-          <div class="d-chain">
-            <p><b>Need</b> — motivation that survives real life</p>
-            <p><b>Decision</b> — grace days and comeback celebrations</p>
-            <p><b>Reason</b> — a broken streak should never punish a sick week</p>
-            <p><b>Benefit</b> — engagement that lasts beyond the bad days</p>
-          </div>
-        </div>
-        <div class="d-card glass"><span class="d-n">D-05</span>
-          <h4>Privacy as a feature</h4>
-          <div class="d-chain">
-            <p><b>Need</b> — confidence about personal health data</p>
-            <p><b>Decision</b> — per-metric sharing toggles, private by default</p>
-            <p><b>Reason</b> — trust needs visible control, not fine print</p>
-            <p><b>Benefit</b> — users see exactly who sees what</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ════════════════════════════════════════ SLIDE 18 — WIREFRAMES ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 17 — LOW-FIDELITY WIREFRAMES ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 18 · Structure &amp; Wireframes</span>
-        <h2 class="s-title">Structure before style</h2>
+        <span class="eyebrow">Slide 17 · Low-Fidelity Wireframes</span>
+        <h2 class="s-title">Low-fidelity wireframes — layout before pixels</h2>
+        <p class="s-sub">Rough, greyscale sketches explore placement, priority and flow first — no color, no type, no
+          final content.</p>
+      </div>
+      <div class="lofi-grid">
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-logo"></i>
+            <i class="lofi-hero"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>01 · Splash<small>Brand moment, straight to action</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-head"></i>
+            <i class="lofi-line"></i>
+            <i class="lofi-line short"></i>
+            <i class="lofi-illo"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>02 · Walkthrough<small>Three short value slides</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-head"></i>
+            <i class="lofi-field"></i>
+            <i class="lofi-field"></i>
+            <i class="lofi-btn"></i>
+            <i class="lofi-link"></i>
+          </div>
+          <figcaption>03 · Login / Sign Up<small>Email first, one CTA</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-avatar"></i>
+            <i class="lofi-line"></i>
+            <i class="lofi-field"></i>
+            <i class="lofi-field"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>04 · Profile Setup<small>Who is using the app?</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-head"></i>
+            <i class="lofi-device"></i>
+            <i class="lofi-line"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>05 · Device Sync<small>Connect watch or band</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-head"></i>
+            <i class="lofi-goals"></i>
+            <i class="lofi-goals on"></i>
+            <i class="lofi-goals"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>06 · Goal Selection<small>Pick a focus: steps, weight, sleep</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-head"></i>
+            <div class="lofi-perms"><i></i><i></i><i></i></div>
+            <i class="lofi-line"></i>
+            <i class="lofi-btn"></i>
+          </div>
+          <figcaption>07 · Permissions<small>Explain before you ask</small></figcaption>
+        </figure>
+        <figure class="lofi">
+          <div class="lofi-screen">
+            <i class="lofi-hero"></i>
+            <div class="lofi-cards"><i></i><i></i></div>
+            <i class="lofi-line"></i>
+            <div class="lofi-nav"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <figcaption>08 · Home Dashboard<small>Hero metric, cards, tab bar</small></figcaption>
+        </figure>
+      </div>
+      <p class="vision-note">Each screen maps one step of the user flow — structure is agreed before any visual
+        styling begins.</p>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 18 — HIGH-FIDELITY WIREFRAMES ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DESIGN">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 18 · High-Fidelity Wireframes</span>
+        <h2 class="s-title">High-fidelity wireframes — structure before style</h2>
       </div>
       <div class="flow-pipe" aria-label="From structure to styling">
         <div class="fp-step"><b>Structure</b><span>what lives on each screen</span></div>
@@ -1356,19 +1411,77 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 19 — VISUAL DESIGN ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 19 — UX DECISIONS ════════════════════════════════════════ -->
+  <section aria-hidden="true" class="slide" data-chapter="DEFINE">
+    <div class="slide-inner">
+      <div class="s-head">
+        <span class="eyebrow">Slide 19 · UX Decisions</span>
+        <h2 class="s-title">Five calls that shaped the product</h2>
+        <p class="s-sub">Every decision follows the same traceable chain — user need → UX decision → reason → expected
+          benefit.</p>
+      </div>
+      <div class="decision-grid">
+        <div class="d-card glass"><span class="d-n">D-01</span>
+          <h4>One glanceable dashboard</h4>
+          <div class="d-chain">
+            <p><b>Need</b> — answer "how am I doing?" without digging</p>
+            <p><b>Decision</b> — hero steps card with the weekly rhythm at the top</p>
+            <p><b>Reason</b> — reduces cognitive load on the busiest screen</p>
+            <p><b>Benefit</b> — understanding in under five seconds</p>
+          </div>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-02</span>
+          <h4>Progressive disclosure</h4>
+          <div class="d-chain">
+            <p><b>Need</b> — detail without clutter</p>
+            <p><b>Decision</b> — deep charts live one tap down</p>
+            <p><b>Reason</b> — keeps the surface calm; detail available, not shouted</p>
+            <p><b>Benefit</b> — a calm first screen with depth on demand</p>
+          </div>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-03</span>
+          <h4>Insight before data</h4>
+          <div class="d-chain">
+            <p><b>Need</b> — "an app that understands my goals"</p>
+            <p><b>Decision</b> — every metric card pairs the number with a plain-language action</p>
+            <p><b>Reason</b> — numbers alone don't say what to do next</p>
+            <p><b>Benefit</b> — feedback that feels personal and actionable</p>
+          </div>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-04</span>
+          <h4>Forgiving streaks</h4>
+          <div class="d-chain">
+            <p><b>Need</b> — motivation that survives real life</p>
+            <p><b>Decision</b> — grace days and comeback celebrations</p>
+            <p><b>Reason</b> — a broken streak should never punish a sick week</p>
+            <p><b>Benefit</b> — engagement that lasts beyond the bad days</p>
+          </div>
+        </div>
+        <div class="d-card glass"><span class="d-n">D-05</span>
+          <h4>Privacy as a feature</h4>
+          <div class="d-chain">
+            <p><b>Need</b> — confidence about personal health data</p>
+            <p><b>Decision</b> — per-metric sharing toggles, private by default</p>
+            <p><b>Reason</b> — trust needs visible control, not fine print</p>
+            <p><b>Benefit</b> — users see exactly who sees what</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ════════════════════════════════════════ SLIDE 20 — VISUAL DESIGN ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 19 · Visual Design</span>
+        <span class="eyebrow">Slide 20 · Visual Design</span>
         <h2 class="s-title">From skeleton to signature look</h2>
       </div>
       <div aria-hidden="true" class="vd-transition">
-        <div class="v-step done"><b>16</b><span>WIREFRAME</span></div>
+        <div class="v-step done"><b>17–18</b><span>WIREFRAMES</span></div>
         <i></i>
-        <div class="v-step"><b>17</b><span>VISUAL</span></div>
+        <div class="v-step"><b>19</b><span>VISUAL</span></div>
         <div class="vd-arrow">→</div>
-        <div class="v-step"><b>18</b><span>SYSTEM</span></div>
+        <div class="v-step"><b>20</b><span>SYSTEM</span></div>
       </div>
       <div class="vd-comparison">
         <figure>
@@ -1445,11 +1558,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 20 — DESIGN SYSTEM ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 21 — DESIGN SYSTEM ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 20 · Design System</span>
+        <span class="eyebrow">Slide 21 · Design System</span>
         <h2 class="s-title">Tokens, type &amp; components</h2>
       </div>
       <div class="ds-grid">
@@ -1512,11 +1625,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 21 — MOTION ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 22 — MOTION ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 21 · Motion</span>
+        <span class="eyebrow">Slide 22 · Motion</span>
         <h2 class="s-title">Micro-interactions that reward progress</h2>
       </div>
       <div class="motion-grid">
@@ -1584,11 +1697,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 22 — FINAL PRODUCT — CORE EXPERIENCE ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 23 — FINAL PRODUCT — CORE EXPERIENCE ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 22 · Final Product</span>
+        <span class="eyebrow">Slide 23 · Final Product</span>
         <h2 class="s-title">Final Product — Core Experience</h2>
         <p class="s-sub">The shipped React app's four primary tabs — Home, Progress, Community and Account — recreated
           1:1 with HTML, CSS and SVG. Every label, metric and navigation item is taken from the current build.</p>
@@ -1979,11 +2092,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 23 — DARK VS LIGHT APP UI ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 24 — DARK VS LIGHT APP UI ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="DESIGN">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 23 · Theme Adaptation</span>
+        <span class="eyebrow">Slide 24 · Theme Adaptation</span>
         <h2 class="s-title">One interface, two visual modes</h2>
         <p class="s-sub">The same Fitnpuls Dashboard structure, content and hierarchy — adapted through theme tokens only.</p>
       </div>
@@ -2024,11 +2137,11 @@
       <p class="theme-caption">One interface, two visual modes.</p>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 24 — IMPLEMENTATION ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 25 — IMPLEMENTATION ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="SHIP">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 24 · Implementation</span>
+        <span class="eyebrow">Slide 25 · Implementation</span>
         <h2 class="s-title">From Figma to working React</h2>
       </div>
       <div class="impl-layout">
@@ -2057,11 +2170,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 25 — CHALLENGES ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 26 — CHALLENGES ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="SHIP">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 25 · Challenges</span>
+        <span class="eyebrow">Slide 26 · Challenges</span>
         <h2 class="s-title">What was hard — and how it was solved</h2>
       </div>
       <div class="challenge-grid">
@@ -2086,11 +2199,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 26 — LEARNINGS ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 27 — LEARNINGS ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide" data-chapter="SHIP">
     <div class="slide-inner">
       <div class="s-head">
-        <span class="eyebrow">Slide 26 · Learnings</span>
+        <span class="eyebrow">Slide 27 · Learnings</span>
         <h2 class="s-title">What this project taught me</h2>
       </div>
       <div class="learn-grid">
@@ -2121,11 +2234,11 @@
       </div>
     </div>
   </section>
-  <!-- ════════════════════════════════════════ SLIDE 27 — FINAL OUTCOME ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ SLIDE 28 — FINAL OUTCOME ════════════════════════════════════════ -->
   <section aria-hidden="true" class="slide final-slide" data-chapter="SHIP">
     <div aria-hidden="true" class="ambient"></div>
     <div class="slide-inner">
-      <span class="eyebrow">Slide 27 · Final Outcome</span>
+      <span class="eyebrow">Slide 28 · Final Outcome</span>
       <h2 class="final-heading">Track. Improve. Achieve.</h2>
       <p class="final-sub">Fitnpuls proves that a fitness app can be clear, motivating and private —<br />one glance,
         one decision, one small win at a time.</p>
@@ -2149,7 +2262,7 @@
   <div aria-label="Slide navigation" class="controller" role="navigation">
     <button aria-label="Previous slide" class="ctrl-btn" id="prev-btn">← <span>Prev</span></button>
     <div aria-label="Slides" class="ctrl-dots" id="ctrl-dots" role="tablist"></div>
-    <span class="ctrl-count"><b id="slide-current">1</b> / <span id="slide-total">27</span></span>
+    <span class="ctrl-count"><b id="slide-current">1</b> / <span id="slide-total">28</span></span>
     <button aria-label="Next slide" class="ctrl-btn" id="next-btn"><span>Next</span> →</button>
   </div>
   </div>

@@ -112,48 +112,9 @@
     ".overview-grid", ".problem-points", ".pillars", ".research-grid", ".quant-grid",
     ".quote-grid", ".persona-grid", ".empathy-map", ".j-stages", ".ia-branches",
     ".uf-grid", ".wf-lanes", ".decision-grid", ".wire-grid", ".ds-grid", ".motion-grid", ".theme-compare",
-    ".impl-pipeline", ".impl-tech", ".challenge-grid", ".learn-grid",
-    ".prob-frame", ".solution-grid", ".sol-loop", ".dt-flow", ".insight-flow",
-    ".persona-map", ".flow-pipe", ".vd-lang", ".uf-tree", ".lofi-grid"
+    ".impl-pipeline", ".impl-tech", ".challenge-grid", ".learn-grid", ".cover-meta"
   ];
-  var LIFT_SELECTOR = ".r-card, .q-card, .d-card, .ch-card, .uf-chip, .sol-card, .dt-card, .frame-card, .pm-chip, .fp-step";
-
-  /* Controlled entry-direction choreography for card groups.
-     Each section has its own assembly pattern; children cycle the
-     pattern so the grid reads as "cinematically assembling". */
-  var DIR_PATTERNS = {
-    ".overview-grid":  ["rv-l", "rv-r", "rv-up"],
-    ".problem-points": ["rv-l", "rv-r", "rv-l", "rv-r", "rv-blur"],
-    ".pillars":        ["rv-l", "rv-up", "rv-r"],
-    ".research-grid":  ["rv-l", "rv-r", "rv-up", "rv-l", "rv-r", "rv-up"],
-    ".quant-grid":     ["rv-l", "rv-r", "rv-up", "rv-scale", "rv-l", "rv-r"],
-    ".quote-grid":     ["rv-l", "rv-up", "rv-r", "rv-l", "rv-up", "rv-r", "rv-blur"],
-    ".persona-grid":   ["rv-scale", "rv-l"],
-    ".empathy-map":    ["rv-l", "rv-r", "rv-blur", "rv-diag", "rv-scale"],
-    ".j-stages":       ["rv-up", "rv-up", "rv-up", "rv-up", "rv-up", "rv-up"],
-    ".ia-branches":    ["rv-up", "rv-up", "rv-l", "rv-r", "rv-up"],
-    ".uf-grid":        ["rv-up", "rv-up", "rv-r", "rv-l", "rv-up"],
-    ".wf-lanes":       ["rv-l", "rv-r", "rv-up"],
-    ".decision-grid":  ["rv-l", "rv-r", "rv-l", "rv-r", "rv-up"],
-    ".wire-grid":      ["rv-up", "rv-up", "rv-scale", "rv-up", "rv-up", "rv-scale"],
-    ".ds-grid":        ["rv-l", "rv-r", "rv-scale"],
-    ".motion-grid":    ["rv-l", "rv-r", "rv-l", "rv-r", "rv-l", "rv-r"],
-    ".theme-compare":  ["rv-l", "rv-r"],
-    ".impl-pipeline":  ["rv-up", "rv-up", "rv-up", "rv-up"],
-    ".impl-tech":      ["rv-l", "rv-r"],
-    ".challenge-grid": ["rv-l", "rv-r", "rv-rot-l", "rv-rot-r"],
-    ".learn-grid":     ["rv-l", "rv-r", "rv-diag", "rv-scale"],
-    ".prob-frame":     ["rv-l", "rv-up", "rv-r", "rv-scale"],
-    ".solution-grid":  ["rv-l", "rv-r", "rv-up", "rv-scale", "rv-l", "rv-r"],
-    ".sol-loop":       ["rv-up"],
-    ".dt-flow":        ["rv-up", "rv-up", "rv-up", "rv-up", "rv-up"],
-    ".insight-flow":   ["rv-up"],
-    ".persona-map":    ["rv-l", "rv-r", "rv-up", "rv-diag", "rv-scale"],
-    ".flow-pipe":      ["rv-up", "rv-up", "rv-up", "rv-up", "rv-up"],
-    ".vd-lang":        ["rv-up"],
-    ".uf-tree":        ["rv-up", "rv-up"],
-    ".lofi-grid":      ["rv-up", "rv-l", "rv-r", "rv-scale", "rv-up", "rv-diag", "rv-blur", "rv-up"]
-  };
+  var LIFT_SELECTOR = ".r-card, .q-card, .d-card, .ch-card, .uf-chip";
 
   function prepDrawPath(path, index) {
     var len = 0;
@@ -211,40 +172,25 @@
     requestAnimationFrame(tick);
   }
 
-  /* Transform-independent page position (layout boxes, not affected by
-     entrance transforms like rv-up/rv-l/rv-r, so connector lines always
-     target the resting position of their cards). */
-  function pageOffset(el) {
-    var x = 0, y = 0, n = el;
-    while (n) {
-      x += n.offsetLeft || 0;
-      y += n.offsetTop || 0;
-      n = n.offsetParent;
-    }
-    return { x: x, y: y };
-  }
-
   function layoutFan(fan) {
-    if (fan.custom) { fan.relayout(); return; }
     var c = fan.container;
     var from = c.querySelector(fan.fromSel);
     var targets = c.querySelectorAll(fan.toSel);
     if (!from || !targets.length) return;
-    var w = c.offsetWidth, h = c.offsetHeight;
-    if (!w || !h) return;
-    fan.svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-    fan.svg.setAttribute("width", w);
-    fan.svg.setAttribute("height", h);
+    var cb = c.getBoundingClientRect();
+    if (!cb.width || !cb.height) return;
+    fan.svg.setAttribute("viewBox", "0 0 " + Math.round(cb.width) + " " + Math.round(cb.height));
+    fan.svg.setAttribute("width", Math.round(cb.width));
+    fan.svg.setAttribute("height", Math.round(cb.height));
     while (fan.svg.firstChild) fan.svg.removeChild(fan.svg.firstChild);
     fan.paths = [];
-    var cOff = pageOffset(c);
-    var fb = pageOffset(from);
-    var x0 = fb.x - cOff.x + from.offsetWidth / 2;
-    var y0 = fb.y - cOff.y + from.offsetHeight;
+    var fb = from.getBoundingClientRect();
+    var x0 = fb.left - cb.left + fb.width / 2;
+    var y0 = fb.bottom - cb.top;
     Array.prototype.forEach.call(targets, function (t, i) {
-      var tb = pageOffset(t);
-      var x1 = tb.x - cOff.x + t.offsetWidth / 2;
-      var y1 = tb.y - cOff.y;
+      var tb = t.getBoundingClientRect();
+      var x1 = tb.left - cb.left + tb.width / 2;
+      var y1 = tb.top - cb.top;
       var my = y0 + (y1 - y0) * 0.45;
       var p = document.createElementNS(SVG_NS, "path");
       p.setAttribute("d", "M" + x0.toFixed(1) + "," + y0.toFixed(1) + " C" + x0.toFixed(1) + "," + my.toFixed(1) + " " + x1.toFixed(1) + "," + my.toFixed(1) + " " + x1.toFixed(1) + "," + y1.toFixed(1));
@@ -273,116 +219,9 @@
     if (!fan || fan.drawn) return;
     fan.drawn = true;
     Array.prototype.forEach.call(fan.paths, function (p, i) {
-      if (!p.__fpDrawn) prepDrawPath(p, fan.stagger ? i * fan.stagger : i);
+      if (!p.__fpDrawn) prepDrawPath(p, i);
       startDraw(p);
     });
-  }
-
-  /* ═══ Slide 15 · full user-flow connector lines ═══
-     Draws animated SVG paths from START through every step,
-     decision diamond and YES/NO branch, merging back together,
-     down to EXIT — then bridges into the "Once on the dashboard"
-     caption that already fans out into the six dashboard chips. */
-  function buildUfFlow() {
-    var tree = document.querySelector(".userflow.uf-tree");
-    if (!tree || tree.__fpFlow) return;
-    tree.__fpFlow = true;
-    tree.classList.add("uf-lines-on");
-    var svg = document.createElementNS(SVG_NS, "svg");
-    svg.setAttribute("class", "rv-lines");
-    svg.setAttribute("aria-hidden", "true");
-    tree.insertBefore(svg, tree.firstChild);
-    var flow = { container: tree, custom: true, svg: svg, drawn: false, paths: [], stagger: 0.55 };
-    tree.__fpFan = flow;
-
-    flow.relayout = function () {
-      var w = tree.offsetWidth, h = tree.offsetHeight;
-      if (!w || !h) return;
-      svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-      svg.setAttribute("width", w);
-      svg.setAttribute("height", h);
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
-      flow.paths = [];
-      var cOff = pageOffset(tree);
-
-      /* transform-free layout box, relative to the tree */
-      function box(el) {
-        var o = pageOffset(el);
-        return {
-          cx: o.x - cOff.x + el.offsetWidth / 2,
-          top: o.y - cOff.y,
-          bottom: o.y - cOff.y + el.offsetHeight
-        };
-      }
-      function seg(a, b) {
-        var p = document.createElementNS(SVG_NS, "path");
-        var d;
-        if (Math.abs(a.x - b.x) < 3) {
-          d = "M" + a.x.toFixed(1) + "," + a.y.toFixed(1) +
-            " L" + b.x.toFixed(1) + "," + b.y.toFixed(1);
-        } else {
-          var my = a.y + (b.y - a.y) * 0.5;
-          d = "M" + a.x.toFixed(1) + "," + a.y.toFixed(1) +
-            " C" + a.x.toFixed(1) + "," + my.toFixed(1) +
-            " " + b.x.toFixed(1) + "," + my.toFixed(1) +
-            " " + b.x.toFixed(1) + "," + b.y.toFixed(1);
-        }
-        p.setAttribute("d", d);
-        p.setAttribute("class", "rv-line uf-flow");
-        svg.appendChild(p);
-        flow.paths.push(p);
-        if (flow.drawn || REDUCED) { p.style.strokeDasharray = "none"; }
-        else { prepDrawPath(p, (flow.paths.length - 1) * flow.stagger); }
-      }
-      function flowKids(parent) {
-        var list = [];
-        Array.prototype.forEach.call(parent.children, function (k) {
-          if (k.tagName.toLowerCase() === "svg") return;
-          if (k.classList.contains("uf-arrow")) return;
-          list.push(k);
-        });
-        return list;
-      }
-
-      var outs = []; /* outgoing anchor points of the previous row */
-      flowKids(tree).forEach(function (row) {
-        if (row.classList.contains("uf-fork")) {
-          var merged = [];
-          flowKids(row).forEach(function (col) {
-            var kids = flowKids(col);
-            kids.forEach(function (k, ki) {
-              var b = box(k);
-              if (ki === 0) {
-                outs.forEach(function (o) { seg(o, { x: b.cx, y: b.top }); });
-              } else {
-                var pb = box(kids[ki - 1]);
-                seg({ x: pb.cx, y: pb.bottom }, { x: b.cx, y: b.top });
-              }
-            });
-            if (kids.length) {
-              var lb = box(kids[kids.length - 1]);
-              merged.push({ x: lb.cx, y: lb.bottom });
-            }
-          });
-          outs = merged;
-        } else {
-          var b = box(row);
-          outs.forEach(function (o) { seg(o, { x: b.cx, y: b.top }); });
-          outs = [{ x: b.cx, y: b.bottom }];
-        }
-      });
-
-      /* bridge the tree into the dashboard-bus caption */
-      var fanEl = document.querySelector(".uf-fan");
-      var bus = fanEl ? fanEl.querySelector(".uf-bus") : null;
-      if (bus && outs.length) {
-        var bb = box(bus);
-        outs.forEach(function (o) { seg(o, { x: bb.cx, y: bb.top }); });
-      }
-    };
-
-    flow.relayout();
-    lineFans.push(flow);
   }
 
   function onRevealEntry(entries) {
@@ -424,7 +263,7 @@
   }
 
   function setupReveal() {
-    Array.prototype.forEach.call(document.querySelectorAll(".slide .s-head"), function (el) {
+    Array.prototype.forEach.call(document.querySelectorAll(".slide .s-head, .cover-copy"), function (el) {
       el.classList.add("rv");
     });
     STAGGER_SELECTORS.forEach(function (sel) {
@@ -432,12 +271,8 @@
         if (el.__fpStag) return;
         el.__fpStag = true;
         el.classList.add("rv-stagger");
-        var dirs = DIR_PATTERNS[sel] || null;
-        /* let IA connectors + flow lines draw first, then assemble nodes */
-        var baseDelay = (sel === ".ia-branches" || sel === ".uf-grid" || sel === ".wf-lanes") ? 460 : 0;
         Array.prototype.forEach.call(el.children, function (ch, i) {
-          if (dirs) ch.classList.add(dirs[i % dirs.length]);
-          ch.style.setProperty("--rvd", (baseDelay + Math.min(i * 90, 720)) + "ms");
+          ch.style.setProperty("--rvd", Math.min(i * 70, 560) + "ms");
         });
       });
     });
@@ -454,11 +289,8 @@
     });
     var ia = document.querySelector(".ia");
     var uf = document.querySelector(".uf-fan");
-    var wf = document.querySelector(".wf-fan");
     if (ia) buildFan(ia, ".ia-root", ".ia-node", "ia-line");
     if (uf) buildFan(uf, ".uf-bus", ".uf-chip", "uf-line");
-    if (wf) buildFan(wf, ".wf-hub", ".wf-lane", "wf-line");
-    buildUfFlow();
     Array.prototype.forEach.call(document.querySelectorAll("path.draw-path:not(.rv-line)"), function (p, i) {
       prepDrawPath(p, i);
     });
@@ -469,7 +301,6 @@
     observeList = observeList.concat(Array.prototype.slice.call(document.querySelectorAll("path.draw-path:not(.rv-line)")));
     if (ia) observeList.push(ia);
     if (uf) observeList.push(uf);
-    if (wf) observeList.push(wf);
     observeList.forEach(function (el) { revealObserver.observe(el); });
   }
 
@@ -575,48 +406,22 @@
     });
   }
 
-  (function initCoverShowreel() {
+  (function initCoverThemeMorph() {
     if (!coverPhone) return;
     var darkLayer = coverPhone.querySelector(".cover-theme-dark");
     var lightLayer = coverPhone.querySelector(".cover-theme-light");
-    var wrap = darkLayer ? darkLayer.querySelector(".cover-screens") : null;
-    if (!wrap) return;
-    /* mirror the four app screens into the light layer so the
-       dark ⇄ light crossfade swaps colors inside the same layout */
-    var clone = wrap.cloneNode(true);
-    if (lightLayer && clone) lightLayer.appendChild(clone);
-    var darkScreens = wrap.querySelectorAll(".cs-screen");
-    var lightScreens = clone ? clone.querySelectorAll(".cs-screen") : null;
-    var total = darkScreens.length;
-    if (!total) return;
-
-    function setActive(list, i) {
-      for (var k = 0; k < list.length; k++) {
-        list[k].classList.toggle("s-active", k === i);
-        list[k].setAttribute("aria-hidden", k === i ? "false" : "true");
-      }
-    }
-
-    /* screen = floor(state/2), theme = state%2 (0 dark, 1 light)
-       sequence: HOME+D · HOME+L · PROGRESS+D · PROGRESS+L · … loop */
-    var state = 0;
-    function applyState() {
-      var screen = Math.floor(state / 2) % total;
-      var lightOn = (state % 2) === 1;
-      setActive(darkScreens, screen);
-      if (lightScreens && lightScreens.length) setActive(lightScreens, screen);
-      if (darkLayer) darkLayer.style.opacity = lightOn ? "0" : "1";
-      if (lightLayer) lightLayer.style.opacity = lightOn ? "1" : "0";
-    }
-
-    setActive(darkScreens, 0);
-    if (lightScreens && lightScreens.length) setActive(lightScreens, 0);
+    if (!darkLayer || !lightLayer) return;
+    var darkScreen = darkLayer.querySelector(".ph-screen");
+    if (!darkScreen) return;
+    lightLayer.appendChild(darkScreen.cloneNode(true));
     var reduced = false;
     try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
     if (reduced) return;
+    var lightOn = false;
     window.setInterval(function () {
-      state = (state + 1) % (total * 2);
-      applyState();
+      lightOn = !lightOn;
+      darkLayer.style.opacity = lightOn ? "0" : "1";
+      lightLayer.style.opacity = lightOn ? "1" : "0";
     }, 5000);
   })();
 
