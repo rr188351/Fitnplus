@@ -1466,7 +1466,7 @@ body {
   font: 700 7px var(--font-body); color: var(--ct-text); min-width: 0;
 }
 .cs-badge span { font-size: 12px; flex-shrink: 0; }
-.cs-badge.lock { opacity: .55; }
+.cs-badge.lock { opacity: .55; filter: saturate(.4); }
 
 /* ── Leaderboard ── */
 .cs-lbrow {
