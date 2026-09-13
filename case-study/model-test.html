@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitnpulse 3D Lab — ph.FBX · iPhone 14 Pro Model Test</title>
+    <meta name="description" content="Standalone 3D model test page: load css/ph.FBX (iPhone 14 Pro), scale to real cm, run the live Fitnpulse app in the phone display, orbit and screenshot." />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *{box-sizing:border-box}
+        html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(120% 90% at 50% 38%, #0A0F17 0%, #05080f 55%, #02040A 100%);color:#e8eef7;font-family:"DM Sans",system-ui,sans-serif}
+        #view{position:fixed;inset:0}
+        #view canvas{display:block;position:fixed;inset:0;z-index:0}
+        .bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 20px;background:rgba(5,8,15,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+        .brand{display:flex;align-items:center;gap:10px;font-family:Outfit,sans-serif;font-weight:900;font-size:16px;letter-spacing:-.2px}
+        .logo{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#0891b2);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 14px rgba(22,163,74,.45)}
+        .filetag{margin-left:auto;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#22d3ee;border:1px solid rgba(34,211,238,.3);background:rgba(8,145,178,.1);padding:7px 12px;border-radius:999px;white-space:nowrap}
+        #panel{position:fixed;top:64px;left:14px;bottom:56px;width:284px;z-index:15;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:14px;background:rgba(10,14,24,.66);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.09);border-radius:18px;scrollbar-width:thin}
+        .sec{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:10px}
+        .sec:last-child{border-bottom:none;padding-bottom:0}
+        .sec h3{margin:0 0 8px;font-family:Outfit,sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#34d399;display:flex;align-items:center;gap:8px}
+        .sec h3::before{content:"";width:14px;height:2px;border-radius:2px;background:linear-gradient(90deg,#16a34a,#22d3ee);flex-shrink:0}
+        .row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:#c2cfe0;padding:3px 0}
+        .row b{color:#e8eef7;font-family:Outfit,sans-serif;text-align:right}
+        .row code{color:#22d3ee;font-family:Outfit,sans-serif;font-size:11px;word-break:break-all;text-align:right}
+        .note{font-size:10.5px;color:#7e8ca3;margin:4px 0 0;line-height:1.5}
+        .tgl{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;color:#c2cfe0;padding:5px 0;cursor:pointer;user-select:none}
+        .tgl input{appearance:none;-webkit-appearance:none;width:38px;height:21px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);position:relative;cursor:pointer;transition:.22s;flex-shrink:0;margin:0}
+        .tgl input::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;transition:.22s}
+        .tgl input:checked{background:linear-gradient(135deg,#16a34a,#0891b2);border-color:rgba(52,211,153,.5)}
+        .tgl input:checked::after{transform:translateX(17px)}
+        .btn{font-family:Outfit,sans-serif;font-size:11.5px;font-weight:800;padding:9px 12px;border-radius:11px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#e8eef7;cursor:pointer;transition:.2s;width:100%}
+        .btn:hover{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.08)}
+        .btn.prime{background:linear-gradient(135deg,#16a34a,#0891b2);border:none;color:#fff;box-shadow:0 6px 18px rgba(22,163,74,.35)}
+        .btn.on{border-color:#34d399;color:#34d399;background:rgba(52,211,153,.1)}
+        .btngrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+    </style>
+    <style>
+        .faces{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+        .face{font-family:Outfit,sans-serif;font-size:11px;font-weight:800;padding:7px 0;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#c2cfe0;cursor:pointer;transition:.2s}
+        .face:hover{border-color:rgba(52,211,153,.4)}
+        .face.on{border-color:#34d399;color:#34d399;background:rgba(52,211,153,.1)}
+        .scalebox{display:flex;gap:8px;margin-top:8px}
+        .scalebox input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#e8eef7;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;padding:8px 10px;border-radius:10px;outline:none}
+        .scalebox input:focus{border-color:#34d399}
+        .hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:15;font-size:11.5px;color:#7e8ca3;background:rgba(10,14,24,.7);border:1px solid rgba(255,255,255,.08);padding:8px 14px;border-radius:999px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);text-align:center;max-width:min(760px,92vw);line-height:1.5}
+        .hint b{color:#c2cfe0}
+        .hint code{color:#22d3ee;font-family:Outfit,sans-serif}
+        #drop{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(5,8,15,.82);backdrop-filter:blur(6px);cursor:pointer}
+        #drop.show{display:flex}
+        .dropbox{border:2px dashed rgba(52,211,153,.5);border-radius:24px;padding:46px 60px;text-align:center;background:rgba(10,16,26,.7)}
+        .dropbox .big{font-size:44px}
+        .dropbox h2{font-family:Outfit,sans-serif;margin:10px 0 6px;font-size:20px}
+        .dropbox p{margin:0;color:#7e8ca3;font-size:13px}
+        #loading{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 30%,#0B1220 0%,#05080f 58%,#02040A 100%);transition:opacity .6s ease;overflow:hidden;perspective:900px}
+        #loading.hide{opacity:0;pointer-events:none;visibility:hidden}
+        #loading .sp-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+        #loading .sp-bg .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.7;animation:spBlob 7s ease-in-out infinite}
+        #loading .sp-bg .b1{width:min(560px,90vw);height:min(560px,90vw);left:-140px;top:-140px;background:radial-gradient(circle,rgba(22,163,74,.45),transparent 70%)}
+        #loading .sp-bg .b2{width:min(520px,86vw);height:min(520px,86vw);right:-140px;top:22%;background:radial-gradient(circle,rgba(34,211,238,.42),transparent 70%);animation-delay:-2.4s}
+        #loading .sp-bg .b3{width:min(620px,100vw);height:min(620px,100vw);left:10%;bottom:-260px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%);animation-delay:-4.6s}
+        #loading .sp-bg .p{position:absolute;bottom:-14px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,#fff,rgba(52,211,153,.9) 60%,transparent 72%);box-shadow:0 0 12px rgba(52,211,153,.9);animation:spFloat 5.4s linear infinite}
+        #loading .sp-bg .grid{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:30px 30px;transform:rotateX(52deg) translateY(-30px);transform-origin:50% 0;opacity:.6;animation:spGrid 6s linear infinite}
+        #loading .sp-bg .p1{left:12%}
+        #loading .sp-bg .p2{left:26%;animation-delay:-1.2s}
+        #loading .sp-bg .p3{left:44%;animation-delay:-2.4s}
+        #loading .sp-bg .p4{left:60%;animation-delay:-3.2s}
+        #loading .sp-bg .p5{left:76%;animation-delay:-4.1s}
+        #loading .sp-bg .p6{left:88%;animation-delay:-1.8s}
+        #loading .sp-logo3d{position:relative;z-index:2;width:124px;height:124px;perspective:700px;transform-style:preserve-3d;animation:spFloatY 3.4s ease-in-out infinite}
+        #loading .sp-logo3d .halo{position:absolute;inset:-26px;border-radius:50%;background:conic-gradient(from 0deg,rgba(52,211,153,.6),rgba(34,211,238,.55),rgba(124,58,237,.45),rgba(52,211,153,.6));filter:blur(22px);opacity:.8;animation:spHalo 5s linear infinite}
+        #loading .sp-logo3d .ring{position:absolute;inset:-12px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);transform:rotateX(68deg);animation:spRing 1.8s ease-out infinite;pointer-events:none}
+        #loading .sp-name{position:relative;z-index:2;margin-top:20px;font-family:Outfit,sans-serif;font-size:clamp(30px,5vw,42px);font-weight:900;letter-spacing:-1px;color:#fff}
+        #loading .sp-name .plus{background:linear-gradient(120deg,#34d399,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+        #loading .sp-tag{position:relative;z-index:2;margin-top:8px;font-size:10.5px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:#7e8ca3}
+        #loading .sp-logo3d .auth-logo{position:relative;z-index:2;width:100%;height:100%;display:block;border-radius:50%;box-shadow:0 22px 44px rgba(0,0,0,.55),0 12px 40px rgba(22,163,74,.5);animation:spLogo3D 5.4s ease-in-out infinite,spEnter .6s cubic-bezier(.22,.9,.35,1) both}
+        #loading .sp-bar{position:relative;z-index:2;width:min(280px,64vw);height:7px;border-radius:999px;background:rgba(255,255,255,.12);margin-top:28px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+        #loading .sp-bar i{position:absolute;top:0;bottom:0;left:0;width:0%;border-radius:inherit;background:linear-gradient(90deg,#16a34a,#22d3ee,#a78bfa,#16a34a);background-size:220% 100%;box-shadow:0 0 14px rgba(52,211,153,.9);transition:width .25s ease}
+        #loading .sp-pct{position:relative;z-index:2;margin-top:12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;color:#c2cfe0}
+        #loading .sp-pct b{color:#fff}
+        #loadtext{position:relative;z-index:2;margin-top:8px;font-family:Outfit,sans-serif;font-weight:600;font-size:12.5px;color:#7e8ca3;max-width:min(520px,88vw);text-align:center;line-height:1.6}
+        #toast{position:fixed;top:64px;right:14px;z-index:60;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+        @keyframes spLogo3D{0%,100%{transform:rotateX(8deg) rotateY(-14deg)}25%{transform:rotateX(6deg) rotateY(16deg)}50%{transform:rotateX(-8deg) rotateY(10deg)}75%{transform:rotateX(-5deg) rotateY(-18deg)}}
+        @keyframes spFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+        @keyframes spEnter{from{opacity:0;transform:scale(.82) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+        @keyframes spHalo{to{transform:rotate(360deg)}}
+        @keyframes spRing{0%{transform:rotateX(68deg) scale(.9);opacity:.85}100%{transform:rotateX(68deg) scale(1.4);opacity:0}}
+        @keyframes spBlob{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(26px,-24px,40px) scale(1.08)}}
+        @keyframes spGrid{from{background-position:0 0,0 0}to{background-position:0 30px,0 0}}
+        @keyframes spFloat{0%{transform:translateY(0) scale(.6);opacity:0}12%{opacity:.95}100%{transform:translateY(-92vh) scale(1.05);opacity:0}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .toast{font-size:12.5px;color:#e8eef7;background:rgba(10,16,26,.88);border:1px solid rgba(52,211,153,.35);padding:10px 14px;border-radius:12px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:tin .3s ease both;max-width:360px}
+        @keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+        @media (max-width:760px){#panel{width:240px}.hint{font-size:10.5px}}
+        /* Responsive layout — panel docks to a bottom sheet on small screens;
+           the top bar + every control button stay FIXED and clickable. */
+        @media (max-width:900px){#panel{width:236px}}
+        @media (max-width:720px){
+            .bar{flex-wrap:wrap;gap:8px;padding:10px 14px}
+            .bar .filetag{display:none}
+            #panel{top:auto;left:0;right:0;bottom:0;width:auto;height:38vh;min-height:250px;border-radius:18px 18px 0 0;border:1px solid rgba(255,255,255,.09);border-bottom:none;z-index:40;padding-bottom:12px}
+            #panel::-webkit-scrollbar{width:5px}
+            .hint{display:none}
+            #toast{top:auto;bottom:calc(38vh + 14px);left:14px;right:14px;align-items:flex-start}
+            #toast .toast{max-width:100%}
+        }
+        @media (max-height:540px){#panel{height:52vh}#toast{bottom:calc(52vh + 10px)}}
+        @media (pointer:coarse){.btn{min-height:42px}}
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="view"></div>
+    <header class="bar">
+        <div class="brand"><span class="logo">&#128241;</span>Fitnpulse 3D Lab</div>
+        <span class="filetag">ph.FBX &middot; iPhone 14 Pro</span>
+    </header>
+    <aside id="panel">
+        <div class="sec">
+            <h3>Model</h3>
+            <div class="row"><span>File</span><code id="stFile">&mdash;</code></div>
+            <div class="row"><span>Meshes</span><b id="stMeshes">&mdash;</b></div>
+            <div class="row"><span>Triangles</span><b id="stTris">&mdash;</b></div>
+            <div class="row"><span>Raw size (FBX units)</span><b id="stRaw">&mdash;</b></div>
+            <div class="row"><span>Embedded textures</span><b id="stTex">&mdash;</b></div>
+            <div class="row"><span>Screen meshes found</span><b id="stScr">&mdash;</b></div>
+        </div>
+        <div class="sec">
+            <h3>Scale &middot; 1 unit = 1 cm</h3>
+            <div class="row"><span>Length (longest side)</span><b id="stDims">&mdash;</b></div>
+            <div class="scalebox"><input id="target" type="number" step="0.1" min="1" value="17" /><button
+                    class="btn prime" id="applyScale">Apply</button></div>
+            <p class="note">Real iPhone 14 Pro &asymp; 14.7 cm &mdash; set any target and hit Apply. Width/height follow
+                proportionally.</p>
+            <div class="btngrid"><button class="btn" id="rotBtn">Rotate 90&deg;</button><button class="btn"
+                    id="fitBtn">Fit view</button></div>
+        </div>
+        <div class="sec">
+            <h3>Live App</h3>
+            <label class="tgl"><span>Live React app</span><input type="checkbox" id="tglMesh" /></label>
+            <button class="btn" id="pickBtn" style="margin-top:6px">Paint clicked mesh &middot; pick screen</button>
+            <label class="tgl" style="margin-top:6px"><span>Overlay screen plane</span><input type="checkbox" id="tglOverlay" /></label>
+            <div class="faces" id="faces"></div>
+            <p class="note">Toggle the overlay + cycle faces until the app screen sits on the phone's display.</p>
+        </div>
+        <div class="sec">
+            <h3>Display</h3>
+            <label class="tgl"><span>Auto-rotate</span><input type="checkbox" id="tglSpin" checked /></label>
+            <label class="tgl"><span>Wireframe</span><input type="checkbox" id="tglWire" /></label>
+            <label class="tgl"><span>Grid</span><input type="checkbox" id="tglGrid" /></label>
+            <label class="tgl"><span>Shadows</span><input type="checkbox" id="tglShadow" checked /></label>
+            <label class="tgl"><span>Transparent background</span><input type="checkbox" id="tglAlpha" /></label>
+        </div>
+        <div class="sec">
+            <h3>Product views</h3>
+            <div class="btngrid"><button class="btn prime" id="frontBtn">Front view</button><button class="btn prime"
+                    id="backBtn">Back view</button></div>
+            <p class="note" id="logoNote">Logo / lens pass runs on load.</p>
+        </div>
+        <div class="sec">
+            <h3>Actions</h3>
+            <div class="btngrid"><button class="btn" id="shotBtn">Screenshot</button><button class="btn"
+                    id="reloadBtn">Reload model</button></div>
+        </div>
+    </aside>
+    <div class="hint"><b>ph.FBX</b> auto-loads from <code>css/ph.FBX</code> when this folder is served (e.g. VS Code
+        Live Server / <code>python -m http.server</code>). Opened straight from disk? Just <b>drag ph.FBX</b> anywhere
+        onto this page. Drag to orbit &middot; scroll to zoom.</div>
+    <div id="drop">
+        <div class="dropbox">
+            <div class="big">&#128242;</div>
+            <h2>Drop ph.FBX here</h2>
+            <p>or click to browse &middot; any .fbx model works for testing</p>
+        </div>
+    </div>
+    <input type="file" id="fileinp" accept=".fbx" hidden />
+    <div id="loading">
+        <div class="sp-bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i><span class="p p1"></span><span class="p p2"></span><span class="p p3"></span><span class="p p4"></span><span class="p p5"></span><span class="p p6"></span></div>
+        <div class="sp-logo3d">
+            <span class="halo" aria-hidden="true"></span>
+            <span class="ring" aria-hidden="true"></span>
+            <svg class="auth-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="fpGradSp" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#16A34A" />
+                        <stop offset="1" stop-color="#0891B2" />
+                    </linearGradient>
+                </defs>
+                <circle cx="24" cy="24" r="23" fill="url(#fpGradSp)" />
+                <circle cx="24" cy="24" r="23" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" />
+                <polyline points="6,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+        <div class="sp-name">FIIT<span class="plus">plus</span></div>
+        <div class="sp-tag">Track &middot; Improve &middot; Achieve</div>
+        <div class="sp-bar"><i id="spfill"></i></div>
+        <div class="sp-pct"><b id="sppct">0</b>%</div>
+        <div id="loadtext">Loading ph.FBX&hellip;</div>
+    </div>
+    <div id="toast"></div>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+        import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+        import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+        import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+
+        const $ = id => document.getElementById(id);
+        const MODEL_URL = new URLSearchParams(location.search).get('src') || 'css/ph.FBX';
+
+        /* ── renderer / scene / camera ─────────────────────────── */
+        RectAreaLightUniformsLib.init();
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+        renderer.setSize(innerWidth, innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        $('view').appendChild(renderer.domElement);
+
+        // Live React app rendered as a true 3D DOM surface on the phone display.
+        const APP_URL = 'https://rr188351.github.io/Fitnpulse-app/?embed=1';
+        const iframe = document.createElement('iframe');
+        iframe.src = APP_URL;
+        iframe.title = 'Fitnpulse App';
+iframe.width = '2048';
+iframe.height = '4432';
+iframe.style.width = '2048px';
+iframe.style.height = '4432px';
+        iframe.style.border = '0';
+        iframe.style.margin = '0';
+        iframe.style.padding = '0';
+        iframe.style.display = 'block';
+        iframe.style.background = '#fff';
+        iframe.style.pointerEvents = 'auto';
+        iframe.style.borderRadius = '240px';
+        iframe.style.overflow = 'hidden';
+        iframe.style.clipPath = 'inset(0 round 240px)';
+        
+        iframe.setAttribute('allow', 'clipboard-read; clipboard-write');
+
+        const cssRenderer = new CSS3DRenderer();
+        cssRenderer.setSize(innerWidth, innerHeight);
+        cssRenderer.domElement.style.position = 'fixed';
+        cssRenderer.domElement.style.inset = '0';
+        cssRenderer.domElement.style.pointerEvents = 'none';
+        cssRenderer.domElement.style.zIndex = '5';
+        $('view').appendChild(cssRenderer.domElement);
+
+        const cssScene = new THREE.Scene();
+        const screenObject = new CSS3DObject(iframe);
+        screenObject.visible = false;
+        cssScene.add(screenObject);
+
+        /* ── cinematic studio backdrop (ENVIRONMENT POLISH ONLY) ─
+           Screen-space radial grade: center #0A0F17 → corners #02040A,
+           with an extremely soft dark-blue (#071522) breath + a whisper of
+           cyan upper-right for silhouette separation. Rendered in-WebGL so
+           screenshots keep the grade. No horizon, no pattern, no gray. */
+        function makeStudioBackground() {
+            const cv = document.createElement('canvas');
+            cv.width = 1024; cv.height = 1024;
+            const c = cv.getContext('2d');
+            const base = c.createRadialGradient(512, 430, 60, 512, 512, 780);
+            base.addColorStop(0, '#0c1220');
+            base.addColorStop(0.32, '#0A0F17');
+            base.addColorStop(0.7, '#04070d');
+            base.addColorStop(1, '#02040A');
+            c.fillStyle = base; c.fillRect(0, 0, 1024, 1024);
+            /* faint dark-blue separation breath, upper-right of center */
+            const sep = c.createRadialGradient(660, 330, 20, 660, 330, 420);
+            sep.addColorStop(0, 'rgba(10,30,48,0.55)');
+            sep.addColorStop(0.5, 'rgba(12,32,52,0.22)');
+            sep.addColorStop(1, 'rgba(12,32,52,0)');
+            c.fillStyle = sep; c.fillRect(0, 0, 1024, 1024);
+            /* whisper of cyan near the upper-right silhouette */
+            const cyan = c.createRadialGradient(700, 300, 10, 700, 300, 300);
+            cyan.addColorStop(0, 'rgba(34,211,238,0.06)');
+            cyan.addColorStop(1, 'rgba(34,211,238,0)');
+            c.fillStyle = cyan; c.fillRect(0, 0, 1024, 1024);
+            /* gentle cool falloff from the top so the grade never looks flat */
+            const top = c.createLinearGradient(0, 0, 0, 1024);
+            top.addColorStop(0, 'rgba(160,200,255,0.04)');
+            top.addColorStop(0.4, 'rgba(160,200,255,0)');
+            c.fillStyle = top; c.fillRect(0, 0, 1024, 1024);
+            const tex = new THREE.CanvasTexture(cv);
+            tex.colorSpace = THREE.SRGBColorSpace;
+            /* Used as scene.background: three renders a plain Texture as a
+               screen-space backdrop (stable while orbiting), so screenshots
+               keep the grade too. */
+            return tex;
+        }
+
+        const scene = new THREE.Scene();
+        /* Cinematic grade: center #0A0F17 → corners #02040A, soft #071522
+           separation breath + whisper of cyan upper-right. Matching CSS sits
+           behind the canvas pre-first-frame; the WebGL backdrop is what the
+           screenshots capture. No horizon, no pattern, no gray. */
+        scene.background = makeStudioBackground();
+        scene.fog = new THREE.Fog(0x04070d, 70, 170);
+        /* VERY LOW environment fill: dark RoomEnvironment kept subtle so the
+           phone stays the brightest object and the background stays near-black. */
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+        /* r160 has no scene.environmentIntensity (added r163) — set it when
+           available; per-material envMapIntensity below is the real control. */
+        if ('environmentIntensity' in scene) scene.environmentIntensity = 0.22;
+
+        const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 0.1, 600);
+        camera.position.set(14, 7, 26);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.minDistance = 5;
+        controls.maxDistance = 120;
+        controls.enablePan = true;
+        controls.panSpeed = 0.75;
+        controls.screenSpacePanning = true;
+        controls.target.set(0, 0, 0);
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.1;
+
+        /* ── 2026 premium cinematic studio lighting ──────────────
+           LIGHTING ONLY: camera, scale, orientation, geometry and materials
+           handled elsewhere are untouched. Broad soft area reflections keep
+           dark titanium readable without neon / overexposure. */
+        const studioRig = new THREE.Group();
+        studioRig.name = 'studioRig';
+        scene.add(studioRig);
+
+        /* 1. LARGE SOFT KEY — front-left + slightly above, neutral/cool white.
+           Reveals front frame, bezel and screen edge with soft metallic gradient.
+           Boosted for the bright render look: edges stay sharp, nothing blows out. */
+        const key = new THREE.RectAreaLight(0xf7faff, 5.8, 30, 30);
+        key.position.set(-18, 16, 24);
+        key.lookAt(0, 0, 0);
+        studioRig.add(key);
+        /* Soft shadow-carrying twin (RectArea cannot cast shadows). */
+        const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+        sun.position.set(-14, 20, 18);
+        sun.castShadow = true;
+        sun.shadow.mapSize.set(2048, 2048);
+        sun.shadow.bias = -0.0004;
+        sun.shadow.radius = 8;
+        studioRig.add(sun);
+
+        /* 2. LARGE SOFT FILL — front-right, lower intensity blue-white.
+           Prevents pure black on the right while retaining shadow depth. */
+        const fill = new THREE.RectAreaLight(0xd8ebff, 2.4, 26, 22);
+        fill.position.set(20, 6, 20);
+        fill.lookAt(0, 0, 0);
+        studioRig.add(fill);
+        const fillSoft = new THREE.DirectionalLight(0xbfd8ff, 0.35);
+        fillSoft.position.set(16, 6, 16);
+        studioRig.add(fillSoft);
+
+        /* 2B. REAR BEAUTY LIGHTS — keep the titanium back readable when the
+           rear camera is active, without flattening the front render. */
+        const backKey = new THREE.RectAreaLight(0xffffff, 4.2, 24, 30);
+        backKey.position.set(0, 12, -24);
+        backKey.lookAt(0, 0, 0);
+        studioRig.add(backKey);
+        const backSoft = new THREE.SpotLight(0x9fdcff, 90, 110, Math.PI / 4.2, 0.7, 1.4);
+        backSoft.position.set(-12, 8, -28);
+        backSoft.target.position.set(0, 0, 0);
+        studioRig.add(backSoft, backSoft.target);
+
+        /* 3. STRONG COOL CYAN RIM — behind + upper-right. Main silhouette
+           separator: visible cyan edge highlight around the dark phone. */
+        const rim = new THREE.SpotLight(0x22d3ee, 220, 120, Math.PI / 5, 0.55, 1.6);
+        rim.position.set(10, 20, -24);
+        rim.target.position.set(0, 0, 0);
+        studioRig.add(rim, rim.target);
+
+        /* 4. SUBTLE PURPLE/BLUE SECONDARY RIM — behind-left for premium
+           colored reflections on titanium edges. */
+        const rim2 = new THREE.SpotLight(0x8b5cf6, 90, 120, Math.PI / 4.5, 0.7, 1.7);
+        rim2.position.set(-16, 10, -22);
+        rim2.target.position.set(0, 2, 0);
+        studioRig.add(rim2, rim2.target);
+
+        /* 5. VERY SOFT WHITE TOP — reveals top edges + controlled highlight
+           on the rounded frame. */
+        const top = new THREE.RectAreaLight(0xffffff, 3.0, 22, 10);
+        top.position.set(0, 26, 2);
+        top.lookAt(0, 0, 0);
+        studioRig.add(top);
+
+        /* OPTIONAL very subtle emerald accent — front low-right, whisper only. */
+        const kick = new THREE.PointLight(0x34d399, 8, 60, 1.8);
+        kick.position.set(16, -4, 10);
+        studioRig.add(kick);
+
+        /* ── broad reflection cards (REFLECTION POLISH ONLY) ─────
+           Large soft sources that read as smooth gradients across dark
+           titanium + a whisper of sheen on the glass. Existing key / fill /
+           rim / top hierarchy and exposure are untouched. */
+        /* TOP-RIGHT cool blue/cyan wash for broad upper reflections */
+        const cardTR = new THREE.RectAreaLight(0x9fd4ff, 1.6, 24, 16);
+        cardTR.position.set(18, 20, 12);
+        cardTR.lookAt(0, 0, 0);
+        studioRig.add(cardTR);
+        /* RIGHT EDGE narrow cyan strip — long highlight along the rail */
+        const cardR = new THREE.RectAreaLight(0x38e1f5, 2.6, 4, 30);
+        cardR.position.set(24, 6, -8);
+        cardR.lookAt(0, 0, 0);
+        studioRig.add(cardR);
+        /* LEFT EDGE narrow violet strip — subtle premium edge reflection */
+        const cardL = new THREE.RectAreaLight(0x8b7cf6, 1.4, 4, 26);
+        cardL.position.set(-24, 6, -8);
+        cardL.lookAt(0, 0, 0);
+        studioRig.add(cardL);
+        /* LOWER EDGE very soft neutral lift from below-front */
+        const cardLow = new THREE.RectAreaLight(0xdfe6ee, 0.8, 26, 8);
+        cardLow.position.set(0, -18, 16);
+        cardLow.lookAt(0, 0, 0);
+        studioRig.add(cardLow);
+        /* GLASS SHEEN broad cool highlight; the screen UI uses unlit basic
+           material so it stays fully readable underneath. */
+        const cardGlass = new THREE.RectAreaLight(0xdceeff, 1.0, 34, 12);
+        cardGlass.position.set(5, 18, 30);
+        cardGlass.lookAt(0, 0, 0);
+        studioRig.add(cardGlass);
+
+        /* VERY LOW ambient base so nothing crushes to pure black. */
+        studioRig.add(new THREE.HemisphereLight(0x8fa8c8, 0x0a0e16, 0.28));
+
+        /* ── studio floor (ENVIRONMENT POLISH ONLY) ────────────
+           Very dark disc, a breath lighter than the backdrop, with a soft
+           ambient sheen + real contact shadow so the phone feels grounded.
+           Edges fade to nothing: no horizon line, no pattern. */
+        function makeFloorFade() {
+            const cv = document.createElement('canvas');
+            cv.width = 256; cv.height = 256;
+            const c = cv.getContext('2d');
+            const g = c.createRadialGradient(128, 128, 10, 128, 128, 128);
+            g.addColorStop(0, '#ffffff');
+            g.addColorStop(0.55, '#8a8a8a');
+            g.addColorStop(1, '#000000');
+            c.fillStyle = g; c.fillRect(0, 0, 256, 256);
+            return new THREE.CanvasTexture(cv);
+        }
+        const ground = new THREE.Mesh(
+            new THREE.CircleGeometry(1, 64),
+            new THREE.MeshStandardMaterial({
+                color: 0x080d17, roughness: 0.38, metalness: 0.5,
+                transparent: true, alphaMap: makeFloorFade(), envMapIntensity: 0.5,
+                depthWrite: false
+            })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        ground.scale.setScalar(30);
+        scene.add(ground);
+
+        /* Subtle screen spill: app display kisses the bezel/glass without
+           overexposing the screen. Intensity follows the phone scale. */
+        const screenGlow = new THREE.PointLight(0xbfd9ff, 2.2, 20, 2.0);
+        screenGlow.position.set(0, 0, 6);
+        scene.add(screenGlow);
+
+        const grid = new THREE.GridHelper(120, 60, 0x1c4a38, 0x0e2419);
+        grid.material.transparent = true;
+        grid.material.opacity = 0.22;
+        scene.add(grid);
+        /* Lab grid is a viewport aid, not part of the product look:
+           default OFF so the backdrop stays a clean studio grade. */
+        grid.visible = false;
+        $('tglGrid').checked = false;
+        /* ── app screen texture (canvas) ───────────────────────── */
+        function rr(c, x, y, w, h, r) {
+            c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r);
+            c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath();
+        }
+const SCREENS = [
+            { n:'01', t:'Splash', s:'AUTH', dark:true },
+            { n:'02', t:'Walkthrough Health', s:'ONBOARD', dark:true },
+            { n:'03', t:'Walkthrough AI', s:'ONBOARD', dark:true },
+            { n:'04', t:'Walkthrough Motivate', s:'ONBOARD', dark:true },
+            { n:'05', t:'Login', s:'AUTH', dark:true },
+            { n:'06', t:'Sign Up', s:'AUTH', dark:true },
+            { n:'07', t:'Profile Setup', s:'ONBOARD', dark:true },
+            { n:'08', t:'Device Sync', s:'AUTH', dark:true },
+            { n:'09', t:'Goal Selection', s:'AUTH', dark:true },
+            { n:'10', t:'Permissions', s:'AUTH', dark:true },
+            { n:'11', t:'Home Dashboard', s:'HOME', dark:true },
+            { n:'12', t:'Home · Notifications', s:'HOME', dark:true },
+            { n:'13', t:'Home · Quick Add', s:'HOME', dark:true },
+            { n:'14', t:'Workout Categories', s:'WORKOUT', dark:true },
+            { n:'15', t:'Live Workout', s:'WORKOUT', dark:true },
+            { n:'16', t:'Activity · Steps', s:'ACTIVITY', dark:false },
+            { n:'17', t:'Activity · Heart', s:'ACTIVITY', dark:false },
+            { n:'18', t:'Activity · Calories', s:'ACTIVITY', dark:false },
+            { n:'19', t:'Activity · Sleep', s:'ACTIVITY', dark:false },
+            { n:'20', t:'Activity · Stress', s:'ACTIVITY', dark:false },
+            { n:'21', t:'Activity · Water', s:'ACTIVITY', dark:false },
+            { n:'22', t:'Progress Review', s:'PROGRESS', dark:false },
+            { n:'23', t:'Community', s:'SOCIAL', dark:true },
+            { n:'24', t:'Join Challenge', s:'SOCIAL', dark:true },
+            { n:'25', t:'Invite People', s:'SOCIAL', dark:true },
+            { n:'26', t:'Share Progress', s:'SOCIAL', dark:true },
+            { n:'27', t:'Account / Profile', s:'ACCOUNT', dark:true },
+            { n:'28', t:'Edit Profile', s:'ACCOUNT', dark:true },
+            { n:'29', t:'Subscription', s:'ACCOUNT', dark:true },
+            { n:'30', t:'Personal Records', s:'ACCOUNT', dark:true }
+        ];
+        /* All 30 app screens mirror the standalone showcase 1:1
+           (../showcase/index.html) inside a 390x844 logical space.
+           The 512x1108 canvas is 390x844 scaled by u = W/390. */
+        const DISPLAY_MS = 3000;
+
+        /* ── drawing helpers (390x844 logical units) ─────────────── */
+        const AC = { g:'#16a34a', ln:'#65a30d', cy:'#0891b2', og:'#ea580c', rd:'#dc2626', pu:'#7c3aed', pk:'#db2777' };
+        let SK = { dark:true, tx:'#e8eef7', t2:'#c2cfe0', tm:'#7e8ca3', card:'rgba(255,255,255,.06)', card2:'rgba(255,255,255,.09)', bd:'rgba(255,255,255,.09)', trk:'rgba(255,255,255,.1)', fld:'rgba(255,255,255,.09)' };
+        function Ft(c, s, w, Fn) { c.font = (w || 400) + ' ' + s + 'px ' + (Fn || 'Outfit') + ', "DM Sans", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif'; }
+        function Tx(c, s, x, y, sz, col, w, a, Fn) { if (s === null || s === '') return; Ft(c, sz, w || 400, Fn); c.textAlign = a || 'left'; c.textBaseline = 'alphabetic'; c.fillStyle = col; c.fillText(s, x, y); }
+        /* Emoji render crisp + full opacity in BOTH themes (the earlier halo
+   pass washed them out in dark mode). Extra args kept for
+   compatibility with existing call sites ('none' etc.) but ignored. */
+        function Em(c, s, x, y, sz, glow, alpha) {
+            c.font = sz + 'px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Segoe UI Symbol",sans-serif';
+            c.textAlign = 'center'; c.textBaseline = 'middle';
+            if (s) c.fillText(s, x, y);
+            c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+        }
+        function RR(c, x, y, w, h, r, fill, stroke, lw) { const p = Math.min(r || 0, w / 2, h / 2); c.beginPath(); c.moveTo(x + p, y); c.arcTo(x + w, y, x + w, y + h, p); c.arcTo(x + w, y + h, x, y + h, p); c.arcTo(x, y + h, x, y, p); c.arcTo(x, y, x + w, y, p); c.closePath(); if (fill) { c.fillStyle = fill; c.fill(); } if (stroke) { c.strokeStyle = stroke; c.lineWidth = lw || 1; c.stroke(); } }
+        function RRTop(c, x, y, w, h, r, fill) { const p = Math.min(r || 0, w / 2, h); c.beginPath(); c.moveTo(x + p, y); c.arcTo(x + w, y, x + w, y + h, p); c.arcTo(x + w, y + h, x, y + h, 0); c.arcTo(x, y + h, x, y, 0); c.arcTo(x, y, x + w, y, p); c.closePath(); if (fill) { c.fillStyle = fill; c.fill(); } }
+        function Card(c, x, y, w, h, r) { RR(c, x, y, w, h, r || 18, SK.card, SK.bd, 1); }
+        function Tile(c, x, y, sz, e, eb, bg, bd, r) { RR(c, x, y, sz, sz, r || 11, bg || 'rgba(22,163,74,.15)', bd || 'rgba(22,163,74,.25)', 1); Em(c, e, x + sz / 2, y + sz / 2, eb || sz / 2.1); }
+        function Field(c, x, y, w, h, ic, ph, pcol) { RR(c, x, y, w, h, 14, SK.card, SK.fld, 1); Em(c, ic, x + 24, y + h / 2, 16); Tx(c, ph, x + 44, y + h / 2 + 5, 15, pcol === undefined ? SK.tm : pcol, 500, 'left'); }
+        function Tag(c, x, y, text, col, bg, bd, sz) { Ft(c, sz || 11, 700, 'Outfit'); const tw = c.measureText(text).width; const hh = (sz || 11) + 9, w = tw + 16; RR(c, x, y, w, hh, hh / 2, bg || 'rgba(22,163,74,.18)', bd || 'rgba(22,163,74,.35)', 1); Tx(c, text, x + w / 2, y + hh / 2 + 3.6, sz || 11, col || AC.g, 700, 'center', 'Outfit'); }
+        function Track(c, x, y, w, pct, col, bg) { RR(c, x, y, w, 6, 3, bg === undefined ? SK.trk : bg, null, 0); if (pct > 0) { const g = c.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, col || AC.g); g.addColorStop(1, col || AC.ln); RR(c, x, y, Math.max(w * pct, 9), 6, 3, g, null, 0); } }
+        function Bars(c, x, y, w, h, vals, col, lastCol) { const n = vals.length, gap = 4, bw = (w - gap * (n - 1)) / n; vals.forEach((v, k) => { const hh = Math.max((h * v / 100) | 0, 3); RR(c, x + k * (bw + gap), y + h - hh, bw, hh, bw > 12 ? 4 : 3, k === n - 1 && lastCol ? lastCol : (col || 'rgba(22,163,74,.55)'), null, 0); }); }
+        function Ring(c, cx, cy, r, lw, pct, col, trk) { const p = Math.max(0, Math.min(1, pct)); c.lineCap = 'round'; c.beginPath(); c.arc(cx, cy, r, -Math.PI / 2, Math.PI * 1.5); c.strokeStyle = trk || SK.trk; c.lineWidth = lw; c.stroke(); c.beginPath(); c.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p); c.strokeStyle = col || AC.g; c.lineWidth = lw; c.stroke(); }
+        function Line(c, x, y, w, h, pts, col, fill) { c.beginPath(); pts.forEach((pt, k) => { const px = x + pt[0] * w, py = y + pt[1] * h; k ? c.lineTo(px, py) : c.moveTo(px, py); }); c.lineJoin = 'round'; c.lineCap = 'round'; c.strokeStyle = col || AC.cy; c.lineWidth = 2.4; c.stroke(); if (fill) { c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.closePath(); const g = c.createLinearGradient(0, y, 0, y + h); g.addColorStop(0, fill); g.addColorStop(1, 'rgba(34,211,238,0)'); c.fillStyle = g; c.fill(); } }
+        function Btn(c, x, y, w, h, text, col1, col2, r) { const g = c.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, col1 || AC.g); g.addColorStop(1, col2 || '#15803d'); c.save(); if (SK.dark) { c.shadowColor = col1 || AC.g; c.shadowBlur = 16; } RR(c, x, y, w, h, r === undefined ? h / 2 : r, g, null, 0); c.restore(); Tx(c, text, x + w / 2, y + h / 2 + 5, 15, '#fff', 700, 'center'); }
+        function BtnOut(c, x, y, w, h, text, col, r) { RR(c, x, y, w, h, r === undefined ? h / 2 : r, SK.card, SK.bd, 1); Tx(c, text, x + w / 2, y + h / 2 + 5, 14, col === undefined ? SK.tx : col, 700, 'center'); }
+        function SB(c) { Tx(c, '9:41', 18, 30, 12, SK.t2, 600, 'left'); Tx(c, '●●● 5G 🔋', 372, 31, 11, SK.tm, 600, 'right'); }
+        function Head(c, title, sub) { Tx(c, '‹', 18, 62, 30, AC.g, 700, 'left'); Tx(c, title, 44, 62, 26, SK.tx, 800, 'left'); if (sub) Tx(c, sub, 18, 94, 14, SK.tm, 500, 'left'); }
+        function NAV(c, onIdx) {
+            const top = 764;
+            c.fillStyle = SK.dark ? 'rgba(9,13,22,.8)' : 'rgba(248,251,255,.9)';
+            c.fillRect(0, top, 390, 844 - top);
+            c.fillStyle = SK.bd; c.fillRect(0, top, 390, 1);
+            c.fillStyle = SK.dark ? 'rgba(255,255,255,.06)' : 'rgba(15,23,42,.05)';
+            c.fillRect(0, top + 1, 390, 79);
+            const mw = 0.17 * 390, mx = (onIdx + 0.5) * 390 / 4 - mw / 2;
+            const gr = c.createLinearGradient(mx, 0, mx + mw, 0); gr.addColorStop(0, AC.g); gr.addColorStop(1, AC.cy);
+            c.fillStyle = gr; c.fillRect(mx, top, mw, 3);
+            [['🏠', 'Home'], ['📊', 'Progress'], ['👥', 'Community'], ['👤', 'Account']].forEach((it, k) => {
+                const cx = (k + 0.5) * 390 / 4;
+                if (k === onIdx) { c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.55)'; c.shadowBlur = 12; } RR(c, cx - 23, top + 14, 46, 25, 12.5, SK.dark ? 'rgba(22,163,74,.22)' : 'rgba(22,163,74,.14)', null, 0); c.restore(); }
+                Em(c, it[0], cx, top + 33, 21);
+                Tx(c, it[1], cx, top + 60, 10, k === onIdx ? AC.g : SK.tm, k === onIdx ? 700 : 500, 'center');
+            });
+            c.fillStyle = SK.dark ? 'rgba(255,255,255,.3)' : 'rgba(15,23,42,.25)';
+            RR(c, 140, 830, 110, 4, 2, c.fillStyle, null, 0);
+        }
+        function Sheet(c, top, title, sub) {
+            c.fillStyle = SK.dark ? 'rgba(5,8,15,.82)' : 'rgba(248,251,255,.88)';
+            c.fillRect(0, 0, 390, 844);
+            RRTop(c, 0, top, 390, 844 - top, 28, SK.dark ? 'rgba(12,17,29,.96)' : 'rgba(247,250,253,.99)');
+            c.fillStyle = SK.bd; c.fillRect(0, top, 390, 1);
+            RR(c, 165, top + 8, 60, 4, 2, SK.trk, null, 0);
+            Tx(c, title, 22, top + 40, 19, SK.tx, 800, 'left');
+            Tx(c, '✕', 366, top + 40, 15, SK.tm, 600, 'right');
+            if (sub) Tx(c, sub, 22, top + 66, 12, SK.tm, 500, 'left');
+        }
+        function ChipRow(c, y, active, items) { let x = 18; const gap = 8; items.forEach((it, k) => { const w = it.w || (it.t.length * 7.4 + 26); const on = k === active; RR(c, x, y, w, 32, 16, on ? SK.card2 : SK.card, on ? 'rgba(22,163,74,.55)' : SK.bd, on ? 1.5 : 1); Tx(c, it.t, x + w / 2, y + 21, 12, on ? AC.g : SK.tm, 700, 'center'); x += w + gap; }); }
+        function StatBox(c, x, y, w, v, l, col) { RR(c, x, y, w, 58, 14, SK.card, SK.bd, 1); Tx(c, v, x + w / 2, y + 24, 15, col || AC.g, 800, 'center'); Tx(c, l, x + w / 2, y + 45, 9.5, SK.tm, 500, 'center'); }
+        /* ── top-level painter: 512×1108 canvas → 390×844 layout ── */
+        function drawScreen(cv, idx, anim) {
+            const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+            const sc = SCREENS[idx % SCREENS.length];
+            const dark = sc.dark;
+            c.save();
+            c.clearRect(0, 0, W, H);
+            c.beginPath();
+            /* Screen corner radius — tuned to the phone model's rounded display
+   so the app "glass" matches the device silhouette (0.11 × min side). */
+            const SR = Math.min(W, H) * 0.11;
+            if (c.roundRect) c.roundRect(0, 0, W, H, SR);
+            else { c.moveTo(SR, 0); c.arcTo(W, 0, W, H, SR); c.arcTo(W, H, 0, H, SR); c.arcTo(0, H, 0, 0, SR); c.arcTo(0, 0, W, 0, SR); c.closePath(); }
+            c.clip();
+            const bg = c.createLinearGradient(0, 0, W * 0.72, H);
+            if (dark) { bg.addColorStop(0, '#05070d'); bg.addColorStop(0.45, '#0a111d'); bg.addColorStop(1, '#06080f'); }
+            else { bg.addColorStop(0, '#f0fdf4'); bg.addColorStop(0.16, '#dcfce7'); bg.addColorStop(0.42, '#cffafe'); bg.addColorStop(0.6, '#e0f2fe'); bg.addColorStop(0.82, '#faf5ff'); bg.addColorStop(1, '#fdf4ff'); }
+            c.fillStyle = bg; c.fillRect(0, 0, W, H);
+            const g1 = c.createRadialGradient(W * 0.84, H * 0.02, 1, W * 0.84, H * 0.02, W * 0.52);
+            g1.addColorStop(0, dark ? 'rgba(52,211,153,.09)' : 'rgba(22,163,74,.15)'); g1.addColorStop(1, 'rgba(0,0,0,0)');
+            c.fillStyle = g1; c.fillRect(0, 0, W, H);
+            const g2 = c.createRadialGradient(W * 0.1, H * 0.82, 1, W * 0.1, H * 0.82, W * 0.58);
+            g2.addColorStop(0, dark ? 'rgba(34,211,238,.08)' : 'rgba(8,145,178,.1)'); g2.addColorStop(1, 'rgba(0,0,0,0)');
+            c.fillStyle = g2; c.fillRect(0, 0, W, H);
+            c.scale(W / 390, H / 844);
+            SK = { dark, tx: dark ? '#e8eef7' : '#1f2937', t2: dark ? '#c2cfe0' : '#374151', tm: dark ? '#7e8ca3' : '#6b7280', card: dark ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.72)', card2: dark ? 'rgba(255,255,255,.09)' : 'rgba(255,255,255,.8)', bd: dark ? 'rgba(255,255,255,.09)' : 'rgba(15,23,42,.09)', trk: dark ? 'rgba(255,255,255,.1)' : '#f3f4f6', fld: dark ? 'rgba(255,255,255,.09)' : '#e5e7eb' };
+            drawScreenBody(c, idx % SCREENS.length, dark, anim || 0);
+            c.restore();
+        }
+        /* Home dashboard body — shared by s11 (full), s12 (dimmed under
+           the notifications sheet) and s13 (quick-add base). */
+        function homeBase(c, alpha) {
+            c.save(); c.globalAlpha = alpha;
+            SB(c);
+            const gr = c.createLinearGradient(18, 0, 62, 0); gr.addColorStop(0, AC.g); gr.addColorStop(1, AC.cy);
+                        c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.45)'; c.shadowBlur = 14; } RR(c, 18, 48, 44, 44, 22, gr, null, 0); c.restore(); Em(c, '👩‍🦱', 40, 70, 22, 'none');
+            Tx(c, 'Good Morning 👋', 74, 62, 12, SK.tm, 500, 'left');
+            Tx(c, 'Ananya', 74, 82, 17, SK.tx, 800, 'left');
+            RR(c, 232, 54, 82, 28, 14, SK.card, SK.bd, 1); Tx(c, '🔥 14 streak', 273, 72, 11, AC.og, 700, 'center');
+                        RR(c, 330, 52, 36, 36, 18, SK.card, SK.bd, 1); Em(c, '🔔', 348, 70, 17);
+            c.save(); if (SK.dark) { c.shadowColor = 'rgba(220,38,38,.55)'; c.shadowBlur = 8; } RR(c, 354, 54, 14, 14, 7, AC.rd, null, 0); c.restore(); Tx(c, '4', 361, 63, 8, '#fff', 800, 'center');
+            Card(c, 18, 108, 354, 168, 22);
+            Tx(c, 'Today\'s Steps', 36, 134, 11, SK.tm, 600, 'left');
+            Tx(c, '12,847', 36, 172, 34, SK.tx, 900, 'left');
+            Tx(c, '↑ 28% vs yesterday', 36, 196, 11, AC.g, 700, 'left');
+            Tag(c, 300, 134, '128% Goal');
+            Bars(c, 36, 208, 318, 46, [55, 68, 60, 80, 70, 90, 100], 'rgba(22,163,74,.4)', AC.g);
+            Tx(c, 'M   T   W   T   F   S   S', 36, 268, 9, SK.tm, 500, 'left');
+            Card(c, 18, 292, 172, 96, 16);
+            Tile(c, 34, 308, 38, '❤️', 19, 'rgba(220,38,38,.15)', 'rgba(220,38,38,.25)');
+            Tx(c, 'Heart Rate', 34, 366, 10.5, SK.tm, 600, 'left'); Tx(c, '72 BPM', 34, 382, 14, SK.tx, 800, 'left');
+            Card(c, 200, 292, 172, 96, 14);
+            Tile(c, 216, 308, 38, '🔥', 19, 'rgba(234,88,12,.15)', 'rgba(234,88,12,.25)');
+            Tx(c, 'Calories', 216, 366, 10.5, SK.tm, 600, 'left'); Tx(c, '1,847 kcal', 216, 382, 14, SK.tx, 800, 'left');
+            [['💧', '1.8L', 'Water · 2.5L'], ['😴', '7.4hrs', 'Sleep · Deep 2.1h'], ['🧠', 'Low', 'Stress · 24/100']].forEach((m, k) => {
+                const x0 = 18 + k * 120;
+                Card(c, x0, 402, 114, 84, 14);
+                Em(c, m[0], x0 + 57, 424, 20); Tx(c, m[1], x0 + 57, 454, 15, SK.tx, 800, 'center'); Tx(c, m[2], x0 + 57, 474, 9, SK.tm, 500, 'center');
+            });
+            Card(c, 18, 500, 354, 132, 18);
+            RR(c, 18, 500, 4, 132, 2, AC.g, null, 0);
+            Tx(c, '✨ AI Insights', 36, 526, 14, SK.tx, 700, 'left');
+            Tag(c, 140, 514, 'NEW', AC.cy, 'rgba(8,145,178,.18)', 'rgba(8,145,178,.35)', 9);
+            ['Great progress this week! Hit step goal 5 days in a row.',
+             'Heart rate improved by 8% — cardio sessions are working!',
+             'Consider a rest day — recovery maximizes muscle gains.'].forEach((s, k) => {
+                Tx(c, '●', 38, 556 + k * 26, 10, AC.g, 700, 'left');
+                Tx(c, s, 54, 555 + k * 26, 11, SK.t2, 500, 'left');
+            });
+            Card(c, 18, 646, 354, 92, 18);
+            Tx(c, '🏆 Weekly Challenge', 36, 672, 13, SK.tx, 700, 'left');
+            Tag(c, 256, 660, '3 days left', AC.og, 'rgba(234,88,12,.18)', 'rgba(234,88,12,.35)', 9);
+            Tx(c, '10,000 Steps Every Day', 36, 696, 11, SK.tm, 500, 'left');
+            Track(c, 36, 706, 318, 0.72);
+            Tx(c, '72% completed', 36, 728, 10, SK.tm, 500, 'left');
+            Tx(c, '1,247 participants', 354, 728, 10, AC.g, 700, 'right');
+            c.restore();
+        }
+        function drawScreenBody(c, i, dark, anim) {
+            if (i === 0) {
+                /* 01 — Splash Screen */
+                const lg = c.createLinearGradient(155, 0, 235, 0); lg.addColorStop(0, AC.g); lg.addColorStop(1, AC.cy);
+                c.save(); if (SK.dark) { c.shadowColor = 'rgba(52,211,153,.5)'; c.shadowBlur = 26; } RR(c, 155, 148, 80, 80, 40, lg, null, 0); c.restore();
+                Em(c, '⚡', 195, 189, 38, 'none');
+                Tx(c, 'FitPulse', 195, 292, 46, SK.tx, 900, 'center');
+                Tx(c, 'TRACK. IMPROVE. ACHIEVE.', 195, 322, 11, SK.tm, 600, 'center');
+                const rot = ((anim / 900) % 1) * Math.PI * 2;
+                c.lineCap = 'round';
+                c.beginPath(); c.arc(195, 392, 22, -Math.PI / 2, Math.PI * 1.5); c.strokeStyle = dark ? 'rgba(52,211,153,.18)' : 'rgba(22,163,74,.18)'; c.lineWidth = 4; c.stroke();
+                c.beginPath(); c.arc(195, 392, 22, rot - Math.PI / 2, rot + 1.1); c.strokeStyle = AC.g; c.lineWidth = 4; c.stroke();
+                Tx(c, '© 2025 FitPulse Inc.', 195, 806, 11, dark ? 'rgba(255,255,255,.35)' : 'rgba(31,41,55,.35)', 500, 'center');
+            } else if (i <= 3) {
+                Tx(c, 'Skip', 366, 36, 14, SK.tm, 500, 'right');
+                if (i === 1) {
+                    RR(c, 112, 108, 166, 166, 83, dark ? 'rgba(22,163,74,.08)' : 'rgba(22,163,74,.12)', null, 0);
+                    c.strokeStyle = dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.25)'; c.lineWidth = 1; c.beginPath(); c.arc(195, 191, 85, 0, Math.PI * 2); c.stroke();
+                    Em(c, '🏃‍♂️', 195, 193, 84);
+                    RR(c, 20, 122, 118, 30, 15, SK.card, SK.bd, 1); Tx(c, '👟 8,432 Steps', 24, 141, 11, AC.g, 700, 'left');
+                    RR(c, 126, 168, 96, 30, 15, SK.card, SK.bd, 1); Tx(c, '❤️ 72 BPM', 130, 187, 11, AC.rd, 700, 'left');
+                    RR(c, 44, 262, 104, 30, 15, SK.card, SK.bd, 1); Tx(c, '🔥 482 kcal', 48, 281, 11, AC.og, 700, 'left');
+                    RR(c, 130, 314, 28, 8, 4, AC.g, null, 0); RR(c, 162, 314, 8, 8, 4, SK.trk, null, 0); RR(c, 176, 314, 8, 8, 4, SK.trk, null, 0);
+                    Tx(c, 'Track Your Health Easily', 195, 366, 27, SK.tx, 800, 'center');
+                    Tx(c, 'Monitor steps, heart rate, calories', 195, 400, 14.5, SK.tm, 500, 'center');
+                    Tx(c, '& sleep all in one place.', 195, 424, 14.5, SK.tm, 500, 'center');
+                    Btn(c, 18, 758, 354, 52, 'Continue');
+                } else if (i === 2) {
+                    Card(c, 18, 118, 354, 196, 22);
+                    Tx(c, '✨ AI Weekly Analysis', 36, 148, 12, AC.cy, 700, 'left');
+                    Tx(c, '🎯 Goal: 95%', 354, 148, 10, AC.g, 700, 'right');
+                    Bars(c, 36, 172, 318, 56, [52, 62, 46, 70, 64, 78, 72], AC.cy);
+                    [['92%', 'Fitness', AC.g], ['78%', 'Sleep', AC.pu], ['34%', 'Stress', AC.og], ['88%', 'Heart', AC.rd]].forEach((s, k) => {
+                        Tx(c, s[0], 68 + k * 74, 256, 13, s[2], 800, 'center');
+                        Tx(c, s[1], 68 + k * 74, 276, 9, SK.tm, 500, 'center');
+                    });
+                    RR(c, 130, 336, 8, 8, 4, SK.trk, null, 0); RR(c, 148, 336, 8, 8, 4, SK.trk, null, 0); RR(c, 162, 336, 28, 8, 4, AC.cy, null, 0);
+                    Tx(c, 'AI Insights For Your Goals', 195, 388, 27, SK.tx, 800, 'center');
+                    Tx(c, 'Personalized predictions & weekly analytics.', 195, 420, 14.5, SK.tm, 500, 'center');
+                    Btn(c, 18, 758, 354, 52, 'Continue');
+                } else {
+                    Card(c, 18, 112, 354, 104, 20);
+                    RR(c, 26, 120, 64, 64, 32, 'rgba(124,58,237,.14)', 'rgba(124,58,237,.35)', 1);
+                    Tx(c, '🏆', 58, 153, 34, SK.tx, 700, 'center');
+                    Tx(c, 'Champion League', 104, 152, 12, AC.pu, 800, 'left');
+                    Tx(c, 'Monthly step race — top 3 win badges', 104, 174, 10.5, SK.tm, 500, 'left');
+                    [['👩‍🎤', 'Ananya', '12.4k', AC.g], ['🧑‍🎓', 'Rahul', '11.8k', AC.og], ['👩‍🦳', 'Priya', '10.9k', AC.cy]].forEach((u, k) => {
+                        const x0 = 26 + k * 118;
+                        Card(c, x0, 238, 108, 92, 12);
+                        Em(c, u[0], x0 + 54, 270, 22);
+                        Tx(c, u[1], x0 + 54, 302, 10, SK.tx, 700, 'center');
+                        Tx(c, u[2], x0 + 54, 318, 11, u[3], 700, 'center');
+                    });
+                    RR(c, 130, 352, 8, 8, 4, SK.trk, null, 0); RR(c, 148, 352, 8, 8, 4, SK.trk, null, 0); RR(c, 162, 352, 28, 8, 4, AC.g, null, 0);
+                    Tx(c, 'Stay Motivated Together', 195, 404, 27, SK.tx, 800, 'center');
+                    Tx(c, 'Join challenges & celebrate wins with friends.', 195, 436, 14.5, SK.tm, 500, 'center');
+                    Btn(c, 18, 758, 354, 52, 'Get Started');
+                }
+            } else if (i === 4) {
+                    /* 05 — Login */
+                    const lg5 = c.createLinearGradient(171, 0, 219, 0); lg5.addColorStop(0, AC.g); lg5.addColorStop(1, AC.cy);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(52,211,153,.5)'; c.shadowBlur = 18; } RR(c, 171, 88, 48, 48, 24, lg5, null, 0); c.restore(); Em(c, '⚡', 195, 112, 24, 'none');
+                    Tx(c, 'Welcome Back', 195, 176, 28, SK.tx, 800, 'center');
+                    Tx(c, 'Sign in to continue your journey', 195, 204, 14, SK.tm, 500, 'center');
+                    Card(c, 18, 232, 354, 268, 26);
+                    Field(c, 34, 258, 322, 46, '📧', 'Email');
+                    Field(c, 34, 316, 322, 46, '🔒', '••••••••');
+                    Tx(c, 'Forgot Password?', 356, 408, 13, AC.g, 600, 'right');
+                    Btn(c, 34, 428, 322, 52, 'Sign In');
+                    c.fillStyle = SK.fld; c.fillRect(34, 529, 116, 1); c.fillRect(240, 529, 116, 1);
+                    Tx(c, 'or continue with', 195, 534, 12, SK.tm, 500, 'center');
+                    RR(c, 18, 560, 354, 46, 14, SK.card, SK.bd, 1);
+                    RR(c, 58, 566, 28, 28, 14, '#4285F4', null, 0); Em(c, 'G', 72, 583, 16);
+                    Tx(c, 'Continue with Google', 205, 590, 14, SK.tx, 600, 'center');
+                    RR(c, 18, 616, 354, 46, 14, SK.card, SK.bd, 1);
+                    RR(c, 58, 622, 28, 28, 14, dark ? 'rgba(255,255,255,.14)' : 'rgba(15,23,42,.92)', null, 0); Em(c, '\uF8FF', 72, 639, 16);
+                    Tx(c, 'Continue with Apple', 205, 646, 14, SK.tx, 600, 'center');
+                    Tx(c, 'New here? ', 148, 706, 14, SK.tm, 500, 'right');
+                    Tx(c, 'Create Account', 240, 706, 14, AC.g, 700, 'left');
+                } else if (i === 5) {
+                    /* 06 — Sign Up */
+                    const lg6 = c.createLinearGradient(171, 0, 219, 0); lg6.addColorStop(0, AC.g); lg6.addColorStop(1, AC.cy);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(52,211,153,.5)'; c.shadowBlur = 18; } RR(c, 171, 88, 48, 48, 24, lg6, null, 0); c.restore(); Em(c, '⚡', 195, 112, 24, 'none');
+                    Tx(c, 'Create Account', 195, 176, 28, SK.tx, 800, 'center');
+                    Tx(c, 'Start your fitness journey today', 195, 204, 14, SK.tm, 500, 'center');
+                    Card(c, 18, 232, 354, 300, 26);
+                    Field(c, 34, 258, 322, 46, '👤', 'Full Name');
+                    Field(c, 34, 316, 322, 46, '📧', 'Email address');
+                    Field(c, 34, 374, 322, 46, '🔒', '••••••••');
+                    Field(c, 34, 432, 322, 46, '✅', '••••••••');
+                    Btn(c, 34, 494, 322, 52, 'Create Account 🎉');
+                    Tx(c, 'Already have an account? ', 128, 700, 14, SK.tm, 500, 'right');
+                    Tx(c, 'Sign In', 260, 700, 14, AC.g, 700, 'left');
+                } else if (i === 6) {
+                    /* 07 — Profile Setup */
+                    Tx(c, 'Set Up Profile', 24, 70, 26, SK.tx, 800, 'left');
+                    Tx(c, 'Help us personalize your experience', 24, 100, 14, SK.tm, 500, 'left');
+                    const lg7 = c.createLinearGradient(151, 0, 239, 0); lg7.addColorStop(0, AC.g); lg7.addColorStop(1, AC.cy);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.45)'; c.shadowBlur = 18; } RR(c, 153, 118, 84, 84, 42, lg7, null, 0); c.restore(); Em(c, '👩‍🦱', 195, 161, 38, 'none');
+                    RR(c, 219, 192, 24, 24, 12, AC.g, null, 0); Em(c, '📷', 231, 204, 12);
+                    Card(c, 18, 234, 354, 322, 22);
+                    Field(c, 34, 262, 322, 46, '👤', 'Full Name');
+                    Field(c, 34, 320, 322, 46, '🎂', 'Age');
+                    Field(c, 34, 378, 322, 46, '📏', 'Height (cm)');
+                    Field(c, 34, 436, 322, 46, '⚖️', 'Weight (kg)');
+                    Tx(c, 'Gender', 34, 500, 11.5, SK.tm, 600, 'left');
+                    ['Male', 'Female', 'Other'].forEach((g, k) => { RR(c, 34 + k * 110, 508, 104, 40, 12, SK.card, SK.bd, 1); Tx(c, g, 86 + k * 110, 532, 13, SK.t2, 600, 'center'); });
+                    Tx(c, 'Fitness Level', 24, 584, 12, SK.tm, 700, 'left');
+                    [['🌱', 'Beginner', SK.card, SK.bd, SK.t2], ['⚡', 'Intermediate', 'rgba(8,145,178,.2)', AC.cy, AC.cy], ['🔥', 'Advanced', SK.card, SK.bd, AC.og]].forEach((g, k) => {
+                        RR(c, 18 + k * 122, 598, 114, 52, 14, g[2], g[3], 1.5);
+                        Em(c, g[0], 52 + k * 122, 614, 16); Tx(c, g[1], 52 + k * 122, 636, 11, g[4], 700, 'center');
+                    });
+                    Btn(c, 18, 690, 354, 52, 'Next');
+                } else if (i === 7) {
+                    /* 08 — Device Sync */
+                    Em(c, '🔵', 195, 92, 36);
+                    Tx(c, 'Connect Device', 195, 148, 26, SK.tx, 800, 'center');
+                    Tx(c, 'Pair your tracker for complete health sync', 195, 176, 14, SK.tm, 500, 'center');
+                    RR(c, 18, 200, 354, 40, 14, dark ? 'rgba(22,163,74,.12)' : 'rgba(22,163,74,.1)', 'rgba(22,163,74,.45)', 1.5);
+                    Tx(c, '✅  Connected!', 34, 225, 14, AC.g, 700, 'left');
+                    const pg7 = c.createLinearGradient(18, 0, 372, 0); pg7.addColorStop(0, AC.g); pg7.addColorStop(1, AC.cy);
+                    RR(c, 18, 254, 354, 4, 2, SK.fld, null, 0); RR(c, 18, 254, 354, 4, 2, pg7, null, 0);
+                    const devs = [['⌚', 'Apple Watch', 'Series 9', true], ['⌚', 'Samsung Watch', 'Galaxy 6', false], ['🏃', 'Fitbit', 'Charge 6', false], ['🗺️', 'Garmin', 'Forerunner 265', false], ['📱', 'Mi Band', 'Band 8 Pro', false], ['⌚', 'Smartwatch', 'Generic BLE', false]];
+                    devs.forEach((d, k) => {
+                        const col = k % 2, row = (k / 2) | 0, dx = 18 + col * 182, dy = 282 + row * 102;
+                        RR(c, dx, dy, 172, 92, 18, d[3] ? SK.card2 : SK.card, d[3] ? 'rgba(22,163,74,.55)' : SK.bd, d[3] ? 1.5 : 1);
+                        Em(c, d[0], dx + 30, dy + 30, 26);
+                        Tx(c, d[1], dx + 16, dy + 56, 13, SK.tx, 700, 'left');
+                        Tx(c, d[2], dx + 16, dy + 74, 11, SK.tm, 500, 'left');
+                        if (d[3]) { Tx(c, '✓ Connected', dx + 156, dy + 74, 10, AC.g, 700, 'right'); }
+                    });
+                    Btn(c, 18, 648, 354, 50, 'Continue');
+                } else if (i === 8) {
+                    /* 09 — Goal Selection */
+                    Tx(c, 'Choose Your Goals', 24, 68, 26, SK.tx, 800, 'left');
+                    Tx(c, 'Multi-select what matters most', 24, 96, 14, SK.tm, 500, 'left');
+                    [['🏃', 'Lose Weight', 'Goal: 2.5 kg in 8 weeks', true], ['💪', 'Build Muscle', 'Strength training program', false], ['❤️', 'Boost Endurance', 'Cardio & stamina focus', false], ['🧘', 'Improve Flexibility', 'Yoga & mobility routine', true], ['⚡', 'Stay Consistent', 'Habit & streak building', false]].forEach((g, k) => {
+                        const y = 122 + k * 74;
+                        RR(c, 18, y, 354, 64, 16, g[3] ? SK.card2 : SK.card, g[3] ? 'rgba(22,163,74,.6)' : SK.bd, g[3] ? 1.5 : 1);
+                        Em(c, g[0], 52, y + 33, 26);
+                        Tx(c, g[1], 74, y + 26, 14, SK.tx, 700, 'left');
+                        Tx(c, g[2], 74, y + 46, 12, SK.tm, 500, 'left');
+                        RR(c, 336, y + 20, 24, 24, 12, g[3] ? AC.g : SK.trk, g[3] ? null : SK.fld, g[3] ? 0 : 2);
+                        if (g[3]) { Tx(c, '✓', 348, y + 31, 12, '#fff', 800, 'center'); }
+                    });
+                    Btn(c, 18, 500, 354, 50, 'Continue (2 selected)');
+                } else if (i === 9) {
+                    /* 10 — Permissions */
+                    Em(c, '📱', 195, 108, 54);
+                    Tx(c, 'Enable Permissions', 195, 176, 26, SK.tx, 800, 'center');
+                    Tx(c, 'FitPulse needs these to deliver the full experience', 195, 204, 14, SK.tm, 500, 'center');
+                    const perms = [['🔔', 'Notifications', 'Reminders, achievements & challenges', true], ['❤️', 'Health Data', 'Steps, heart rate & sleep tracking', true], ['📍', 'Location', 'Route mapping & outdoor workouts', false], ['🔵', 'Bluetooth', 'Connect wearables & smart devices', true]];
+                    perms.forEach((pm, k) => {
+                        const y = 240 + k * 82;
+                        Card(c, 18, y, 354, 72, 18);
+                        Em(c, pm[0], 58, y + 37, 26);
+                        Tx(c, pm[1], 80, y + 30, 15, SK.tx, 700, 'left');
+                        Tx(c, pm[2], 80, y + 50, 12, SK.tm, 500, 'left');
+                        c.save(); if (pm[3] && SK.dark) { c.shadowColor = 'rgba(22,163,74,.5)'; c.shadowBlur = 10; } RR(c, 296, y + 23, 46, 26, 13, pm[3] ? AC.g : SK.trk, null, 0); c.restore();
+                        RR(c, pm[3] ? 315 : 303, y + 27, 20, 20, 10, '#fff', null, 0);
+                    });
+                    Btn(c, 18, 590, 354, 50, 'Finish Setup 🎉');
+                    Tx(c, 'Skip for now', 195, 676, 14, SK.tm, 600, 'center');
+                } else if (i === 10) {
+                    /* 11 - Home Dashboard */
+                    homeBase(c, 1);
+                    NAV(c, 0);
+                } else if (i === 11) {
+                    /* 12 — Home · Notifications Panel */
+                    homeBase(c, 0.3);
+                    c.fillStyle = SK.dark ? 'rgba(10,16,28,.95)' : 'rgba(255,255,255,.97)';
+                    c.fillRect(0, 0, 390, 676);
+                    c.fillStyle = SK.bd; c.fillRect(0, 676, 390, 1);
+                    Tx(c, 'Notifications', 22, 40, 18, SK.tx, 800, 'left');
+                    Tx(c, 'Clear all', 372, 42, 13, SK.tm, 600, 'right');
+                    const notis = [['🏆', 'rgba(234,88,12,.15)', 'Challenge Complete!', 'You finished the Weekly 70K Steps challenge.', '2m ago'], ['👥', 'rgba(22,163,74,.15)', 'Rahul liked your post', '"5K personal best" got 14 reactions!', '18m ago'], ['🎯', 'rgba(8,145,178,.15)', 'Daily Goal Reached', 'You hit 10,000 steps today. Keep it up!', '1h ago'], ['❤️', 'rgba(220,38,38,.15)', 'Heart Rate Alert', 'Resting HR improved: 72 → 68 BPM this week.', '3h ago']];
+                    notis.forEach((n, k) => {
+                        const y3 = 66 + k * 76;
+                        Tile(c, 22, y3, 46, n[0], 22, n[1], null, 14);
+                        Tx(c, n[2], 80, y3 + 20, 13.5, SK.tx, 700, 'left');
+                        Tx(c, n[3], 80, y3 + 40, 11, SK.tm, 500, 'left');
+                        Tx(c, n[4], 356, y3 + 18, 10, SK.tm, 500, 'right');
+                        if (k < 3) { c.fillStyle = SK.bd; c.fillRect(22, y3 + 59, 346, 1); }
+                    });
+                    RR(c, 22, 372, 346, 36, 18, SK.card, 'rgba(22,163,74,.45)', 1);
+                    Tx(c, 'View All Notifications', 195, 395, 13, AC.g, 700, 'center');
+                    NAV(c, 0);
+                } else if (i === 12) {
+                    /* 13 — Home · Quick Add Menu */
+                    homeBase(c, 1);
+                    [['Log Meal', '🍎'], ['Log Workout', '🏋️'], ['Add Water', '💧']].forEach((q, k) => {
+                        const y4 = 420 + k * 64;
+                        RR(c, 226, y4, 92, 42, 21, SK.card, SK.bd, 1);
+                        Tx(c, q[0], 272, y4 + 25, 12, SK.tx, 700, 'center');
+                        RR(c, 322, y4, 42, 42, 21, SK.card, SK.bd, 1); Em(c, q[1], 343, y4 + 21, 18);
+                    });
+                    const fab = c.createLinearGradient(318, 0, 370, 0); fab.addColorStop(0, AC.g); fab.addColorStop(1, '#15803d');
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.55)'; c.shadowBlur = 20; } RR(c, 318, 620, 52, 52, 26, fab, null, 0); c.restore();
+                    Tx(c, '+', 344, 651, 26, '#fff', 700, 'center');
+                    NAV(c, 0);
+                } else if (i === 13) {
+                    /* 14 — Workout Categories */
+                    SB(c);
+                    Head(c, 'Workouts', null);
+                    Tx(c, 'Choose your session', 18, 98, 14, SK.tm, 500, 'left');
+                    RR(c, 18, 110, 354, 42, 14, SK.card, SK.fld, 1);
+                    Em(c, '🔍', 40, 131, 15); Tx(c, 'Search workouts...', 54, 136, 13.5, SK.tm, 500, 'left');
+                    [['🏃', 'Running', '450 kcal', 'rgba(234,88,12,.15)'], ['🚶', 'Walking', '180 kcal', 'rgba(22,163,74,.15)'], ['🚴', 'Cycling', '380 kcal', 'rgba(8,145,178,.15)'], ['🧘', 'Yoga', '200 kcal', 'rgba(124,58,237,.15)'], ['🏋️', 'Strength', '320 kcal', 'rgba(220,38,38,.15)'], ['⚡', 'HIIT', '580 kcal', 'rgba(219,39,119,.15)']].forEach((ct, k) => {
+                        const col = k % 2, row = (k / 2) | 0, dx = 18 + col * 182, dy = 174 + row * 108;
+                        Card(c, dx, dy, 172, 96, 18);
+                        Tile(c, dx + 14, dy + 14, 46, ct[0], 23, ct[3]);
+                        Tx(c, ct[1], dx + 74, dy + 42, 13, SK.tx, 700, 'left');
+                        Tx(c, ct[2], dx + 16, dy + 82, 11, SK.tm, 500, 'left');
+                    });
+                } else if (i === 14) {
+                    /* 15 — Live Workout Tracking */
+                    SB(c);
+                    RR(c, 18, 84, 354, 318, 22, SK.card, 'rgba(22,163,74,.5)', 1.5);
+                    Tx(c, '🏃 Running · Active', 36, 112, 14, AC.g, 700, 'left');
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.7)'; c.shadowBlur = 10; } RR(c, 342, 100, 10, 10, 5, AC.g, null, 0); c.restore();
+                    const totT = 1478 + ((anim / 1000) | 0);
+                    const mmT = String(Math.floor(totT / 60)).padStart(2, '0'), ssT = String(totT % 60).padStart(2, '0');
+                    [['' + mmT + ':' + ssT, 'Duration'], ['287', 'Calories'], ['3.2 km', 'Distance'], ['7.8', 'Pace']].forEach((st, k) => {
+                        const cx0 = 72 + k * 86;
+                        Tx(c, st[0], cx0, 154, 16, SK.tx, 800, 'center'); Tx(c, st[1], cx0, 174, 9, SK.tm, 500, 'center');
+                    });
+                    RR(c, 36, 202, 318, 86, 16, dark ? 'rgba(8,145,178,.08)' : 'rgba(8,145,178,.06)', 'rgba(8,145,178,.25)', 1);
+                    Em(c, '🗺️', 195, 245, 30);
+                    const rbtn = c.createLinearGradient(36, 0, 354, 0); rbtn.addColorStop(0, AC.rd); rbtn.addColorStop(1, '#b91c1c');
+                    RR(c, 36, 304, 318, 48, 24, rbtn, null, 0);
+                    Tx(c, '⏹ Stop Workout', 195, 334, 15, '#fff', 700, 'center');
+                    Tx(c, 'Suggested', 36, 428, 13, SK.tx, 700, 'left');
+                    [['🚶', 'Walking', '180 kcal', 'rgba(22,163,74,.15)'], ['🧘', 'Yoga', '200 kcal', 'rgba(124,58,237,.15)']].forEach((sg, k) => {
+                        const dx0 = 18 + k * 182;
+                        Card(c, dx0, 444, 172, 96, 18);
+                        Tile(c, dx0 + 14, 458, 46, sg[0], 23, sg[3]);
+                        Tx(c, sg[1], dx0 + 74, 484, 13, SK.tx, 700, 'left');
+                        Tx(c, sg[2], dx0 + 16, 526, 11, SK.tm, 500, 'left');
+                    });
+} else if (i === 15) {
+                    /* 16 — Activity Log · Steps */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 0, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }]);
+                    Card(c, 18, 160, 354, 230, 22);
+                    Tx(c, 'Today', 36, 186, 11, SK.tm, 600, 'left');
+                    Tx(c, '12,847', 36, 216, 34, SK.tx, 900, 'left');
+                    Tag(c, 256, 186, '↑ 28% vs avg');
+                    Tx(c, 'Goal', 320, 190, 12, SK.tm, 600, 'right');
+                    Tx(c, '10,000', 316, 214, 24, SK.tx, 800, 'right');
+                    Tx(c, '128%', 350, 230, 11, AC.g, 700, 'right');
+                    Bars(c, 36, 256, 318, 82, [60, 42, 74, 55, 86, 80, 100], 'rgba(22,163,74,.55)', AC.g);
+                    Tx(c, 'Mon', 51, 354, 9, SK.tm, 500, 'center'); Tx(c, 'Sun', 344, 354, 9, AC.g, 700, 'center');
+                    StatBox(c, 18, 404, 112, '9,804', 'Avg Daily', AC.g);
+                    StatBox(c, 139, 404, 112, '14,200', 'Best Day', AC.ln);
+                    StatBox(c, 260, 404, 112, '65,947', 'This Week', AC.cy);
+                    NAV(c, 1);
+                } else if (i === 16) {
+                    /* 17 — Activity Log · Heart Rate */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 1, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }]);
+                    Card(c, 18, 160, 354, 248, 22);
+                    Tx(c, '❤️', 158, 200, 20, AC.rd, 700, 'center');
+                    Tx(c, 'Heart Rate', 182, 196, 11, SK.tm, 600, 'left');
+                    Tx(c, '72', 168, 240, 40, SK.tx, 900, 'center');
+                    Tx(c, 'BPM', 212, 230, 15, SK.tm, 500, 'left');
+                    [['Day', true], ['Week', false], ['Month', false]].forEach((s, k) => {
+                        const sx = 168 + k * 60;
+                        RR(c, sx, 260, 52, 26, 13, s[1] ? AC.g : SK.card, s[1] ? null : SK.bd, 1);
+                        Tx(c, s[0], sx + 26, 277, 11, s[1] ? '#fff' : SK.tm, 700, 'center');
+                    });
+                    Line(c, 36, 300, 318, 84, [[0, .48], [.13, .42], [.26, .52], [.39, .35], [.52, .46], [.65, .29], [.78, .42], [.9, .23], [1, .21]], AC.cy, 'rgba(34,211,238,.5)');
+                    Tx(c, '6am', 36, 398, 9, SK.tm, 500, 'left'); Tx(c, '10pm', 354, 398, 9, SK.tm, 500, 'right');
+                    StatBox(c, 18, 412, 112, '58', 'Lowest', AC.cy);
+                    StatBox(c, 139, 412, 112, '96', 'Highest', AC.og);
+                    StatBox(c, 260, 412, 112, '60–100', 'Ideal Range', AC.g);
+                    NAV(c, 1);
+                } else if (i === 17) {
+                    /* 18 — Activity Log · Calories */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 2, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }]);
+                    Card(c, 18, 160, 354, 258, 22);
+                    Tx(c, '🔥 Today', 195, 188, 12, AC.og, 700, 'center');
+                    const rg2 = c.createLinearGradient(133, 0, 257, 0); rg2.addColorStop(0, '#34d399'); rg2.addColorStop(1, '#22d3ee');
+                    Ring(c, 195, 260, 58, 14, 0.75, rg2, SK.trk);
+                    Tx(c, '1,847', 195, 256, 20, SK.tx, 800, 'center');
+                    Tx(c, '/ 2,400 kcal', 195, 274, 8, SK.tm, 500, 'center');
+                    c.fillStyle = SK.bd; c.fillRect(36, 336, 318, 1);
+                    [['312', 'Burned', AC.g], ['2,050', 'Food', AC.og], ['487', 'Remaining', AC.cy]].forEach((s, k) => {
+                        Tx(c, s[0], 87 + k * 95, 360, 15, s[2], 800, 'center');
+                        Tx(c, s[1], 87 + k * 95, 380, 9.5, SK.tm, 500, 'center');
+                    });
+                    Card(c, 18, 430, 354, 140, 20);
+                    Tx(c, 'Weekly Burn', 36, 456, 13, SK.tx, 700, 'left');
+                    Bars(c, 36, 476, 318, 64, [55, 68, 60, 80, 72, 90, 100], 'rgba(234,88,12,.5)', 'rgba(234,88,12,.7)');
+                    Tx(c, 'Mon', 51, 554, 9, SK.tm, 500, 'center'); Tx(c, 'Sun', 344, 554, 9, SK.tm, 500, 'center');
+                    NAV(c, 1);
+} else if (i === 18) {
+                    /* 19 — Activity Log · Sleep */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 3, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }]);
+                    Card(c, 18, 160, 354, 244, 22);
+                    Tx(c, 'Sleep Duration', 36, 186, 12, SK.tm, 600, 'left');
+                    Tx(c, '7h 24m', 36, 216, 34, SK.tx, 900, 'left');
+                    Tag(c, 36, 232, 'Good Sleep', AC.g, 'rgba(22,163,74,.18)', 'rgba(22,163,74,.35)', 10);
+                    Tx(c, 'Bedtime 10:42 PM', 336, 190, 11, SK.tm, 600, 'right');
+                    Tx(c, 'Woke 6:06 AM', 354, 210, 12, SK.tm, 600, 'right');
+                    [['🌅 Light', '2h 48m', 1, AC.cy], ['😴 Deep', '2h 06m', 0.76, AC.pu], ['😴 REM', '1h 36m', 0.55, AC.g], ['Awake', '54m', 0.32, AC.og]].forEach((st, k) => {
+                        const y9 = 272 + k * 34;
+                        Tx(c, st[0], 36, y9 + 10, 11, SK.tm, 500, 'left');
+                        Tx(c, st[1], 354, y9 + 10, 11, SK.tm, 600, 'right');
+                        RR(c, 36, y9 + 16, 318, 8, 4, dark ? 'rgba(255,255,255,.05)' : 'rgba(15,23,42,.06)', null, 0);
+                        RR(c, 36, y9 + 16, 318 * st[2], 8, 4, st[3], null, 0);
+                    });
+                    StatBox(c, 18, 420, 112, '2h 6m', 'Deep Sleep', AC.pu);
+                    StatBox(c, 139, 420, 112, '1h 36m', 'REM Sleep', AC.g);
+                    StatBox(c, 260, 420, 112, '84/100', 'Sleep Score', AC.cy);
+                    NAV(c, 1);
+                } else if (i === 19) {
+                    /* 20 — Activity Log · Stress */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 4, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }, { t: '🧠 Stress' }]);
+                    Card(c, 18, 160, 354, 210, 22);
+                    Tx(c, 'Current Stress Level', 195, 190, 11, SK.tm, 600, 'center');
+                    Tx(c, '24', 195, 240, 52, AC.g, 900, 'center');
+                    Tag(c, 168, 258, 'LOW STRESS', AC.g, 'rgba(22,163,74,.18)', 'rgba(22,163,74,.35)', 10);
+                    const stg = c.createLinearGradient(36, 0, 354, 0); stg.addColorStop(0, AC.g); stg.addColorStop(.35, AC.ln); stg.addColorStop(.7, AC.og); stg.addColorStop(1, AC.rd);
+                    RR(c, 36, 296, 318, 10, 5, stg, null, 0);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.5)'; c.shadowBlur = 10; } RR(c, 112, 290, 18, 18, 9, SK.dark ? '#e8eef7' : '#ffffff', AC.g, 3); c.restore();
+                    Tx(c, 'Low', 42, 326, 10, SK.tm, 600, 'left'); Tx(c, 'Moderate', 158, 326, 10, SK.tm, 600, 'left'); Tx(c, 'High', 274, 326, 10, SK.tm, 600, 'left'); Tx(c, 'Very High', 352, 326, 10, SK.tm, 600, 'right');
+                    RR(c, 18, 384, 354, 66, 16, SK.card, 'rgba(124,58,237,.3)', 1);
+                    Em(c, '🧘', 52, 417, 30);
+                    Tx(c, 'Meditation Suggestion', 84, 410, 13, SK.tx, 700, 'left');
+                    Tx(c, '5-min breathing exercise · Tap to start', 84, 432, 11, SK.tm, 500, 'left');
+                    NAV(c, 1);
+                } else if (i === 20) {
+                    /* 21 — Activity Log · Water */
+                    SB(c);
+                    Head(c, 'Activity Log', 'Detailed health analytics');
+                    ChipRow(c, 112, 5, [{ t: '👟 Steps' }, { t: '❤️ Heart' }, { t: '🔥 Calories' }, { t: '😴 Sleep' }, { t: '🧠 Stress' }, { t: '💧 Water' }]);
+                    Card(c, 18, 160, 354, 250, 22);
+                    Em(c, '💧', 195, 220, 78);
+                    Tx(c, '6 / 8', 195, 286, 40, SK.tx, 900, 'center');
+                    Tx(c, 'glasses today', 195, 310, 14, SK.tm, 500, 'center');
+                    Track(c, 60, 344, 270, 0.75, AC.cy);
+                    Btn(c, 60, 366, 270, 48, '+ Add Glass');
+                    NAV(c, 1);
+                } else if (i === 21) {
+/* 22 — Progress Review */
+                    SB(c);
+                    Tx(c, 'Progress Review', 24, 62, 26, SK.tx, 800, 'left');
+                    Card(c, 18, 92, 354, 142, 22);
+                    Tx(c, 'Weight Trend', 36, 120, 13, SK.tx, 700, 'left');
+                    Tx(c, 'Lost 3.2 kg this month', 36, 142, 11.5, SK.tm, 500, 'left');
+                    Tag(c, 250, 110, '↓ 3.2 kg');
+                    Line(c, 36, 158, 318, 62, [[0, .08], [.16, .18], [.33, .32], [.5, .46], [.66, .6], [.83, .74], [1, .85]], AC.g, 'rgba(22,163,74,.25)');
+                    Tx(c, 'W1', 36, 228, 8.5, SK.tm, 500, 'left'); Tx(c, 'W4', 195, 228, 8.5, SK.tm, 500, 'center'); Tx(c, 'Now', 354, 228, 8.5, SK.tm, 500, 'right');
+                    RR(c, 18, 244, 354, 86, 18, SK.card, SK.bd, 1);
+                    RR(c, 34, 258, 54, 54, 27, 'rgba(22,163,74,.15)', 'rgba(22,163,74,.35)', 1);
+                    Em(c, '⚕️', 61, 286, 24);
+                    Tx(c, 'BMI Score', 104, 280, 12, SK.tm, 600, 'left');
+                    Tx(c, '22.4', 104, 304, 26, AC.g, 900, 'left');
+                    Tag(c, 150, 310, 'Normal Weight');
+                    Tx(c, '178 cm', 340, 290, 11, SK.tm, 600, 'right');
+                    Tx(c, '71.0 kg', 352, 308, 11, SK.tm, 600, 'right');
+                    RR(c, 18, 342, 354, 118, 20, SK.card, 'rgba(8,145,178,.45)', 1);
+                    RR(c, 18, 342, 4, 118, 2, AC.cy, null, 0);
+                    Tx(c, '✨ AI Monthly Summary', 36, 370, 13, AC.cy, 700, 'left');
+                    Tx(c, 'Outstanding month! 19/30 step goals hit, resting HR', 36, 396, 11, SK.t2, 500, 'left');
+                    Tx(c, 'improved by 8 BPM, and 3.2kg lost. Keep it up! 💪', 36, 414, 11, SK.t2, 500, 'left');
+                    Tag(c, 36, 432, 'Top 5% of users this month', AC.pu, 'rgba(124,58,237,.18)', 'rgba(124,58,237,.4)', 9);
+                    Tx(c, 'Achievement Badges', 18, 488, 13, SK.tx, 700, 'left');
+                    [['🔥', '100 Day Streak', true], ['👟', '500K Steps', true], ['🏃', '50 Workouts', true], ['💧', '30-Day Hydration', false], ['💪', 'Strength Master', false], ['🧘', 'Zen Master', false]].forEach((b, k) => {
+                        const bx = 18 + (k % 3) * 122, by = 502 + ((k / 3) | 0) * 80;
+                        c.globalAlpha = b[2] ? 1 : 0.45;
+                        RR(c, bx, by, 112, 70, 16, b[2] ? SK.card2 : SK.card, b[2] ? 'rgba(22,163,74,.4)' : SK.bd, 1);
+                        Em(c, b[0], bx + 56, by + 26, 26);
+                        Tx(c, b[1], bx + 56, by + 54, 9.5, b[2] ? SK.tx : SK.tm, 700, 'center');
+                        c.globalAlpha = 1;
+                    });
+                    BtnOut(c, 18, 670, 354, 44, '📄 Download PDF Report', SK.tx, 12);
+                    NAV(c, 1);
+                } else if (i === 22) {
+/* 23 — Community */
+                    SB(c);
+                    Tx(c, 'Community', 24, 62, 26, SK.tx, 800, 'left');
+                    const cj = c.createLinearGradient(238, 0, 372, 0); cj.addColorStop(0, AC.g); cj.addColorStop(1, AC.cy);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.5)'; c.shadowBlur = 14; } RR(c, 238, 48, 134, 34, 17, cj, null, 0); c.restore();
+                    Tx(c, '+ Join Challenge', 305, 69, 12, '#fff', 700, 'center');
+                    Tx(c, 'Challenges, friends & achievements', 24, 96, 14, SK.tm, 500, 'left');
+                    Tx(c, 'Active Challenges', 24, 126, 13, SK.tx, 700, 'left');
+                    [['👟', 'Weekly 70K', '3d left', 0.72, AC.g], ['💧', 'Hydration Month', '18d left', 0.54, AC.cy]].forEach((ch, k) => {
+                        const cx0 = 18 + k * 182;
+                        RR(c, cx0, 140, 172, 112, 18, SK.card, ch[4] === AC.cy ? 'rgba(8,145,178,.35)' : 'rgba(22,163,74,.35)', 1);
+                        RR(c, cx0 + 14, 154, 38, 38, 11, dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.12)', null, 0);
+                        Em(c, ch[0], cx0 + 33, 173, 20);
+                        Tx(c, ch[1], cx0 + 14, 212, 13, SK.tx, 700, 'left');
+                        Tx(c, ch[2], cx0 + 14, 230, 11, SK.tm, 500, 'left');
+                        Track(c, cx0 + 14, 238, 144, ch[3], ch[4]);
+                        Tx(c, (ch[3] * 100 | 0) + '%', cx0 + 158, 234, 10, ch[4], 700, 'right');
+                    });
+                    Card(c, 18, 264, 354, 236, 20);
+                    Tx(c, '🏆 Leaderboard', 36, 292, 14, SK.tx, 700, 'left');
+                    Tag(c, 260, 280, 'This Week', AC.og, 'rgba(234,88,12,.18)', 'rgba(234,88,12,.35)', 10);
+                    [['🥇', '👩‍🦱', 'Ananya S.', '86,420', true], ['🥈', '🧑‍🦰', 'Rahul K.', '79,100', false], ['🥉', '👩‍🦳', 'Priya M.', '71,850', false], ['8️⃣', '🧑', 'You', '65,947', false]].forEach((r, k) => {
+                        const y = 310 + k * 45;
+                        if (r[4]) { RR(c, 26, y - 6, 338, 39, 10, dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.1)', null, 0); }
+                        Tx(c, r[0], 46, y + 18, 15, SK.tx, 700, 'center');
+                        RR(c, 60, y, 34, 34, 17, dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.1)', null, 0);
+                        Em(c, r[1], 77, y + 17, 16);
+                        Tx(c, r[2], 108, y + 21, 13, r[4] ? AC.g : SK.tx, r[4] ? 800 : 600, 'left');
+                        Tx(c, r[3], 348, y + 21, 13, r[4] ? AC.g : SK.tm, r[4] ? 700 : 700, 'right');
+                    });
+                    Tx(c, 'Friends Activity', 18, 528, 13, SK.tx, 700, 'left');
+                    [['🧑‍🦰', 'Rahul K.', '2h ago', 'Completed a 5K run in 28:30 🏃 Personal best!'], ['👩‍🦳', 'Priya M.', '4h ago', 'Hit 100-day streak! 🔥 So proud of this milestone.']].forEach((p, k) => {
+                        const y = 540 + k * 102;
+                        Card(c, 18, y, 354, 92, 18);
+                        RR(c, 32, y + 14, 36, 36, 18, dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.1)', null, 0);
+                        Em(c, p[0], 50, y + 32, 18);
+                        Tx(c, p[1], 80, y + 26, 13, SK.tx, 700, 'left');
+                        Tx(c, p[2], 354, y + 26, 11, SK.tm, 500, 'right');
+                        Tx(c, p[3], 80, y + 54, 12, SK.t2, 500, 'left');
+                        Tx(c, '🤍 14   💬 Comment   ↗️ Share', 80, y + 78, 11.5, SK.tm, 600, 'left');
+                    });
+                    NAV(c, 2);
+                } else if (i === 23) {
+/* 24 — Join Challenge Modal */
+                    Sheet(c, 430, 'Join Challenge', 'Weekly 70K Steps · 72% complete · 3d left');
+                    RR(c, 22, 554, 70, 70, 18, 'rgba(22,163,74,.15)', 'rgba(22,163,74,.25)', 1);
+                    Em(c, '👟', 57, 590, 30);
+                    Tx(c, 'Weekly 70K', 108, 574, 16, SK.tx, 700, 'left');
+                    Tx(c, '3d left · 🏆 Finisher Badge', 108, 598, 11, SK.tm, 500, 'left');
+                    Tx(c, 'Walk 70,000 steps between Monday and Sunday.', 22, 636, 12, SK.t2, 500, 'left');
+                    Tx(c, 'Sync your tracker to earn the finisher badge!', 22, 658, 12, SK.t2, 500, 'left');
+                    Track(c, 22, 686, 346, 0.72);
+                    Tx(c, '72% complete', 22, 708, 11, SK.tm, 500, 'left');
+                    Tx(c, '70,000 goal', 368, 708, 11, SK.tm, 500, 'right');
+                    Btn(c, 22, 728, 346, 50, '🏆 Join Challenge', AC.g, '#15803d', 25);
+                    Tx(c, 'By joining, you agree to the challenge rules.', 195, 806, 11, SK.tm, 500, 'center');
+                    Tx(c, '3+ friends already joined.', 195, 824, 11, SK.tm, 500, 'center');
+                } else if (i === 24) {
+                    /* 25 — Invite People Modal */
+                    Sheet(c, 460, 'Invite People', null);
+                    const invs = [['🧑‍🦰', 'Rahul K.', 'Added', true], ['👩‍🦳', 'Priya M.', '✓', false], ['🧑‍🦱', 'Dev R.', '✓', false], ['👩', 'Meera S.', '✓', false], ['👨', 'Arjun P.', '✓', false]];
+                    invs.forEach((v, k) => {
+                        const y = 536 + k * 48;
+                        if (v[3]) { RR(c, 22, y - 4, 346, 40, 10, dark ? 'rgba(22,163,74,.12)' : 'rgba(22,163,74,.08)', null, 0); }
+                        RR(c, 26, y, 38, 38, 19, dark ? 'rgba(22,163,74,.18)' : 'rgba(22,163,74,.1)', null, 0);
+                        Em(c, v[0], 45, y + 19, 18);
+                        Tx(c, v[1], 78, y + 24, 13, SK.tx, 600, 'left');
+                        if (v[3]) { Tx(c, 'Added', 350, y + 24, 10, AC.ln, 700, 'right'); }
+                        else { Tx(c, '✓', 350, y + 23, 16, AC.g, 700, 'right'); }
+                    });
+                    Btn(c, 22, 784, 346, 46, '📨 Invite Selected (2)', AC.g, '#15803d', 23);
+                } else if (i === 25) {
+                    /* 26 — Share Progress Modal */
+                    Sheet(c, 500, 'Share Progress', 'Share your Weekly 70K progress');
+                    Card(c, 22, 596, 346, 84, 20);
+                    Em(c, '👟', 66, 638, 34);
+                    Tx(c, 'Weekly 70K — 72% complete', 110, 642, 15, SK.tx, 700, 'center');
+                    StatBox(c, 22, 692, 110, '50,430', 'Steps', AC.g);
+                    StatBox(c, 140, 692, 110, '12d', 'Streak', AC.cy);
+                    StatBox(c, 258, 692, 110, '210', 'Active min', AC.og);
+                    BtnOut(c, 22, 764, 150, 48, '← Back', SK.tx, 12);
+                    Btn(c, 182, 764, 186, 48, '↗️ Share to…', AC.g, '#15803d', 12);
+                } else if (i === 26) {
+/* 27 — Account / Profile */
+                    SB(c);
+                    Tx(c, '⚙️', 30, 62, 16, SK.tm, 600, 'center');
+                    Tx(c, 'Account', 46, 62, 26, SK.tx, 800, 'left');
+                    Card(c, 18, 100, 354, 196, 24);
+                    RR(c, 18, 100, 354, 4, 2, AC.g, null, 0);
+                    const ag = c.createLinearGradient(159, 0, 231, 0); ag.addColorStop(0, AC.g); ag.addColorStop(1, AC.cy);
+                    c.save(); if (SK.dark) { c.shadowColor = 'rgba(22,163,74,.45)'; c.shadowBlur = 16; } RR(c, 159, 130, 72, 72, 36, ag, null, 0); c.restore(); Em(c, '👩‍🦱', 195, 167, 34, 'none');
+                    RR(c, 219, 190, 24, 24, 12, AC.g, null, 0); Em(c, '✏️', 231, 202, 11);
+                    Tx(c, 'Ananya Sharma', 195, 244, 20, SK.tx, 800, 'center');
+                    Tx(c, 'ananya@fitpulse.app', 195, 268, 12, SK.tm, 500, 'center');
+                    Tag(c, 132, 284, '⭐ FitPulse Pro', AC.ln, 'rgba(101,163,13,.18)', 'rgba(101,163,13,.35)', 10);
+                    c.fillStyle = SK.bd; c.fillRect(40, 314, 310, 1);
+                    [['247', 'Workouts'], ['100🔥', 'Day Streak'], ['18', 'Badges']].forEach((s, k) => {
+                        Tx(c, s[0], 75 + k * 90, 344, 18, SK.tx, 800, 'center');
+                        Tx(c, s[1], 75 + k * 90, 366, 10, SK.tm, 500, 'center');
+                    });
+                    [['✏️', 'Edit Profile', 'Update your information', 'rgba(22,163,74,.15)'], ['🎯', 'Goals & Progress', 'Track your milestones', 'rgba(8,145,178,.15)'], ['⌚', 'Device Sync', 'Manage connected devices', 'rgba(101,163,13,.15)'], ['⭐', 'Subscription', 'FitPulse Pro · Active', 'rgba(234,88,12,.15)'], ['⚠️', 'Help Center', 'FAQ & support', 'rgba(126,140,163,.15)']].forEach((r, k) => {
+                        const y = 316 + k * 62;
+                        Card(c, 18, y, 354, 54, 14);
+                        Tile(c, 30, y + 10, 34, r[0], 16, r[3]);
+                        Tx(c, r[1], 76, y + 24, 13.5, SK.tx, 600, 'left');
+                        Tx(c, r[2], 76, y + 44, 11, SK.tm, 500, 'left');
+                        Tx(c, '›', 352, y + 33, 18, SK.tm, 600, 'center');
+                    });
+                    RR(c, 18, 640, 354, 54, 14, dark ? 'rgba(220,38,38,.1)' : 'rgba(220,38,38,.06)', 'rgba(220,38,38,.35)', 1);
+                    Tile(c, 30, 650, 34, '🚪', 16, dark ? 'rgba(220,38,38,.18)' : 'rgba(220,38,38,.1)');
+                    Tx(c, 'Sign Out', 76, 673, 13.5, AC.rd, 700, 'left');
+                    NAV(c, 3);
+                } else if (i === 27) {
+                    /* 28 — Edit Profile */
+                    Sheet(c, 400, 'Edit Profile', 'Update your information');
+                    Tx(c, 'Full Name', 26, 480, 11.5, SK.tm, 600, 'left');
+                    RR(c, 22, 488, 346, 46, 14, SK.card, SK.fld, 1); Tx(c, 'Ananya Sharma', 40, 516, 13, SK.tx, 500, 'left');
+                    Tx(c, 'Email', 26, 554, 11.5, SK.tm, 600, 'left');
+                    RR(c, 22, 562, 346, 46, 14, SK.card, SK.fld, 1); Tx(c, 'ananya@fitpulse.app', 40, 590, 13, SK.tx, 500, 'left');
+                    Tx(c, 'Height (cm)', 26, 628, 11.5, SK.tm, 600, 'left');
+                    RR(c, 22, 636, 166, 46, 14, SK.card, SK.fld, 1); Tx(c, '165', 40, 664, 13, SK.tx, 500, 'left');
+                    Tx(c, 'Weight (kg)', 202, 628, 11.5, SK.tm, 600, 'left');
+                    RR(c, 202, 636, 166, 46, 14, SK.card, SK.fld, 1); Tx(c, '58', 220, 664, 13, SK.tx, 500, 'left');
+                    Tx(c, 'Fitness Level', 26, 706, 11.5, SK.tm, 600, 'left');
+                    RR(c, 22, 714, 346, 46, 14, SK.card, SK.fld, 1); Tx(c, 'Intermediate', 40, 742, 13, SK.tx, 500, 'left');
+                    BtnOut(c, 22, 780, 140, 44, '← Back', SK.tx, 12);
+                    Btn(c, 172, 780, 196, 44, 'Save Changes', AC.g, '#15803d', 12);
+                } else if (i === 28) {
+                    /* 29 — Subscription */
+                    Sheet(c, 300, 'Subscription', 'FitPulse Pro');
+                    RR(c, 22, 390, 346, 86, 16, SK.card, 'rgba(22,163,74,.25)', 1);
+                    Tx(c, 'FitPulse Free', 40, 420, 16, SK.tx, 700, 'left');
+                    Tag(c, 196, 408, '✓ Active', AC.ln, 'rgba(101,163,13,.18)', 'rgba(101,163,13,.35)', 10);
+                    Tx(c, '5,000 steps/day · Basic analytics · 3 challenges', 40, 452, 12, SK.tm, 500, 'left');
+                    RR(c, 22, 488, 346, 226, 16, SK.card2, 'rgba(22,163,74,.75)', 2);
+                    Tx(c, 'FitPulse Pro', 40, 520, 16, SK.tx, 700, 'left');
+                    Tag(c, 170, 508, 'Most popular', AC.pu, 'rgba(124,58,237,.18)', 'rgba(124,58,237,.35)', 10);
+                    Tx(c, 'Unlimited everything · All challenges · Full stats', 40, 552, 12, SK.tm, 500, 'left');
+                    ['📊 Unlimited analytics', '🎯 Advanced insights', '🏆 All challenges & rankings', '🌙 Dark mode themes', '🎵 Custom workout playlists'].forEach((f, k) => {
+                        Tx(c, f, 44, 592 + k * 22, 12, SK.t2, 500, 'left');
+                    });
+                    Btn(c, 34, 760, 322, 50, '💎 Upgrade to Premium · $9.99/mo', AC.g, '#15803d', 12);
+                } else if (i === 29) {
+                    /* 30 — Personal Records */
+                    Sheet(c, 430, 'Personal Records', 'Your best performances');
+                    [['🏃', 'Fastest 5K', '22:18 · 3 Mar 2024', 'rgba(22,163,74,.15)'], ['🚴', 'Longest Ride', '42.3 km · 15 Feb 2024', 'rgba(8,145,178,.15)'], ['⚖️', 'Heaviest Lift', '100 kg · 10 Jan 2024', 'rgba(101,163,13,.15)'], ['⏱️', 'Longest Plank', '4:20 · 5 Apr 2024', 'rgba(234,88,12,.15)']].forEach((r, k) => {
+                        const y = 540 + k * 64;
+                        Card(c, 22, y, 346, 56, 16);
+                        Tile(c, 30, y + 10, 36, r[0], 17, r[3]);
+                        Tx(c, r[1], 78, y + 24, 14, SK.tx, 600, 'left');
+                        Tx(c, r[2], 78, y + 44, 11, SK.tm, 500, 'left');
+                        Tx(c, '›', 352, y + 33, 18, SK.tm, 600, 'center');
+                    });
+                }
+        }
+        const screenCanvas = document.createElement('canvas');
+        screenCanvas.width = 512; screenCanvas.height = 1108;
+        drawScreen(screenCanvas, 0, performance.now());
+        const screenTex = new THREE.CanvasTexture(screenCanvas);
+        screenTex.colorSpace = THREE.SRGBColorSpace;
+        screenTex.anisotropy = 8;
+        screenTex.wrapS = screenTex.wrapT = THREE.ClampToEdgeWrapping;
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => { drawScreen(screenCanvas, 0, performance.now()); screenTex.needsUpdate = true; });
+        }
+        function toast(msg, ms) {
+            const el = document.createElement('div');
+            el.className = 'toast'; el.textContent = msg;
+            $('toast').appendChild(el);
+            setTimeout(() => el.remove(), ms || 4200);
+        }
+        /* Fake splash buys 5-8s for real render: min 5.5s gate + timed
+           0-95% bar, reveal only when model ready AND gate elapsed. */
+        const SPLASH_MIN_MS = 5500, SPLASH_MAX_MS = 8000;
+        const splashT0 = performance.now();
+        let modelReady = false, splashDone = false, splashPct = 0;
+        const spFill = $('spfill'), spPct = $('sppct');
+        function splashTick() {
+            if (splashDone) return;
+            const el = performance.now() - splashT0;
+            const target = Math.min(95, (el / SPLASH_MIN_MS) * 95);
+            if (splashPct < target) {
+                splashPct = Math.min(target, splashPct + 1.4);
+                if (spFill) spFill.style.width = splashPct.toFixed(1) + '%';
+                if (spPct) spPct.textContent = String(Math.floor(splashPct));
+            }
+            if (modelReady && el >= SPLASH_MIN_MS) finishSplash();
+            else if (el < SPLASH_MAX_MS + 4000) requestAnimationFrame(splashTick);
+        }
+        function finishSplash() {
+            if (splashDone) return;
+            splashDone = true;
+            if (spFill) spFill.style.width = '100%';
+            if (spPct) spPct.textContent = '100';
+            setTimeout(() => $('loading').classList.add('hide'), 350);
+        }
+        /* Force-hide safety: never trap the user past 12s. */
+        setTimeout(() => finishSplash(), 12000);
+        requestAnimationFrame(splashTick);
+        function setLoading(on, text) {
+            if (!on && !splashDone) {
+                /* Real load finished early — hold the splash for the min gate. */
+                modelReady = true;
+                if (text) $('loadtext').textContent = text;
+                return;
+            }
+            $('loading').classList.toggle('hide', !on);
+            if (text) $('loadtext').textContent = text;
+        }
+        const fmt = n => n >= 1000 ? n.toLocaleString('en-US') : String(Math.round(n * 10) / 10);
+        /* ── model management ──────────────────────────────────── */
+        /* LIGHTING-ONLY material adaptation: FBX imports as MeshPhongMaterial
+           which IGNORES scene.environment IBL — that is why dark titanium
+           crushes to black on one side. We convert Phong/Lambert to a PBR
+           shader while copying color + all maps verbatim (no base-color
+           brightening, no retexturing) so the existing studio lights and the
+           very-low environment actually wrap the model. */
+        function upgradeMaterial(m) {
+            if (!m) return m;
+            if (m.userData.upgraded) return m;
+
+            if (m.map) {
+                m.map.colorSpace = THREE.SRGBColorSpace;
+                m.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            }
+            if (m.normalMap) m.normalMap.colorSpace = THREE.NoColorSpace;
+            if (m.roughnessMap) m.roughnessMap.colorSpace = THREE.NoColorSpace;
+            if (m.metalnessMap) m.metalnessMap.colorSpace = THREE.NoColorSpace;
+            if (m.emissiveMap) m.emissiveMap.colorSpace = THREE.SRGBColorSpace;
+
+            /* Already PBR: only tame the environment so the background stays
+               dark and the phone stays the brightest object. */
+            if (m.isMeshStandardMaterial || m.isMeshPhysicalMaterial) {
+                m.envMapIntensity = 0.35;
+                m.needsUpdate = true;
+                m.userData.upgraded = true;
+                return m;
+            }
+
+            /* Phong / Lambert -> Standard: preserve authored look exactly. */
+            if (m.isMeshPhongMaterial || m.isMeshLambertMaterial) {
+                const std = new THREE.MeshStandardMaterial();
+                if (m.color) std.color.copy(m.color);
+                if (m.map) std.map = m.map;
+                if (m.normalMap) std.normalMap = m.normalMap;
+                if (m.roughnessMap) std.roughnessMap = m.roughnessMap;
+                if (m.metalnessMap) std.metalnessMap = m.metalnessMap;
+                if (m.emissiveMap) std.emissiveMap = m.emissiveMap;
+                if (m.emissive) std.emissive.copy(m.emissive);
+                if (typeof m.emissiveIntensity === 'number') std.emissiveIntensity = m.emissiveIntensity;
+                if (typeof m.transparent === 'boolean') std.transparent = m.transparent;
+                if (typeof m.opacity === 'number') std.opacity = m.opacity;
+                /* shininess -> roughness keeps the same broad-vs-tight
+                   highlight character; dark titanium stays dark. */
+                const shin = (typeof m.shininess === 'number') ? m.shininess : 30;
+                std.roughness = THREE.MathUtils.clamp(1 - shin / 120, 0.32, 0.75);
+                std.metalness = (m.metalnessMap || /metal|titan|frame|edge|steel|alu/i.test(m.name || '')) ? 0.9 : 0.35;
+                std.envMapIntensity = 0.35;
+                std.userData.upgraded = true;
+                std.name = m.name;
+                return std;
+            }
+
+            m.userData.upgraded = true;
+            if ('envMapIntensity' in m) m.envMapIntensity = 0.35;
+            m.needsUpdate = true;
+            return m;
+        }
+        /* FBX files often ship without embedded textures... but when they DO have
+           embedded textures, those load asynchronously (blob decode) — so we must
+           NEVER judge a texture until the LoadingManager says loading is done. */
+        const texManager = new THREE.LoadingManager();
+        let texturesDone = false, texturesFailed = 0;
+        texManager.onLoad = () => { texturesDone = true; setTimeout(fixBlankMaterials, 80); };
+        texManager.onError = url => { texturesFailed++; console.warn('[fbx] texture failed to load:', url); };
+
+        function fixBlankMaterials() {
+    if (!model) return;
+
+    model.traverse(o => {
+        if (!o.isMesh) return;
+
+        const mats = Array.isArray(o.material)
+            ? o.material
+            : [o.material];
+
+        mats.forEach(m => {
+            if (!m) return;
+
+            const nm = (
+                (o.name || '') + ' ' +
+                (m.name || '')
+            ).toLowerCase();
+
+            if (/screen|display|lcd/i.test(nm)) {
+                if ('roughness' in m) m.roughness = 0.12;
+                if ('metalness' in m) m.metalness = 0.05;
+            }
+
+            m.needsUpdate = true;
+        });
+    });
+
+    refreshTexStats();
+}
+        function refreshTexStats() {
+            if (!model) { return; }
+            let total = 0, ready = 0;
+            model.traverse(o => {
+                if (!o.isMesh) return;
+                (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {
+                    if (!m || !m.map || m.map === screenTex) return;
+                    total++;
+                    if (m.map.image) ready++;
+                });
+            });
+            $('stTex').textContent = total ? (ready + ' / ' + total + ' decoded' + (texturesFailed ? ' \u00B7 ' + texturesFailed + ' failed' : '')) : 'none in FBX';
+        }
+        let model = null, rawSize = new THREE.Vector3(), rawMaxDim = 0;
+        let targetCm = 17, screenMeshes = [], overlay = null, face = '-z';
+        let paintMeshOn = false, overlayOn = false;
+        let screenLocalW = 1, screenLocalH = 1;
+
+        function clearModel() {
+            if (!model) return;
+            scene.remove(model);
+            model.traverse(o => {
+                if (o.isMesh) {
+                    if (o.geometry) o.geometry.dispose();
+                    const mats = Array.isArray(o.material) ? o.material : [o.material];
+                    mats.forEach(m => { if (m) { for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap']) { if (m[k] && m[k] !== screenTex) m[k].dispose(); } m.dispose(); } });
+                }
+            });
+            model = null; screenMeshes = [];
+        }
+
+        function setModel(obj, label) {
+            clearModel();
+            let meshCount = 0, triCount = 0;
+            obj.traverse(o => {
+                if (o.isMesh) {
+                    meshCount++;
+                    o.castShadow = true; o.receiveShadow = false;
+                    const g = o.geometry;
+                    if (g) triCount += (g.index ? g.index.count : g.attributes.position.count) / 3;
+                    if ((/screen|display|glass|lcd|front/i.test(o.name) ||
+                        (o.material && !Array.isArray(o.material) && /screen|display|glass|lcd|front/i.test(o.material.name))) &&
+                        !Array.isArray(o.material)) screenMeshes.push(o);
+                    /* upgrade Phong -> Physical so environment IBL lights the whole phone */
+                    if (Array.isArray(o.material)) o.material = o.material.map(upgradeMaterial);
+                    else o.material = upgradeMaterial(o.material);
+                }
+            });
+            rawMaxDim = 0;
+            const box = new THREE.Box3().setFromObject(obj);
+            box.getSize(rawSize);
+            rawMaxDim = Math.max(rawSize.x, rawSize.y, rawSize.z) || 1;
+            /* auto-upright: rotate so the longest dimension stands on Y */
+            if (rawSize.x > rawSize.y && rawSize.x >= rawSize.z) obj.rotation.z = -Math.PI / 2;
+            else if (rawSize.z > rawSize.y && rawSize.z >= rawSize.x) obj.rotation.x = Math.PI / 2;
+
+            /* The screen footprint must use the PHONE WIDTH, not thickness.
+               The previous code used min(x,z), which is usually the tiny side
+               thickness of an iPhone FBX — making the live iframe microscopic. */
+            obj.updateMatrixWorld(true);
+            const uprightBox = new THREE.Box3().setFromObject(obj);
+            const uprightSize = uprightBox.getSize(new THREE.Vector3());
+            const phoneWidth = Math.max(uprightSize.x, uprightSize.z);
+            screenLocalW = phoneWidth * 0.91;
+            screenLocalH = uprightSize.y * 0.925;
+            model = new THREE.Group();
+            model.add(obj);
+            scene.add(model);
+            // The FBX is authored upside-down. Rotate the physical phone 180° so
+            // the rear cameras sit at the top like a real iPhone.
+            model.rotation.z = Math.PI;
+            applyScale();
+            $('stFile').textContent = label;
+            $('stMeshes').textContent = meshCount;
+            $('stTris').textContent = fmt(triCount);
+            $('stRaw').textContent = rawSize.x.toFixed(1) + ' \u00D7 ' + rawSize.y.toFixed(1) + ' \u00D7 ' + rawSize.z.toFixed(1);
+            $('stScr').textContent = screenMeshes.length;
+            refreshStats();
+            frameCamera();
+            /* Keep the FBX's authored upright orientation; the previous 180°
+               startup rotation put the live app on the rear side. */
+            applyScreenPaint(paintMeshOn);
+            polishProductMaterials();
+            /* safety fallback: if the FBX has no textures at all the manager never
+               fires onLoad — run the blank-material pass once after a wait. */
+            setTimeout(fixBlankMaterials, 1600);
+            setTimeout(refreshTexStats, 1600);
+            /* 3D bg keeps rendering behind #loading (it is transparent to
+               pointer only); splash hides via timed gate in setLoading. */
+            setLoading(false, 'Model ready — finishing splash…');
+            // The live React app is the only display surface.
+            overlayOn = false;
+            if ($('tglOverlay')) $('tglOverlay').checked = false;
+            screenObject.visible = true;
+            placeLiveApp();
+            toast('✅ ' + label + ' loaded — scaled to ' + targetCm + ' cm. Live Fitnpulse app display ready.');
+        }
+        function applyScale() {
+            if (!model) return;
+            model.scale.setScalar(targetCm / rawMaxDim);
+            model.updateMatrixWorld(true);
+            const box = new THREE.Box3().setFromObject(model);
+            const c = box.getCenter(new THREE.Vector3());
+            model.position.sub(c);
+            model.updateMatrixWorld(true);
+        }
+        function worldBox() { return model ? new THREE.Box3().setFromObject(model) : null; }
+        function placeLiveApp() {
+            if (!model || !screenObject) return;
+            model.updateMatrixWorld(true);
+            const box = worldBox();
+            if (!box) return;
+            const c = box.getCenter(new THREE.Vector3());
+            const q = new THREE.Quaternion();
+            model.getWorldQuaternion(q);
+
+            // CSS3DObject's front faces +Z. The physical phone is rotated 180°
+            // around Z to put the camera cluster at the top, so rotate only the
+            // DOM screen content back 180° in-plane — the app stays upright while
+            // remaining on the real front/display side.
+            const screenUpright = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, Math.PI));
+            q.multiply(screenUpright);
+            screenObject.quaternion.copy(q);
+
+            const normal = new THREE.Vector3(0, 0, 1).applyQuaternion(screenObject.quaternion).normalize();
+            const depth = box.getSize(new THREE.Vector3()).z;
+            const pad = Math.max(depth, 0.2) * 0.004;
+
+            // Use the FBX's own proportions so the live webpage sits exactly on
+            // the same display footprint as the physical model.
+            /* CSS3DObject is authored at 512×1108 CSS pixels. Convert that
+               exact display footprint into the phone's world-space dimensions. */
+            const extraPx = 0.6; // 20px top + 20px bottom
+
+const sx = Math.max(
+    ((screenLocalW * model.scale.x) / 2048) * 1.03,
+    0.0001
+);
+
+const sy = Math.max(
+    ((screenLocalH * model.scale.y) + extraPx) / 4432,
+    0.0001
+);
+
+screenObject.scale.set(sx, sy, 1);
+
+screenObject.scale.set(sx, sy, 1);
+            screenObject.position.copy(c).addScaledVector(normal, depth * 0.5 + pad);
+            screenObject.visible = true;
+        }
+
+        function updateLiveAppVisibility() {
+            if (!model || !screenObject) return;
+            const normal = new THREE.Vector3(0, 0, 1).applyQuaternion(screenObject.quaternion).normalize();
+            const toCamera = new THREE.Vector3().subVectors(camera.position, screenObject.position).normalize();
+            screenObject.visible = normal.dot(toCamera) > 0.02;
+        }
+
+        function refreshStats() {
+            if (!model) return;
+            const box = worldBox();
+            const s = box.getSize(new THREE.Vector3());
+            const c = box.getCenter(new THREE.Vector3());
+            $('stDims').textContent = s.x.toFixed(1) + ' \u00D7 ' + s.y.toFixed(1) + ' \u00D7 ' + s.z.toFixed(1) + ' cm';
+            ground.position.y = box.min.y - 0.05;
+            placeLiveApp();
+            /* LIGHTING ONLY: rescale + re-aim the studio rig around the phone
+               so the key/fill/rim/top hierarchy survives any phone scale.
+               Camera composition handled in frameCamera() is untouched. */
+            const m = Math.max(s.x, s.y, s.z) * 1.4 + 2;
+            sun.position.set(c.x - m * 0.9, c.y + m * 1.25, c.z + m * 1.1);
+            const cam = sun.shadow.camera;
+            cam.left = -m; cam.right = m; cam.top = m; cam.bottom = -m;
+            cam.near = 0.1; cam.far = m * 6;
+            cam.updateProjectionMatrix();
+            key.position.set(c.x - m * 1.15, c.y + m * 1.0, c.z + m * 1.5);
+            key.lookAt(c);
+            fill.position.set(c.x + m * 1.25, c.y + m * 0.35, c.z + m * 1.25);
+            fill.lookAt(c);
+            fillSoft.position.set(c.x + m * 1.0, c.y + m * 0.35, c.z + m * 1.0);
+            backKey.position.set(c.x, c.y + m * 0.45, c.z - m * 1.65);
+            backKey.lookAt(c);
+            backSoft.position.set(c.x - m * 0.85, c.y + m * 0.65, c.z - m * 1.95);
+            backSoft.target.position.copy(c);
+            rim.position.set(c.x + m * 0.6, c.y + m * 1.2, c.z - m * 1.5);
+            rim.target.position.copy(c);
+            rim2.position.set(c.x - m * 1.0, c.y + m * 0.6, c.z - m * 1.35);
+            rim2.target.position.copy(c);
+            top.position.set(c.x, c.y + m * 1.6, c.z + m * 0.15);
+            top.lookAt(c);
+            kick.position.set(c.x + m * 1.0, c.y - m * 0.25, c.z + m * 0.6);
+            /* ENVIRONMENT POLISH: keep the reflection cards + floor wrapped
+               around the phone at any scale. Camera framing untouched. */
+            cardTR.position.set(c.x + m * 1.1, c.y + m * 1.3, c.z + m * 0.7);
+            cardTR.lookAt(c);
+            cardR.position.set(c.x + m * 1.5, c.y + m * 0.4, c.z - m * 0.5);
+            cardR.lookAt(c);
+            cardL.position.set(c.x - m * 1.5, c.y + m * 0.4, c.z - m * 0.5);
+            cardL.lookAt(c);
+            cardLow.position.set(c.x, c.y - m * 1.15, c.z + m * 1.0);
+            cardLow.lookAt(c);
+            cardGlass.position.set(c.x + m * 0.3, c.y + m * 1.1, c.z + m * 1.9);
+            cardGlass.lookAt(c);
+            ground.scale.setScalar(Math.max(m * 2.2, 8));
+            grid.position.y = ground.position.y + 0.02;
+            screenGlow.position.set(c.x, c.y, c.z + Math.max(s.z, 2) * 1.4);
+            screenGlow.distance = Math.max(s.x, s.y) * 2.4;
+            placeOverlay();
+        }
+        function frameCamera() {
+            if (!model) return;
+            const box = worldBox();
+            const s = box.getSize(new THREE.Vector3());
+            const c = box.getCenter(new THREE.Vector3());
+            const maxD = Math.max(s.x, s.y, s.z);
+            const dist = (maxD / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.16;
+            const dir = new THREE.Vector3(0.55, 0.32, 1).normalize();
+            camera.position.copy(c).addScaledVector(dir, dist);
+            controls.target.copy(c);
+            controls.update();
+        }
+        function rotate90() {
+            if (!model) return;
+            model.rotation.x += Math.PI / 2;
+            model.updateMatrixWorld(true);
+            const c = worldBox().getCenter(new THREE.Vector3());
+            model.position.sub(c);
+            model.updateMatrixWorld(true);
+            refreshStats();
+            frameCamera();
+            placeLiveApp();
+        }
+        /* Overlay screen = plain plane + transparent texture corners: keeps the
+           app UI's own 0-1 UV mapping identical to before, only the texture
+           corners turn transparent so it hugs the rounded display. */
+        function ensureOverlay() {
+            if (overlay) { placeOverlay(); return; }
+            overlay = new THREE.Mesh(
+            new THREE.PlaneGeometry(1, 1),
+            new THREE.MeshBasicMaterial({
+        map: screenTex,
+        toneMapped: false,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.05,
+
+        // IMPORTANT
+        depthTest: true,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -4,
+        polygonOffsetUnits: -4}));
+            overlay.renderOrder = 999;
+            scene.add(overlay);
+            placeOverlay();
+        }
+        function placeOverlay() {
+            if (!overlay || !model) return;
+            const box = worldBox();
+            const s = box.getSize(new THREE.Vector3());
+            const c = box.getCenter(new THREE.Vector3());
+            const e = 0.1;
+            overlay.visible = overlayOn;
+            /* Height: previous +10px top / +10px bottom, plus now +12px more
+               on the TOP only (width untouched). Extra is converted from
+               texture px (1108px tall) to world units, and the center is
+               nudged up by half the top-only extra so the bottom edge stays
+               exactly where it was. */
+            function fitRounded(w, h) {
+                const unit = h / screenCanvas.height;
+                overlay.scale.set(w, h + unit * 32, 1);
+                return unit * 6;
+            }
+            let up = 0;
+            if (face === '-z') {
+            up = fitRounded(s.x * 0.91, s.y * 0.925);
+            overlay.position.set(c.x, c.y, box.min.z - e);
+            overlay.rotation.set(0, Math.PI, 0);
+            overlay.translateY(up);
+            }else if (face === '+z') { up = fitRounded(s.x * 0.91, s.y * 0.925); overlay.position.set(c.x, c.y, box.max.z + e); overlay.rotation.set(0, 0, 0); overlay.translateY(up); }
+            else if (face === '-x') { up = fitRounded(s.z * 0.91, s.y * 0.925); overlay.position.set(box.min.x - e, c.y, c.z); overlay.rotation.set(0, -Math.PI / 2, 0); overlay.translateY(up); }
+            else if (face === '+x') { up = fitRounded(s.z * 0.91, s.y * 0.925); overlay.position.set(box.max.x + e, c.y, c.z); overlay.rotation.set(0, Math.PI / 2, 0); overlay.translateY(up); }
+            else if (face === '-y') { up = fitRounded(s.x * 0.91, s.z * 0.925); overlay.position.set(c.x, box.min.y - e, c.z); overlay.rotation.set(Math.PI / 2, 0, 0); overlay.translateY(up); }
+            else if (face === '+y') { up = fitRounded(s.x * 0.91, s.z * 0.925); overlay.position.set(c.x, box.max.y + e, c.z); overlay.rotation.set(-Math.PI / 2, 0, 0); overlay.translateY(up); }
+        }
+        function applyScreenPaint(on) { /* Live React app replaces the old canvas paint system. */ }
+        /* click-to-paint: aim at the phone, click the surface that is the display */
+        let pickMode = false;
+        const ray = new THREE.Raycaster();
+        const ndc = new THREE.Vector2();
+        renderer.domElement.addEventListener('pointerdown', e => {
+            if (!pickMode || !model) return;
+            const r = renderer.domElement.getBoundingClientRect();
+            ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+            ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+            ray.setFromCamera(ndc, camera);
+            const hits = ray.intersectObject(model, true).filter(h => h.object.isMesh && h.object !== overlay);
+            if (!hits.length) { toast('No mesh under the click \u2014 try again from another angle.'); return; }
+            const m = hits[0].object;
+            if (!screenMeshes.includes(m)) screenMeshes.push(m);
+            applyScreenPaint(true);
+            toast('\uD83C\uDFAF Painted "' + (m.name || '(unnamed mesh)') + '" \u2014 ' + screenMeshes.length + ' screen mesh(es) painted. Uncheck to revert.');
+        });
+        $('pickBtn').addEventListener('click', () => {
+            pickMode = !pickMode;
+            $('pickBtn').classList.toggle('on', pickMode);
+            controls.autoRotate = pickMode ? false : $('tglSpin').checked;
+            toast(pickMode ? '\uD83C\uDFAF Pick mode ON \u2014 click the phone surface that is the display.' : 'Pick mode OFF.');
+        });
+        /* ── premium product pass: logo + lenses + views ─────── */
+        let logoMsg = '', lensCount = 0;
+        function polishProductMaterials() {
+            logoMsg = ''; lensCount = 0;
+            if (!model) return;
+            let logoHit = false;
+            model.traverse(o => {
+                if (!o.isMesh || o === overlay) return;
+                const mats = Array.isArray(o.material) ? o.material : [o.material];
+                const nm = ((o.name || '') + ' ' + mats.map(m => (m && m.name) || '').join(' ')).toLowerCase();
+                if (/apple|logo|emblem/.test(nm)) {
+                    logoHit = true;
+                    mats.forEach(m => {
+                        if (!m || !m.isMeshStandardMaterial) return;
+                        m.color.set(0x0a0a0c);
+                        m.roughness = 0.08; m.metalness = 0.9;
+                        m.envMapIntensity = 1.4;
+                        if (m.map) { m.map = null; }
+                        m.needsUpdate = true;
+                    });
+                }
+                if (/lens|optic|camera[_-]?glass|cam[_-]?lens/.test(nm)) {
+                    lensCount++;
+                    mats.forEach(m => {
+                        if (!m || !m.isMeshStandardMaterial) return;
+                        m.color.set(0x05070c);
+                        m.roughness = 0.03; m.metalness = 0.35;
+                        m.envMapIntensity = 1.8;
+                        m.needsUpdate = true;
+                    });
+                }
+                if (/ring|bezel|frame|rail|steel|band/.test(nm)) {
+                    mats.forEach(m => {
+                        if (!m || !m.isMeshStandardMaterial) return;
+                        m.metalness = Math.max(m.metalness, 0.9);
+                        m.roughness = Math.min(Math.max(m.roughness, 0.18), 0.32);
+                        m.envMapIntensity = Math.max(m.envMapIntensity || 0, 0.9);
+                        m.needsUpdate = true;
+                    });
+                }
+            });
+            /* No logo mesh? Add a small glossy emblem decal centered on the
+               back face so the render-request look is guaranteed. Kept in
+               scene space (world coords) so centering is exact. */
+            if (!logoHit) {
+                const box = worldBox();
+                if (box) {
+                    const s = box.getSize(new THREE.Vector3());
+                    const c = box.getCenter(new THREE.Vector3());
+                    const cv = document.createElement('canvas');
+                    cv.width = 256; cv.height = 256;
+                    const g = cv.getContext('2d');
+                    g.clearRect(0, 0, 256, 256);
+                    /* Stylised glossy-black apple mark: round body, leaf bite. */
+                    g.fillStyle = '#0b0b0d';
+                    g.beginPath();
+                    g.moveTo(128, 60);
+                    g.bezierCurveTo(96, 60, 74, 88, 74, 128);
+                    g.bezierCurveTo(74, 172, 100, 210, 128, 210);
+                    g.bezierCurveTo(156, 210, 182, 172, 182, 128);
+                    g.bezierCurveTo(182, 88, 160, 60, 128, 60);
+                    g.fill();
+                    g.beginPath();
+                    g.ellipse(152, 52, 26, 12, 0.6, 0, Math.PI * 2);
+                    g.fill();
+                    g.globalCompositeOperation = 'destination-out';
+                    g.beginPath(); g.arc(196, 96, 26, 0, Math.PI * 2); g.fill();
+                    g.globalCompositeOperation = 'source-over';
+                    const tex = new THREE.CanvasTexture(cv);
+                    tex.colorSpace = THREE.SRGBColorSpace;
+                    tex.anisotropy = 8;
+                    const d = Math.min(s.x, s.y) * 0.16;
+                    const old = model.getObjectByName('apple-logo-decal');
+                    if (old) { model.remove(old); }
+                    const decal = new THREE.Mesh(
+                        new THREE.PlaneGeometry(d, d),
+                        new THREE.MeshPhysicalMaterial({
+                            map: tex, transparent: true, roughness: 0.08, metalness: 0.9,
+                            clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 1.5,
+                            polygonOffset: true, polygonOffsetFactor: -2, depthWrite: false
+                        })
+                    );
+                    decal.name = 'apple-logo-decal';
+                    /* Back face = +Z (opposite the -Z display side). Parented to
+                       the model via attach so it survives rotate/scale/refit. */
+                    decal.position.set(c.x, c.y + s.y * 0.06, box.max.z + 0.06);
+                    decal.rotation.set(0, 0, 0);
+                    scene.add(decal);
+                    model.attach(decal);
+                    logoMsg = 'logo decal added (FBX had no logo mesh)';
+                }
+            } else {
+                logoMsg = 'logo mesh polished';
+            }
+            const el = $('logoNote');
+            if (el) el.textContent = 'Logo: ' + (logoMsg || 'n/a') + ' · lenses: ' + lensCount + ' polished.';
+        }
+        /* Exact product cameras: whole phone visible with margin, faithful
+           proportions. Front = -Z display side (overlay), Back = +Z rear. */
+        function productView(which) {
+            if (!model) return;
+            const box = worldBox();
+            const s = box.getSize(new THREE.Vector3());
+            const c = box.getCenter(new THREE.Vector3());
+            const maxD = Math.max(s.x, s.y);
+            const dist = (maxD / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.55;
+            const depth = Math.max(s.z, 1);
+            controls.autoRotate = false;
+            $('tglSpin').checked = false;
+            // With the FBX in its authored upright orientation, +Z is the display/front.
+            if (which === 'back') camera.position.set(c.x, c.y, c.z - (dist + depth));
+            else camera.position.set(c.x, c.y, c.z + (dist + depth));
+            camera.up.set(0, 1, 0);
+            camera.lookAt(c);
+            controls.target.copy(c);
+            controls.update();
+        }
+        $('frontBtn').addEventListener('click', () => productView('front'));
+        $('backBtn').addEventListener('click', () => productView('back'));
+        /* ── transparent background toggle ─────────────────────
+           Render-request look: alpha canvas + no backdrop/fog, floor hidden,
+           so screenshots are true cut-out PNGs. Restores studio grade after. */
+        renderer.setClearColor(0x000000, 1);
+        const studioBackdrop = scene.background;
+        function setTransparentBg(on) {
+            renderer.setClearColor(0x000000, on ? 0 : 1);
+            scene.background = on ? null : studioBackdrop;
+            scene.fog = on ? null : new THREE.Fog(0x04070d, 70, 170);
+            ground.visible = !on;
+            grid.visible = on ? false : $('tglGrid').checked;
+        }
+        $('tglAlpha').addEventListener('change', e => { setTransparentBg(e.target.checked); });
+        /* ── UI wiring ─────────────────────────────────────────── */
+        const faces = [['-z', '\u2212Z front'], ['+z', '+Z back'], ['-x', '\u2212X left'], ['+x', '+X right'], ['-y', '\u2212Y bottom'], ['+y', '+Y top']];
+        const facesEl = $('faces');
+        faces.forEach(f => {
+            const b = document.createElement('button');
+            b.className = 'face' + (f[0] === face ? ' on' : '');
+            b.textContent = f[1];
+            b.addEventListener('click', () => {
+                face = f[0];
+                facesEl.querySelectorAll('.face').forEach(x => x.classList.remove('on'));
+                b.classList.add('on');
+                placeOverlay();
+            });
+            facesEl.appendChild(b);
+        });
+        $('applyScale').addEventListener('click', () => {
+            const v = parseFloat($('target').value);
+            if (!v || v <= 0) { toast('Enter a valid target length in cm.'); return; }
+            targetCm = v;
+            applyScale(); refreshStats(); frameCamera();
+            toast('Scaled so the longest side = ' + targetCm + ' cm.');
+        });
+        $('rotBtn').addEventListener('click', rotate90);
+        $('fitBtn').addEventListener('click', frameCamera);
+        $('tglSpin').addEventListener('change', e => { controls.autoRotate = e.target.checked; });
+        $('tglGrid').addEventListener('change', e => { grid.visible = e.target.checked; });
+        $('tglShadow').addEventListener('change', e => {
+            renderer.shadowMap.enabled = e.target.checked;
+            sun.castShadow = e.target.checked;
+            scene.traverse(o => { if (o.isMesh && o.material) o.material.needsUpdate = true; });
+        });
+        $('tglWire').addEventListener('change', e => {
+            if (!model) return;
+            model.traverse(o => {
+                if (!o.isMesh || o === overlay) return;
+                (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => { if (m) m.wireframe = e.target.checked; });
+            });
+        });
+        $('tglMesh').addEventListener('change', e => {
+            paintMeshOn = e.target.checked;
+            if (!screenMeshes.length && paintMeshOn) toast('No mesh named *screen/display/glass* found \u2014 use the overlay plane instead.');
+            applyScreenPaint(paintMeshOn);
+        });
+        $('tglOverlay').addEventListener('change', e => {
+            overlayOn = e.target.checked;
+            if (overlayOn) { ensureOverlay(); toast('Overlay on face ' + face + ' \u2014 cycle faces below to align.'); }
+            placeOverlay();
+        });
+        function zoomBy(factor) {
+    if (!model) return;
+
+    const offset = new THREE.Vector3().subVectors(
+        camera.position,
+        controls.target
+    );
+
+    const next = THREE.MathUtils.clamp(
+        offset.length() * factor,
+        controls.minDistance,
+        controls.maxDistance
+    );
+
+    offset.setLength(next);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+}
+        $('shotBtn').addEventListener('click', () => {
+            renderer.render(scene, camera);
+            const a = document.createElement('a');
+            a.download = 'fitnpulse-3d-test.png';
+            a.href = renderer.domElement.toDataURL('image/png');
+            a.click();
+            toast('\uD83D\uDCF8 Screenshot saved.');
+        });
+        $('reloadBtn').addEventListener('click', () => { loadURL(currentSrc, true); });
+        /* ── loading: fetch + drag & drop fallback ─────────────── */
+        let currentSrc = MODEL_URL;
+        function resourceDir(url) {
+            const i = url.lastIndexOf('/');
+            return i >= 0 ? url.slice(0, i + 1) : '';
+        }
+        function parseFBX(buf, label, resourcePath) {
+            setLoading(true, 'Parsing FBX\u2026');
+            texturesDone = false; texturesFailed = 0;
+            setTimeout(() => {
+                try {
+                    /* resourcePath lets the loader resolve the model's own
+                       external textures/materials next to its FBX file. */
+                    const obj = new FBXLoader(texManager).parse(buf, resourcePath || '');
+                    setModel(obj, label);
+                } catch (err) {
+                    console.error(err);
+                    setLoading(false);
+                    toast('\u26A0\uFE0F Could not parse this FBX: ' + (err && err.message ? err.message : err));
+                }
+            }, 60);
+        }
+        function loadURL(url, manual) {
+            currentSrc = url;
+            setLoading(true, 'Fetching ' + url + '\u2026');
+            fetch(url, { mode: 'same-origin' })
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })
+                .then(buf => parseFBX(buf, url.split('/').pop(), resourceDir(url)))
+                .catch(() => {
+                    setLoading(false);
+                    if (manual) toast('\u26A0\uFE0F Could not fetch ' + url + ' \u2014 serve the folder or drag the FBX in.');
+                    else {
+                        $('drop').classList.add('show');
+                        toast('file:// fetch is blocked by the browser \u2014 drag the FBX onto the page, or run a local server.', 7000);
+                    }
+                });
+        }
+
+        const dropEl = $('drop');
+        let dragDepth = 0;
+        addEventListener('dragenter', e => { e.preventDefault(); dragDepth++; dropEl.classList.add('show'); });
+        addEventListener('dragover', e => e.preventDefault());
+        addEventListener('dragleave', e => { e.preventDefault(); dragDepth--; if (dragDepth <= 0) { dragDepth = 0; dropEl.classList.remove('show'); } });
+        addEventListener('drop', e => {
+            e.preventDefault(); dragDepth = 0; dropEl.classList.remove('show');
+            const f = e.dataTransfer.files && e.dataTransfer.files[0];
+            if (!f) return;
+            if (!/\.fbx$/i.test(f.name)) { toast('\u26A0\uFE0F Only .fbx files are supported here.'); return; }
+            f.arrayBuffer().then(buf => parseFBX(buf, f.name));
+        });
+        dropEl.addEventListener('click', () => $('fileinp').click());
+        $('fileinp').addEventListener('change', e => {
+            const f = e.target.files && e.target.files[0];
+            if (f) f.arrayBuffer().then(buf => parseFBX(buf, f.name));
+            e.target.value = '';
+        });
+        /* ── resize + loop + boot ──────────────────────────────── */
+        addEventListener('resize', () => {
+            camera.aspect = innerWidth / innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(innerWidth, innerHeight);
+            cssRenderer.setSize(innerWidth, innerHeight);
+        });
+        /* The render loop starts NOW so the 3D scene paints behind the
+           fake splash while the FBX downloads/parses (buys 5-8s). */
+        renderer.setAnimationLoop(() => {
+            controls.update();
+            placeLiveApp();
+            updateLiveAppVisibility();
+            renderer.render(scene, camera);
+            cssRenderer.render(cssScene, camera);
+        });
+        // The old canvas/overlay controls are obsolete with the live React app.
+        document.querySelectorAll('.sec').forEach(sec => {
+            const h = sec.querySelector('h3');
+            if (h && /(app screen|live app)/i.test(h.textContent)) sec.style.display = 'none';
+        });
+
+        // Keep iframe on top of the WebGL scene but below fixed UI chrome.
+        cssRenderer.domElement.style.zIndex = '5';
+
+        loadURL(MODEL_URL, false);
+        
+    </script>
+  </body>
+
+</html>
