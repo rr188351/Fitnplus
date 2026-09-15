@@ -186,85 +186,14 @@ document.addEventListener('DOMContentLoaded', function () {
       stage.addEventListener('mouseenter', stop);
       stage.addEventListener('mouseleave', auto);
     }
-    // pause auto-play while the user scrolls inside the live app preview (touch),
-    // resume a beat after they stop — keeps in-app scrolling uninterrupted
-    var appPrev = document.querySelector('.flow-stage .flow-app');
-    if (appPrev) {
-      var resumeT = null;
-      var holdAuto = function () {
-        stop();
-        if (resumeT) clearTimeout(resumeT);
-        resumeT = setTimeout(auto, 4200);
-      };
-      appPrev.addEventListener('touchstart', holdAuto, { passive: true });
-      appPrev.addEventListener('touchmove', holdAuto, { passive: true });
-    }
     auto();
-  } else if (steps.length) {
-    // Safety fallback (only if no .cs-screen panes exist): the step buttons
-    // become a decorative tab strip that only highlights.
-    steps.forEach(function (s) {
-      s.addEventListener('click', function () {
-        steps.forEach(function (x) { x.classList.remove('on'); });
-        s.classList.add('on');
-      });
-    });
   }
-
-  // The preview canvas is sized 100% of the front-facing phone's display above,
-  // so it fills the screen natively (no JS scaling needed).
 
   /* splash: static honest loop — no fake % or parallax (matches real app) */
 
   requestAnimationFrame(function () {
     requestAnimationFrame(function () { document.body.classList.add('mc-loaded'); });
   });
-
-  // hidden fine-tune for the .flow-app preview: Alt+Shift+arrows nudge position,
-  // Alt+Shift+Q/E rotate, Esc shows/hides the value HUD.
-  var tuneApp = document.querySelector('.flow-stage .flow-app');
-  if (tuneApp) {
-    var hud = document.createElement('div');
-    hud.style.cssText = 'position:fixed;right:14px;bottom:14px;z-index:9999;background:rgba(6,8,15,.92);color:#34d399;font:11px/1.7 Consolas,monospace;padding:10px 14px;border:1px solid rgba(52,211,153,.3);border-radius:12px;display:none;white-space:pre;box-shadow:0 10px 30px rgba(0,0,0,.5)';
-    document.body.appendChild(hud);
-    var hudOn = true;
-    function appVals() {
-      var cs = getComputedStyle(tuneApp);
-      return {
-        l: parseFloat(cs.getPropertyValue('--flow-app-l')) || 73.47,
-        t: parseFloat(cs.getPropertyValue('--flow-app-t')) || 50.20,
-        r: parseFloat(cs.getPropertyValue('--flow-app-r')) || 0
-      };
-    }
-    function appApply(v) {
-      tuneApp.style.setProperty('--flow-app-l', v.l.toFixed(4) + '%');
-      tuneApp.style.setProperty('--flow-app-t', v.t.toFixed(4) + '%');
-      tuneApp.style.setProperty('--flow-app-r', v.r.toFixed(4) + 'deg');
-      if (hudOn) {
-        hud.style.display = 'block';
-        hud.textContent = 'left: ' + v.l.toFixed(2) + '%\n' +
-                          'top:  ' + v.t.toFixed(2) + '%\n' +
-                          'rot:  ' + v.r.toFixed(2) + 'deg\n' +
-                          '\nAlt+Shift+arrows nudge\n+Q/E rotate · Esc hide';
-      }
-    }
-    window.addEventListener('keydown', function (ev) {
-      if (!ev.altKey || !ev.shiftKey) return;
-      var v = appVals(), s = ev.ctrlKey ? 1.0 : 0.1;
-      if (ev.key === 'ArrowLeft') v.l -= s;
-      else if (ev.key === 'ArrowRight') v.l += s;
-      else if (ev.key === 'ArrowUp') v.t -= s;
-      else if (ev.key === 'ArrowDown') v.t += s;
-      else if (ev.key === 'q' || ev.key === 'Q') v.r -= 0.1;
-      else if (ev.key === 'e' || ev.key === 'E') v.r += 0.1;
-      else if (ev.key === 'Escape') { hudOn = !hudOn; hud.style.display = hudOn ? 'block' : 'none'; return; }
-      else return;
-      v.l = Math.max(0, Math.min(100, v.l));
-      v.t = Math.max(0, Math.min(100, v.t));
-      appApply(v);
-      ev.preventDefault();
-    });
-  }
 
   // v4: tilt + parallax orbs + count-up (phone frame hardware stays constant dark titanium)
   if (!reduced) {

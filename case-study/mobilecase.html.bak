@@ -303,7 +303,7 @@
                                     <div class="cs-row cs-spread" style="margin-bottom:8px">
                                         <span class="cs-ico tiny" aria-hidden="true">⚙️</span>
                                         <b class="cs-stitle">Account</b>
-                                        <span class="cs-ico tiny" aria-hidden="true">🔔</span>
+                                        <span class="cs-ico tiny" aria-hidden="true"></span>
                                     </div>
                                     <div class="cs-card cs-prof" style="margin-bottom:8px">
                                         <span class="cs-prof-av" aria-hidden="true">👩‍🦱</span>
@@ -1100,9 +1100,9 @@
             <div class="mc-wrap">
                 <div class="mc-eyebrow mrv m-up">12 &middot; App Flow &middot; Screen Transitions</div>
                 <h2 class="mrv m-blur">Real screens, <span class="grad">real transitions.</span></h2>
-                <p class="mc-lede mrv m-up">A live preview on the real device &mdash; tap a step (or let it auto-play) and the
-                    app screen changes inside the front-facing iPhone. Entry runs <b>Splash to Walkthrough to Login to
-                        Setup to Home</b>.</p>
+                <p class="mc-lede mrv m-up">A live prototype theatre. Tap a step: <b>Home to Progress</b> slides,
+                    <b>Progress to Community</b> crossfades, <b>Community to Account</b> rises. Entry runs <b>Splash to
+                        Walkthrough to Login to Setup to Home</b>.</p>
                 <div class="flow-layout">
                     <div class="flow-steps mrv m-up">
                         <button class="flow-step on" data-flow="0"><span class="fnum">1</span><span>Home<small>slide +
@@ -1115,12 +1115,9 @@
                                     settle</small></span></button>
                     </div>
                     <div class="flow-stage mrv-phone" data-rvd="120">
-                        <div class="flow-phone">
-                            <img src="imports/no2.png"
-                                alt="Real iPhone renders — the first model shows the back plate; the second model runs a live app preview"
-                                class="flow-phone-img" />
-                            <div class="flow-app" role="group" aria-label="Live app preview on the front-facing iPhone screen">
-                                <div class="flow-app-screen cover-theme-dark">
+                        <div class="cover-phone">
+                            <div class="cover-theme-layer cover-theme-dark">
+                                <div class="cover-screens">
                                     <!-- HOME -->
                                     <div class="cs-screen s-active" data-screen="home">
                                         <div class="cs-status"><span>9:41</span><span class="cs-dots">●●●</span><span>5G
@@ -1357,7 +1354,7 @@
                                             <div class="cs-row cs-spread" style="margin-bottom:8px">
                                                 <span class="cs-ico tiny" aria-hidden="true">⚙️</span>
                                                 <b class="cs-stitle">Account</b>
-                                                <span class="cs-ico tiny" aria-hidden="true">🔔</span>
+                                                <span class="cs-ico tiny" aria-hidden="true"></span>
                                             </div>
                                             <div class="cs-card cs-prof" style="margin-bottom:8px">
                                                 <span class="cs-prof-av" aria-hidden="true">👩‍🦱</span>
@@ -1410,13 +1407,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="cover-theme-layer cover-theme-light" aria-hidden="true"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <p class="flow-note mrv m-up">Real iPhone renders &mdash; the <b>front-facing model</b> streams the app preview;
-                the other model shows the device back plate. Auto-plays every 3.8s &mdash; hover to pause, <b>click a
-                    step</b> to jump.</p>
+            <p class="flow-note mrv m-up">Auto-plays every 3.8s &mdash; hover the phone to pause. <b>Click any step</b>
+                to jump.</p>
             </div>
         </section>
         <!-- 12 IMPORTANT -->
@@ -1845,7 +1842,7 @@
                                             <div class="cs-row cs-spread" style="margin-bottom:8px">
                                                 <span class="cs-ico tiny" aria-hidden="true">⚙️</span>
                                                 <b class="cs-stitle">Account</b>
-                                                <span class="cs-ico tiny" aria-hidden="true">🔔</span>
+                                                <span class="cs-ico tiny" aria-hidden="true"></span>
                                             </div>
                                             <div class="cs-card cs-prof" style="margin-bottom:8px">
                                                 <span class="cs-prof-av" aria-hidden="true">👩‍🦱</span>

@@ -1268,6 +1268,9 @@ body {
   --ct-ring: rgba(255,255,255,.16);
   --ct-badge-bd: #06080f;
   --ct-red: #f87171;
+  --ct-cta1: #17391c;
+  --ct-cta2: #045062;
+  --ct-cta-sh: rgba(22,163,74,.32);
 }
 .cover-theme-light {
   --ct-bg1: radial-gradient(circle at 88% 4%, rgba(34,211,238,.12), transparent 34%);
@@ -1291,6 +1294,9 @@ body {
   --ct-ring: rgba(255,255,255,.9);
   --ct-badge-bd: #ffffff;
   --ct-red: #dc2626;
+  --ct-cta1: #16a34a;
+  --ct-cta2: #0891b2;
+  --ct-cta-sh: rgba(22,163,74,.22);
 }
 
 /* ── Status + scroll region ── */
@@ -1450,11 +1456,12 @@ body {
 .cs-cta {
   display: flex; align-items: center; gap: 8px;
   padding: 9px 12px; border-radius: 13px;
-  background: linear-gradient(135deg, #16a34a, #0891b2); color: #fff;
-  box-shadow: 0 8px 22px rgba(22,163,74,.32);
+  background: linear-gradient(135deg, var(--ct-cta1, #17391c), var(--ct-cta2, #045062)); color: #fff;
+  box-shadow: 0 8px 22px var(--ct-cta-sh, rgba(22,163,74,.32));
 }
 .cs-cta .cs-go { color: #fff; }
 .cs-cta b { margin-left: auto; font-size: 14px; color: #fff; }
+.cs-cta .cs-mute { color: rgba(255,255,255,.75); }
 .cs-cta-ghost { background: var(--ct-glass); border: 1px solid var(--ct-border); box-shadow: none; }
 .cs-cta-ghost .cs-go { color: var(--ct-text); }
 

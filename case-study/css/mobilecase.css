@@ -270,7 +270,49 @@
 .flow-step.on .fnum{background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff}
 .flow-step small{display:block;font-size:10.5px;font-weight:500;color:#7e8ca3;margin-top:2px}
 .flow-stage{display:flex;justify-content:center;align-items:flex-start;order:-1}
-.flow-stage .cover-phone{width:300px}
+/* real-iPhone render replaces the CSS phone frame — exact 897:822 ratio from imports/no2.png (image was replaced; ratio updated to match) */
+.flow-stage .flow-phone{position:relative;width:min(640px,92vw);margin:8px auto 0;aspect-ratio:897/822;container-type:inline-size}
+.flow-stage .flow-phone::before{content:"";position:absolute;inset:0;border-radius:32px;background:radial-gradient(closest-side at 50% 46%,rgba(52,211,153,.13),transparent 62%),radial-gradient(closest-side at 20% 12%,rgba(34,211,238,.09),transparent 56%);pointer-events:none}
+.flow-stage .flow-phone img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 34px 70px rgba(0,0,0,.5))}
+/* live app preview overlaid on the right (front-facing) iPhone screen.
+   no2.png (897x822) — the right phone is perfectly straight/front-facing.
+   Measured display (wallpaper) bounds: x486..832 / y49.75..775.5 →
+   box 346x725.75, corner radius ≈49px, centered on (659, 412.6).
+   Overlay uses those exact bounds: rotation 0deg, no skew/perspective,
+   so the app fills the display edge-to-edge like a real screen. */
+.flow-stage .flow-app{position:absolute;left:var(--flow-app-l,74.1%);top:var(--flow-app-t,50.2%);width:40.57%;height:89.29%;transform:translate(-50%,-50%) rotate(var(--flow-app-r,0deg));border-radius:14.16%/6.75%;transform-origin:center;overflow:hidden;z-index:2}
+.flow-stage .flow-app::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;background:linear-gradient(118deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 16%,rgba(255,255,255,0) 36%,rgba(255,255,255,0) 72%,rgba(255,255,255,.04))}
+/* proportional app scaling: the preview UI is laid out at its fixed design size
+   (= width:38.57% / height:88.29% of the 640px reference container — the exact
+   display bounds) and uniformly scaled by container/640 — so the whole app
+   shrinks cleanly on small screens instead of breaking, and is pixel-identical
+   on desktop where the container caps at 640px (scale = 1). Unsupported
+   browsers just skip the transform. Self-clip (radius+overflow) because
+   Chromium does not reliably apply an ancestor's rounded clip to composited
+   children (backdrop-filter nav). NOTE: keep the design box in sync with the
+   percentages above — 38.57% x 640 = 246.84px, 88.29% x 586.62 = 517.96px. */
+.flow-stage .flow-app-screen{position:absolute;left:0;top:0;width:250.84px;height:522.96px;transform-origin:0 0;transform:scale(tan(atan2(100cqw,640px)));border-radius:14.16%/6.75%;overflow:hidden}
+.flow-stage .flow-app-screen .cs-status{padding:15px 17px 3px;font-size:10.5px}
+.flow-stage .flow-app-screen .cs-scroll{gap:9px;padding:8px 13px 52px;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;scrollbar-width:none}
+.flow-stage .flow-app-screen .cs-scroll::-webkit-scrollbar{display:none}
+.flow-stage .flow-app-screen .cs-hdr{margin-bottom:10px}
+.flow-stage .flow-app-screen .cs-name{font-size:14.5px}
+.flow-stage .flow-app-screen .cs-mute{font-size:8.5px}
+.flow-stage .flow-app-screen .cs-num{font-size:23px}
+.flow-stage .flow-app-screen .cs-num.sm{font-size:17px}
+.flow-stage .flow-app-screen .cs-num.xs{font-size:15px}
+.flow-stage .flow-app-screen .cs-up{font-size:8px}
+.flow-stage .flow-app-screen .cs-chip{font-size:8px;padding:4px 9px}
+.flow-stage .flow-app-screen .cs-card{padding:16px 14px;border-radius:16px}
+.flow-stage .flow-app-screen .cs-avatar{width:40px;height:40px;font-size:19px}
+.flow-stage .flow-app-screen .cs-bars{height:34px;gap:4px}
+.flow-stage .flow-app-screen .cs-t{font-size:11.5px}
+.flow-stage .flow-app-screen .cs-btn{font-size:8.5px;padding:7px 13px}
+.flow-stage .flow-app-screen .cs-nav{padding:8px 6px 12px;border-radius:0 0 35px 35px}
+.flow-stage .flow-app-screen .cs-tab{font-size:8px}
+.flow-stage .flow-app-screen .cs-track{height:6px}
+.flow-stage .flow-app-screen .cs-screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border-radius:14.16%/6.75%;background:var(--ct-bg1),var(--ct-bg2),var(--ct-bg3);color:var(--ct-text);opacity:0;visibility:hidden;transform:translateY(14px) scale(.98);filter:blur(5px);transition:opacity .6s cubic-bezier(.22,.9,.35,1),transform .6s cubic-bezier(.22,.9,.35,1),filter .6s cubic-bezier(.22,.9,.35,1),visibility 0s linear .6s}
+.flow-stage .flow-app-screen .cs-screen.s-active{opacity:1;visibility:visible;transform:none;filter:none;z-index:2;transition:opacity .6s cubic-bezier(.22,.9,.35,1),transform .6s cubic-bezier(.22,.9,.35,1),filter .6s cubic-bezier(.22,.9,.35,1),visibility 0s linear 0s}
 
 .flow-pane{position:absolute;inset:0;display:none;flex-direction:column}
 .flow-pane.on{display:flex}
@@ -519,13 +561,14 @@ body.mc-loaded .mc-kicker{animation:mcFadeSlideUp .6s ease both}
 @keyframes cover-enter{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes cover-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 /* theme tokens — dark default inside the phone (master --ct-* set) */
-.cover-theme-dark{--ct-bg1:radial-gradient(circle at 88% 4%,rgba(34,211,238,.16),transparent 34%);--ct-bg2:radial-gradient(circle at 8% 92%,rgba(22,163,74,.14),transparent 40%);--ct-bg3:linear-gradient(160deg,#071019 0%,#081018 48%,#06080f 100%);--ct-glass:rgba(255,255,255,.065);--ct-glass-2:rgba(255,255,255,.09);--ct-border:rgba(255,255,255,.09);--ct-border-accent:rgba(52,211,153,.28);--ct-track:rgba(255,255,255,.1);--ct-faint:rgba(255,255,255,.35);--ct-text:#e8eef7;--ct-text-2:#c2cfe0;--ct-mute:#7e8ca3;--ct-accent:#34d399;--ct-accent-soft:rgba(52,211,153,.12);--ct-accent2:#22d3ee;--ct-chart:#34d399;--ct-nav:rgba(7,11,17,.84);--ct-shadow:rgba(0,0,0,.22);--ct-ring:rgba(255,255,255,.16);--ct-badge-bd:#06080f;--ct-red:#f87171}
-.cover-theme-light{--ct-bg1:radial-gradient(circle at 88% 4%,rgba(8,145,178,.22),transparent 34%);--ct-bg2:radial-gradient(circle at 8% 92%,rgba(22,163,74,.28),transparent 40%);--ct-bg3:linear-gradient(145deg,#f0fdf4 0%,#dcfce7 16%,#cffafe 42%,#e0f2fe 60%,#faf5ff 82%,#fdf4ff 100%);--ct-glass:rgba(255,255,255,.72);--ct-glass-2:rgba(255,255,255,.8);--ct-border:rgba(15,23,42,.09);--ct-border-accent:rgba(22,163,74,.26);--ct-track:#F3F4F6;--ct-faint:#D1D5DB;--ct-text:#1f2937;--ct-text-2:#374151;--ct-mute:#6b7280;--ct-accent:#16a34a;--ct-accent-soft:rgba(22,163,74,.1);--ct-accent2:#0891b2;--ct-chart:#16a34a;--ct-nav:rgba(255,255,255,.72);--ct-shadow:rgba(0,0,0,.07);--ct-ring:rgba(255,255,255,.9);--ct-badge-bd:#ffffff;--ct-red:#dc2626}
+.cover-theme-dark{--ct-bg1:radial-gradient(circle at 88% 4%,rgba(34,211,238,.16),transparent 34%);--ct-bg2:radial-gradient(circle at 8% 92%,rgba(22,163,74,.14),transparent 40%);--ct-bg3:linear-gradient(160deg,#071019 0%,#081018 48%,#06080f 100%);--ct-glass:rgba(255,255,255,.065);--ct-glass-2:rgba(255,255,255,.09);--ct-border:rgba(255,255,255,.09);--ct-border-accent:rgba(52,211,153,.28);--ct-track:rgba(255,255,255,.1);--ct-faint:rgba(255,255,255,.35);--ct-text:#e8eef7;--ct-text-2:#c2cfe0;--ct-mute:#7e8ca3;--ct-accent:#34d399;--ct-accent-soft:rgba(52,211,153,.12);--ct-accent2:#22d3ee;--ct-chart:#34d399;--ct-nav:rgba(7,11,17,.84);--ct-shadow:rgba(0,0,0,.22);--ct-ring:rgba(255,255,255,.16);--ct-badge-bd:#06080f;--ct-red:#f87171;--ct-cta1:#17391c;--ct-cta2:#045062;--ct-cta-sh:rgba(22,163,74,.32)}
+.cover-theme-light{--ct-bg1:radial-gradient(circle at 88% 4%,rgba(8,145,178,.22),transparent 34%);--ct-bg2:radial-gradient(circle at 8% 92%,rgba(22,163,74,.28),transparent 40%);--ct-bg3:linear-gradient(145deg,#f0fdf4 0%,#dcfce7 16%,#cffafe 42%,#e0f2fe 60%,#faf5ff 82%,#fdf4ff 100%);--ct-glass:rgba(255,255,255,.72);--ct-glass-2:rgba(255,255,255,.8);--ct-border:rgba(15,23,42,.09);--ct-border-accent:rgba(22,163,74,.26);--ct-track:#F3F4F6;--ct-faint:#D1D5DB;--ct-text:#1f2937;--ct-text-2:#374151;--ct-mute:#6b7280;--ct-accent:#16a34a;--ct-accent-soft:rgba(22,163,74,.1);--ct-accent2:#0891b2;--ct-chart:#16a34a;--ct-nav:rgba(255,255,255,.72);--ct-shadow:rgba(0,0,0,.07);--ct-ring:rgba(255,255,255,.9);--ct-badge-bd:#ffffff;--ct-red:#dc2626;--ct-cta1:#16a34a;--ct-cta2:#0891b2;--ct-cta-sh:rgba(22,163,74,.22)}
 /* status + scroll + bottom nav (sliding hairline indicator) */
 .cs-status{display:flex;justify-content:space-between;align-items:center;font:600 9.5px "DM Sans",sans-serif;color:var(--ct-mute);padding:14px 16px 2px;flex-shrink:0;letter-spacing:.2px}
 .cs-status .cs-dots{letter-spacing:2px}
 .cs-status i{font-style:normal;font-size:8px}
-.cs-scroll{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;gap:6px;padding:6px 11px 12px;overflow:hidden}
+.cs-scroll{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;gap:6px;padding:6px 11px 48px;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;scrollbar-width:none}
+.cs-scroll::-webkit-scrollbar{display:none}
 .cs-nav{position:absolute;left:0;right:0;bottom:0;z-index:6;display:grid;grid-template-columns:repeat(4,1fr);padding:7px 4px 10px;background:var(--ct-nav);border-top:1px solid var(--ct-border);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .cs-nav::before{content:"";position:absolute;top:0;height:3px;width:19%;border-radius:0 0 4px 4px;background:linear-gradient(90deg,#16a34a,#0891b2);box-shadow:0 2px 8px rgba(22,163,74,.4);transition:left .3s cubic-bezier(.22,.9,.35,1)}
 .cs-nav.ind1::before{left:3%}
@@ -591,9 +634,10 @@ body.mc-loaded .mc-kicker{animation:mcFadeSlideUp .6s ease both}
 .cs-cyan{border-left-color:var(--ct-accent2)}
 .cs-ai p,.cs-cyan p{margin:5px 0 0;font:600 8px/1.5 "DM Sans",sans-serif;color:var(--ct-text-2)}
 /* primary + ghost CTA rows */
-.cs-cta{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:13px;background:linear-gradient(135deg,#16a34a,#0891b2);color:#fff;box-shadow:0 8px 22px rgba(22,163,74,.32)}
+.cs-cta{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:13px;background:linear-gradient(135deg,var(--ct-cta1,#17391c),var(--ct-cta2,#045062));color:#fff;box-shadow:0 8px 22px var(--ct-cta-sh,rgba(22,163,74,.32))}
 .cs-cta .cs-go{color:#fff}
 .cs-cta b{margin-left:auto;font-size:14px;color:#fff}
+.cs-cta .cs-mute{color:rgba(255,255,255,.75)}
 .cs-cta-ghost{background:var(--ct-glass);border:1px solid var(--ct-border);box-shadow:none}
 .cs-cta-ghost .cs-go{color:var(--ct-text)}
 /* achievement badges */
