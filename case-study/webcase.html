@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitnpulse — Web App UI/UX Case Study</title>
+    <meta name="description"
+        content="Fitnpulse web application UI/UX case study: typography, color, themes, dashboard, components, responsive behaviour and a live look at the real product." />
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 48 48%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%2748%27 y2=%2748%27 gradientUnits=%27userSpaceOnUse%27%3E%3Cstop offset=%270%27 stop-color=%27%2316A34A%27/%3E%3Cstop offset=%271%27 stop-color=%27%230891B2%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx=%2724%27 cy=%2724%27 r=%2723%27 fill=%27url(%23g)%27/%3E%3Cpolyline points=%276,26 11,26 14,17 18,35 22,20 26,26 32,26 38,26%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+        rel="stylesheet" />
+    <link href="css/mobilecase.css" rel="stylesheet" />
+    <link href="css/webcase.css" rel="stylesheet" />
+</head>
+
+<body class="mc-page wc-page">
+    <a class="wc-skip" href="#intro">Skip to the case study</a>
+    <div aria-hidden="true" class="wc-progress"><i id="wc-bar"></i></div>
+
+    <nav class="wc-top">
+        <a class="wc-brand" href="index.html"><i>♥</i><span>Fitnpulse <em>Web</em></span></a>
+        <div class="wc-switch" role="tablist" aria-label="Case study switcher">
+            <a role="tab" href="mobilecase.html"><b>📱</b><span>Mobile Case Study</span></a>
+            <a role="tab" class="on" href="webcase.html" aria-current="page"><b>🖥️</b><span>Web Case Study</span></a>
+        </div>
+        <a class="wc-live" data-open-app href="#live">Open live app ↗</a>
+        <button aria-label="Open the slide index" class="wc-menu-btn" id="wc-menu" title="Slides">☰</button>
+    </nav>
+
+    <div aria-hidden="true" class="wc-rail" id="wc-rail"></div>
+
+    <div aria-hidden="true" class="wc-ovl" id="wc-ovl">
+        <div class="wc-ovl-panel" role="dialog" aria-label="Slide index">
+            <div class="wc-ovl-head">
+                <span class="eyebrow">Presentation</span>
+                <h3>Slide index</h3>
+                <button aria-label="Close" class="wc-menu-btn" id="wc-ovl-close" title="Close">×</button>
+            </div>
+            <div class="wc-ovl-grid" id="wc-ovl-grid"></div>
+            <p class="wc-ovl-hint"><kbd>←</kbd> <kbd>→</kbd> previous / next slide · <kbd>Home</kbd> first ·
+                <kbd>End</kbd> last · <kbd>Esc</kbd> close</p>
+        </div>
+    </div>
+
+    <main>
+        <!-- ═══ 01 · INTRO / COVER ═══════════════════════════════ -->
+        <header class="mc-hero wc-hero" id="cover" data-label="Intro">
+            <span aria-hidden="true" class="wc-orb"
+                style="top:-8%;right:-6%;width:520px;height:520px;background:radial-gradient(circle,rgba(52,211,153,.16),transparent 70%)"></span>
+            <div class="mc-wrap wc-hero-grid">
+                <div>
+                    <span class="wc-kicker"><i></i>Fitnpulse &middot; Web App UI/UX Case Study</span>
+                    <h1>The same product,<br /><span class="grad">rebuilt for the desktop.</span></h1>
+                    <p class="tag">Track. Improve. Achieve.</p>
+                    <p class="sub">Fitnpulse is one product with two presentations. The phone app stacks cards in a
+                        430&nbsp;px column; the web app turns the identical data into a
+                        <em>sidebar&nbsp;+&nbsp;dashboard</em> built on a 12-column grid. This case study walks the
+                        whole web presentation &mdash; type, color, themes, the first-run flow, the dashboard,
+                        components, motion, responsive behaviour and the live product.</p>
+                    <div class="wc-meta">
+                        <div><span>Role</span><b>UI/UX Designer</b></div>
+                        <div><span>Platform</span><b>Web App</b></div>
+                        <div><span>Type</span><b>Product Case Study</b></div>
+                        <div><span>Stack</span><b>React &middot; Recharts</b></div>
+                        <div><span>Companion</span><b>Mobile Case Study</b></div>
+                        <div><span>Scope</span><b>16 Slides</b></div>
+                    </div>
+                    <div class="wc-cta">
+                        <a class="wc-btn solid" href="#home">See the dashboard</a>
+                        <a class="wc-btn" href="#live">Open the live app</a>
+                    </div>
+                </div>
+                <div class="wc-hero-visual">
+                    <div class="bf" data-bf data-sw="1440" data-tilt>
+                        <div class="bf__glow"></div>
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Home</span></span>
+                            <span class="bf__addr"><u>🔒</u><span>rr188351.github.io/Fitnpulse-app/</span></span>
+                            <span class="bf__tools">↻ ⛶</span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-app="home" data-theme="dark"></div>
+                        </div>
+                    </div>
+                    <div class="wc-legend-row">
+                        <div><b>Sidebar</b><small>264&nbsp;px rail that collapses to an 84&nbsp;px icon rail.</small></div>
+                        <div><b>Top bar</b><small>Page title, quick log, notifications, theme, account chip.</small></div>
+                        <div><b>Dashboard grid</b><small>12 columns, widgets spanning 3–12.</small></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ═══ 02 · TYPOGRAPHY ═════════════════════════════════ -->
+        <section class="mc-sec" id="type" data-label="Typography">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">02 &middot; Typography</div>
+                <h2 class="mrv m-blur">Two families, <span class="grad">one voice.</span></h2>
+                <p class="mc-lede mrv m-up">The web app inherits the brand's type system unchanged:
+                    <b>Outfit</b> carries every interface label, number and heading, while <b>DM Sans</b> handles
+                    reading text. Sizes are tuned for a pointer device: a 22&nbsp;px page title, 15&nbsp;px card
+                    titles, 14.5&nbsp;px navigation and 13–13.5&nbsp;px body copy.</p>
+                <div class="ty-specs mrv-stagger">
+                    <div class="ty-spec m-diag"><div class="lab"><b>Page title</b><code>Outfit 800 · 22 / -0.4</code></div>
+                        <div class="ty-out" style="font-size:34px">Home</div></div>
+                    <div class="ty-spec m-diag"><div class="lab"><b>Hero number</b><code>Outfit 900 · 46 / -1.6</code></div>
+                        <div class="ty-metric"><span data-count="12847">12,847</span></div></div>
+                    <div class="ty-spec m-scale"><div class="lab"><b>Navigation item</b><code>Outfit 600 · 14.5</code></div>
+                        <div class="ty-nav">🏠 &nbsp;Home &nbsp;&nbsp; 📊 &nbsp;Progress</div></div>
+                    <div class="ty-spec m-scale"><div class="lab"><b>Card heading</b><code>Outfit 700 · 15</code></div>
+                        <div class="ty-card">Today's Steps</div></div>
+                    <div class="ty-spec m-diag"><div class="lab"><b>Widget label</b><code>Outfit 600 · 11.5 / +0.6</code></div>
+                        <div class="ty-label">Heart Rate</div></div>
+                    <div class="ty-spec m-diag"><div class="lab"><b>Eyebrow / meta</b><code>Outfit 800 · 11 / +2.4</code></div>
+                        <div class="ty-caps">AI Insights &middot; New</div></div>
+                    <div class="ty-spec m-scale" style="grid-column:1/-1"><div class="lab"><b>Body copy</b>
+                            <code>DM Sans · 13–14 / 1.7</code></div>
+                        <p class="ty-body">Great progress this week! Hit step goal 5 days in a row. Heart rate improved
+                            by 8% — cardio sessions are working. Consider a rest day: recovery maximizes muscle
+                            gains.</p></div>
+                </div>
+                <p class="ty-note mrv m-up"><b>Why it works:</b> numerals use tabular figures so the step count
+                    counts up without the layout twitching, and the two families separate <i>structure</i> from
+                    <i>reading</i> even at 12&nbsp;px inside dense widget grids.</p>
+            </div>
+        </section>
+        <!-- ═══ 03 · COLOR SYSTEM ════════════════════════════════ -->
+        <section class="mc-sec" id="color" data-label="Color">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">03 &middot; Color System</div>
+                <h2 class="mrv m-blur">One token set, <span class="grad">two themes.</span></h2>
+                <p class="mc-lede mrv m-up">Every colour in the web app is a <b>--fp-*</b> token, which is why the
+                    light and dark themes ship from the same components. Each swatch shows the light value next to
+                    the dark-mode value it maps to.</p>
+                <div class="sw-grid mrv-stagger">
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#16A34A"></i>
+                            <i style="background:#34D399"></i></div><b>Emerald accent</b><code>--fp-accent</code>
+                        <small>Primary buttons, active navigation, goal progress</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#0891B2"></i>
+                            <i style="background:#22D3EE"></i></div><b>Cyan accent</b><code>--fp-accent-2</code>
+                        <small>Secondary CTAs, links, AI insight accent</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#65A30D"></i>
+                            <i style="background:#A3E635"></i></div><b>Lime</b><code>--fp-lime</code>
+                        <small>Success, low stress, best-day summaries</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#EA580C"></i>
+                            <i style="background:#F59E0B"></i></div><b>Orange</b><code>--fp-orange</code>
+                        <small>Calories, streaks, challenge countdowns</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#DC2626"></i>
+                            <i style="background:#F87171"></i></div><b>Red</b><code>--fp-red</code>
+                        <small>Heart rate, destructive actions, stop workout</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#7C3AED"></i>
+                            <i style="background:#8B5CF6"></i></div><b>Purple</b><code>--fp-purple</code>
+                        <small>Sleep stages, personal records</small></div>
+                    <div class="sw m-scale"><div class="sw__pair"><i style="background:#DB2777"></i>
+                            <i style="background:#EC4899"></i></div><b>Pink</b><code>--fp-pink</code>
+                        <small>HIIT category, high-intensity sessions</small></div>
+                    <div class="sw m-diag"><div class="sw__chip"
+                            style="background:linear-gradient(120deg,#34d399,#22d3ee 60%,#60a5fa)"></div>
+                        <b>Brand ramp</b><code>logo · glows</code>
+                        <small>Gradient mark and the aurora glows behind the glass</small></div>
+                </div>
+                <div class="wc-note mrv m-up"><em>Surfaces &amp; glass:</em> dark mode paints solid
+                    <code>--fp-glass</code> / <code>--fp-glass-2</code> surfaces over the animated gradient, while
+                    light mode runs far more transparent (28% / 42%) so the aurora reads through the frosted
+                    panels.</div>
+            </div>
+        </section>
+        <!-- ═══ 04 · DARK + LIGHT THEME ══════════════════════════ -->
+        <section class="mc-sec" id="themes" data-label="Themes">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">04 &middot; Dark + Light Web Theme</div>
+                <h2 class="mrv m-blur">One interface, <span class="grad">two visual modes.</span></h2>
+                <p class="mc-lede mrv m-up">Layout and content never move. Only the <b>--fp-*</b> tokens change:
+                    background gradient, glass surfaces, text, muted text, borders, accents and glows. The real app
+                    persists the choice and crossfades the surfaces over ~300&nbsp;ms &mdash; and every web-app screen
+                    on this page now flips on its own <b>5&nbsp;s cycle</b>, so you can watch both modes without
+                    touching anything. The two frames here stay pinned, one light and one dark, so the comparison
+                    never moves.</p>
+                <div class="th-pair">
+                    <div class="th-col mrv m-scale" data-theme-frame="light" data-wt="light">
+                        <div class="bf" data-bf data-sw="1440">
+                            <div class="bf__chrome">
+                                <span class="bf__lights"><i></i><i></i><i></i></span>
+                                <span class="bf__addr"><u>🔒</u><span>fitpulse.app/home &middot; light</span></span>
+                            </div>
+                            <div class="bf__vp" style="--ar:1440/900">
+                                <div class="bf__scale" data-app="home" data-theme="light"></div>
+                            </div>
+                        </div>
+                        <div class="th-cap"><i style="background:#16A34A"></i>Light theme &mdash; 28% glass over the
+                            mint / cyan / violet aurora</div>
+                    </div>
+                    <div class="th-col mrv m-scale" data-theme-frame="dark" data-wt="dark">
+                        <div class="bf" data-bf data-sw="1440">
+                            <div class="bf__chrome">
+                                <span class="bf__lights"><i></i><i></i><i></i></span>
+                                <span class="bf__addr"><u>🔒</u><span>fitpulse.app/home &middot; dark</span></span>
+                            </div>
+                            <div class="bf__vp" style="--ar:1440/900">
+                                <div class="bf__scale" data-app="home" data-theme="dark"></div>
+                            </div>
+                        </div>
+                        <div class="th-cap"><i style="background:#34D399"></i>Dark theme &mdash; solid glass, brighter
+                            accents, the default</div>
+                    </div>
+                </div>
+                <div class="stage__autoplay mrv m-up">
+                    <button class="wc-toggle" id="wc-theme-swap" type="button">⇄&nbsp; Swap light + dark</button>
+                    <span class="th-state" data-theme-state-long>Dark theme &middot; auto-switching every 5 s</span>
+                    <small>Same components, same data — only the tokens flip.</small>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 05 · WEB APPLICATION INTRO ════════════════════════ -->
+        <section class="mc-sec" id="intro" data-label="Intro">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">05 &middot; Web Application</div>
+                <h2 class="mrv m-blur">What the web app <span class="grad">actually is.</span></h2>
+                <p class="mc-lede mrv m-up">Not a separate product and not a port of the phone screens. The same data
+                    module, the same handlers, the same features — rearranged for a pointer, a wide viewport and a
+                    keyboard. Four product areas sit in the sidebar; the rest are secondary routes opened from
+                    inside them.</p>
+                <div class="wc-two wc-two--wide">
+                    <div class="mrv m-up">
+                        <div class="wc-four mrv-stagger">
+                            <div class="wc-panel"><div class="n">🏠</div><b>Home</b>
+                                <p>Greeting, today's steps with the weekly chart, five daily metrics, AI insights, the
+                                    weekly challenge and the start-workout entry.</p></div>
+                            <div class="wc-panel"><div class="n">📊</div><b>Progress</b>
+                                <p>Period switcher, monthly totals, the weight trend area chart, BMI, the AI monthly
+                                    summary and achievement badges.</p></div>
+                            <div class="wc-panel"><div class="n">👥</div><b>Community</b>
+                                <p>Challenges, the weekly leaderboard, the friends feed and the invite / share
+                                    actions.</p></div>
+                            <div class="wc-panel"><div class="n">👤</div><b>Account</b>
+                                <p>Profile, personal records, goals, device sync, subscription, privacy and
+                                    settings.</p></div>
+                        </div>
+                        <div class="wc-note"><em>Shared data module:</em> both renderers read one
+                            <code>data.ts</code>, so the web dashboard can never drift from the phone app — the
+                            numbers, labels, states and handlers are literally the same objects.</div>
+                    </div>
+                    <div class="mrv-phone" data-rvd="120">
+                        <div class="bf" data-bf data-sw="1440">
+                            <div class="bf__chrome">
+                                <span class="bf__lights"><i></i><i></i><i></i></span>
+                                <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Progress</span></span>
+                                <span class="bf__addr"><u>🔒</u><span>fitpulse.app/progress</span></span>
+                            </div>
+                            <div class="bf__vp" style="--ar:1440/900">
+                                <div class="bf__scale" data-app="progress" data-theme="dark"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 06 · FIRST RUN & AUTH ════════════════════════════ -->
+        <section class="mc-sec" id="auth" data-label="First Run">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">06 &middot; First Run &amp; Authentication</div>
+                <h2 class="mrv m-blur">A first-run journey that <span class="grad">fills the width.</span></h2>
+                <p class="mc-lede mrv m-up">Before the dashboard exists, the web app runs its own first-run
+                    journey &mdash; and here the 430&nbsp;px phone column finally becomes useful: a split brand /
+                    form panel on wide screens, a two-column field grid on profile setup and a three-up goal picker.
+                    Tap a step (or auto-play) to move through it.</p>
+                <div class="stage" data-stage>
+                    <div class="stage__steps">
+                        <button class="stage__step on" data-step="0" data-url="fitpulse.app/login"><span
+                                class="fnum">1</span><span>Login<small>split panel + social</small></span></button>
+                        <button class="stage__step" data-step="1" data-url="fitpulse.app/signup"><span
+                                class="fnum">2</span><span>Create account<small>four fields</small></span></button>
+                        <button class="stage__step" data-step="2" data-url="fitpulse.app/profile-setup"><span
+                                class="fnum">3</span><span>Profile setup<small>2-column field grid</small></span></button>
+                        <button class="stage__step" data-step="3" data-url="fitpulse.app/goals"><span
+                                class="fnum">4</span><span>Goal selection<small>three-up cards</small></span></button>
+                    </div>
+                    <div class="bf" data-bf data-sw="1440">
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; first run</span></span>
+                            <span class="bf__addr"><u>🔒</u><span data-url>fitpulse.app/login</span></span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-pages data-app="auth:login,signup,profile,goals"></div>
+                        </div>
+                    </div>
+                    <div class="stage__autoplay">
+                        <button class="ghost-btn" data-autoplay type="button">▶ Auto-play</button>
+                        <small>Forward and back reuse the 300–450&nbsp;ms screen transition.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 07 · MAIN HOME DASHBOARD ═════════════════════════ -->
+        <section class="mc-sec" id="home" data-label="Dashboard">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">07 &middot; Main Home Dashboard</div>
+                <h2 class="mrv m-blur">The screen people <span class="grad">open every morning.</span></h2>
+                <p class="mc-lede mrv m-up">Everything the phone Home screen shows in a vertical stack becomes a
+                    12-column dashboard here. Nothing is added and nothing is removed &mdash; the same greeting,
+                    step hero, five metrics, insights, challenge and workout entry simply find a column span that
+                    suits their weight.</p>
+                <div class="bf bf--enter" data-bf data-sw="1440">
+                    <div class="bf__glow"></div>
+                    <div class="bf__chrome">
+                        <span class="bf__lights"><i></i><i></i><i></i></span>
+                        <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Home</span></span>
+                        <span class="bf__addr"><u>🔒</u><span>fitpulse.app/home</span></span>
+                        <span class="bf__tools">↻ ⛶</span>
+                    </div>
+                    <div class="bf__vp" style="--ar:1440/900">
+                        <div class="bf__scale" data-app="home" data-theme="dark"></div>
+                    </div>
+                </div>
+                <div class="wc-four mrv-stagger" style="margin-top:20px">
+                    <div class="wc-panel"><div class="n">1</div><b>Greeting &amp; streak</b>
+                        <p>A 4-column card: avatar, greeting, name and the streak chip. The streak rail repeats it
+                            in the sidebar foot so it is always in view.</p></div>
+                    <div class="wc-panel"><div class="n">2</div><b>Step hero</b>
+                        <p>8 columns for the 46&nbsp;px tabular number and the weekly bar chart. The last bar is the
+                            accent-filled "today" column; bars grow on reveal.</p></div>
+                    <div class="wc-panel"><div class="n">3</div><b>Metric row</b>
+                        <p>All five daily metrics span 12 columns and auto-fit from 185&nbsp;px, so they stay in one
+                            row on desktop and wrap to two rows on tablets.</p></div>
+                    <div class="wc-panel"><div class="n">4</div><b>Insight &middot; challenge &middot; CTA</b>
+                        <p>5 / 4 / 3 columns: the emerald-accented AI card, the challenge with a progress bar, and
+                            the start-workout entry that pushes to the Workouts route.</p></div>
+                </div>
+                <p class="ty-note mrv m-up"><b>Count-up on load:</b> the step total animates 0 → 12,847 over
+                    1.4&nbsp;s with a cubic ease-out and the challenge bar fills left to right, so the dashboard
+                    reports its own state instead of appearing finished and silent.</p>
+            </div>
+        </section>
+        <!-- ═══ 08 · IMPORTANT WEB SCREENS ════════════════════════ -->
+        <section class="mc-sec" id="screens" data-label="Screens">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">08 &middot; Important Web Screens</div>
+                <h2 class="mrv m-blur">The routes that carry <span class="grad">the product.</span></h2>
+                <p class="mc-lede mrv m-up">Every step below is a real route in the web shell. Transitions are
+                    directional: the incoming page slides in from the right going forward and from the left going
+                    back, with a 6&nbsp;px blur settling to zero over 450&nbsp;ms.</p>
+                <div class="stage" data-stage>
+                    <div class="stage__steps">
+                        <button class="stage__step on" data-step="0" data-url="fitpulse.app/home"><span
+                                class="fnum">1</span><span>Home<small>dashboard grid</small></span></button>
+                        <button class="stage__step" data-step="1" data-url="fitpulse.app/workouts"><span
+                                class="fnum">2</span><span>Workouts<small>grid + live card</small></span></button>
+                        <button class="stage__step" data-step="2" data-url="fitpulse.app/progress"><span
+                                class="fnum">3</span><span>Progress<small>area chart + badges</small></span></button>
+                        <button class="stage__step" data-step="3" data-url="fitpulse.app/activity"><span
+                                class="fnum">4</span><span>Activity Log<small>six analytics tabs</small></span></button>
+                        <button class="stage__step" data-step="4" data-url="fitpulse.app/community"><span
+                                class="fnum">5</span><span>Community<small>board + feed</small></span></button>
+                        <button class="stage__step" data-step="5" data-url="fitpulse.app/account"><span
+                                class="fnum">6</span><span>Account<small>records + menu</small></span></button>
+                    </div>
+                    <div class="bf" data-bf data-sw="1440">
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse</span></span>
+                            <span class="bf__addr"><u>🔒</u><span data-url>fitpulse.app/home</span></span>
+                            <span class="bf__tools">↻ ⛶</span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-pages
+                                data-app="pages:home,workouts,progress,activity,community,account"></div>
+                        </div>
+                    </div>
+                    <div class="stage__autoplay">
+                        <button class="ghost-btn" data-autoplay type="button">▶ Auto-play</button>
+                        <small>Settings and Add Water open as secondary routes from Account and the quick-log menu.</small>
+                    </div>
+                </div>
+                <div class="wc-two" style="margin-top:26px;align-items:start">
+                    <div class="mrv m-up">
+                        <div class="bf" data-bf data-sw="1440">
+                            <div class="bf__chrome">
+                                <span class="bf__lights"><i></i><i></i><i></i></span>
+                                <span class="bf__addr"><u>🔒</u><span>fitpulse.app/settings</span></span>
+                            </div>
+                            <div class="bf__vp" style="--ar:1440/900">
+                                <div class="bf__scale" data-app="settings" data-theme="dark"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mrv m-up">
+                        <div class="fn-stack mrv-stagger">
+                            <div class="wc-panel"><div class="n">⚙️</div><b>Settings</b>
+                                <p>Three grouped sections of toggles and rows. Toggles are 44&nbsp;px wide so they stay
+                                    comfortable for a mouse, and the group titles carry the structure the phone list
+                                    gets from its section headers.</p></div>
+                            <div class="wc-panel"><div class="n">📄</div><b>Reports &amp; export</b>
+                                <p>The Progress page keeps the mobile <i>Download PDF Report</i> action, moved from a
+                                    header icon into the page action row where a pointer expects it.</p></div>
+                            <div class="wc-panel"><div class="n">🔍</div><b>Search</b>
+                                <p>Workouts opens with a search field in the page action row instead of a dedicated
+                                    screen, so the categories stay visible behind the query.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 09 · COMPONENT SYSTEM ════════════════════════════ -->
+        <section class="mc-sec" id="components" data-label="Components">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">09 &middot; Component System</div>
+                <h2 class="mrv m-blur">Same component, <span class="grad">new geometry.</span></h2>
+                <p class="mc-lede mrv m-up">The phone components are not redrawn &mdash; they are re-composed. A card
+                    keeps its glass surface, radius and border; what changes is its span, its padding rhythm and the
+                    density of what sits inside it. Hover the rows to read the translation.</p>
+                <div class="mover mrv-stagger">
+                    <div class="mover__row m-diag">
+                        <div class="mover__side"><small>Mobile</small><b>Bottom tab bar</b>
+                            <span>Four icons in a fixed bar, always visible, 5 taps to reach Account.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>Left sidebar rail</b>
+                            <span>264&nbsp;px, collapsible to an 84&nbsp;px icon rail, plus a sticky streak footer.</span></div>
+                    </div>
+                    <div class="mover__row m-scale">
+                        <div class="mover__side"><small>Mobile</small><b>Stacked metric cards</b>
+                            <span>One card per metric, each a full-width row in a scrolling column.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>Auto-fit metric grid</b>
+                            <span><code>repeat(auto-fit, minmax(185px, 1fr))</code> &mdash; five across on desktop,
+                                two on a tablet, one on a phone.</span></div>
+                    </div>
+                    <div class="mover__row m-diag">
+                        <div class="mover__side"><small>Mobile</small><b>Single chart card</b>
+                            <span>One metric per screen, swiped to change.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>Tabbed analytics dashboard</b>
+                            <span>Six tabs in a page action row; steps, heart, calories, sleep, stress and water
+                                share one wide chart surface.</span></div>
+                    </div>
+                    <div class="mover__row m-scale">
+                        <div class="mover__side"><small>Mobile</small><b>Bottom sheet</b>
+                            <span>Sheets slide up from the bottom edge over the content.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>Anchored popover + centred modal</b>
+                            <span>The quick-log and notification menus anchor to their top-bar button; destructive
+                                flows still use a centred modal with a scrim.</span></div>
+                    </div>
+                    <div class="mover__row m-diag">
+                        <div class="mover__side"><small>Mobile</small><b>Radial quick-action FAB</b>
+                            <span>Three actions fan out from a thumb-sized button.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>&ldquo;+ Log&rdquo; menu</b>
+                            <span>Log Meal, Log Workout and Add Water drop from the same button, closing on
+                                navigation.</span></div>
+                    </div>
+                    <div class="mover__row m-scale">
+                        <div class="mover__side"><small>Mobile</small><b>Header icon actions</b>
+                            <span>Bell, theme and avatar compressed into the status-bar row.</span></div>
+                        <div class="mover__arrow">→</div>
+                        <div class="mover__side"><small>Web</small><b>Full top-bar action cluster</b>
+                            <span>Title and subtitle on the left, 40–44&nbsp;px controls and the account chip on the
+                                right &mdash; room for hover labels and a notification badge.</span></div>
+                    </div>
+                </div>
+                <div class="wc-note mrv m-up"><em>Radius &amp; rhythm:</em> web cards step up to
+                    <b>22&nbsp;px</b> with 22&nbsp;px padding and a 20&nbsp;px grid gap, because a larger canvas can
+                    carry more air without wasting rows.</div>
+            </div>
+        </section>
+        <!-- ═══ 10 · WEB ANIMATIONS & MOTION ═════════════════════ -->
+        <section class="mc-sec" id="motion" data-label="Motion">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">10 &middot; Web Animations &amp; Motion</div>
+                <h2 class="mrv m-blur">Every animation has <span class="grad">a job.</span></h2>
+                <p class="mc-lede mrv m-up">The timing scale is the one the product already documents:
+                    <b>150–200&nbsp;ms</b> micro-interactions, <b>250–350&nbsp;ms</b> component transitions and
+                    <b>300–450&nbsp;ms</b> screen transitions. Each tile below is a real interaction you can trigger
+                    here.</p>
+                <div class="mo-grid mrv-stagger">
+                    <div class="mo-card m-scale"><div class="stage-demo"><button class="mo-pill" type="button">+ Log</button></div>
+                        <b>Hover &amp; press · 150 ms</b>
+                        <p>Buttons lift 2&nbsp;px on hover and compress to 0.97 on press, with the gradient glow
+                            deepening behind them.</p></div>
+                    <div class="mo-card m-diag"><div class="stage-demo"><span class="mo-switch"><i></i></span></div>
+                        <b>Toggle · 250 ms</b>
+                        <p>Settings toggles slide the knob across 250&nbsp;ms; a row never changes size, so the list
+                            never reflows under the cursor.</p></div>
+                    <div class="mo-card m-diag"><div class="stage-demo">
+                        <details class="mo-accordion"><summary>Notifications <span>4</span></summary>
+                            <p>The popover keeps a scrim, so the page behind stays visible but inert.</p></details></div>
+                        <b>Popover · 250–350 ms</b>
+                        <p>Anchored popovers fade and settle; the page behind is dimmed by a scrim rather than a
+                            modal.</p></div>
+                    <div class="mo-card m-scale"><div class="stage-demo"><span class="mo-typed"></span></div>
+                        <b>Count-up &amp; feedback · 1400 ms</b>
+                        <p>Numbers count up once, when the widget first enters the viewport, then stay put.</p></div>
+                    <div class="mo-card m-diag"><div class="stage-demo" style="align-items:flex-end">
+                        <div style="display:flex;align-items:flex-end;gap:6px;height:76px">
+                            <i style="width:16px;height:38%;border-radius:4px;background:rgba(52,211,153,.3)"></i>
+                            <i style="width:16px;height:62%;border-radius:4px;background:rgba(52,211,153,.3)"></i>
+                            <i style="width:16px;height:48%;border-radius:4px;background:rgba(52,211,153,.3)"></i>
+                            <i style="width:16px;height:100%;border-radius:4px;background:linear-gradient(180deg,#34d399,#16a34a)"></i>
+                        </div></div>
+                        <b>Chart draw · 900 ms</b>
+                        <p>Bars grow from the baseline with a 70&nbsp;ms stagger; the current day is filled with the
+                            accent gradient.</p></div>
+                    <div class="mo-card m-scale"><div class="stage-demo">
+                        <span class="fpw__live" style="padding:14px;width:100%">
+                            <span class="fpw__livehead" style="margin:0 0 10px"><span class="fpw__livetitle"
+                                    style="font-size:12px">🏃 Running · Active</span><span class="fpw__livedot"></span></span>
+                            <span class="fpw__livestats" style="grid-template-columns:repeat(2,1fr);gap:8px;margin:0">
+                                <span><span class="fpw__liveval" style="font-size:15px">24:38</span>
+                                    <span class="fpw__livelbl">Duration</span></span>
+                                <span><span class="fpw__liveval" style="font-size:15px">3.2 km</span>
+                                    <span class="fpw__livelbl">Distance</span></span></span></span></span></div>
+                        <b>Live state · pulsing dot</b>
+                        <p>The live-workout card pulses its dot every 1.8&nbsp;s so a running session is obvious even in
+                            peripheral vision.</p></div>
+                </div>
+                <div class="wc-note mrv m-up"><em>Reduced motion:</em> every tile above, and every animation in the
+                    dashboard replica, collapses to its final state when the OS reports
+                    <code>prefers-reduced-motion: reduce</code>. No layout shift, no lost information.</div>
+            </div>
+        </section>
+        <!-- ═══ 11 · RESPONSIVE DESIGN ═══════════════════════════ -->
+        <section class="mc-sec" id="responsive" data-label="Responsive">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">11 &middot; Responsive Design</div>
+                <h2 class="mrv m-blur">Three layouts, <span class="grad">one app.</span></h2>
+                <p class="mc-lede mrv m-up">The app measures the window and picks a layout before it paints: the web
+                    shell on large screens, a compact icon rail on tablets, and the untouched phone design below
+                    768&nbsp;px. Pick a viewport below &mdash; this is the same branching the product performs.</p>
+                <div class="rsp mrv-stagger" data-rsp>
+                    <button class="rsp__opt on" data-w="desktop" data-label="Desktop · 1440 × 900">
+                        <span class="rsp__mini"><nav></nav><div><u></u><u></u><u></u><u></u><u></u><u></u>
+                            <u></u><u></u><u></u><u></u><u></u><u></u></div></span>
+                        <b>Desktop</b><small>&gt; 1024&nbsp;px on a fine pointer. Full 264&nbsp;px sidebar, 12-column
+                            grid, top-bar action cluster.</small></button>
+                    <button class="rsp__opt" data-w="tablet" data-label="Tablet · 1024 × 860">
+                        <span class="rsp__mini"><nav class="rail"></nav><div><u></u><u></u><u></u><u></u><u></u><u></u>
+                            <u></u><u></u><u></u><u></u><u></u><u></u></div></span>
+                        <b>Tablet</b><small>768–1024&nbsp;px. Sidebar starts collapsed to the 84&nbsp;px icon rail;
+                            widgets reflow to two columns.</small></button>
+                    <button class="rsp__opt" data-w="mobile" data-label="Phone · 430 × 900">
+                        <span class="rsp__mini"><nav class="none"></nav><div style="grid-template-columns:repeat(2,1fr)">
+                            <u></u><u></u><u></u><u></u><u></u><u></u></div></span>
+                        <b>Phone</b><small>&lt; 768&nbsp;px. The web shell hands over completely to the 430&nbsp;px
+                            phone layout &mdash; the one in the mobile case study.</small></button>
+                </div>
+                <div class="bf bf--enter" data-bf data-sw="1440" style="margin-top:22px">
+                    <div class="bf__chrome">
+                        <span class="bf__lights"><i></i><i></i><i></i></span>
+                        <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Home</span></span>
+                        <span class="bf__addr"><u>🔒</u><span data-rsp-label>Desktop &middot; 1440 × 900</span></span>
+                        <span class="bf__tools">↻ ⛶</span>
+                    </div>
+                    <div class="bf__vp" style="--ar:1440/900">
+                        <div class="bf__scale" data-app="home" data-theme="dark"></div>
+                    </div>
+                </div>
+                <div class="wc-note mrv m-up"><em>Breakpoints:</em> <code>&lt; 768</code> phone ·
+                    <code>768–1024</code> tablet · <code>&gt; 1024</code> desktop, with 1025–1400&nbsp;px treated as
+                    tablet on coarse-pointer devices. An <code>?embed=1</code> flag (used by the 3D showcase) always
+                    forces the phone layout, whatever the frame size.</div>
+            </div>
+        </section>
+        <!-- ═══ 12 · MOBILE VS WEB ════════════════════════════════ -->
+        <section class="mc-sec" id="versus" data-label="Mobile vs Web">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">12 &middot; Mobile vs Web</div>
+                <h2 class="mrv m-blur">Two presentations, <span class="grad">one product.</span></h2>
+                <p class="mc-lede mrv m-up">Pick a product area and both sides answer at once: the phone app on the
+                    left, the web shell on the right. The content matches screen for screen &mdash; only the
+                    composition changes.</p>
+                <div class="stage" data-stage>
+                    <div class="stage__steps">
+                        <button class="stage__step on" data-step="0" data-screen="home" data-url="fitpulse.app/home">
+                            <span class="fnum">1</span><span>Home<small>card stack → grid</small></span></button>
+                        <button class="stage__step" data-step="1" data-screen="progress" data-url="fitpulse.app/progress">
+                            <span class="fnum">2</span><span>Progress<small>one chart → dashboard</small></span></button>
+                        <button class="stage__step" data-step="2" data-screen="community" data-url="fitpulse.app/community">
+                            <span class="fnum">3</span><span>Community<small>feed → board + feed</small></span></button>
+                        <button class="stage__step" data-step="3" data-screen="account" data-url="fitpulse.app/account">
+                            <span class="fnum">4</span><span>Account<small>menu → records + menu</small></span></button>
+                    </div>
+                    <div class="vs">
+                        <div class="vs__side mrv m-up">
+                            <span class="vs__tag"><i></i>Mobile app · 430 px</span>
+                            <div data-phone data-app="phones:home,progress,community,account"></div>
+                            <p class="vs__note">The phone app keeps a single scrolling column, a bottom tab bar and
+                                <b>bottom sheets</b> that rise from the bottom edge.</p>
+                            <div class="vs-facts">
+                                <div><b>430 px</b><span>Fixed design width, scaled edge-to-edge on tablets</span></div>
+                                <div><b>4 tabs</b><span>Bottom navigation, always within thumb reach</span></div>
+                            </div>
+                        </div>
+                        <div class="vs__side mrv m-up">
+                            <span class="vs__tag"><i></i>Web app · sidebar + dashboard</span>
+                            <div class="bf" data-bf data-sw="1440">
+                                <div class="bf__chrome">
+                                    <span class="bf__lights"><i></i><i></i><i></i></span>
+                                    <span class="bf__addr"><u>🔒</u><span data-url>fitpulse.app/home</span></span>
+                                    <span class="bf__tools">↻ ⛶</span>
+                                </div>
+                                <div class="bf__vp" style="--ar:1440/900">
+                                    <div class="bf__scale" data-pages
+                                        data-app="pages:home,progress,community,account"></div>
+                                </div>
+                            </div>
+                            <div class="vs-facts">
+                                <div><b>264 px</b><span>Sidebar rail, collapsible to 84 px</span></div>
+                                <div><b>12 col</b><span>Dashboard grid, widgets span 3–12</span></div>
+                                <div><b>Popover</b><span>Menus anchor to their top-bar button</span></div>
+                                <div><b>1 data.ts</b><span>Both renderers read the same module</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stage__autoplay">
+                        <button class="ghost-btn" data-autoplay type="button">▶ Auto-play</button>
+                        <small>Both sides share the stepper — the comparison stays honest.</small>
+                    </div>
+                </div>
+                <div class="wc-four mrv-stagger" style="margin-top:22px">
+                    <div class="wc-panel"><b>Keep</b><p>Data, labels, states, handlers, theme tokens, the
+                        notification list and the three quick-log actions.</p></div>
+                    <div class="wc-panel"><b>Change</b><p>Navigation (tab bar → rail), overlays (sheet →
+                        popover / modal), density and the number of columns a card may span.</p></div>
+                    <div class="wc-panel"><b>Add</b><p>Hover affordances, tooltips, keyboard focus rings, a
+                        notification badge, wide charts and page-level action rows.</p></div>
+                    <div class="wc-panel"><b>Explore</b><p>The <a href="mobilecase.html" style="color:#34d399">mobile
+                        case study</a> covers the phone side in full, and the
+                        <a data-open-showcase href="#versus" style="color:#34d399">live showcase</a> runs every screen
+                        interactively.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 13 · FINAL WEB SHOWCASE ══════════════════════════ -->
+        <section class="mc-sec" id="finale" data-label="Showcase">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">13 &middot; Final Web Showcase</div>
+                <h2 class="mrv m-blur">The whole product, <span class="grad">one window.</span></h2>
+                <p class="mc-lede mrv m-up">Sidebar, top bar, grid, charts, insights, community and account — the
+                    complete web presentation, exactly as the deployed app assembles it. Hover the frame for a
+                    parallax tilt.</p>
+                <div class="fn-grid">
+                    <div class="bf bf--enter" data-bf data-sw="1440" data-tilt>
+                        <div class="bf__glow"></div>
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Home</span></span>
+                            <span class="bf__addr"><u>🔒</u><span>fitpulse.app/home</span></span>
+                            <span class="bf__tools">↻ ⛶</span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-app="home" data-theme="dark"></div>
+                        </div>
+                    </div>
+                    <div class="fn-stack mrv-stagger">
+                        <div class="fn-note m-scale"><b>One grid, many densities</b>
+                            <p>Widgets declare a column span instead of a fixed width, so the same component reads as a
+                                hero (span 8) or a side note (span 3).</p></div>
+                        <div class="fn-note m-diag"><b>Glass with a job</b>
+                            <p>Blurred surfaces separate the chrome (sidebar, top bar) from the content plane, so the
+                                aurora stays visible without ever competing with the numbers.</p></div>
+                        <div class="fn-note m-scale"><b>Nothing decorative</b>
+                            <p>Every glow marks an accent, every colour encodes a metric type, and every animation
+                                confirms an action or explains a change.</p></div>
+                    </div>
+                </div>
+                <div class="fn-float mrv m-up">
+                    <div class="bf" data-bf data-sw="1440" data-pin-theme>
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; Community</span></span>
+                            <span class="bf__addr"><u>🔒</u><span>fitpulse.app/community</span></span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-app="community" data-theme="light"></div>
+                        </div>
+                    </div>
+                    <div class="fn-note m-scale" style="display:flex;flex-direction:column;justify-content:center">
+                        <b>Light theme, same components</b>
+                        <p>The Community page in the light theme: challenges, the weekly leaderboard with your row
+                            highlighted, and the friends feed with its like counts.</p>
+                        <div class="fn-chips">
+                            <span class="fn-chip">Sidebar</span><span class="fn-chip">Top bar</span>
+                            <span class="fn-chip">Leaderboard</span><span class="fn-chip">Feed</span>
+                            <span class="fn-chip">Modal flows</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 14 · DESIGN CONSISTENCY ══════════════════════════ -->
+        <section class="mc-sec" id="consistency" data-label="Consistency">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">14 &middot; Design Consistency</div>
+                <h2 class="mrv m-blur">Rules that keep <span class="grad">two UIs honest.</span></h2>
+                <p class="mc-lede mrv m-up">Because the phone and web presentations live in the same product, the
+                    decisions below are enforced on both sides rather than reinvented per screen.</p>
+                <div class="wc-four mrv-stagger">
+                    <div class="wc-panel"><div class="n">1</div><b>Tokens, never raw hex</b>
+                        <p>Components read <code>--fp-*</code> variables, so a new surface or a theme change is a
+                            token edit rather than a sweep through the screens.</p></div>
+                    <div class="wc-panel"><div class="n">2</div><b>One source of truth</b>
+                        <p>Steps, metrics, challenges, the leaderboard, records and settings all come from a single
+                            data module that both renderers consume.</p></div>
+                    <div class="wc-panel"><div class="n">3</div><b>Colour means something</b>
+                        <p>Emerald is progress, cyan is AI and sync, red is heart rate and destructive actions,
+                            purple is sleep. The palette is never decorative.</p></div>
+                    <div class="wc-panel"><div class="n">4</div><b>One timing scale</b>
+                        <p>150–200 / 250–350 / 300–450&nbsp;ms, with ease-out for entrances and ease-in-out for state
+                            changes — identical on both platforms.</p></div>
+                    <div class="wc-panel"><div class="n">5</div><b>Same words, same place</b>
+                        <p>&ldquo;Weekly 70K&rdquo;, &ldquo;3 days left&rdquo; and &ldquo;Resting &middot; Normal&rdquo;
+                            are the same strings on both platforms, so nothing has to be re-learned.</p></div>
+                    <div class="wc-panel"><div class="n">6</div><b>Progressive enhancement</b>
+                        <p>Charts animate only when the data arrives; toggles, sheets and popovers are the same
+                            components at every size.</p></div>
+                    <div class="wc-panel"><div class="n">7</div><b>Accessible by default</b>
+                        <p>Visible focus rings, 44&nbsp;px hit targets in the web chrome, semantic headings per
+                            region, and full <code>prefers-reduced-motion</code> support.</p></div>
+                    <div class="wc-panel"><div class="n">8</div><b>Graceful hand-off</b>
+                        <p>The same URL serves the phone, tablet, desktop and embedded presentation — the layout is
+                            chosen at runtime, never forked into separate builds.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══ 15 · LIVE WEB APP EXPERIENCE ═════════════════════ -->
+        <section class="mc-sec" id="live" data-label="Live App">
+            <div class="mc-wrap">
+                <div class="mc-eyebrow mrv m-up">15 &middot; Live Web App Experience</div>
+                <h2 class="mrv m-blur">The real product, <span class="grad">running as a web app.</span></h2>
+                <p class="mc-lede mrv m-up">This is the Fitnpulse web application itself &mdash; the 264&nbsp;px sidebar
+                    rail, the 12-column dashboard, the charts and the page action rows &mdash; running at a desktop width in
+                    the frames below. The tour cycles the six primary routes and the replica screens on this page flip
+                    between the dark and light theme every five seconds; the sandbox window underneath keeps its theme
+                    and is yours to drive.</p>
+                <div class="stage" data-stage>
+                    <div class="stage__steps">
+                        <button class="stage__step on" data-step="0" data-url="fitpulse.app/home"><span
+                                class="fnum">1</span><span>Home<small>dashboard grid</small></span></button>
+                        <button class="stage__step" data-step="1" data-url="fitpulse.app/workouts"><span
+                                class="fnum">2</span><span>Workouts<small>categories + live card</small></span></button>
+                        <button class="stage__step" data-step="2" data-url="fitpulse.app/progress"><span
+                                class="fnum">3</span><span>Progress<small>area chart + badges</small></span></button>
+                        <button class="stage__step" data-step="3" data-url="fitpulse.app/activity"><span
+                                class="fnum">4</span><span>Activity Log<small>six analytics tabs</small></span></button>
+                        <button class="stage__step" data-step="4" data-url="fitpulse.app/community"><span
+                                class="fnum">5</span><span>Community<small>board + feed</small></span></button>
+                        <button class="stage__step" data-step="5" data-url="fitpulse.app/account"><span
+                                class="fnum">6</span><span>Account<small>records + menu</small></span></button>
+                    </div>
+                    <div class="bf bf--enter" data-bf data-sw="1440">
+                        <div class="bf__glow"></div>
+                        <div class="bf__chrome">
+                            <span class="bf__lights"><i></i><i></i><i></i></span>
+                            <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; web app</span></span>
+                            <span class="bf__addr"><u>🔒</u><span data-url>fitpulse.app/home</span></span>
+                            <span class="bf__tools">↻ ⛶</span>
+                        </div>
+                        <div class="bf__vp" style="--ar:1440/900">
+                            <div class="bf__scale" data-pages
+                                data-app="pages:home,workouts,progress,activity,community,account"></div>
+                        </div>
+                    </div>
+                    <div class="stage__autoplay">
+                        <button class="ghost-btn" data-autoplay type="button">▶ Auto-play</button>
+                        <small>Auto-play starts on load: the route advances every 3.6&nbsp;s and the theme flips every
+                            5&nbsp;s. Clicking the sidebar in the frame drives the same tour.</small>
+                    </div>
+                </div>
+                <div class="live live--app">
+                    <div>
+                        <p class="live__eyebrow"><i></i>Try it &middot; the same build, as a web app</p>
+                        <div class="appwin" data-stage>
+                            <div class="bf bf--enter" data-bf data-sw="1440">
+                                <div class="bf__glow"></div>
+                                <div class="bf__chrome">
+                                    <span class="bf__lights"><i></i><i></i><i></i></span>
+                                    <span class="bf__tabs"><span class="bf__tab on"><i></i>FitPulse &mdash; web app</span></span>
+                                    <span class="bf__addr"><u>🔒</u><span data-url>fitpulse.app/home</span></span>
+                                    <span class="bf__tools">↻ ⛶</span>
+                                </div>
+                                <div class="bf__vp" style="--ar:1440/900">
+                                    <div class="bf__scale">
+                                        <iframe class="appwin__frame" data-app-frame loading="lazy"
+                                            referrerpolicy="no-referrer" title="Live Fitnpulse web application"
+                                            data-src="https://rr188351.github.io/Fitnpulse-app/?presentation=web&amp;screen=home"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="appwin__note">A 1440&nbsp;&times;&nbsp;900 desktop viewport of the deployed build
+                                itself: <code>?presentation=web</code> tells the bundle to keep the desktop shell inside
+                                the frame instead of its usual 430&nbsp;px embedded fallback, so the sidebar rail and the
+                                12-column grid render for real.</p>
+                            <div class="appwin__routes" role="group" aria-label="Routes in the live window">
+                                <button class="appwin__route on" data-step="0" data-url="fitpulse.app/home"
+                                    type="button">🏠 Home</button>
+                                <button class="appwin__route" data-step="1" data-url="fitpulse.app/progress"
+                                    type="button">📊 Progress</button>
+                                <button class="appwin__route" data-step="2" data-url="fitpulse.app/community"
+                                    type="button">👥 Community</button>
+                                <button class="appwin__route" data-step="3" data-url="fitpulse.app/account"
+                                    type="button">👤 Account</button>
+                            </div>
+                            <div class="stage__autoplay">
+                                <button class="ghost-btn" data-autoplay type="button">▶ Auto-play</button>
+                                <span class="live__hud"><i></i>Interactive window</span>
+                                <a class="ghost-btn" data-open-app href="#live">↗ Open the deployed build</a>
+                            </div>
+                            <p class="live__hint live__hint--panel">Press a route chip (or leave auto-play on) to drive
+                                the deployed build &mdash; the URL bar and the chip follow every move. The frame holds the
+                                theme it loads with while the rest of the page keeps flipping every 5&nbsp;s, so your sun /
+                                moon choice in there sticks. Click inside to take over: the bell and the switches on
+                                Account all respond, and the deployed build stays one click away in its own tab.</p>
+                        </div>
+                    </div>
+                    <div class="live__card mrv m-up">
+                        <b>One build, every surface</b>
+                        <p>Fitnpulse ships a single bundle and picks its presentation at runtime: the sidebar shell on a
+                            desktop viewport, the <b>embedded</b> 430&nbsp;px column when the bundle is framed &mdash; how
+                            the 3D showcase mounts it &mdash; and the phone layout below 768&nbsp;px. This frame simply asks
+                            for the desktop shell with <code>?presentation=web</code>. No fork, no second build.</p>
+                        <b>Try it yourself</b>
+                        <p>Both windows on this slide behave like the product, so you can drive either one:</p>
+                        <ul class="live__list">
+                            <li>Drive the embedded build from the route chips or auto-play &mdash; the URL bar and the
+                                active chip follow every move.</li>
+                            <li>Open the bell to read notifications, or press the sun / moon to flip the theme.</li>
+                            <li>Flip the switches on Account and watch the state stick.</li>
+                            <li>Open the deployed build in its own tab for the untouched desktop shell at full size.</li>
+                        </ul>
+                        <div class="wc-cta" style="margin-top:18px">
+                            <a class="wc-btn solid" data-open-app href="#live">Open the web app ↗</a>
+                            <a class="wc-btn" data-open-showcase href="#live">Web showcase ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ 16 · THANK YOU ═══════════════════════════════════ -->
+        <section class="mc-sec" id="thanks" data-label="Thank You">
+            <div class="mc-wrap">
+                <div class="cta-panel mrv m-up" style="--d:100ms">
+                    <div class="cta-aurora" aria-hidden="true"></div>
+                    <div class="cta-bubbles" aria-hidden="true">
+                        <span class="cta-bubble cb-1"></span>
+                        <span class="cta-bubble cb-2"></span>
+                        <span class="cta-bubble cb-3"></span>
+                        <span class="cta-bubble cb-4"></span>
+                        <span class="cta-bubble cb-5"></span>
+                        <span class="cta-bubble cb-6"></span>
+                    </div>
+                    <div class="eyebrow">Case Study Complete</div>
+                    <h2 class="cta-title">Thank You<br><span class="grad-text">For Watching.</span></h2>
+                    <p class="cta-sub">Fitnpulse &middot; Web App UI/UX Case Study &middot; Track. Improve. Achieve.</p>
+                    <div class="wc-cta" style="justify-content:center">
+                        <a class="wc-btn solid" data-open-app href="#thanks">Open the web app ↗</a>
+                        <a class="wc-btn" href="mobilecase.html">Switch to the mobile case study</a>
+                        <a class="wc-btn" href="index.html">Back to case study</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mc-foot">
+        <div class="mc-wrap">Fitnpulse &middot; Web App UI/UX Case Study &middot; Companion to the
+            <a href="mobilecase.html">mobile case study</a> &middot; <a href="index.html">Main case study</a> &middot;
+            <a data-open-app href="#live">Live web app ↗</a></div>
+    </footer>
+    <script src="js/webcase-data.js"></script>
+    <script src="js/webcase.js"></script>
+</body>
+
+</html>
