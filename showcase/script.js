@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const revealables = Array.from(document.querySelectorAll('.device, .phone-label'));
+  const revealables = Array.from(document.querySelectorAll('.device, .phone-label, .web-stage-wrapper'));
 
   function inView(el) {
     const r = el.getBoundingClientRect();
@@ -45,6 +45,17 @@
     if (ico) ico.textContent = theme === 'light' ? '☀️' : '🌙';
     if (txt) txt.textContent = theme === 'light' ? 'Light' : 'Dark';
     try { localStorage.setItem(KEY, theme); } catch (e) { /* ignore */ }
+
+    // Sync theme with the embedded live Fitnpulse web application iframe
+    var frame = document.getElementById('webAppFrame');
+    if (frame && frame.contentWindow) {
+      try {
+        frame.contentWindow.postMessage({ type: 'FP_SET_THEME', theme: theme }, '*');
+        if (frame.contentDocument && frame.contentDocument.documentElement) {
+          frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+        }
+      } catch (err) { /* ignore cross-origin / loading */ }
+    }
   }
 
   window.toggleTheme = function () {
@@ -125,3 +136,212 @@
     });
   });
 })();
+
+/* ══════════════════════════════════════════════════════════════
+   PRESENTATION MODE SWITCHER (Mobile ↔ Web)
+   Smooth Apple-level transition:
+   Mobile mode shows the existing 32-screen gallery.
+   Web mode shows the actual Fitnpulse web application in desktop shell.
+   ══════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var mobileBtn = document.getElementById('modeMobileBtn');
+  var webBtn = document.getElementById('modeWebBtn');
+  var gallery = document.getElementById('mobileGallery');
+  var webContainer = document.getElementById('webGallery');
+  var webFrame = document.getElementById('webAppFrame');
+  var reloadBtn = document.getElementById('webReloadBtn');
+  var heroSub = document.getElementById('heroSub');
+  var heroMeta = document.getElementById('heroMetaText');
+
+  var currentMode = 'mobile';
+  var isTransitioning = false;
+
+  var SUB_MOBILE = 'Complete App Screen Showcase — every screen & widget of the live React app, switchable between light & dark.';
+  var META_MOBILE = '32 screens · iPhone 14 · Light & Dark theme';
+
+  var SUB_WEB = 'Desktop Web Application Showcase — 40 static browser windows rendering every screen of the responsive React dashboard, generated live from src/data.ts.';
+  var META_WEB = '40 web screens · Desktop browser chrome · Light & Dark theme';
+
+  function initWebFrame() {
+    if (!webFrame) return;
+    if (webFrame.getAttribute('src') === 'about:blank') {
+      var src = webFrame.getAttribute('data-src') || 'webapp/index.html';
+      webFrame.setAttribute('src', src);
+
+      webFrame.addEventListener('load', function () {
+        var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        try {
+          webFrame.contentWindow.postMessage({ type: 'FP_SET_THEME', theme: currentTheme }, '*');
+          if (webFrame.contentDocument && webFrame.contentDocument.documentElement) {
+            webFrame.contentDocument.documentElement.setAttribute('data-theme', currentTheme);
+          }
+        } catch (e) { /* ignore */ }
+      });
+    }
+  }
+
+  function setMode(mode, immediate) {
+    if (mode === currentMode && !immediate) return;
+    if (isTransitioning) return;
+
+    var prevMode = currentMode;
+    currentMode = mode;
+
+    if (mobileBtn) {
+      var isM = (mode === 'mobile');
+      mobileBtn.classList.toggle('is-active', isM);
+      mobileBtn.setAttribute('aria-pressed', isM ? 'true' : 'false');
+    }
+    if (webBtn) {
+      var isW = (mode === 'web');
+      webBtn.classList.toggle('is-active', isW);
+      webBtn.setAttribute('aria-pressed', isW ? 'true' : 'false');
+    }
+
+    if (mode === 'web') {
+      initWebFrame();
+      if (heroSub) heroSub.textContent = SUB_WEB;
+      if (heroMeta) heroMeta.textContent = META_WEB;
+
+      if (immediate) {
+        if (gallery) gallery.style.display = 'none';
+        if (webContainer) {
+          webContainer.style.display = 'block';
+          webContainer.classList.add('mode-in');
+          webContainer.classList.remove('mode-out');
+        }
+        window.dispatchEvent(new Event('scroll'));
+        return;
+      }
+
+      isTransitioning = true;
+      if (gallery) {
+        gallery.classList.add('mode-out');
+      }
+
+      setTimeout(function () {
+        if (gallery) {
+          gallery.style.display = 'none';
+          gallery.classList.remove('mode-out');
+        }
+        if (webContainer) {
+          webContainer.style.display = 'block';
+          webContainer.classList.remove('mode-out');
+          // Force reflow for clean CSS transition
+          void webContainer.offsetWidth;
+          webContainer.classList.add('mode-in');
+        }
+        window.dispatchEvent(new Event('scroll'));
+        isTransitioning = false;
+      }, 450);
+
+    } else {
+      // Switch back to mobile
+      if (heroSub) heroSub.textContent = SUB_MOBILE;
+      if (heroMeta) heroMeta.textContent = META_MOBILE;
+
+      if (immediate) {
+        if (webContainer) {
+          webContainer.style.display = 'none';
+          webContainer.classList.remove('mode-in');
+        }
+        if (gallery) {
+          gallery.style.display = '';
+          gallery.classList.remove('mode-out');
+        }
+        return;
+      }
+
+      isTransitioning = true;
+      if (webContainer) {
+        webContainer.classList.remove('mode-in');
+        webContainer.classList.add('mode-out');
+      }
+
+      setTimeout(function () {
+        if (webContainer) {
+          webContainer.style.display = 'none';
+          webContainer.classList.remove('mode-out');
+        }
+        if (gallery) {
+          gallery.style.display = '';
+          void gallery.offsetWidth;
+          gallery.classList.remove('mode-out');
+        }
+        isTransitioning = false;
+      }, 450);
+    }
+  }
+
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', function () {
+      setMode('mobile');
+    });
+  }
+  if (webBtn) {
+    webBtn.addEventListener('click', function () {
+      setMode('web');
+    });
+  }
+
+  if (reloadBtn && webFrame) {
+    reloadBtn.addEventListener('click', function () {
+      try {
+        webFrame.contentWindow.location.reload();
+      } catch (e) {
+        var src = webFrame.getAttribute('data-src') || 'webapp/index.html';
+        webFrame.src = src;
+      }
+    });
+  }
+
+  // Keyboard navigation support: 'm' for mobile, 'w' for web
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key === 'm' || e.key === 'M') {
+      setMode('mobile');
+    } else if (e.key === 'w' || e.key === 'W') {
+      setMode('web');
+    }
+  });
+
+  // Pre-load web app when user hovers over the Web switcher button for instantaneous click response
+  if (webBtn) {
+    webBtn.addEventListener('mouseenter', function () {
+      initWebFrame();
+    }, { once: true });
+  }
+
+})();
+
+/* ── Mobile sub-screens: blurred parent app behind each sheet ───────────
+   The live app opens these sheets with FitModal on top of the parent
+   screen (Community for 24–26, Account for 28–31). The showcase rendered
+   them on a plain dark scrim — "nothing behind". Clone the parent
+   screen's markup into a .sub-bg layer (blurred + dimmed by styles.css)
+   so every sub-screen floats over its own parent, like the web mode. */
+(function () {
+  'use strict';
+
+  var hosts = document.querySelectorAll('[data-sub-screen]');
+  Array.prototype.forEach.call(hosts, function (host) {
+    if (host.querySelector(':scope > .sub-bg')) return; // already injected
+
+    var label = document.querySelector(host.getAttribute('data-sub-screen'));
+    var device = label ? label.nextElementSibling : null;
+    if (!device || !device.classList.contains('device')) return;
+    var parent = device.querySelector('.screen');
+    if (!parent) return;
+
+    var bg = document.createElement('div');
+    bg.className = 'sub-bg';
+    bg.setAttribute('aria-hidden', 'true');
+    Array.prototype.forEach.call(parent.children, function (node) {
+      bg.appendChild(node.cloneNode(true));
+    });
+    host.insertBefore(bg, host.firstChild);
+  });
+})();
+

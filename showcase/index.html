@@ -26,6 +26,18 @@
 <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle light / dark theme">
   <span class="tt-ico" id="themeToggleIco">🌙</span><span id="themeToggleText">Dark</span>
 </button>
+
+<!-- Mode Switcher (Mobile / Web) -->
+<nav class="mode-switcher" id="modeSwitcher" aria-label="Presentation mode switch">
+  <button type="button" class="mode-btn is-active" id="modeMobileBtn" data-mode="mobile" aria-pressed="true">
+    <span class="mode-ico">📱</span>
+    <span class="mode-label">Mobile</span>
+  </button>
+  <button type="button" class="mode-btn" id="modeWebBtn" data-mode="web" aria-pressed="false">
+    <span class="mode-ico">🖥️</span>
+    <span class="mode-label">Web</span>
+  </button>
+</nav>
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <linearGradient id="lg1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
@@ -39,10 +51,10 @@
 <header class="hero">
   <svg viewBox="0 0 84 84" style="width:64px;height:64px;margin-bottom:14px"><circle cx="42" cy="42" r="40" fill="url(#lg2)"></circle><polyline points="10,44 19,44 24,30 32,60 37,34 43,44 52,44 62,44" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
   <h1>Fitnpulse</h1>
-  <p class="sub">Complete App Screen Showcase — every screen &amp; widget of the live React app, switchable between light &amp; dark.</p>
-  <div class="meta"><span class="dot"></span> 32 screens · iPhone 14 · Light &amp; Dark theme</div>
+  <p class="sub" id="heroSub">Complete App Screen Showcase — every screen &amp; widget of the live React app, switchable between light &amp; dark.</p>
+  <div class="meta" id="heroMeta"><span class="dot"></span> <span id="heroMetaText">32 screens · iPhone 14 · Light &amp; Dark theme</span></div>
 </header>
-<main class="gallery">
+<main class="gallery" id="mobileGallery">
 <!-- 01 -->
 <section class="phone-label reveal" id="s01">
   <div class="num">01</div><div class="name">Splash Screen</div><div class="cat">AUTHENTICATION</div>
@@ -779,7 +791,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="display:flex;align-items:flex-end;justify-content:center;background:var(--scrim)">
+  <div class="screen" style="display:flex;align-items:flex-end;justify-content:center;background:var(--scrim)" data-sub-screen="#s23">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:92%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px calc(20px + env(safe-area-inset-bottom));backdrop-filter:blur(30px);z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Join Challenge</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -800,7 +812,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s23">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:92%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Invite People</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -821,7 +833,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s23">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:92%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Share Progress</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -879,7 +891,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s27">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:80%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);z-index:3;position:absolute;bottom:0" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Edit Profile</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -899,7 +911,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s27">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:82%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);position:absolute;bottom:0;z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Subscription</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -921,7 +933,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s27">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:85%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);position:absolute;bottom:0;z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Personal Records</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -942,7 +954,7 @@
 </section>
 <div class="device reveal">
   <div class="island"></div>
-  <div class="screen" style="background:var(--scrim)">
+  <div class="screen" style="background:var(--scrim)" data-sub-screen="#s27">
     <div class="blobs" style="opacity:.3"></div>
     <div style="width:100%;max-height:85%;background:var(--glass2);border-top:1px solid var(--border);border-radius:28px 28px 0 0;padding:22px 20px;backdrop-filter:blur(30px);position:absolute;bottom:0;z-index:3" class="sheet-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:19px;font-weight:800;color:var(--t)">Privacy & Security</h3><span class="m" style="font-size:15px">✕</span></div>
@@ -955,6 +967,1566 @@
     </div>
   </div>
 </div>
+</main>
+
+<!-- WEB MODE static gallery -->
+<main class="gallery web-gallery" id="webGallery" style="display:none" aria-label="Fitnpulse web application screens">
+<!-- 32–71 · generated by build2.cjs / build3.cjs from src/data.ts -->
+<section class="phone-label reveal" id="w32">
+  <div class="num">32</div><div class="name">Splash Screen</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in">
+  <div class="wb-splash">
+    <span class="wb-hero-ico" style="--s:110px"><svg viewBox="0 0 48 48" width="60%" height="60%" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>
+    <div class="wb-splash-name">FitPulse</div>
+    <div class="wb-splash-tag">Track. Improve. Achieve.</div>
+    <div class="wb-load"><i></i><i></i><i></i></div>
+    <div class="wb-copy">© 2025 FitPulse Inc.</div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w33">
+  <div class="num">33</div><div class="name">Walkthrough · Track Your Health Easily</div><div class="cat">ONBOARDING</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/onboard1</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in">
+  <div class="wb-onb">
+    <div class="wb-onb-top">
+      <span class="wb-onb-brand"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg><span>FitPulse</span></span>
+      <span class="wb-onb-skip">Skip</span>
+    </div>
+    <div class="wb-onb-body">
+      <div class="wb-onb-artcol"><div class="wb-ob-art">
+    <span class="wb-ob-ring"></span>
+    <span class="wb-ob-emo">🏃‍♂️</span>
+    <span class="wb-ob-chip" style="top:16px;left:4px;color:var(--g);animation-delay:0s">👟 8,432 Steps</span>
+    <span class="wb-ob-chip" style="top:64px;right:4px;color:var(--rd);animation-delay:.55s">❤️ 72 BPM</span>
+    <span class="wb-ob-chip" style="bottom:24px;left:20px;color:var(--og);animation-delay:1.1s">🔥 482 kcal</span>
+  </div></div>
+      <div class="wb-onb-text">
+        <div class="wb-dots"><span class="on" style="background:#16A34A"></span><span class=""></span><span class=""></span></div>
+        <h2>Track Your Health Easily</h2>
+        <p>Monitor steps, heart rate, calories &amp; sleep all in one place.</p>
+        <div class="wb-onb-actions">
+          <button type="button" class="wb-cta wb-onb-next" style="background:linear-gradient(135deg,#16A34A,#16A34Acc);box-shadow:0 14px 26px #16A34A40">Next</button>
+          
+        </div>
+      </div>
+    </div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w34">
+  <div class="num">34</div><div class="name">Walkthrough · AI Insights For Your Goals</div><div class="cat">ONBOARDING</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/onboard2</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in">
+  <div class="wb-onb">
+    <div class="wb-onb-top">
+      <span class="wb-onb-brand"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg><span>FitPulse</span></span>
+      <span class="wb-onb-skip">Skip</span>
+    </div>
+    <div class="wb-onb-body">
+      <div class="wb-onb-artcol"><div class="wb-ob-art">
+    <div class="wb-ob-ai">
+      <div class="wb-ob-ai-h"><span>✨</span> AI Weekly Analysis</div>
+      <div class="wb-ob-ai-bars"><i style="height:65%"></i><i style="height:72%"></i><i style="height:58%"></i><i style="height:84%"></i><i style="height:76%"></i><i style="height:91%"></i><i style="height:88%"></i></div>
+      <div class="wb-ob-ai-stats">
+        <span><b style="color:var(--g)">92%</b><em>Fitness</em></span>
+        <span><b style="color:var(--pu)">78%</b><em>Sleep</em></span>
+        <span><b style="color:var(--og)">34%</b><em>Stress</em></span>
+        <span><b style="color:var(--rd)">88%</b><em>Heart</em></span>
+      </div>
+    </div>
+    <span class="wb-ob-chip" style="top:12px;right:12px;color:var(--g);animation-delay:.4s">🎯 Goal: 95%</span>
+  </div></div>
+      <div class="wb-onb-text">
+        <div class="wb-dots"><span class=""></span><span class="on" style="background:#0891B2"></span><span class=""></span></div>
+        <h2>AI Insights For Your Goals</h2>
+        <p>Personalized predictions and weekly analytics powered by AI.</p>
+        <div class="wb-onb-actions">
+          <button type="button" class="wb-cta wb-onb-next" style="background:linear-gradient(135deg,#0891B2,#0891B2cc);box-shadow:0 14px 26px #0891B240">Next</button>
+          <button type="button" class="wb-cta wb-cta--ghost wb-onb-back">Back</button>
+        </div>
+      </div>
+    </div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w35">
+  <div class="num">35</div><div class="name">Walkthrough · Stay Motivated Together</div><div class="cat">ONBOARDING</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/onboard3</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in">
+  <div class="wb-onb">
+    <div class="wb-onb-top">
+      <span class="wb-onb-brand"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg><span>FitPulse</span></span>
+      <span class="wb-onb-skip">Skip</span>
+    </div>
+    <div class="wb-onb-body">
+      <div class="wb-onb-artcol"><div class="wb-ob-art wb-ob-art--podium">
+    <div class="wb-ob-top"><span class="wb-ob-trophy">🏆</span><span class="wb-ob-league">Champion League</span></div>
+    <div class="wb-ob-users">
+      <div class="wb-ob-user"><span>👩‍🦱</span><b>Ananya</b><i style="color:var(--g)">12.4k</i></div>
+      <div class="wb-ob-user"><span>🧑‍🦰</span><b>Rahul</b><i style="color:var(--og)">11.8k</i></div>
+      <div class="wb-ob-user"><span>👩‍🦳</span><b>Priya</b><i style="color:var(--cy)">10.9k</i></div>
+    </div>
+  </div></div>
+      <div class="wb-onb-text">
+        <div class="wb-dots"><span class=""></span><span class=""></span><span class="on" style="background:#7C3AED"></span></div>
+        <h2>Stay Motivated Together</h2>
+        <p>Join challenges, climb leaderboards, and celebrate wins with friends.</p>
+        <div class="wb-onb-actions">
+          <button type="button" class="wb-cta wb-onb-next">Get Started</button>
+          <button type="button" class="wb-cta wb-cta--ghost wb-onb-back">Back</button>
+        </div>
+      </div>
+    </div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w36">
+  <div class="num">36</div><div class="name">Login</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/login</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-auth-split">
+  <div class="wb-brand-panel">
+  <span class="wb-hero-ico" style="--s:54px"><svg viewBox="0 0 48 48" width="60%" height="60%" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>
+  <div class="wb-brand-name">FitPulse</div>
+  <div class="wb-brand-tag">Track. Improve. Achieve.</div>
+</div>
+  <div class="wb-auth-panel">
+    
+    <div class="wb-auth-panel-head"><h2>Welcome Back</h2><p>Sign in to your FitPulse account</p></div>
+    <label class="wb-field"><span>📧</span><em class="wb-field-ph">Email address</em></label>
+    <label class="wb-field"><span>🔒</span><em class="wb-field-ph">Password</em></label>
+    <div class="wb-auth-forgot">Forgot Password?</div>
+    <button type="button" class="wb-cta">Sign In</button>
+    <div class="wb-auth-sso"><span></span>or continue with<span></span></div>
+    <div class="wb-auth-social">
+  <button type="button" class="wb-auth-social-btn" aria-label="Continue with Google"><img src="imports/google-logo.png" alt="Google"></button>
+  <button type="button" class="wb-auth-social-btn" aria-label="Continue with Apple"><img src="imports/apple-logo.png" alt="Apple" class="apple-logo"></button>
+</div>
+    <p class="wb-auth-switch">New here? <b>Create Account</b></p>
+
+  </div>
+</div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w37">
+  <div class="num">37</div><div class="name">Sign Up</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/signup</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-auth-split">
+  <div class="wb-brand-panel">
+  <span class="wb-hero-ico" style="--s:54px"><svg viewBox="0 0 48 48" width="60%" height="60%" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>
+  <div class="wb-brand-name">FitPulse</div>
+  <div class="wb-brand-tag">Track. Improve. Achieve.</div>
+</div>
+  <div class="wb-auth-panel">
+    
+    <div class="wb-auth-panel-head"><h2>Create Account</h2><p>Start your fitness journey today</p></div>
+    <label class="wb-field"><span>👤</span><em class="wb-field-ph">Full Name</em></label>
+    <label class="wb-field"><span>📧</span><em class="wb-field-ph">Email address</em></label>
+    <label class="wb-field"><span>🔒</span><em class="wb-field-ph">Password</em></label>
+    <label class="wb-field"><span>✅</span><em class="wb-field-ph">Confirm Password</em></label>
+    <button type="button" class="wb-cta">Create Account 🎉</button>
+    <p class="wb-auth-switch">Already have an account? <b>Sign In</b></p>
+
+  </div>
+</div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w38">
+  <div class="num">38</div><div class="name">Profile Setup</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/setup/profile</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-stage-wide">
+    
+    <div class="wb-stage-head wb-stage-head--center"><h2>Set Up Profile</h2><p>Help us personalize your experience</p></div>
+    
+      <div class="wb-av-lg">👩‍🦱<span class="wb-av-cam">📷</span></div>
+      <div class="wb-panel">
+        <div class="wb-field-col"><label class="wb-field"><span>👤</span><em class="wb-field-ph">Full Name</em></label><label class="wb-field"><span>🎂</span><em class="wb-field-ph">Age</em></label><label class="wb-field"><span>📏</span><em class="wb-field-ph">Height (cm)</em></label><label class="wb-field"><span>⚖️</span><em class="wb-field-ph">Weight (kg)</em></label></div>
+        <div class="wb-panel-grp">
+          <div class="wb-panel-label">Gender</div>
+          <div class="wb-seg"><span class="wb-seg-btn">Male</span><span class="wb-seg-btn">Female</span><span class="wb-seg-btn">Other</span></div>
+        </div>
+      </div>
+      <div class="wb-group">
+        <div class="wb-group-label">Fitness Level</div>
+        <div class="wb-seg"><span class="wb-seg-btn" style="--sc:#65A30D">🌱 Beginner</span><span class="wb-seg-btn on" style="--sc:#0891B2">⚡ Intermediate</span><span class="wb-seg-btn" style="--sc:#EA580C">🔥 Advanced</span></div>
+      </div>
+    
+    <div class="wb-stage-acts"><button type="button" class="wb-cta">Next</button></div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w39">
+  <div class="num">39</div><div class="name">Device Sync</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/setup/devices</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-stage-wide wb-stage-wide--radar">
+    <div class="wb-radar" aria-hidden="true"><i></i><i></i><i></i><span>🔵</span></div>
+    <div class="wb-stage-head"><h2>Connect Device</h2><p>Pair your tracker for complete health sync</p></div>
+    
+      <div class="wb-sync-status">Tap a device to connect</div>
+      <div class="wb-dev-grid"><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">⌚</span><b>Apple Watch</b><i>Series 9</i>
+      </div><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">⌚</span><b>Samsung Watch</b><i>Galaxy 6</i>
+      </div><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">🏃</span><b>Fitbit</b><i>Charge 6</i>
+      </div><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">🗺️</span><b>Garmin</b><i>Forerunner 265</i>
+      </div><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">📱</span><b>Mi Band</b><i>Band 8 Pro</i>
+      </div><div class="wb-dev-tile">
+        <span class="wb-dev-tile-ico">⌚</span><b>Smartwatch</b><i>Generic BLE</i>
+      </div></div>
+    
+    <div class="wb-stage-acts"><button type="button" class="wb-cta">Skip for Now</button></div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w40">
+  <div class="num">40</div><div class="name">Goal Selection</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/setup/goals</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-stage-wide">
+    
+    <div class="wb-stage-head"><h2>What's Your Goal?</h2><p>Select all that apply — you can change later</p></div>
+    
+      <div class="wb-goals"><div class="wb-goal" style="--gc:#EA580C"><span class="wb-goal-ico">⚖️</span><em><b>Lose Weight</b><i>Burn fat &amp; slim down</i></em><span class="wb-goal-check"></span></div><div class="wb-goal" style="--gc:#0891B2"><span class="wb-goal-ico">💪</span><em><b>Build Muscle</b><i>Gain strength &amp; mass</i></em><span class="wb-goal-check"></span></div><div class="wb-goal on" style="--gc:#16A34A"><span class="wb-goal-ico">🏃</span><em><b>Stay Active</b><i>10k+ steps every day</i></em><span class="wb-goal-check">✓</span></div><div class="wb-goal" style="--gc:#DC2626"><span class="wb-goal-ico">❤️</span><em><b>Improve Cardio</b><i>Boost endurance</i></em><span class="wb-goal-check"></span></div><div class="wb-goal" style="--gc:#7C3AED"><span class="wb-goal-ico">🥗</span><em><b>Healthy Lifestyle</b><i>Balanced wellness</i></em><span class="wb-goal-check"></span></div></div>
+    
+    <div class="wb-stage-acts"><button type="button" class="wb-cta">Continue (1 selected)</button></div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w41">
+  <div class="num">41</div><div class="name">Permissions</div><div class="cat">AUTHENTICATION</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/setup/permissions</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-page"><div class="wb-glow" aria-hidden="true"><i></i><i></i><i></i></div><div class="wb-page-in"><div class="wb-stage-wide wb-stage-wide--fill">
+    <div class="wb-stage-head-ico">📱</div>
+    <div class="wb-stage-head wb-stage-head--center"><h2>Enable Permissions</h2><p>FitPulse needs these to deliver the full experience</p></div>
+    
+      <div class="wb-perm-list"><div class="wb-perm">
+        <span class="wb-perm-ico" style="background:#EA580C16;border:1px solid #EA580C30">🔔</span>
+        <span class="wb-perm-bd"><b>Notifications</b><i>Reminders, achievements &amp; challenges</i></span>
+        <span class="wb-toggle on"><i></i></span>
+      </div><div class="wb-perm">
+        <span class="wb-perm-ico" style="background:#DC262616;border:1px solid #DC262630">❤️</span>
+        <span class="wb-perm-bd"><b>Health Data</b><i>Steps, heart rate &amp; sleep tracking</i></span>
+        <span class="wb-toggle on"><i></i></span>
+      </div><div class="wb-perm">
+        <span class="wb-perm-ico" style="background:#16A34A16;border:1px solid #16A34A30">📍</span>
+        <span class="wb-perm-bd"><b>Location</b><i>Route mapping &amp; outdoor workouts</i></span>
+        <span class="wb-toggle"><i></i></span>
+      </div><div class="wb-perm">
+        <span class="wb-perm-ico" style="background:#0891B216;border:1px solid #0891B230">🔵</span>
+        <span class="wb-perm-bd"><b>Bluetooth</b><i>Connect wearables &amp; smart devices</i></span>
+        <span class="wb-toggle on"><i></i></span>
+      </div></div>
+    
+    <div class="wb-stage-acts"><button type="button" class="wb-cta">Finish Setup 🎉</button><button type="button" class="wb-cta wb-cta--ghost">Skip for now</button></div>
+  </div></div></div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w42">
+  <div class="num">42</div><div class="name">Home Dashboard</div><div class="cat">HOME</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/home</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Home</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid wb-grid--home">
+    <div class="wcard wb-w4">
+      <div class="wb-hero">
+        <span class="wb-hero-av">👩‍🦱</span>
+        <em><b>Good Morning 👋</b><i>Ananya</i></em>
+      </div>
+      <div class="wb-streak-chip">🔥 14 streak</div>
+    </div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Today's Steps</b><span class="wtag" style="color:#16A34A;border-color:#16A34A55;background:#16A34A14">128% Goal</span></div>
+      <div class="wb-steps-main"><strong>12,847</strong><span class="wb-delta" style="display:inline">↑ 28% vs yesterday</span></div>
+      <svg viewBox="0 0 340 112" width="100%" height="112" preserveAspectRatio="none"><rect x="8.7" y="69.5" width="31.1" height="42.5" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="56.5" width="31.1" height="55.5" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="61.3" width="31.1" height="50.7" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="44.9" width="31.1" height="67.1" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="53.1" width="31.1" height="58.9" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="35.3" width="31.1" height="76.7" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="88.0" rx="4" fill="#16A34A" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="108" text-anchor="middle" font-size="9" fill="var(--m)">M</text><text x="72.9" y="108" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="121.4" y="108" text-anchor="middle" font-size="9" fill="var(--m)">W</text><text x="170.0" y="108" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="218.6" y="108" text-anchor="middle" font-size="9" fill="var(--m)">F</text><text x="267.1" y="108" text-anchor="middle" font-size="9" fill="var(--m)">S</text><text x="315.7" y="108" text-anchor="middle" font-size="9" fill="var(--m)">S</text></svg>
+    </div>
+    <div class="wcard wb-w12">
+      <div class="wb-metrics--row"><div class="wb-metric"><span class="wico" style="background:#DC262616;border-color:#DC262640">❤️</span><b>Heart Rate</b><strong>72 <small>BPM</small></strong><i>Resting · Normal</i></div><div class="wb-metric"><span class="wico" style="background:#EA580C16;border-color:#EA580C40">🔥</span><b>Calories</b><strong>1,847 <small>kcal</small></strong><i>482 remaining</i></div><div class="wb-metric"><span class="wico" style="background:#0891B216;border-color:#0891B240">💧</span><b>Water</b><strong>1.8 <small>L</small></strong><i>Goal: 2.5L</i></div><div class="wb-metric"><span class="wico" style="background:#7C3AED16;border-color:#7C3AED40">😴</span><b>Sleep</b><strong>7.4 <small>hrs</small></strong><i>Deep 2.1h</i></div><div class="wb-metric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">🧠</span><b>Stress</b><strong>Low</strong><i>Score 24/100</i></div></div>
+    </div>
+    <div class="wcard wb-w5">
+      <div class="wcard-h"><b>✨ AI Insights</b><span class="wtag" style="color:#0891B2;border-color:#0891B255;background:#0891B214">New</span></div>
+      <div class="wb-ai"><span class="wb-ai-item">💡 Great progress this week! Hit step goal 5 days in a row.</span><span class="wb-ai-item">💡 Heart rate improved by 8% — cardio sessions are working!</span><span class="wb-ai-item">💡 Consider a rest day — recovery maximizes muscle gains.</span></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>🏆 Weekly Challenge</b><span class="wtag" style="color:#EA580C;border-color:#EA580C55;background:#EA580C14">3 days left</span></div>
+      <div class="wb-chal"><b>10,000 Steps Every Day</b><div class="wtrack"><div class="wfill" style="--w:72%;background:linear-gradient(90deg,#16A34A,#0891B2)"></div></div><span>1,247 participants</span></div>
+    </div>
+    <div class="wcard wb-w3">
+      <div class="wcard-h"><b>Quick Start</b></div>
+      <div class="wb-cta-card">
+        <div class="wb-wo-start"><span class="wb-wo-ico">🏋️</span><em><b>Start Workout</b><i>Today: Upper body strength</i></em></div>
+        <span class="wb-cta-arrow">›</span>
+      </div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w43">
+  <div class="num">43</div><div class="name">Home · Notifications Panel</div><div class="cat">HOME</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/home?panel=notifications</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Home</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid wb-grid--under">
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Today's Steps</b><i>↑ 28% vs yesterday</i></div>
+      <svg viewBox="0 0 340 150" width="100%" height="150" preserveAspectRatio="none"><rect x="8.7" y="89.2" width="31.1" height="60.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="70.6" width="31.1" height="79.4" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="77.4" width="31.1" height="72.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="53.9" width="31.1" height="96.1" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="65.7" width="31.1" height="84.3" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="40.2" width="31.1" height="109.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="126.0" rx="4" fill="#16A34A" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="146" text-anchor="middle" font-size="9" fill="var(--m)">M</text><text x="72.9" y="146" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="121.4" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W</text><text x="170.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="218.6" y="146" text-anchor="middle" font-size="9" fill="var(--m)">F</text><text x="267.1" y="146" text-anchor="middle" font-size="9" fill="var(--m)">S</text><text x="315.7" y="146" text-anchor="middle" font-size="9" fill="var(--m)">S</text></svg>
+    </div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Daily Metrics</b></div><div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#DC262616;border-color:#DC262640">❤️</span><span class="wmetric-bd"><b>Heart Rate</b><strong>72 <small>BPM</small></strong><i>Resting · Normal</i></span></div><div class="wmetric"><span class="wico" style="background:#EA580C16;border-color:#EA580C40">🔥</span><span class="wmetric-bd"><b>Calories</b><strong>1,847 <small>kcal</small></strong><i>482 remaining</i></span></div><div class="wmetric"><span class="wico" style="background:#0891B216;border-color:#0891B240">💧</span><span class="wmetric-bd"><b>Water</b><strong>1.8 <small>L</small></strong><i>Goal: 2.5L</i></span></div><div class="wmetric"><span class="wico" style="background:#7C3AED16;border-color:#7C3AED40">😴</span><span class="wmetric-bd"><b>Sleep</b><strong>7.4 <small>hrs</small></strong><i>Deep 2.1h</i></span></div><div class="wmetric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">🧠</span><span class="wmetric-bd"><b>Stress</b><strong>Low</strong><i>Score 24/100</i></span></div></div></div>
+  </div>
+  <div class="wb-pop wb-pop--wide">
+    <div class="wb-pop-head"><span>Notifications</span><em>Clear all</em></div>
+    <div class="wb-notif"><span class="wb-notif-ico" style="background:#EA580C15;border-color:#EA580C25">🏆</span><em><b>Challenge Complete!</b><i>You finished the Weekly 70K Steps challenge.</i></em><span class="wb-notif-time">2m ago</span></div><div class="wb-notif"><span class="wb-notif-ico" style="background:#16A34A15;border-color:#16A34A25">👥</span><em><b>Rahul liked your post</b><i>"5K personal best" got 14 reactions!</i></em><span class="wb-notif-time">18m ago</span></div><div class="wb-notif"><span class="wb-notif-ico" style="background:#0891B215;border-color:#0891B225">🎯</span><em><b>Daily Goal Reached</b><i>You hit 10,000 steps today. Keep it up!</i></em><span class="wb-notif-time">1h ago</span></div><div class="wb-notif"><span class="wb-notif-ico" style="background:#DC262615;border-color:#DC262625">❤️</span><em><b>Heart Rate Alert</b><i>Resting HR improved: 72 → 68 BPM this week.</i></em><span class="wb-notif-time">3h ago</span></div>
+    <div class="wb-pop-all">View All Notifications</div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w44">
+  <div class="num">44</div><div class="name">Home · Quick Add Menu</div><div class="cat">HOME</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/home?log=open</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Home</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid wb-grid--under">
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Today's Steps</b><i>128% Goal</i></div><svg viewBox="0 0 340 150" width="100%" height="150" preserveAspectRatio="none"><rect x="8.7" y="89.2" width="31.1" height="60.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="70.6" width="31.1" height="79.4" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="77.4" width="31.1" height="72.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="53.9" width="31.1" height="96.1" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="65.7" width="31.1" height="84.3" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="40.2" width="31.1" height="109.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="126.0" rx="4" fill="#16A34A" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="146" text-anchor="middle" font-size="9" fill="var(--m)">M</text><text x="72.9" y="146" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="121.4" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W</text><text x="170.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="218.6" y="146" text-anchor="middle" font-size="9" fill="var(--m)">F</text><text x="267.1" y="146" text-anchor="middle" font-size="9" fill="var(--m)">S</text><text x="315.7" y="146" text-anchor="middle" font-size="9" fill="var(--m)">S</text></svg></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Daily Metrics</b></div><div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#DC262616;border-color:#DC262640">❤️</span><span class="wmetric-bd"><b>Heart Rate</b><strong>72 <small>BPM</small></strong><i>Resting · Normal</i></span></div><div class="wmetric"><span class="wico" style="background:#EA580C16;border-color:#EA580C40">🔥</span><span class="wmetric-bd"><b>Calories</b><strong>1,847 <small>kcal</small></strong><i>482 remaining</i></span></div><div class="wmetric"><span class="wico" style="background:#0891B216;border-color:#0891B240">💧</span><span class="wmetric-bd"><b>Water</b><strong>1.8 <small>L</small></strong><i>Goal: 2.5L</i></span></div><div class="wmetric"><span class="wico" style="background:#7C3AED16;border-color:#7C3AED40">😴</span><span class="wmetric-bd"><b>Sleep</b><strong>7.4 <small>hrs</small></strong><i>Deep 2.1h</i></span></div><div class="wmetric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">🧠</span><span class="wmetric-bd"><b>Stress</b><strong>Low</strong><i>Score 24/100</i></span></div></div></div>
+  </div>
+  <div class="wb-pop">
+    <div class="wb-pop-head"><span>Quick Log</span></div>
+    <div class="wb-pop-item"><span>🍎</span><em>Log Meal</em></div><div class="wb-pop-item"><span>🏋️</span><em>Log Workout</em></div><div class="wb-pop-item"><span>💧</span><em>Add Water</em></div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w45">
+  <div class="num">45</div><div class="name">Workout Categories</div><div class="cat">WORKOUTS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/workouts</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Workouts</h1><p>Choose your session</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Categories</b><i>6 programs</i></div>
+      <div class="wb-cats"><div class="wb-cat" style="--gc:#EA580C"><span class="wb-cat-ico">🏃</span><em><b>Running</b><i>450 kcal</i></em></div><div class="wb-cat" style="--gc:#16A34A"><span class="wb-cat-ico">🚶</span><em><b>Walking</b><i>180 kcal</i></em></div><div class="wb-cat" style="--gc:#0891B2"><span class="wb-cat-ico">🚴</span><em><b>Cycling</b><i>380 kcal</i></em></div><div class="wb-cat" style="--gc:#7C3AED"><span class="wb-cat-ico">🧘</span><em><b>Yoga</b><i>200 kcal</i></em></div><div class="wb-cat" style="--gc:#DC2626"><span class="wb-cat-ico">🏋️</span><em><b>Strength</b><i>320 kcal</i></em></div><div class="wb-cat" style="--gc:#DB2777"><span class="wb-cat-ico">⚡</span><em><b>HIIT</b><i>580 kcal</i></em></div></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Recent</b></div>
+      <div class="wb-list"><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">🏃</span><em><b>Morning Run</b><i>Today 7:20 AM · 38 min</i></em><span class="wb-row-val">412 kcal</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">🏋️</span><em><b>Upper Body</b><i>Yesterday · 52 min</i></em><span class="wb-row-val">298 kcal</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">🧘</span><em><b>Yoga Flow</b><i>2 days ago · 30 min</i></em><span class="wb-row-val">145 kcal</span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w46">
+  <div class="num">46</div><div class="name">Live Workout Tracking</div><div class="cat">WORKOUTS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/workouts/active</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Workouts</h1><p>Session in progress</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>🏃 Running · Active</b><i class="wb-live"><span></span>LIVE</i></div>
+      <div class="wb-live-stats"><div class="wb-live-stat"><b>24:38</b><span>Duration</span></div><div class="wb-live-stat"><b>287 kcal</b><span>Calories</span></div><div class="wb-live-stat"><b>3.2 km</b><span>Distance</span></div><div class="wb-live-stat"><b>7.8/km</b><span>Pace</span></div></div>
+      <svg viewBox="0 0 340 130" width="100%" height="130" preserveAspectRatio="none"><rect x="8.7" y="78.8" width="31.1" height="51.2" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="63.2" width="31.1" height="66.8" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="68.9" width="31.1" height="61.1" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="49.1" width="31.1" height="80.9" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="59.0" width="31.1" height="71.0" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="37.6" width="31.1" height="92.4" rx="4" fill="#EA580C55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="106.0" rx="4" fill="#EA580C" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="126" text-anchor="middle" font-size="9" fill="var(--m)">M</text><text x="72.9" y="126" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="121.4" y="126" text-anchor="middle" font-size="9" fill="var(--m)">W</text><text x="170.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="218.6" y="126" text-anchor="middle" font-size="9" fill="var(--m)">F</text><text x="267.1" y="126" text-anchor="middle" font-size="9" fill="var(--m)">S</text><text x="315.7" y="126" text-anchor="middle" font-size="9" fill="var(--m)">S</text></svg>
+      <div class="wb-live-ctrl"><span class="wb-ctrl wb-ctrl--pause">⏸ Pause</span><span class="wb-ctrl wb-ctrl--stop">■ Finish</span></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Zone</b></div>
+      <div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#DC262616;border-color:#DC262640">❤️</span><span class="wmetric-bd"><b>Heart Rate</b><strong>72 <small>BPM</small></strong><i>Resting · Normal</i></span></div><div class="wmetric"><span class="wico" style="background:#EA580C16;border-color:#EA580C40">🔥</span><span class="wmetric-bd"><b>Calories</b><strong>1,847 <small>kcal</small></strong><i>482 remaining</i></span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Recent</b></div>
+      <div class="wb-list"><div class="wb-row"><span class="wb-row-ico" style="background:#0891B216;border-color:#0891B240">🏃</span><em><b>Morning Run</b><i>38 min</i></em><span class="wb-row-val">412 kcal</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#0891B216;border-color:#0891B240">🏋️</span><em><b>Upper Body</b><i>52 min</i></em><span class="wb-row-val">298 kcal</span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w47">
+  <div class="num">47</div><div class="name">Activity Log · Steps</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/activity/steps</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab on">👟 Steps</span><span class="wb-tab">❤️ Heart</span><span class="wb-tab">🔥 Calories</span><span class="wb-tab">😴 Sleep</span><span class="wb-tab">🧠 Stress</span><span class="wb-tab">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Today · 12,847 steps</b><i>↑ 28% vs avg</i></div>
+      <svg viewBox="0 0 340 160" width="100%" height="160" preserveAspectRatio="none"><rect x="8.7" y="73.2" width="31.1" height="86.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="95.4" width="31.1" height="64.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="56.3" width="31.1" height="103.7" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="81.7" width="31.1" height="78.3" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="41.4" width="31.1" height="118.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="49.9" width="31.1" height="110.1" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="136.0" rx="4" fill="#16A34A" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Mon</text><text x="72.9" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Tue</text><text x="121.4" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Wed</text><text x="170.0" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Thu</text><text x="218.6" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Fri</text><text x="267.1" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Sat</text><text x="315.7" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Sun</text></svg>
+      <div class="wb-goal-line"><span>Goal 10,000</span><b>128%</b></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Summary</b></div>
+      <div class="wb-strip"><div class="wb-strip-item"><b style="color:#16A34A">9,840</b><span>Avg Daily</span></div><div class="wb-strip-item"><b style="color:#65A30D">14,200</b><span>Best Day</span></div><div class="wb-strip-item"><b style="color:#0891B2">65,947</b><span>This Week</span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Today</b></div>
+      <div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#DC262616;border-color:#DC262640">❤️</span><span class="wmetric-bd"><b>Heart Rate</b><strong>72 <small>BPM</small></strong><i>Resting · Normal</i></span></div><div class="wmetric"><span class="wico" style="background:#7C3AED16;border-color:#7C3AED40">😴</span><span class="wmetric-bd"><b>Sleep</b><strong>7.4 <small>hrs</small></strong><i>Deep 2.1h</i></span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w48">
+  <div class="num">48</div><div class="name">Activity Log · Heart Rate</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/activity/heart</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab">👟 Steps</span><span class="wb-tab on">❤️ Heart</span><span class="wb-tab">🔥 Calories</span><span class="wb-tab">😴 Sleep</span><span class="wb-tab">🧠 Stress</span><span class="wb-tab">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Heart Rate · 24h</b><i>Normal Zone</i></div>
+      <div class="wb-big"><strong>72</strong><span>BPM</span><em>Current</em></div>
+      <svg viewBox="0 0 340 150" width="100%" height="150" preserveAspectRatio="none"><defs><linearGradient id="g340150DC2626" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DC2626" stop-opacity=".32"/><stop offset="1" stop-color="#DC2626" stop-opacity="0"/></linearGradient></defs><path d="M0.0,77.6 L17.9,42.3 L35.8,14.0 L53.7,35.2 L71.6,25.8 L89.5,23.4 L107.4,70.5 L125.3,77.6 L143.2,82.3 L161.1,120.0 L178.9,103.5 L196.8,80.0 L214.7,89.4 L232.6,54.0 L250.5,21.1 L268.4,37.6 L286.3,21.1 L304.2,16.4 L322.1,61.1 L340.0,65.8 L340,150 L0,150 Z" fill="url(#g340150DC2626)"/><path d="M0.0,77.6 L17.9,42.3 L35.8,14.0 L53.7,35.2 L71.6,25.8 L89.5,23.4 L107.4,70.5 L125.3,77.6 L143.2,82.3 L161.1,120.0 L178.9,103.5 L196.8,80.0 L214.7,89.4 L232.6,54.0 L250.5,21.1 L268.4,37.6 L286.3,21.1 L304.2,16.4 L322.1,61.1 L340.0,65.8" fill="none" stroke="#DC2626" stroke-width="2.6" stroke-linecap="round" class="wline"/><circle cx="0.0" cy="77.6" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="17.9" cy="42.3" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="35.8" cy="14.0" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="53.7" cy="35.2" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="71.6" cy="25.8" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="89.5" cy="23.4" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="107.4" cy="70.5" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="125.3" cy="77.6" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="143.2" cy="82.3" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="161.1" cy="120.0" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="178.9" cy="103.5" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="196.8" cy="80.0" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="214.7" cy="89.4" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="232.6" cy="54.0" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="250.5" cy="21.1" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="268.4" cy="37.6" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="286.3" cy="21.1" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="304.2" cy="16.4" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="322.1" cy="61.1" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/><circle cx="340.0" cy="65.8" r="3.4" fill="#DC2626" stroke="var(--surf)" stroke-width="1.6"/></svg>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Zones today</b></div>
+      <div class="wb-strip"><div class="wb-strip-item"><b style="color:#16A34A">58 BPM</b><span>Resting</span></div><div class="wb-strip-item"><b style="color:#DC2626">72 BPM</b><span>Average</span></div><div class="wb-strip-item"><b style="color:#EA580C">142 BPM</b><span>Max Today</span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Insight</b></div>
+      <div class="wb-ai"><span class="wb-ai-item">💡 Resting HR improved: 72 → 68 BPM this week.</span></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w49">
+  <div class="num">49</div><div class="name">Activity Log · Calories</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/activity/calories</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab">👟 Steps</span><span class="wb-tab">❤️ Heart</span><span class="wb-tab on">🔥 Calories</span><span class="wb-tab">😴 Sleep</span><span class="wb-tab">🧠 Stress</span><span class="wb-tab">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Energy balance</b><i>Today</i></div>
+      <div class="wb-strip wb-strip--big"><div class="wb-strip-item"><b style="color:#EA580C">🍽️ 1,847<small> kcal</small></b><span>Consumed</span></div><div class="wb-strip-item"><b style="color:#16A34A">🔥 682<small> kcal</small></b><span>Burned</span></div></div>
+      <svg viewBox="0 0 340 160" width="100%" height="160" preserveAspectRatio="none"><rect x="8.7" y="73.2" width="31.1" height="86.8" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:0ms"/><rect x="57.3" y="95.4" width="31.1" height="64.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:60ms"/><rect x="105.9" y="56.3" width="31.1" height="103.7" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:120ms"/><rect x="154.5" y="81.7" width="31.1" height="78.3" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:180ms"/><rect x="203.0" y="41.4" width="31.1" height="118.6" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:240ms"/><rect x="251.6" y="49.9" width="31.1" height="110.1" rx="4" fill="#16A34A55" class="wbar" style="animation-delay:300ms"/><rect x="300.2" y="24.0" width="31.1" height="136.0" rx="4" fill="#16A34A" class="wbar" style="animation-delay:360ms"/><text x="24.3" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Mon</text><text x="72.9" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Tue</text><text x="121.4" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Wed</text><text x="170.0" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Thu</text><text x="218.6" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Fri</text><text x="267.1" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Sat</text><text x="315.7" y="156" text-anchor="middle" font-size="9" fill="var(--m)">Sun</text></svg>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Macros</b></div>
+      <div class="wb-macro"><span>Carbs</span><div class="wtrack"><div class="wfill" style="--w:45%;background:linear-gradient(90deg,#EA580C,#0891B2)"></div></div><b>45%</b></div><div class="wb-macro"><span>Protein</span><div class="wtrack"><div class="wfill" style="--w:30%;background:linear-gradient(90deg,#0891B2,#0891B2)"></div></div><b>30%</b></div><div class="wb-macro"><span>Fat</span><div class="wtrack"><div class="wfill" style="--w:25%;background:linear-gradient(90deg,#7C3AED,#0891B2)"></div></div><b>25%</b></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Meal log</b></div>
+      <div class="wb-list"><div class="wb-row"><span class="wb-row-ico" style="background:#EA580C16;border-color:#EA580C40">🍎</span><em><b>Breakfast</b><i>Oats · 7:10 AM</i></em><span class="wb-row-val">412 kcal</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">🥗</span><em><b>Lunch</b><i>Bowl · 1:05 PM</i></em><span class="wb-row-val">638 kcal</span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w50">
+  <div class="num">50</div><div class="name">Activity Log · Sleep</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/activity/sleep</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab">👟 Steps</span><span class="wb-tab">❤️ Heart</span><span class="wb-tab">🔥 Calories</span><span class="wb-tab on">😴 Sleep</span><span class="wb-tab">🧠 Stress</span><span class="wb-tab">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Last Night</b><i>Good Sleep</i></div>
+      <div class="wb-big"><strong>7h 24m</strong><em>Bedtime 10:42 PM · Woke 6:06 AM</em></div>
+      <div class="wb-stages"><div class="wb-stage"><span>Light</span><i style="width:38%;background:#0891B2"></i><b>2.8h</b></div><div class="wb-stage"><span>Deep</span><i style="width:28%;background:#7C3AED"></i><b>2.1h</b></div><div class="wb-stage"><span>REM</span><i style="width:22%;background:#16A34A"></i><b>1.6h</b></div><div class="wb-stage"><span>Awake</span><i style="width:12%;background:#EA580C"></i><b>0.9h</b></div></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Summary</b></div>
+      <div class="wb-strip"><div class="wb-strip-item"><b style="color:#7C3AED">2h 6m</b><span>Deep Sleep</span></div><div class="wb-strip-item"><b style="color:#16A34A">1h 36m</b><span>REM Sleep</span></div><div class="wb-strip-item"><b style="color:#0891B2">84/100</b><span>Sleep Score</span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Stress</b></div>
+      <div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">🧠</span><span class="wmetric-bd"><b>Stress</b><strong>Low</strong><i>Score 24/100</i></span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w51">
+  <div class="num">51</div><div class="name">Activity Log · Stress</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/activity/stress</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab">👟 Steps</span><span class="wb-tab">❤️ Heart</span><span class="wb-tab">🔥 Calories</span><span class="wb-tab">😴 Sleep</span><span class="wb-tab on">🧠 Stress</span><span class="wb-tab">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Current Stress Level</b><i>LOW STRESS</i></div>
+      <div class="wb-big"><strong>24</strong><span>/100</span></div>
+      <div class="wb-scale"><i style="left:24%"></i><span style="--gc:#16A34A">Low</span><span style="--gc:#65A30D">Moderate</span><span style="--gc:#EA580C">High</span><span style="--gc:#DC2626">Very High</span></div>
+      <div class="wb-med"><span>🧘</span><em><b>Meditation Suggestion</b><i>5-min breathing exercise · Tap to start</i></em><span class="wb-cta wb-cta--sm">Start</span></div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Weekly trend</b></div>
+      <svg viewBox="0 0 300 130" width="100%" height="130" preserveAspectRatio="none"><defs><linearGradient id="g30013065A30D" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#65A30D" stop-opacity=".32"/><stop offset="1" stop-color="#65A30D" stop-opacity="0"/></linearGradient></defs><path d="M0.0,100.0 L50.0,75.4 L100.0,84.5 L150.0,53.4 L200.0,68.9 L250.0,35.3 L300.0,14.0 L300,130 L0,130 Z" fill="url(#g30013065A30D)"/><path d="M0.0,100.0 L50.0,75.4 L100.0,84.5 L150.0,53.4 L200.0,68.9 L250.0,35.3 L300.0,14.0" fill="none" stroke="#65A30D" stroke-width="2.6" stroke-linecap="round" class="wline"/><circle cx="0.0" cy="100.0" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="50.0" cy="75.4" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="100.0" cy="84.5" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="150.0" cy="53.4" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="200.0" cy="68.9" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="250.0" cy="35.3" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><circle cx="300.0" cy="14.0" r="3.4" fill="#65A30D" stroke="var(--surf)" stroke-width="1.6"/><text x="0.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">M</text><text x="50.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="100.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">W</text><text x="150.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">T</text><text x="200.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">F</text><text x="250.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">S</text><text x="300.0" y="126" text-anchor="middle" font-size="9" fill="var(--m)">S</text></svg>
+      <div class="wcard-h" style="margin-top:12px"><b>Sleep</b></div>
+      <div class="wb-strip"><div class="wb-strip-item"><b style="color:#7C3AED">2h 6m</b><span>Deep Sleep</span></div><div class="wb-strip-item"><b style="color:#16A34A">1h 36m</b><span>REM Sleep</span></div><div class="wb-strip-item"><b style="color:#0891B2">84/100</b><span>Sleep Score</span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w52">
+  <div class="num">52</div><div class="name">Activity Log · Water</div><div class="cat">ACTIVITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/addwater</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Activity Log</h1><p>Detailed health analytics</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w12"><div class="wb-tabs"><span class="wb-tab">👟 Steps</span><span class="wb-tab">❤️ Heart</span><span class="wb-tab">🔥 Calories</span><span class="wb-tab">😴 Sleep</span><span class="wb-tab">🧠 Stress</span><span class="wb-tab on">💧 Water</span></div></div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Hydration</b><i>of 2.0L daily goal</i></div>
+      <div class="wb-water">
+        <div class="wb-water-main"><strong>1.3L</strong><span>5/8 glasses</span></div>
+        <div class="wb-glasses"><span class="on">💧</span><span class="on">💧</span><span class="on">💧</span><span class="on">💧</span><span class="on">💧</span><span class="">💧</span><span class="">💧</span><span class="">💧</span></div>
+        <button type="button" class="wb-cta">+ Add Glass</button>
+      </div>
+    </div>
+    <div class="wcard wb-w4">
+      <div class="wcard-h"><b>Today</b></div>
+      <div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#0891B216;border-color:#0891B240">💧</span><span class="wmetric-bd"><b>Water</b><strong>1.8 <small>L</small></strong><i>Goal: 2.5L</i></span></div><div class="wmetric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">🧠</span><span class="wmetric-bd"><b>Stress</b><strong>Low</strong><i>Score 24/100</i></span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Tip</b></div>
+      <div class="wb-ai"><span class="wb-ai-item">💡 1250ml down — 750ml to go.</span></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w53">
+  <div class="num">53</div><div class="name">Progress Review</div><div class="cat">PROGRESS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/progress</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Progress</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Weight Trend</b><i>↓ 3.2 kg</i></div><svg viewBox="0 0 300 150" width="100%" height="150" preserveAspectRatio="none"><defs><linearGradient id="g3001500891B2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0891B2" stop-opacity=".32"/><stop offset="1" stop-color="#0891B2" stop-opacity="0"/></linearGradient></defs><path d="M0.0,14.0 L50.0,27.3 L100.0,50.4 L150.0,67.0 L200.0,86.9 L250.0,106.7 L300.0,120.0 L300,150 L0,150 Z" fill="url(#g3001500891B2)"/><path d="M0.0,14.0 L50.0,27.3 L100.0,50.4 L150.0,67.0 L200.0,86.9 L250.0,106.7 L300.0,120.0" fill="none" stroke="#0891B2" stroke-width="2.6" stroke-linecap="round" class="wline"/><circle cx="0.0" cy="14.0" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="50.0" cy="27.3" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="100.0" cy="50.4" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="150.0" cy="67.0" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="200.0" cy="86.9" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="250.0" cy="106.7" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><circle cx="300.0" cy="120.0" r="3.4" fill="#0891B2" stroke="var(--surf)" stroke-width="1.6"/><text x="0.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W1</text><text x="50.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W2</text><text x="100.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W3</text><text x="150.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W4</text><text x="200.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W5</text><text x="250.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">W6</text><text x="300.0" y="146" text-anchor="middle" font-size="9" fill="var(--m)">Now</text></svg><div class="wb-delta">Lost 3.2 kg this month</div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>BMI Score</b><i>Normal Weight</i></div><div class="wb-big"><strong>22.4</strong></div><div class="wb-strip"><div class="wb-strip-item"><b>178 cm</b><span>Height</span></div><div class="wb-strip-item"><b>71.0 kg</b><span>Weight</span></div></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Stats</b></div><div class="wb-metrics"><div class="wmetric"><span class="wico" style="background:#16A34A16;border-color:#16A34A40">🏋️</span><span class="wmetric-bd"><b>Workouts</b><strong>24</strong><i></i></span></div><div class="wmetric"><span class="wico" style="background:#0891B216;border-color:#0891B240">📅</span><span class="wmetric-bd"><b>Active Days</b><strong>19/30</strong><i></i></span></div><div class="wmetric"><span class="wico" style="background:#65A30D16;border-color:#65A30D40">👟</span><span class="wmetric-bd"><b>Avg Steps</b><strong>9.8k</strong><i></i></span></div></div></div>
+    <div class="wcard wb-w8"><div class="wcard-h"><b>✨ AI Monthly Summary</b><i>Top 5% of users this month</i></div><div class="wb-ai"><span class="wb-ai-item">💡 Outstanding month! 19/30 step goals hit, resting HR improved by 8 BPM, and 3.2kg lost. Cardio and strength both trending upward — keep it up! 💪</span></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Badges</b><i>3/6</i></div><div class="wb-badges"><span class="wb-badge-item">🔥<i>100 Day Streak</i></span><span class="wb-badge-item">👟<i>500K Steps</i></span><span class="wb-badge-item">🏃<i>50 Workouts</i></span><span class="wb-badge-item locked">💧<i>30-Day Hydration</i></span><span class="wb-badge-item locked">💪<i>Strength Master</i></span><span class="wb-badge-item locked">🧘<i>Zen Master</i></span></div></div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w54">
+  <div class="num">54</div><div class="name">Community</div><div class="cat">COMMUNITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/community</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Community</h1><p>Challenges, friends &amp; achievements</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Weekly 70K</b><i>3d left</i></div>
+      <div class="wb-chal-hero"><span class="wb-chal-img">🏃</span><em><b>Walk 70,000 steps between Monday and Sunday. Sync your tracker to earn the finisher badge!</b><i>🏆 Finisher Badge · 1247 participants</i></em></div>
+      <div class="wtrack"><div class="wfill" style="--w:72%;background:linear-gradient(90deg,#16A34A,#0891B2)"></div></div>
+      <div class="wb-chal-meta"><span>72% complete</span><span>50400 / 70,000 steps</span></div>
+      <div class="wb-avs"><span title="Rahul K.">🧑‍🦰</span><span title="Priya M.">👩‍🦳</span><span title="Dev R.">🧑‍🦱</span><i>+1.2k</i></div>
+    </div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Leaderboard</b><i>This Week</i></div><div class="wb-list"><div class="wb-row"><span class="wb-rank">🥇</span><span class="wb-av">👩‍🦱</span><em><b>Ananya S.</b><i>This Week</i></em><span class="wb-row-val">86,420</span></div><div class="wb-row"><span class="wb-rank">🥈</span><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>This Week</i></em><span class="wb-row-val">79,100</span></div><div class="wb-row"><span class="wb-rank">🥉</span><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>This Week</i></em><span class="wb-row-val">71,850</span></div><div class="wb-row you"><span class="wb-rank">8️⃣</span><span class="wb-av">🧑</span><em><b>You</b><i>This Week</i></em><span class="wb-row-val">65,947</span></div></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Stats</b></div><div class="wb-strip"><div class="wb-strip-item"><b style="color:#16A34A">50,430</b><span>Steps</span></div><div class="wb-strip-item"><b style="color:#16A34A">12d</b><span>Streak</span></div><div class="wb-strip-item"><b style="color:#16A34A">210</b><span>Active min</span></div></div>
+      <div class="wcard-h" style="margin-top:12px"><b>Challenges</b></div>
+      <div class="wb-list"><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">👟</span><em><b>Weekly 70K</b><i>3d left</i></em><span class="wb-row-val">72%</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#0891B216;border-color:#0891B240">💧</span><em><b>Hydration Month</b><i>18d left</i></em><span class="wb-row-val">54%</span></div></div>
+    </div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Suggested</b></div><div class="wb-list"><div class="wb-row"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>Friend</i></em><span class="wb-follow done">Added</span></div><div class="wb-row"><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>Suggested for you</i></em><span class="wb-follow">+ Add</span></div><div class="wb-row"><span class="wb-av">🧑‍🦱</span><em><b>Dev R.</b><i>Suggested for you</i></em><span class="wb-follow">+ Add</span></div><div class="wb-row"><span class="wb-av">👩</span><em><b>Meera S.</b><i>Suggested for you</i></em><span class="wb-follow">+ Add</span></div><div class="wb-row"><span class="wb-av">👨</span><em><b>Arjun P.</b><i>Suggested for you</i></em><span class="wb-follow">+ Add</span></div></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Feed</b></div><div class="wb-feed"><div class="wb-post"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K. <i>2h ago</i></b><u>Completed a 5K run in 28:30 🏃 Personal best!</u><s>♥ 14</s></em></div><div class="wb-post"><span class="wb-av">👩‍🦳</span><em><b>Priya M. <i>4h ago</i></b><u>Hit 100-day streak! 🔥 So proud of this milestone.</u><s>♥ 42</s></em></div><div class="wb-post"><span class="wb-av">🧑‍🦱</span><em><b>Dev R. <i>6h ago</i></b><u>New PR: Bench Press 100kg 💪 Strength is growing!</u><s>♥ 28</s></em></div></div></div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w55">
+  <div class="num">55</div><div class="name">Join Challenge Modal</div><div class="cat">COMMUNITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/community?join=weekly70k</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Community</h1><p>Challenges, friends &amp; achievements</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Weekly 70K</b><i>3d left</i></div><div class="wtrack"><div class="wfill" style="--w:72%;background:linear-gradient(90deg,#16A34A,#0891B2)"></div></div><div class="wb-chal-meta"><span>72% complete</span><span>70,000 steps</span></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Leaderboard</b></div><div class="wb-list"><div class="wb-row"><span class="wb-rank">🥇</span><span class="wb-av">👩‍🦱</span><em><b>Ananya S.</b><i>This Week</i></em><span class="wb-row-val">86,420</span></div><div class="wb-row"><span class="wb-rank">🥈</span><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>This Week</i></em><span class="wb-row-val">79,100</span></div><div class="wb-row"><span class="wb-rank">🥉</span><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>This Week</i></em><span class="wb-row-val">71,850</span></div><div class="wb-row you"><span class="wb-rank">8️⃣</span><span class="wb-av">🧑</span><em><b>You</b><i>This Week</i></em><span class="wb-row-val">65,947</span></div></div></div>
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Feed</b></div><div class="wb-feed"><div class="wb-post"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K. <i>2h ago</i></b><u>Completed a 5K run in 28:30 🏃 Personal best!</u><s>♥ 14</s></em></div><div class="wb-post"><span class="wb-av">👩‍🦳</span><em><b>Priya M. <i>4h ago</i></b><u>Hit 100-day streak! 🔥 So proud of this milestone.</u><s>♥ 42</s></em></div><div class="wb-post"><span class="wb-av">🧑‍🦱</span><em><b>Dev R. <i>6h ago</i></b><u>New PR: Bench Press 100kg 💪 Strength is growing!</u><s>♥ 28</s></em></div></div></div>
+  </div><div class="wb-scrim"></div><div class="wb-modal">
+  <div class="wb-modal-card">
+    <div class="wb-modal-art">🏃</div>
+    <b class="wb-modal-t">Weekly 70K</b>
+    <i class="wb-modal-s">Walk 70,000 steps between Monday and Sunday. Sync your tracker to earn the finisher badge!</i>
+    <div class="wb-strip"><div class="wb-strip-item"><b style="color:#16A34A">72%</b><span>Progress</span></div><div class="wb-strip-item"><b style="color:#EA580C">3d left</b><span>Remaining</span></div><div class="wb-strip-item"><b style="color:#0891B2">Finisher Badge</b><span>Reward</span></div></div>
+    <div class="wb-avs"><span>🧑‍🦰</span><span>👩‍🦳</span><span>🧑‍🦱</span><i>+1.2k joined</i></div>
+    <div class="wb-modal-acts"><button type="button" class="wb-cta">Join Challenge</button></div>
+  </div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w56">
+  <div class="num">56</div><div class="name">Invite People Modal</div><div class="cat">COMMUNITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/community?invite=1</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Community</h1><p>Challenges, friends &amp; achievements</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Weekly 70K</b><i>3d left</i></div><div class="wtrack"><div class="wfill" style="--w:72%;background:linear-gradient(90deg,#16A34A,#0891B2)"></div></div><div class="wb-chal-meta"><span>72% complete</span><span>70,000 steps</span></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Leaderboard</b></div><div class="wb-list"><div class="wb-row"><span class="wb-rank">🥇</span><span class="wb-av">👩‍🦱</span><em><b>Ananya S.</b><i>This Week</i></em><span class="wb-row-val">86,420</span></div><div class="wb-row"><span class="wb-rank">🥈</span><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>This Week</i></em><span class="wb-row-val">79,100</span></div><div class="wb-row"><span class="wb-rank">🥉</span><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>This Week</i></em><span class="wb-row-val">71,850</span></div><div class="wb-row you"><span class="wb-rank">8️⃣</span><span class="wb-av">🧑</span><em><b>You</b><i>This Week</i></em><span class="wb-row-val">65,947</span></div></div></div>
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Feed</b></div><div class="wb-feed"><div class="wb-post"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K. <i>2h ago</i></b><u>Completed a 5K run in 28:30 🏃 Personal best!</u><s>♥ 14</s></em></div><div class="wb-post"><span class="wb-av">👩‍🦳</span><em><b>Priya M. <i>4h ago</i></b><u>Hit 100-day streak! 🔥 So proud of this milestone.</u><s>♥ 42</s></em></div><div class="wb-post"><span class="wb-av">🧑‍🦱</span><em><b>Dev R. <i>6h ago</i></b><u>New PR: Bench Press 100kg 💪 Strength is growing!</u><s>♥ 28</s></em></div></div></div>
+  </div><div class="wb-scrim"></div><div class="wb-modal">
+  <div class="wb-modal-card">
+    <div class="wb-modal-art">👥</div>
+    <b class="wb-modal-t">Invite People</b>
+    <i class="wb-modal-s">Share the fun — friends who join earn you both a bonus badge.</i>
+    <div class="wb-list"><div class="wb-row"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>Already connected</i></em><span class="wb-follow done">Added</span></div><div class="wb-row"><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>fitpulse.app/@priya</i></em><span class="wb-follow">+ Invite</span></div><div class="wb-row"><span class="wb-av">🧑‍🦱</span><em><b>Dev R.</b><i>fitpulse.app/@dev</i></em><span class="wb-follow">+ Invite</span></div><div class="wb-row"><span class="wb-av">👩</span><em><b>Meera S.</b><i>fitpulse.app/@meera</i></em><span class="wb-follow">+ Invite</span></div><div class="wb-row"><span class="wb-av">👨</span><em><b>Arjun P.</b><i>fitpulse.app/@arjun</i></em><span class="wb-follow">+ Invite</span></div></div>
+    <div class="wb-modal-acts"><span class="wb-cta wb-cta--ghost">Copy Link</span><button type="button" class="wb-cta">Send Invites</button></div>
+  </div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w57">
+  <div class="num">57</div><div class="name">Share Progress Modal</div><div class="cat">COMMUNITY</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/community?share=1</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Community</h1><p>Challenges, friends &amp; achievements</p></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Weekly 70K</b><i>3d left</i></div><div class="wtrack"><div class="wfill" style="--w:72%;background:linear-gradient(90deg,#16A34A,#0891B2)"></div></div><div class="wb-chal-meta"><span>72% complete</span><span>70,000 steps</span></div></div>
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Leaderboard</b></div><div class="wb-list"><div class="wb-row"><span class="wb-rank">🥇</span><span class="wb-av">👩‍🦱</span><em><b>Ananya S.</b><i>This Week</i></em><span class="wb-row-val">86,420</span></div><div class="wb-row"><span class="wb-rank">🥈</span><span class="wb-av">🧑‍🦰</span><em><b>Rahul K.</b><i>This Week</i></em><span class="wb-row-val">79,100</span></div><div class="wb-row"><span class="wb-rank">🥉</span><span class="wb-av">👩‍🦳</span><em><b>Priya M.</b><i>This Week</i></em><span class="wb-row-val">71,850</span></div><div class="wb-row you"><span class="wb-rank">8️⃣</span><span class="wb-av">🧑</span><em><b>You</b><i>This Week</i></em><span class="wb-row-val">65,947</span></div></div></div>
+    <div class="wcard wb-w8"><div class="wcard-h"><b>Feed</b></div><div class="wb-feed"><div class="wb-post"><span class="wb-av">🧑‍🦰</span><em><b>Rahul K. <i>2h ago</i></b><u>Completed a 5K run in 28:30 🏃 Personal best!</u><s>♥ 14</s></em></div><div class="wb-post"><span class="wb-av">👩‍🦳</span><em><b>Priya M. <i>4h ago</i></b><u>Hit 100-day streak! 🔥 So proud of this milestone.</u><s>♥ 42</s></em></div><div class="wb-post"><span class="wb-av">🧑‍🦱</span><em><b>Dev R. <i>6h ago</i></b><u>New PR: Bench Press 100kg 💪 Strength is growing!</u><s>♥ 28</s></em></div></div></div>
+  </div><div class="wb-scrim"></div><div class="wb-modal">
+  <div class="wb-modal-card">
+    <div class="wb-modal-art">📈</div>
+    <b class="wb-modal-t">Share Progress</b>
+    <i class="wb-modal-s">Your week in numbers — post it to the feed.</i>
+    <div class="wb-share-card">
+      <div class="wb-share-brand">✦ FitPulse</div>
+      <div class="wb-strip"><div class="wb-strip-item"><b style="color:#16A34A">65,947</b><span>Steps</span></div><div class="wb-strip-item"><b style="color:#DC2626">58 BPM</b><span>Resting HR</span></div><div class="wb-strip-item"><b style="color:#0891B2">↓ 3.2 kg</b><span>Weight</span></div></div>
+    </div>
+    <div class="wb-share-row"><span>📱 Instagram</span><span>💬 WhatsApp</span><span>𝕏 X</span><span>⋯ More</span></div>
+    <div class="wb-modal-acts"><button type="button" class="wb-cta">Post to Feed</button></div>
+  </div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w58">
+  <div class="num">58</div><div class="name">Account / Profile</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w4">
+      <div class="wb-acct-card">
+        <span class="wb-acct-av">👩‍🦱</span>
+        <b>Ananya Sharma</b>
+        <i>ananya@fitpulse.app</i>
+        <span class="wb-plan">⭐ FitPulse Pro</span>
+        <div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div>
+      </div>
+      <div class="wb-acct-foot">FitPulse v3.2.1 · Member since Jan 2024</div>
+    </div>
+    <div class="wcard wb-w8">
+      <div class="wcard-h"><b>Profile</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✏️</span><em><b>Edit Profile</b><i>Update your information</i></em><span class="wb-chev">›</span></div></div><div class="wcard-h"><b>Health &amp; Fitness</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🎯</span><em><b>Goals &amp; Progress</b><i>Track your milestones</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⌚</span><em><b>Device Sync</b><i>Manage connected devices</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🏆</span><em><b>Personal Records</b><i>Your best performances</i></em><span class="wb-chev">›</span></div></div><div class="wcard-h"><b>Subscription</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⭐</span><em><b>Subscription</b><i>FitPulse Pro · Active</i></em><span class="wb-chev">›</span></div></div><div class="wcard-h"><b>Privacy &amp; Security</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔒</span><em><b>Privacy &amp; Security</b><i>Manage your data</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🚪</span><em><b>Sign Out</b><i>Sign out of your account</i></em><span class="wb-follow danger">Sign Out</span></div></div>
+    </div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w59">
+  <div class="num">59</div><div class="name">Edit Profile</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/edit</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Edit Profile</b><i>Update your information</i></em></div><div class="wb-field-grid"><div class="wb-field"><span>👤</span><em>Ananya Sharma</em></div><div class="wb-field"><span>🎂</span><em>28</em></div><div class="wb-field"><span>📏</span><em>165</em></div><div class="wb-field"><span>⚖️</span><em>58</em></div></div>
+   <div class="wb-chip-label">Gender</div><div class="wb-chips"><span class="wb-chip">Male</span><span class="wb-chip on">Female</span><span class="wb-chip">Other</span></div>
+   <div class="wb-chip-label">Fitness level</div><div class="wb-chips"><span class="wb-chip">🌱 Beginner</span><span class="wb-chip on">⚡ Intermediate</span><span class="wb-chip">🔥 Advanced</span></div>
+   <div class="wb-modal-acts"><button type="button" class="wb-cta">Save Changes</button></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w60">
+  <div class="num">60</div><div class="name">Goals &amp; Progress</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/goals</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Goals &amp; Progress</b><i>Track your milestones</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⚖️</span><em><b>Lose Weight</b><i>Burn fat &amp; slim down</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💪</span><em><b>Build Muscle</b><i>Gain strength &amp; mass</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🏃</span><em><b>Stay Active</b><i>10k+ steps every day</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">❤️</span><em><b>Improve Cardio</b><i>Boost endurance</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🥗</span><em><b>Healthy Lifestyle</b><i>Balanced wellness</i></em><span class="wb-toggle"><i></i></span></div></div>
+   <div class="wb-chip-label">Weekly targets</div>
+   <div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">👟</span><em><b>Step goal</b><i>10,000 steps / day</i></em><span class="wb-chev">›</span></div> <div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔥</span><em><b>Calorie burn</b><i>2,200 kcal / day</i></em><span class="wb-chev">›</span></div> <div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💧</span><em><b>Water</b><i>2.5 L / day</i></em><span class="wb-chev">›</span></div></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w61">
+  <div class="num">61</div><div class="name">Device Sync</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/device-sync</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Device Sync</b><i>✅ Connected!</i></em></div><div class="wb-dev-list"><div class="wb-dev linked"><span class="wb-dev-ico">⌚</span><em><b>Apple Watch</b><i>Series 9</i></em><span class="wb-dev-act">⚡ Syncing</span></div><div class="wb-dev linked"><span class="wb-dev-ico">⌚</span><em><b>Samsung Watch</b><i>Galaxy 6</i></em><span class="wb-dev-act">⚡ Syncing</span></div><div class="wb-dev"><span class="wb-dev-ico">🏃</span><em><b>Fitbit</b><i>Charge 6</i></em><span class="wb-dev-act">Connect</span></div><div class="wb-dev"><span class="wb-dev-ico">🗺️</span><em><b>Garmin</b><i>Forerunner 265</i></em><span class="wb-dev-act">Connect</span></div><div class="wb-dev"><span class="wb-dev-ico">📱</span><em><b>Mi Band</b><i>Band 8 Pro</i></em><span class="wb-dev-act">Connect</span></div><div class="wb-dev"><span class="wb-dev-ico">⌚</span><em><b>Smartwatch</b><i>Generic BLE</i></em><span class="wb-dev-act">Connect</span></div></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w62">
+  <div class="num">62</div><div class="name">Subscription</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/subscription</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Subscription</b><i>FitPulse Pro · Active</i></em></div><div class="wb-plan-hero"><span>⭐ FitPulse Pro</span><b>$7.99<small>/month</small></b><i>Renews 14 Oct 2026 · billed monthly</i></div>
+   <div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✅</span><em><b>Unlimited AI insights</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✅</span><em><b>Advanced sleep analytics</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✅</span><em><b>Custom workout plans</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✅</span><em><b>Family sharing (up to 6)</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">✅</span><em><b>Ad-free, forever</b><i></i></em><span class="wb-chev">›</span></div></div>
+   <div class="wb-modal-acts"><button type="button" class="wb-cta">Manage Plan</button><span class="wb-cta wb-cta--ghost">Cancel Subscription</span></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w63">
+  <div class="num">63</div><div class="name">Personal Records</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/records</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Personal Records</b><i>Your best performances</i></em></div><div class="wb-list"><div class="wb-row"><span class="wb-row-ico" style="background:#0891B216;border-color:#0891B240">🏃</span><em><b>5K Run</b><i>28:30</i></em><span class="wb-row-val" style="color:#0891B2">PB</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#EA580C16;border-color:#EA580C40">💪</span><em><b>Bench Press</b><i>100kg</i></em><span class="wb-row-val" style="color:#EA580C">🏆</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#16A34A16;border-color:#16A34A40">🏋️</span><em><b>Workouts</b><i>247</i></em><span class="wb-row-val" style="color:#16A34A">🏆</span></div><div class="wb-row"><span class="wb-row-ico" style="background:#DC262616;border-color:#DC262640">🔥</span><em><b>Longest Streak</b><i>42d</i></em><span class="wb-row-val" style="color:#DC2626">🏆</span></div></div>
+   <div class="wb-strip wb-strip--big"><div class="wb-strip-item"><b style="color:#0891B2">28:30</b><span>5K Run</span></div><div class="wb-strip-item"><b style="color:#EA580C">100kg</b><span>Bench Press</span></div><div class="wb-strip-item"><b style="color:#16A34A">247</b><span>Workouts</span></div></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w64">
+  <div class="num">64</div><div class="name">Privacy &amp; Security</div><div class="cat">ACCOUNT</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/account/privacy</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Account</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Privacy &amp; Security</b><i>Manage your data</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Private Profile</b><i>Hide activity from friends</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Activity Status</b><i>Show when you are online</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Data Sharing</b><i>Share anonymized metrics</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Login Alerts</b><i>Email on new device</i></em><span class="wb-toggle on"><i></i></span></div></div>
+   <div class="wb-chip-label">Data</div>
+   <div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📥</span><em><b>Data Export</b><i>Download your data</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🗑️</span><em><b>Delete Account</b><i>Permanently remove data</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔐</span><em><b>Two-Factor Auth</b><i>Add extra security</i></em><span class="wb-chev">›</span></div></div></div></div><div class="wcard wb-w4"><div class="wb-acct-card"><span class="wb-acct-av">👩‍🦱</span><b>Ananya Sharma</b><span class="wb-plan">⭐ FitPulse Pro</span></div><div class="wb-strip"><div class="wb-strip-item"><b>247</b><span>Workouts</span></div><div class="wb-strip-item"><b>100🔥</b><span>Day Streak</span></div><div class="wb-strip-item"><b>18</b><span>Badges</span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w65">
+  <div class="num">65</div><div class="name">Settings</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content">
+  <div class="wb-grid">
+    <div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Data &amp; Privacy</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">❤️</span><em><b>Health Integration</b><i>Sync with Apple / Google Health</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔄</span><em><b>Auto Backup</b><i>Backup data to cloud</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔐</span><em><b>Privacy Settings</b><i>Manage your data</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔒</span><em><b>Security</b><i>Biometrics &amp; passcode</i></em><span class="wb-chev">›</span></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Support</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>Language</b><i>English (US)</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">☁️</span><em><b>Backup &amp; Restore</b><i>Manage your data backup</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>Help &amp; Support</b><i>FAQs and contact us</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">ℹ️</span><em><b>About FitPulse</b><i>v3.2.1 · Legal &amp; licenses</i></em><span class="wb-chev">›</span></div></div></div>
+    <div class="wcard wb-w12"><div class="wb-acct-foot">FitPulse v3.2.1 · Member since Jan 2024 · © 2025 FitPulse Inc.</div></div>
+  </div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w66">
+  <div class="num">66</div><div class="name">Settings · Privacy</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/privacy</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Privacy Settings</b><i>Manage your data</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Private Profile</b><i>Hide activity from friends</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Activity Status</b><i>Show when you are online</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Data Sharing</b><i>Share anonymized metrics</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🛡️</span><em><b>Login Alerts</b><i>Email on new device</i></em><span class="wb-toggle on"><i></i></span></div></div>
+   <div class="wb-chip-label">Permissions</div>
+   <div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Notifications</b><i>Reminders, achievements &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">❤️</span><em><b>Health Data</b><i>Steps, heart rate &amp; sleep tracking</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📍</span><em><b>Location</b><i>Route mapping &amp; outdoor workouts</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔵</span><em><b>Bluetooth</b><i>Connect wearables &amp; smart devices</i></em><span class="wb-toggle on"><i></i></span></div></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w67">
+  <div class="num">67</div><div class="name">Settings · Security</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/security</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Security</b><i>Biometrics &amp; passcode</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">👤</span><em><b>Face ID unlock</b><i>Require on app open</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔢</span><em><b>Passcode</b><i>6-digit numeric</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔐</span><em><b>Two-Factor Auth</b><i>Authenticator app</i></em><span class="wb-toggle"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📱</span><em><b>Trusted Devices</b><i>3 devices signed in</i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⏱️</span><em><b>Auto-Lock</b><i>After 1 minute</i></em><span class="wb-chev">›</span></div></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w68">
+  <div class="num">68</div><div class="name">Settings · Language</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/language</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Language</b><i>English (US)</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>English (US)</b><i></i></em><span class="wb-check">✓</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>English (UK)</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>हिन्दी</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>Español</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>Deutsch</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌐</span><em><b>Français</b><i></i></em><span class="wb-chev">›</span></div></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w69">
+  <div class="num">69</div><div class="name">Settings · Backup</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/backup</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Backup &amp; Restore</b><i>Manage your data backup</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">☁️</span><em><b>iCloud Backup</b><i>Last backup: Today 6:12 AM</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔄</span><em><b>Auto Backup</b><i>Daily over Wi-Fi</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📊</span><em><b>Backup Size</b><i>42.6 MB of 5 GB used</i></em><span class="wb-chev">›</span></div></div>
+   <div class="wb-modal-acts"><button type="button" class="wb-cta">Back Up Now</button><span class="wb-cta wb-cta--ghost">Restore…</span></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w70">
+  <div class="num">70</div><div class="name">Settings · Help</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/help</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>Help &amp; Support</b><i>FAQs and contact us</i></em></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>How are steps counted?</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>Connecting a wearable</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>Managing challenges</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>Billing &amp; refunds</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">💬</span><em><b>Exporting my data</b><i></i></em><span class="wb-chev">›</span></div></div>
+   <div class="wb-modal-acts"><button type="button" class="wb-cta">Contact Support</button><span class="wb-cta wb-cta--ghost">✉️ Email us</span></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+
+<section class="phone-label reveal" id="w71">
+  <div class="num">71</div><div class="name">Settings · About</div><div class="cat">SETTINGS</div>
+</section>
+<div class="web-stage-wrapper reveal">
+  <div class="web-browser-frame">
+    <header class="web-browser-bar">
+      <div class="web-browser-dots" aria-hidden="true"><span class="w-dot w-dot--close"></span><span class="w-dot w-dot--min"></span><span class="w-dot w-dot--max"></span></div>
+      <div class="web-browser-url-pill"><span class="web-browser-lock">🔒</span><span class="web-browser-host">app.fitpulse.io</span><span class="web-browser-path">/settings/about</span></div>
+      <div class="web-browser-actions"><a href="webapp/index.html" target="_blank" rel="noopener noreferrer" class="web-frame-btn" title="Open live web app" aria-label="Open live web app"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>
+    </header>
+    <div class="web-screen-static"><div class="wb-shell">
+    <aside class="wb-side">
+      <div class="wb-brand"><span class="wb-logo"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span class="wb-brand-t"><b>FitPulse</b><i>Track. Improve. Achieve.</i></span></div>
+      <nav class="wb-nav"><button type="button" class="wb-nav-item"><span class="wb-nav-ico">🏠</span><em>Home</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">📊</span><em>Progress</em></button><button type="button" class="wb-nav-item"><span class="wb-nav-ico">👥</span><em>Community</em></button><button type="button" class="wb-nav-item is-active"><span class="wb-nav-ico">👤</span><em>Account</em></button></nav>
+      <div class="wb-streak">🔥 14 streak</div>
+    </aside>
+    <div class="wb-main">
+      <header class="wb-top">
+        <div class="wb-titles"><h1>Settings</h1></div>
+        <div class="wb-actions">
+          <span class="wb-btn wb-btn--pri"><b>+</b> Log</span>
+          <span class="wb-ico">🔔<i class="wb-badge">4</i></span>
+          <span class="wb-ico">☀️</span>
+          <span class="wb-user"><span class="wb-avatar">👩‍🦱</span><em>Ananya</em></span>
+        </div>
+      </header>
+      <div class="wb-content"><div class="wb-grid"><div class="wcard wb-w8"><div class="wb-sheet"><div class="wb-sheet-head"><span class="wb-back">←</span><em><b>About FitPulse</b><i>Track. Improve. Achieve.</i></em></div><div class="wb-about"><span class="wb-hero-ico" style="--s:64px"><svg viewBox="0 0 48 48" width="60%" height="60%" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="url(#lg1)"></circle><polyline points="8,26 13,26 16,18 20,32 24,22 28,26 40,26" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><b>FitPulse</b><i>FitPulse v3.2.1 · Member since Jan 2024</i><span>© 2025 FitPulse Inc.</span></div>
+   <div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📜</span><em><b>Terms of Service</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔒</span><em><b>Privacy Policy</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⚖️</span><em><b>Open-source licenses</b><i></i></em><span class="wb-chev">›</span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">⭐</span><em><b>Rate the app</b><i></i></em><span class="wb-chev">›</span></div></div></div></div><div class="wcard wb-w4"><div class="wcard-h"><b>Preferences</b></div><div class="wb-list"><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔔</span><em><b>Push Notifications</b><i>Reminders &amp; challenges</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🔊</span><em><b>Sounds</b><i>Workout &amp; achievement sounds</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">📳</span><em><b>Haptic Feedback</b><i>Vibration on interactions</i></em><span class="wb-toggle on"><i></i></span></div><div class="wb-row wb-row--nav"><span class="wb-row-ico" style="background:var(--glass2);border-color:var(--border)">🌙</span><em><b>Dark Mode</b><i>Currently disabled</i></em><span class="wb-toggle"><i></i></span></div></div></div></div></div>
+    </div>
+  </div></div>
+  </div>
+</div>
+</main>
+
 <script src="script.js"></script>
 </body>
 </html>
