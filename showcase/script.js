@@ -307,6 +307,16 @@
     }
   });
 
+  /* Deep-link: ?mode=web (or ?view=web / #web) lands straight on the desktop
+     showcase. Used by the web case-study button so it opens web, not mobile. */
+  (function deepLink() {
+    try {
+      var q = new URLSearchParams(window.location.search || '');
+      var h = (window.location.hash || '').replace('#', '').toLowerCase();
+      if (q.get('mode') === 'web' || q.get('view') === 'web' || h === 'web') setMode('web', true);
+    } catch (e) { /* ignore */ }
+  })();
+
   // Pre-load web app when user hovers over the Web switcher button for instantaneous click response
   if (webBtn) {
     webBtn.addEventListener('mouseenter', function () {
