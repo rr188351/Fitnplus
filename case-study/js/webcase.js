@@ -49,42 +49,417 @@
     });
   }
 
-  /* ── 2 · BROWSER FRAME SCALING (1440px design canvas) ─────── */
+  /* ── 2 · BROWSER FRAME SCALING (design canvas, per-frame) ──────
+     Every frame renders the app at its REAL desktop design width
+     (data-sw, e.g. 1200) and is then scaled down to whatever the frame
+     measures — the 264 px sidebar and the 12-column grid keep their
+     intended proportions instead of being squeezed into a narrow box.
+
+     The frame itself is capped by --bf-max so the mockup stays a
+     sensible size on the slide and never overflows a laptop, but the
+     CANVAS is always the design width. Scaling happens through zoom,
+     which re-rasterises at the final size (see .bf__scale in the CSS),
+     so the downscale stays sharp and never needs a fractional blur. */
   function fitAll() {
     $$('[data-bf]').forEach(function (bf) {
       var vp = $('.bf__vp', bf);
       if (!vp) return;
       var sw = parseFloat(bf.getAttribute('data-sw')) || 1440;
+      /* the canvas height follows the frame's own --ar, so a tighter
+         data-sw keeps the exact same shape and can never letterbox
+         inside .bf__vp (overflow:hidden would crop it instead). */
+      var ar = (vp.style.getPropertyValue('--ar') || '').trim();
+      var m = ar.match(/^([\d.]+)\s*\/\s*([\d.]+)$/);
+      var sh = m ? Math.round(sw * (parseFloat(m[2]) / parseFloat(m[1]))) : 900;
       var sc = vp.clientWidth / sw;
-      if (sc > 0) vp.style.setProperty('--sc', sc.toFixed(4));
+      if (sc > 0) {
+        /* --sw and --sh BOTH have to be written: .bf__scale sizes itself
+           from them, and only --ar is declared inline in the markup. */
+        vp.style.setProperty('--sw', sw + 'px');
+        vp.style.setProperty('--sh', sh + 'px');
+        vp.style.setProperty('--sc', sc.toFixed(4));
+      }
     });
   }
 
-  /* ── 3 · REVEAL CHOREOGRAPHY ──────────────────────────────── */
-  function reveal() {
-    $$('.mrv-stagger').forEach(function (g) {
-      Array.prototype.forEach.call(g.children, function (el, i) {
-        el.style.setProperty('--rvd', i * 90 + 'ms');
+  /* ── 3 · MOTION CHOREOGRAPHY ─────────────────────────────────
+     The presentation used to fade everything up from the same
+     direction. It now runs one reusable reveal vocabulary (css §10)
+     plus a per-section composition below, so every section has its
+     own choreography:
+
+       01 cover        glow → label(top) → type → browser → meta
+       02 typography   left text / right specimens, wave assembly
+       03 color        left · bottom · right wave with stagger
+       04 themes       split: left panel / right panel, captions up
+       05 intro        left column + right frame, panels wave
+       06 first run    flow chips rise, frame zooms, pages slide
+       07 dashboard    frame → sidebar → top bar → widgets → charts
+       08 screens      frame + step rail, side panels split
+       09 components   translation rows alternate left / right
+       10 motion       three-column wave, tiles demonstrate motion
+       11 responsive   desktop(left) · tablet(scale) · phone(right)
+       12 versus       phone(left) vs web(right), facts stagger up
+       13 showcase     browser → notes → floating panels → chips
+       14 consistency  fast four-column wave
+       15 live app     frame, chrome, route chips, then the panel
+       16 thanks       label → title(blur→sharp) → mark → cta
+
+     Every observer is one-shot: a target is unobserved the moment
+     it plays, so nothing re-animates while scrolling up and down. */
+  var DIRS = ['reveal-up', 'reveal-down', 'reveal-left', 'reveal-right', 'reveal-left-soft',
+    'reveal-right-soft', 'reveal-scale', 'reveal-blur', 'reveal-browser', 'reveal-fade'];
+  /* the previous .mrv vocabulary — dropped from anything this layer owns,
+     so exactly one system drives any given element */
+  var OLD = ['mrv', 'mrv-stagger', 'mrv-phone', 'motion-grid', 'm-up', 'm-down', 'm-left',
+    'm-right', 'm-diag', 'm-scale', 'm-blur', 'bf--enter', 'in-view'];
+  var ioA = null, ioB = null;
+
+  function vars(el, o) {
+    if (!o) return;
+    Object.keys(o).forEach(function (k) { el.style.setProperty(k, o[k]); });
+  }
+  function dropOld(el) {
+    OLD.forEach(function (c) { el.classList.remove(c); });
+  }
+  /* dir === undefined → tune-only (the element keeps the class it has) */
+  function dress(el, dir, dur, delay) {
+    dropOld(el);
+    if (!dir) return;
+    DIRS.forEach(function (c) { el.classList.remove(c); });
+    el.classList.add(dir);
+    if (dur) el.style.setProperty('--rv-dur', dur + 's');
+    if (delay != null) el.style.setProperty('--rv-delay', delay + 'ms');
+  }
+  /* resolve one target: play the reveal, remember it, stop watching.
+     will-change is applied for the duration only — never permanently.
+     Live frames (.reveal-nofx) never receive will-change: that would
+     cause Chrome to pre-rasterize the cross-origin iframe at a stale
+     resolution and leave the live window soft. */
+  function firm(el) {
+    var big = (el.classList.contains('reveal-browser') || el.classList.contains('reveal-blur')) &&
+      !el.classList.contains('reveal-nofx');
+    if (big) {
+      el.style.willChange = 'opacity,transform,filter';
+      var ms = (parseFloat(el.style.getPropertyValue('--rv-dur')) || .8) * 1000 +
+        (parseFloat(el.style.getPropertyValue('--rv-delay')) || 0) + 200;
+      setTimeout(function () { el.style.willChange = ''; }, ms);
+    }
+    el.classList.add('in-view', 'is-visible');
+    if (el.hasAttribute('data-bf')) el.classList.add('is-built');
+  }
+  function makeIO(threshold) {
+    return new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        firm(e.target);
+        ioA.unobserve(e.target);
+        ioB.unobserve(e.target);
+      });
+    }, { threshold: threshold, rootMargin: '0px 0px -8% 0px' });
+  }
+  function watch(el) {
+    /* a target taller than the viewport can never reach a 0.14 ratio, so
+       big frames and tall blocks are watched on a light threshold */
+    var tall = el.getBoundingClientRect().height > window.innerHeight * .85;
+    (tall || el.hasAttribute('data-bf') ? ioB : ioA).observe(el);
+  }
+  /* single batched layout read for every target, then a pure observe pass */
+  function watchAll(list) {
+    var i, tall = [], near = [], r;
+    for (i = 0; i < list.length; i++) {
+      r = list[i].getBoundingClientRect();
+      (r.height > window.innerHeight * .85 || list[i].hasAttribute('data-bf') ? tall : near).push(list[i]);
+    }
+    tall.forEach(function (el) { ioB.observe(el); });
+    near.forEach(function (el) { ioA.observe(el); });
+  }
+
+  /* every browser frame: translate + scale + blur, then the replica
+     assembles inside it (.is-built drives css §10.7 / §10.8). Frames
+     nested in an already-moving column keep a shorter, later move.
+     No frame blurs, and no frame layerises. A `filter` on an ancestor
+     of the 1440 px canvas makes Chrome bake that whole canvas at a
+     fixed raster scale, which is why the replicas came back soft after
+     the entrance (and why the live frame — a cross-origin iframe, the
+     worst case of it — already had to opt out). The one-shot move is
+     translate + scale, which is enough to read as a settle. */
+  function frames() {
+    $$('[data-bf]').forEach(function (bf) {
+      var nested = !!bf.closest('.mrv-phone, .vs__side, .th-col, .fn-float') ||
+        !!bf.parentElement.closest('.wc-two');
+      var live = !!bf.querySelector('iframe[data-app-frame]');
+      dropOld(bf);
+      bf.classList.add('reveal-browser', 'reveal-nofx');
+      bf.style.setProperty('--rv-s', '0.94');
+      if (live) {
+        bf.style.setProperty('--rv-ty', '55px');
+        bf.style.setProperty('--rv-dur', '1.15s');
+        bf.style.setProperty('--rv-delay', '180ms');
+        bf.style.setProperty('--bf-delay', '340ms');
+      } else {
+        bf.style.setProperty('--rv-ty', nested ? '44px' : '68px');
+        bf.style.setProperty('--rv-dur', nested ? '.95s' : '1.05s');
+        bf.style.setProperty('--rv-delay', nested ? '170ms' : '0ms');
+        bf.style.setProperty('--bf-delay', nested ? '170ms' : '0ms');
+      }
+    });
+  }
+
+
+  /* ── 3b · PER-SECTION COMPOSITION ────────────────────────────
+     [ section, [ items ] ] · item keys:
+       sel      selector inside the section
+       dir      reveal class (omit → tune vars only)
+       wave     per-child directions, cycled
+       mode     'group' → one [data-stagger] group, released in one pass
+       dur      seconds · delay ms · stagger ms per item
+       settle   add reveal-settle (scale .96 → 1)
+       vars     extra custom properties
+     Speeds: hero 60ms per item · normal 70–90 · cinematic 120.    */
+  var MOTION = [
+    /* 01 · COVER — the cinematic opener */
+    ['#cover', [
+      { sel: '.wc-kicker', dir: 'reveal-down', dur: .6, delay: 120 },
+      { sel: '.wc-hero__title', dir: 'reveal-up', dur: 1.05, delay: 210 },
+      { sel: '.wc-hero .tag', dir: 'reveal-up', dur: .7, delay: 330 },
+      { sel: '.wc-hero .sub', dir: 'reveal-up', dur: .85, delay: 410 },
+      { sel: '.wc-meta > div', dir: 'reveal-up', dur: .6, delay: 540, stagger: 70, settle: true },
+      { sel: '.wc-cta > a', dir: 'reveal-up', dur: .6, delay: 700, stagger: 90 },
+      { sel: '.wc-hero-visual .bf', vars: { '--rv-ty': '70px', '--rv-dur': '1.15s', '--rv-delay': '320ms', '--bf-delay': '320ms' } },
+      { sel: '.wc-legend-row > div', dir: 'reveal-up', dur: .6, delay: 820, stagger: 80 },
+      { sel: '.wc-orb', dir: 'reveal-fade', dur: 1.8 }
+    ]],
+    /* 02 · TYPOGRAPHY — text from the left, specimens assemble */
+    ['#type', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-left', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-left', dur: .85, delay: 170 },
+      { sel: '.ty-specs', mode: 'group', dur: .7, delay: 60, stagger: 70,
+        wave: ['reveal-right', 'reveal-right-soft', 'reveal-up', 'reveal-left-soft', 'reveal-up', 'reveal-right-soft', 'reveal-up'] },
+      { sel: '.ty-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 03 · COLOR — the wave: left · bottom · right · bottom … */
+    ['#color', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .8, delay: 170 },
+      { sel: '.sw-grid', mode: 'group', dur: .7, delay: 60, stagger: 90, settle: true,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right', 'reveal-up', 'reveal-left', 'reveal-up', 'reveal-right', 'reveal-up'] },
+      { sel: '.wc-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 04 · THEMES — split panels cross-dissolve against each other */
+    ['#themes', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-blur', dur: .95, delay: 80 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .8, delay: 180 },
+      { sel: '.th-pair > .th-col:nth-child(1)', dir: 'reveal-left', dur: .95, delay: 120 },
+      { sel: '.th-pair > .th-col:nth-child(2)', dir: 'reveal-right', dur: 1.05, delay: 240 },
+      { sel: '.th-cap', dir: 'reveal-up', dur: .6, delay: 480, stagger: 80 },
+      { sel: '.stage__autoplay', dir: 'reveal-up', dur: .55, delay: 620 }
+    ]],
+    /* 05 · WEB APPLICATION — left column, right frame */
+    ['#intro', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.wc-two > div:first-child', dir: 'reveal-left-soft', dur: .85, delay: 60 },
+      { sel: '.wc-four', mode: 'group', dur: .7, delay: 60, stagger: 80, settle: true,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right', 'reveal-up'] },
+      { sel: '.mrv-phone', dir: 'reveal-right', dur: .95, delay: 140, vars: { '--rv-tx': '60px' } },
+      { sel: '.wc-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 06 · FIRST RUN — the journey chips rise, the frame zooms in */
+    ['#auth', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-blur', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .8, delay: 180 },
+      { sel: '.stage__steps .stage__step', dir: 'reveal-up', dur: .5, delay: 140, stagger: 60 },
+      { sel: '.stage > .bf', vars: { '--rv-delay': '220ms', '--bf-delay': '220ms' } },
+      { sel: '.stage > .stage__autoplay', dir: 'reveal-up', dur: .55, delay: 240 }
+    ]],
+    /* 07 · DASHBOARD — the strongest assembly on the page */
+    ['#home', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.bf', vars: { '--rv-ty': '62px', '--rv-dur': '1.15s', '--rv-delay': '160ms', '--bf-delay': '160ms' } },
+      { sel: '.wc-four', mode: 'group', dur: .7, delay: 120, stagger: 80, settle: true,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right', 'reveal-up'] },
+      { sel: '.ty-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 08 · SCREENS — route rail rises, side panels split */
+    ['#screens', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-left', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.stage__steps .stage__step', dir: 'reveal-up', dur: .5, delay: 140, stagger: 60 },
+      { sel: '.stage > .bf', vars: { '--rv-ty': '62px', '--rv-delay': '200ms', '--bf-delay': '200ms' } },
+      { sel: '.stage > .stage__autoplay', dir: 'reveal-up', dur: .55, delay: 220 },
+      { sel: '.wc-two > div:first-child', dir: 'reveal-left', dur: .9, delay: 80 },
+      { sel: '.wc-two > div:last-child', dir: 'reveal-right', dur: .9, delay: 180 },
+      { sel: '.fn-stack', mode: 'group', dur: .65, delay: 80, stagger: 70,
+        wave: ['reveal-right', 'reveal-up', 'reveal-right-soft'] }
+    ]],
+    /* 09 · COMPONENTS — every translation row answers from its own side */
+    ['#components', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.mover', mode: 'group', dur: .7, delay: 60, stagger: 80,
+        wave: ['reveal-left', 'reveal-right', 'reveal-left-soft', 'reveal-right-soft', 'reveal-left'] },
+      { sel: '.wc-two > div:first-child', dir: 'reveal-left', dur: .9, delay: 120 },
+      { sel: '.wc-two > div:last-child', dir: 'reveal-right', dur: .9, delay: 200 },
+      { sel: '.fn-stack', mode: 'group', dur: .65, delay: 60, stagger: 70,
+        wave: ['reveal-right', 'reveal-up', 'reveal-right-soft'] },
+      { sel: '.wc-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 10 · MOTION — three-column wave; the tiles demonstrate it */
+    ['#motion', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-blur', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .8, delay: 180 },
+      { sel: '.mo-grid', mode: 'group', dur: .7, delay: 80, stagger: 70, settle: true,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right'] },
+      { sel: '.wc-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 11 · RESPONSIVE — desktop left · tablet centre · phone right */
+    ['#responsive', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.rsp', mode: 'group', dur: .75, delay: 80, stagger: 100, settle: true,
+        wave: ['reveal-left', 'reveal-scale', 'reveal-right'] },
+      { sel: '.bf', vars: { '--rv-ty': '58px', '--rv-delay': '240ms', '--bf-delay': '240ms' } },
+      { sel: '.wc-note', dir: 'reveal-up', dur: .6 }
+    ]],
+    /* 12 · MOBILE VS WEB — phone left, web right, facts stagger up */
+    ['#versus', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.stage__steps .stage__step', dir: 'reveal-up', dur: .5, delay: 140, stagger: 60 },
+      { sel: '.vs__side:first-child', dir: 'reveal-left', dur: .9, delay: 120, vars: { '--rv-s': '.985' } },
+      { sel: '.vs__side:last-child', dir: 'reveal-right', dur: 1, delay: 200, vars: { '--rv-tx': '70px', '--rv-s': '.975' } },
+      { sel: '.vs__tag', dir: 'reveal-up', dur: .5, delay: 140, stagger: 60 },
+      { sel: '.vs-facts > div', dir: 'reveal-up', dur: .5, delay: 200, stagger: 50 },
+      { sel: '.vs__note', dir: 'reveal-up', dur: .6, delay: 320, stagger: 80 },
+      { sel: '.stage > .stage__autoplay', dir: 'reveal-up', dur: .5, delay: 200 },
+      { sel: '.wc-four', mode: 'group', dur: .65, delay: 60, stagger: 70,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right', 'reveal-up'] }
+    ]],
+    /* 13 · FINAL SHOWCASE — back panels, browser, then the front layer */
+    ['#finale', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-blur', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.fn-grid > .bf', vars: { '--rv-ty': '80px', '--rv-s': '.93', '--rv-b': '12px', '--rv-dur': '1.2s', '--rv-delay': '220ms', '--bf-delay': '220ms' } },
+      { sel: '.fn-stack', mode: 'group', dur: .7, delay: 120, stagger: 120,
+        wave: ['reveal-right', 'reveal-up', 'reveal-right-soft'] },
+      { sel: '.fn-float > .bf', vars: { '--rv-ty': '64px', '--rv-delay': '180ms', '--bf-delay': '180ms' } },
+      { sel: '.fn-float', dir: 'reveal-up', dur: .85, delay: 100 },
+      { sel: '.fn-float .fn-note', dir: 'reveal-up', dur: .7, delay: 320 },
+      { sel: '.fn-chips .fn-chip', dir: 'reveal-scale', dur: .5, delay: 520, stagger: 60 }
+    ]],
+    /* 14 · CONSISTENCY — fast, disciplined four-column wave */
+    ['#consistency', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.wc-four', mode: 'group', dur: .62, delay: 60, stagger: 60,
+        wave: ['reveal-left', 'reveal-up', 'reveal-right', 'reveal-up'] }
+    ]],
+    /* 15 · LIVE WEB APP — chips rise, frame + chrome settle, panel last.
+       Nothing here touches the iframe once it settles: only the
+       .bf__vp box it sits in moves, and only once.                  */
+    ['#live', [
+      { sel: '.mc-eyebrow', dir: 'reveal-down', dur: .55 },
+      { sel: ':scope > .mc-wrap > h2', dir: 'reveal-up', dur: .95, delay: 90 },
+      { sel: ':scope > .mc-wrap > .mc-lede', dir: 'reveal-up', dur: .85, delay: 180 },
+      { sel: '.stage__steps .stage__step', dir: 'reveal-up', dur: .5, delay: 160, stagger: 60 },
+      { sel: '.stage > .bf', vars: { '--rv-ty': '62px', '--rv-delay': '180ms', '--rv-dur': '1.1s', '--bf-delay': '180ms' } },
+      { sel: '.stage > .stage__autoplay', dir: 'reveal-up', dur: .5, delay: 220 },
+      { sel: '.live__eyebrow', dir: 'reveal-up', dur: .5, delay: 60 },
+      { sel: '.appwin__routes .appwin__route', dir: 'reveal-up', dur: .45, delay: 560, stagger: 70 },
+      { sel: '.appwin__note', dir: 'reveal-up', dur: .5, delay: 620 },
+      { sel: '.appwin .stage__autoplay', dir: 'reveal-up', dur: .5, delay: 700 },
+      { sel: '.live__hint--panel', dir: 'reveal-right', dur: .7, delay: 780 },
+      { sel: '.live__card', dir: 'reveal-right', dur: .85, delay: 200 },
+      { sel: '.live__card .live__list li', dir: 'reveal-up', dur: .5, delay: 420, stagger: 50 },
+      { sel: '.live__card .wc-cta > a', dir: 'reveal-up', dur: .5, delay: 700, stagger: 90 }
+    ]],
+    /* 16 · THANK YOU — minimal: label, title (blur → sharp), mark, cta */
+    ['#thanks', [
+      { sel: '.cta-panel', dir: 'reveal-fade', dur: .9 },
+      { sel: '.cta-panel .eyebrow', dir: 'reveal-up', dur: .55, delay: 120 },
+      { sel: '.cta-panel .cta-title', dir: 'reveal-blur', dur: 1, delay: 240, vars: { '--rv-s': '.96', '--rv-b': '14px' } },
+      { sel: '.cta-panel .cta-sub', dir: 'reveal-up', dur: .6, delay: 380 },
+      { sel: '.cta-panel .wc-cta > a', dir: 'reveal-up', dur: .55, delay: 480, stagger: 80 },
+      { sel: '.cta-aurora', dir: 'reveal-fade', dur: 1.6 },
+      { sel: '.cta-bubbles', dir: 'reveal-fade', dur: 1.8, delay: 120 }
+    ]],
+    ['footer.mc-foot', [
+      { sel: '.mc-wrap', dir: 'reveal-up', dur: .6 }
+    ]]
+  ];
+
+  function compose() {
+    var seen = [];
+    MOTION.forEach(function (entry) {
+      var root = $(entry[0]);
+      if (!root) return;
+      entry[1].forEach(function (it) {
+        var els = $$(it.sel, root);
+        if (!els.length) return;
+        if (it.mode === 'group') {
+          els.forEach(function (g) {
+            dropOld(g);
+            g.setAttribute('data-stagger', '');
+            if (it.stagger) g.style.setProperty('--stagger', it.stagger + 'ms');
+            Array.prototype.forEach.call(g.children, function (child, i) {
+              var dir = it.wave && it.wave.length ? it.wave[i % it.wave.length] : it.dir;
+              child.style.setProperty('--i', i);
+              if (it.dur) child.style.setProperty('--rv-dur', it.dur + 's');
+              if (it.delay != null) child.style.setProperty('--rv-delay', it.delay + 'ms');
+              if (it.settle) child.classList.add('reveal-settle');
+              vars(child, it.vars);
+              if (!dir) return;
+              DIRS.forEach(function (c) { child.classList.remove(c); });
+              child.classList.add(dir);
+            });
+            seen.push(g);
+          });
+        } else {
+          els.forEach(function (el, i) {
+            var dir = it.wave && it.wave.length ? it.wave[i % it.wave.length] : it.dir;
+            dress(el, dir, it.dur, it.delay != null ? it.delay + i * (it.stagger || 0) : null);
+            if (it.settle) el.classList.add('reveal-settle');
+            vars(el, it.vars);
+            seen.push(el);
+          });
+        }
       });
     });
-    $$('.motion-grid').forEach(function (g) {
-      var dirs = ['m-left', 'm-right'];
-      Array.prototype.forEach.call(g.children, function (el, i) {
-        el.classList.add(dirs[i % 2]);
-        el.style.setProperty('--rvd', Math.min(i * 90, 720) + 'ms');
-      });
-    });
-    var els = $$('.mrv, .mrv-stagger, .mrv-phone, .motion-grid, .bf--enter');
-    if (reduced || !('IntersectionObserver' in window)) {
-      els.forEach(function (el) { el.classList.add('in-view'); });
+    return seen;
+  }
+
+  function choreograph() {
+    var hero = $('#cover');
+    if (!('IntersectionObserver' in window)) {          /* no IO: show it all */
+      $$('[data-bf], .mrv, .mrv-stagger, .mrv-phone').forEach(firm);
       return;
     }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    els.forEach(function (el) { io.observe(el); });
+    document.body.classList.add('wc-motion');           /* arms the pre-states */
+    ioA = makeIO(.14);
+    ioB = makeIO(.01);
+    frames();
+    var targets = $$('[data-bf]').concat(compose());
+    watchAll(targets);
+    if (hero && !reduced) {
+      requestAnimationFrame(function () { hero.classList.add('is-armed'); });
+    }
+    /* anything still on the old vocabulary keeps working unchanged */
+    watchAll($$('.mrv, .mrv-stagger, .mrv-phone, .motion-grid, .bf--enter'));
   }
   /* ── 4 · SCROLL INDEX · PROGRESS · CHAPTERS ──────────────── */
   var sections = [], activeIdx = -1, rail = null, bar = null, ovlGrid = null;
@@ -232,6 +607,29 @@
         paintAuto(false);
       }
       on(auto, 'click', function () { timer ? stop() : start(); });
+
+      /* The replica's content area is a real scroll container (see
+         .fpw__content). Hold the tour still while the user reads or
+         scrolls inside the app, then resume — same holdAuto pattern the
+         phone preview uses in mobilecase.js, so an in-app scroll never
+         races the auto-advance.
+         Listeners sit on the [data-pages] host, which is static markup,
+         and rely on bubbling: the replica DOM is generated later, so
+         binding to .fpw__content here would silently miss it. */
+      var scrollHost = $('[data-pages]', root);
+      if (scrollHost) {
+        var resumeT = null;
+        var holdAuto = function () {
+          if (timer) stop();
+          if (resumeT) clearTimeout(resumeT);
+          resumeT = setTimeout(function () { resumeT = null; start(); }, 4200);
+        };
+        on(scrollHost, 'wheel', holdAuto, { passive: true });
+        on(scrollHost, 'touchstart', holdAuto, { passive: true });
+        on(scrollHost, 'touchmove', holdAuto, { passive: true });
+        on(scrollHost, 'pointerdown', holdAuto, { passive: true });
+      }
+
       apply(0);
       /* auto-play is ON for every stage the moment the page loads */
       if (auto) start();
@@ -391,7 +789,11 @@
       var opts = $$('.rsp__opt', group);
       var bf = $('[data-bf]', group);
       var host = bf ? $('.bf__scale', bf) : null;
-      var dims = { desktop: [1440, 900], tablet: [1024, 860], mobile: [430, 900] };
+      /* Each option previews a real viewport of the app. The canvas is
+         always the design width for that viewport, so the replica lays
+         out as a genuine desktop shell and is scaled down to fit the
+         (--bf-max capped) frame. */
+      var dims = { desktop: [1200, 750], tablet: [1024, 860], mobile: [430, 900] };
       function paint() {
         if (!host) return;
         var mode = opts[active].getAttribute('data-w');
@@ -489,7 +891,13 @@
     $$('[data-open-showcase]').forEach(function (a) { a.href = SHOWCASE; a.target = '_blank'; a.rel = 'noopener'; });
   }
 
-  /* ── 9 · HERO TILT + AMBIENT PARALLAX ─────────────────────── */
+  /* ── 9 · HERO TILT + SCROLL PARALLAX ──────────────────────── */
+  /* Tilt stays on the two decorative hero/finale frames. The scroll
+     layer moves decorative backgrounds only — glows, the aurora and
+     the orb — never text, and never a frame that is animating.
+     One rAF per scroll burst, all reads batched before all writes,
+     and `translate` is used so the existing drift keyframes on
+     .wc-orb / .cta-bubble keep running underneath.               */
   function parallax() {
     if (reduced) return;
     $$('[data-tilt]').forEach(function (card) {
@@ -502,6 +910,30 @@
       });
       on(card, 'mouseleave', function () { card.style.transform = ''; });
     });
+
+    var layers = [{ el: $('#cover'), k: .05, max: 34 }, { el: $('.cta-panel'), k: -.045, max: 28 },
+      { el: $('#finale'), k: .03, max: 20 }].filter(function (L) { return !!L.el; });
+    $$('.bf__glow').forEach(function (g) { layers.push({ el: g, k: .035, max: 24 }); });
+    if (!layers.length || !window.requestAnimationFrame) return;
+
+    var queued = false;
+    function paint() {
+      queued = false;
+      var vh = window.innerHeight, mid = vh / 2, out = [], i, r, y;
+      for (i = 0; i < layers.length; i++) {                 /* read … */
+        r = layers[i].el.getBoundingClientRect();
+        if (r.bottom < -240 || r.top > vh + 240) { out.push(null); continue; }
+        y = (r.top + r.height / 2 - mid) * layers[i].k;
+        out.push(Math.max(-layers[i].max, Math.min(layers[i].max, y)));
+      }
+      for (i = 0; i < layers.length; i++) {                 /* … then write */
+        if (out[i] !== null) layers[i].el.style.setProperty('--plx', out[i].toFixed(1) + 'px');
+      }
+    }
+    function queue() { if (!queued) { queued = true; window.requestAnimationFrame(paint); } }
+    on(window, 'scroll', queue, { passive: true });
+    on(window, 'resize', queue);
+    paint();
   }
 
   /* ── 10 · BOOT ────────────────────────────────────────────── */
@@ -509,7 +941,7 @@
     mount();
     buildIndex();
     fitAll();
-    reveal();
+    choreograph();
     chapters();
     stages();
     themeMorph();
