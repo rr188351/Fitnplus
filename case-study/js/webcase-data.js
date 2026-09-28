@@ -277,7 +277,14 @@
         }).join('') + '<div class="fpw__popall">View All Notifications</div></div>';
     }
     return '<header class="fpw__top"><button class="fpw__menubtn">☰</button>' +
-      '<div class="fpw__titles"><h1 class="fpw__title">' + o.title + '</h1>' +
+      /* a <div>, not an <h1>: the replica lives inside .mc-hero/.wc-hero
+         on the cover, and every `h1` / `.mc-hero h1` / `.mc-page h1` rule
+         in the deck stylesheets matched this element from the outside —
+         that is what rendered "Home" at clamp(36px,4.6vw,60px) and then,
+         once the deck rules were scoped, at opacity:0. An app page title
+         is not a document heading, so a plain element with the same
+         .fpw__title class ends the whole collision for good. */
+      '<div class="fpw__titles"><div class="fpw__title">' + o.title + '</div>' +
       (o.sub ? '<p class="fpw__subtitle">' + o.sub + '</p>' : '') + '</div>' +
       '<div class="fpw__acts">' + (o.log ? '<button class="fpw__btn fpw__btn--pri"><span>+</span> Log</button>' : '') +
       '<span class="fpw__popwrap">' + notif +
