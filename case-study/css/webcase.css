@@ -104,6 +104,7 @@
    case-study page and the app replica from colliding.                */
 .fpw{--fp-track:#F3F4F6;--fp-field:#E5E7EB;--fp-border:rgba(15,23,42,.09);--fp-border-strong:rgba(15,23,42,.16);--fp-input-bg:#F9FAFB;--fp-surface:#FFF;--fp-text:#1F2937;--fp-text-2:#374151;--fp-muted:#6B7280;--fp-glass:rgba(255,255,255,.72);--fp-glass-2:rgba(255,255,255,.8);--fp-web-nav:rgba(255,255,255,.55);--fp-web-sidebar:rgba(255,255,255,.68);--fp-web-edge:rgba(255,255,255,.95);--fp-shadow:rgba(0,0,0,.07);--fp-shadow-soft:rgba(0,0,0,.04);--fp-accent:#16A34A;--fp-accent-2:#0891B2;--fp-lime:#65A30D;--fp-orange:#EA580C;--fp-red:#DC2626;--fp-purple:#7C3AED;--fp-pink:#DB2777;--fp-glow:rgba(22,163,74,.2);--fp-glow-2:rgba(8,145,178,.16);--fp-bg:linear-gradient(145deg,#f0fdf4 0%,#dcfce7 16%,#cffafe 42%,#e0f2fe 60%,#faf5ff 82%,#fdf4ff 100%)}
 .fpw[data-wt=dark]{--fp-track:rgba(255,255,255,.08);--fp-field:rgba(255,255,255,.12);--fp-border:rgba(255,255,255,.1);--fp-border-strong:rgba(255,255,255,.18);--fp-input-bg:rgba(255,255,255,.06);--fp-surface:#E8EEF7;--fp-text:#E8EEF7;--fp-text-2:#C2CFE0;--fp-muted:#7E8CA3;--fp-glass:rgba(19,27,41,.88);--fp-glass-2:rgba(26,35,52,.94);--fp-web-nav:rgba(9,14,24,.52);--fp-web-sidebar:rgba(9,14,24,.52);--fp-web-edge:rgba(255,255,255,.2);--fp-shadow:rgba(0,0,0,.45);--fp-shadow-soft:rgba(0,0,0,.28);--fp-accent:#34D399;--fp-accent-2:#22D3EE;--fp-lime:#A3E635;--fp-orange:#F59E0B;--fp-red:#F87171;--fp-purple:#8B5CF6;--fp-pink:#EC4899;--fp-glow:rgba(52,211,153,.14);--fp-glow-2:rgba(34,211,238,.12);--fp-bg:linear-gradient(145deg,#05070d 0%,#0a111d 45%,#06080f 100%)}
+
 .fpw{position:relative;display:flex;width:100%;height:100%;overflow:hidden;background:var(--fp-bg);color:var(--fp-text);font-family:Outfit,sans-serif;transition:background 300ms ease,color 300ms ease}
 .fpw__glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
 .fpw__glow--a{top:-16%;right:-4%;width:560px;height:560px;background:radial-gradient(circle,var(--fp-glow),transparent 70%)}
@@ -187,7 +188,7 @@
 .fpw__menubtn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:var(--fp-glass-2);border:1px solid var(--fp-border-strong);color:var(--fp-text);font-size:18px;line-height:1;cursor:pointer;transition:transform 150ms,box-shadow 150ms,border-color 150ms}
 .fpw__menubtn:hover{transform:translateY(-1px);box-shadow:0 10px 22px var(--fp-shadow-soft)}
 .fpw__titles{flex:1 1 auto;min-width:0}
-.fpw__title{margin:0;font-size:22px;font-weight:800;letter-spacing:-.2px;line-height:1.25;color:var(--fp-text)}
+.fpw__title{margin:0;font-size:22px;font-weight:800;letter-spacing:-.4px;line-height:1.2;color:var(--fp-text)}
 .fpw__subtitle{margin:2px 0 0;font-size:12.5px;color:var(--fp-muted)}
 .fpw__acts{display:flex;align-items:center;gap:10px;flex:0 0 auto}
 .fpw__iconbtn{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--fp-glass-2);border:1px solid var(--fp-border);font-size:17px;cursor:pointer;transition:transform 150ms,border-color 150ms,box-shadow 150ms}
@@ -201,7 +202,7 @@
 .fpw__btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px var(--fp-shadow-soft)}
 .fpw__btn--pri{background:linear-gradient(135deg,var(--fp-accent),var(--fp-accent-2));border-color:transparent;color:#fff;box-shadow:0 10px 24px var(--fp-glow)}
 /* content + 12 column grid */
-.fpw__content{flex:1 1 auto;min-height:0;padding:24px 28px 34px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--fp-border-strong) transparent}
+.fpw__content{flex:1 1 auto;min-height:0;padding:24px 28px 48px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--fp-border-strong) transparent}
 /* the app screen scrolls like the phone screen does in mobilecase
    (.cs-scroll): overscroll-behavior:contain keeps a scroll inside the
    mockup from chaining out to the deck, touch-action:pan-y keeps the
@@ -210,10 +211,11 @@
 .fpw__content::-webkit-scrollbar-track{background:transparent}
 .fpw__content::-webkit-scrollbar-thumb{background:var(--fp-border-strong);border-radius:99px}
 .fpw__content::-webkit-scrollbar-thumb:hover{background:var(--fp-muted)}
-.fpw__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;max-width:1520px;margin:0 auto}
+.fpw__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;max-width:1520px;margin:0 auto}
 .fpw__w3{grid-column:span 3;min-width:0}
 .fpw__w4{grid-column:span 4;min-width:0}
 .fpw__w5{grid-column:span 5;min-width:0}
+.fpw__w6{grid-column:span 6;min-width:0}
 .fpw__w7{grid-column:span 7;min-width:0}
 .fpw__w8{grid-column:span 8;min-width:0}
 .fpw__w12{grid-column:span 12;min-width:0}
@@ -324,6 +326,75 @@
 .fpw__bmirow{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:12px;background:var(--fp-glass-2);border:1px solid var(--fp-border)}
 .fpw__bmikey{font-size:12px;color:var(--fp-muted);font-weight:600}
 .fpw__bmivl{font-size:13.5px;font-weight:700}
+/* ── product components used by the Community / Account screens ──
+   Copied 1:1 from the product stylesheet (.fp-chal*, .fp-lb*,
+   .fp-post*, .fp-profile*, .fp-row*) so those two routes keep the real
+   widget proportions instead of falling back to the generic row/strip
+   the list screens use. */
+.fpw__sectitle{font-size:13.5px;font-weight:700;color:var(--fp-text);letter-spacing:-.1px;margin:-4px 0 -6px}
+.fpw__chal{display:flex;align-items:flex-start;gap:16px}
+.fpw__chalico{width:54px;height:54px;flex:0 0 54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.fpw__chalbody{flex:1;min-width:0}
+.fpw__chaltitle{font-size:15px;font-weight:700;color:var(--fp-text)}
+.fpw__chalend{font-size:12px;color:var(--fp-muted);margin:3px 0 12px}
+.fpw__chalpct{margin-top:8px;font-size:12px;font-weight:800}
+.fpw__lb{display:flex;align-items:center;gap:12px;padding:11px 10px;border-radius:12px}
+.fpw__lb.is-you{background:var(--fp-glass-2)}
+.fpw__lbrank{width:26px;font-size:17px;text-align:center}
+.fpw__lbav{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--fp-glass-2)}
+.fpw__lbname{flex:1;font-size:13.5px;font-weight:600;color:var(--fp-text)}
+.fpw__lb.is-you .fpw__lbname{font-weight:800;color:var(--fp-accent)}
+.fpw__lbscore{font-size:13.5px;font-weight:700;color:var(--fp-muted)}
+.fpw__lb.is-you .fpw__lbscore{color:var(--fp-accent)}
+.fpw__post{padding:16px;border-radius:18px;background:var(--fp-glass-2);border:1px solid var(--fp-border)}
+.fpw__posthead{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.fpw__postav{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--fp-glass)}
+.fpw__postwho{display:flex;flex-direction:column}
+.fpw__postname{font-size:13.5px;font-weight:700;color:var(--fp-text)}
+.fpw__posttime{font-size:11.5px;color:var(--fp-muted)}
+.fpw__postmsg{margin:0 0 12px;font-size:13.5px;line-height:1.6;color:var(--fp-text-2)}
+.fpw__postacts{display:flex;gap:18px}
+.fpw__postbtn{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--fp-muted);font-family:Outfit,sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;transition:color 150ms}
+.fpw__postbtn:hover{color:var(--fp-accent)}
+.fpw__postbtnico{font-size:15px}
+.fpw__card--profile{justify-content:space-between}
+.fpw__profile{text-align:center;padding:6px 0 0}
+.fpw__profileav{position:relative;width:84px;height:84px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,var(--fp-accent),var(--fp-accent-2));box-shadow:0 12px 30px var(--fp-glow)}
+.fpw__profileedit{position:absolute;right:0;bottom:2px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--fp-glass-2);border:1px solid var(--fp-border-strong);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.fpw__profilename{font-size:20px;font-weight:800;color:var(--fp-text);letter-spacing:-.4px}
+.fpw__profilemail{font-size:12.5px;color:var(--fp-muted);margin:3px 0 12px}
+.fpw__profilestats{display:flex;justify-content:space-around;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--fp-track)}
+.fpw__profilestat{text-align:center}
+.fpw__profilevalue{font-size:18px;font-weight:800;color:var(--fp-text)}
+.fpw__profilestatlabel{font-size:10.5px;color:var(--fp-muted);font-weight:600}
+.fpw__profilefoot{margin-top:20px;padding-top:16px;border-top:1px solid var(--fp-track);text-align:center;font-size:11px;color:var(--fp-muted)}
+.fpw__mrow{display:flex;align-items:center;gap:14px;width:100%;padding:13px 4px;background:none;border:none;border-radius:14px;border-bottom:1px solid var(--fp-track);color:var(--fp-text);font-family:Outfit,sans-serif;text-align:left;cursor:pointer;transition:background 160ms,transform 160ms}
+.fpw__mrow:hover{background:var(--fp-glass-2);transform:translateX(2px)}
+.fpw__mrow:last-child{border-bottom:none}
+.fpw__mrow.is-danger .fpw__mrowlabel{color:var(--fp-red)}
+.fpw__mrowico{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.fpw__mrowbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fpw__mrowlabel{font-size:14px;font-weight:600;color:var(--fp-text)}
+.fpw__mrowsub{font-size:11.5px;color:var(--fp-muted)}
+.fpw__mrowarrow{font-size:17px;color:var(--fp-muted)}
+/* ── TABLET ADAPTATION (slide 11) ───────────────────────────────
+   The product switches to these values under @media (max-width:1279px).
+   A replica frame is a fixed canvas that the deck zooms, so a media
+   query here would measure the DECK viewport instead of the canvas and
+   the tablet preview would keep the 1440 desktop grid. data-tablet
+   (set by webcase.js · responsive()) replays the same rules, so the
+   tablet option shows the product's real two-column adaptation. */
+.fpw[data-tablet] .fpw__top{padding:14px 20px;gap:12px}
+.fpw[data-tablet] .fpw__title{font-size:20px}
+.fpw[data-tablet] .fpw__content{padding:20px 20px 40px}
+.fpw[data-tablet] .fpw__grid{gap:16px}
+.fpw[data-tablet] .fpw__w3,
+.fpw[data-tablet] .fpw__w4,
+.fpw[data-tablet] .fpw__w5{grid-column:span 6}
+.fpw[data-tablet] .fpw__w7,
+.fpw[data-tablet] .fpw__w8{grid-column:span 12}
+.fpw[data-tablet] .fpw__uname{display:none}
+.fpw[data-tablet] .fpw__user{padding:5px}
 /* live workout */
 .fpw__live{padding:20px;border-radius:20px;background:var(--fp-glass-2);border:1.5px solid var(--fp-accent);box-shadow:0 14px 38px var(--fp-glow)}
 .fpw__livehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}

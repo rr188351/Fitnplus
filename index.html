@@ -138,7 +138,7 @@
                     <div class="ph-hi">Good Morning 👋</div>
                     <div class="ph-name">Ananya</div>
                   </div>
-                  <div class="ph-streak">🔥 14</div>
+                  <div class="ph-streak">🔥 14 streak</div>
                   <div class="ph-bell">🔔<span class="ph-bell-badge">4</span></div>
                 </div>
 
@@ -162,44 +162,63 @@
                   </div>
                   <div class="ph-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
                 </div>
-<div class="ph-row">
-                  <div class="ph-card ph-hr">
-                    <div class="ph-card-head">
-                      <span class="ph-pulse" aria-hidden="true"></span><span class="ph-label">Heart Rate</span>
-                    </div>
-                    <div class="ph-num ph-inline">72<span class="ph-unit">bpm</span></div>
+
+                <div class="ph-row">
+                  <div class="ph-card ph-metric ph-metric--hr">
+                    <span class="ph-mt-ico" style="--ic:#F43F5E;--icb:rgba(244,63,94,0.16)">❤️</span>
+                    <div class="ph-mt-lbl">Heart Rate</div>
+                    <div class="ph-mt-val">72<span class="ph-unit">BPM</span></div>
+                    <div class="ph-mt-sub">Resting · Normal</div>
                   </div>
-                  <div class="ph-card ph-cal">
-                    <div class="ph-card-head"><span class="ph-emoji">🔥</span><span class="ph-label">Calories</span></div>
-                    <div class="ph-num ph-inline">1,240<span class="ph-unit">kcal</span></div>
+                  <div class="ph-card ph-metric ph-metric--cal">
+                    <span class="ph-mt-ico" style="--ic:#FB923C;--icb:rgba(251,146,60,0.16)">🔥</span>
+                    <div class="ph-mt-lbl">Calories</div>
+                    <div class="ph-mt-val">1,847<span class="ph-unit">kcal</span></div>
+                    <div class="ph-mt-sub">482 remaining</div>
                   </div>
                 </div>
 
-                <div class="ph-row">
-                  <div class="ph-card ph-sleep">
-                    <div class="ph-card-head"><span class="ph-emoji">😴</span><span class="ph-label">Sleep</span></div>
-                    <div class="ph-num ph-inline">7h<span class="ph-unit">42m</span></div>
+                <div class="ph-row ph-row--3">
+                  <div class="ph-card ph-metric ph-metric--sm">
+                    <span class="ph-mt-ico" style="--ic:#22D3EE;--icb:rgba(34,211,238,0.16)">💧</span>
+                    <div class="ph-mt-lbl">Water</div>
+                    <div class="ph-mt-val ph-mt-val--sm">1.8<span class="ph-unit">L</span></div>
+                    <div class="ph-mt-sub">Goal: 2.5L</div>
                   </div>
-                  <div class="ph-card ph-hyd">
-                    <div class="ph-card-head"><span class="ph-emoji">💧</span><span class="ph-label">Hydration</span></div>
-                    <div class="ph-num ph-inline">1.9<span class="ph-unit">/ 2L</span></div>
+                  <div class="ph-card ph-metric ph-metric--sm">
+                    <span class="ph-mt-ico" style="--ic:#A78BFA;--icb:rgba(167,139,250,0.16)">😴</span>
+                    <div class="ph-mt-lbl">Sleep</div>
+                    <div class="ph-mt-val ph-mt-val--sm">7.4<span class="ph-unit">hrs</span></div>
+                    <div class="ph-mt-sub">Deep 2.1h</div>
+                  </div>
+                  <div class="ph-card ph-metric ph-metric--sm">
+                    <span class="ph-mt-ico" style="--ic:#A3E635;--icb:rgba(163,230,53,0.16)">🧠</span>
+                    <div class="ph-mt-lbl">Stress</div>
+                    <div class="ph-mt-val ph-mt-val--sm">Low</div>
+                    <div class="ph-mt-sub">Score 24/100</div>
                   </div>
                 </div>
 
                 <div class="ph-card ph-ai">
-                  <div class="ph-ai-icon" aria-hidden="true">✨</div>
-                  <div class="ph-ai-body">
-                    <div class="ph-label">AI Insight</div>
-                    <div class="ph-ai-text">Great progress this week</div>
+                  <div class="ph-ai-head">
+                    <span class="ph-ai-icon" aria-hidden="true">✨</span>
+                    <span class="ph-ai-title">AI Insights</span>
+                    <span class="ph-chip">New</span>
                   </div>
-                  <div class="ph-pill">+12%</div>
+                  <ul class="ph-ai-list">
+                    <li>Great progress this week! Hit step goal 5 days in a row.</li>
+                    <li>Heart rate improved by 8% — cardio sessions are working!</li>
+                    <li>Consider a rest day — recovery maximizes muscle gains.</li>
+                  </ul>
                 </div>
+
+                <div class="ph-fab" aria-hidden="true">+</div>
 
                 <div class="ph-nav">
                   <div class="ph-tab active"><span>🏠</span>Home</div>
                   <div class="ph-tab"><span>📊</span>Progress</div>
                   <div class="ph-tab"><span>👥</span>Community</div>
-                  <div class="ph-tab"><span>👤</span>Profile</div>
+                  <div class="ph-tab"><span>👤</span>Account</div>
                   <div class="ph-nav-ind" aria-hidden="true"></div>
                 </div>
               </div>
@@ -240,9 +259,9 @@
             <div class="sc-head"><span class="sc-ic" aria-hidden="true">❤️</span>Daily Health</div>
             <div class="sc-rows">
               <div class="sc-row"><span class="sc-e">👟</span><span class="sc-k">Steps</span><b>12,847</b></div>
-              <div class="sc-row"><span class="sc-e">❤️</span><span class="sc-k">Heart Rate</span><b>72 bpm</b></div>
-              <div class="sc-row"><span class="sc-e">🔥</span><span class="sc-k">Calories</span><b>1,240</b></div>
-              <div class="sc-row"><span class="sc-e">💧</span><span class="sc-k">Hydration</span><b>1.9 L</b></div>
+              <div class="sc-row"><span class="sc-e">❤️</span><span class="sc-k">Heart Rate</span><b>72 BPM</b></div>
+              <div class="sc-row"><span class="sc-e">🔥</span><span class="sc-k">Calories</span><b>1,847</b></div>
+              <div class="sc-row"><span class="sc-e">💧</span><span class="sc-k">Water</span><b>1.8 L</b></div>
             </div>
           </div>
 
@@ -283,30 +302,46 @@
               <div class="screen screen-sm">
                 <div class="screen-orbs" aria-hidden="true"></div>
                 <div class="ph-status"><span>9:41</span></div>
-                <div class="sm-hello">
-                  <div class="ph-label">Today's Steps</div>
-                  <div class="ph-num">12,847</div>
-                </div>
-                <div class="ring ring-lg" data-ring data-ring-label="steps">
-                  <svg viewBox="0 0 120 120">
-                    <circle class="ring-track" cx="60" cy="60" r="52"></circle>
-                    <circle class="ring-fill" cx="60" cy="60" r="52" data-pct="0.82"></circle>
-                  </svg>
-                  <div class="ring-center">
-                    <span class="ring-num ph-count" data-count="12847">0</span>
-                    <span class="ring-lbl">steps</span>
+                <div class="ph-screen-sm">
+                  <div class="sm-head">
+                    <span class="sm-title">Progress</span>
+                    <span class="sm-seg"><span>Week</span><span class="on">Month</span></span>
+                  </div>
+                  <div class="sm-stats">
+                    <div><b>24</b><small>Workouts</small></div>
+                    <div><b>19/30</b><small>Active Days</small></div>
+                    <div><b>9.8k</b><small>Avg Steps</small></div>
+                  </div>
+                  <div class="sm-card">
+                    <div class="sm-card-h"><b>Weight Trend</b><span>↓ 3.2 kg</span></div>
+                    <svg class="sm-chart" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="smFill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
+                          <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M8 20.8 C34 23 46 25 55 27.2 C71 31 89 35 103 38.4 C119 42 136 44.5 150 46.4 C166 48.7 183 52.4 197 56 C213 59.8 229 62.6 245 65.6 C261 68.4 276 70.6 292 72 V88 H8 Z" fill="url(#smFill)" />
+                      <path pathLength="1" class="line-draw" d="M8 20.8 C34 23 46 25 55 27.2 C71 31 89 35 103 38.4 C119 42 136 44.5 150 46.4 C166 48.7 183 52.4 197 56 C213 59.8 229 62.6 245 65.6 C261 68.4 276 70.6 292 72" />
+                    </svg>
+                    <div class="sm-axis"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>Now</span></div>
+                  </div>
+                  <div class="sm-card sm-bmi">
+                    <span class="sm-bmi-ico" aria-hidden="true">⚕️</span>
+                    <div><small>BMI Score</small><b>22.4</b></div>
+                    <span class="sm-chip">Normal Weight</span>
+                  </div>
+                  <div class="sm-card sm-ai">
+                    <b>✨ AI Monthly Summary</b>
+                    <p>Outstanding month! 19/30 step goals hit and resting HR improved by 8&nbsp;BPM.</p>
                   </div>
                 </div>
-                <div class="ph-bars" data-bars>
-                  <div style="--h:48%"></div>
-                  <div style="--h:63%"></div>
-                  <div style="--h:58%"></div>
-                  <div style="--h:76%"></div>
-                  <div style="--h:67%"></div>
-                  <div style="--h:87%"></div>
-                  <div class="hot" style="--h:100%"></div>
+                <div class="ph-nav">
+                  <div class="ph-tab"><span>🏠</span>Home</div>
+                  <div class="ph-tab active"><span>📊</span>Progress</div>
+                  <div class="ph-tab"><span>👥</span>Community</div>
+                  <div class="ph-tab"><span>👤</span>Account</div>
                 </div>
-                <div class="ph-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span class="hot">S</span></div>
               </div>
             </div>
           </div>
@@ -768,6 +803,7 @@
                       <div class="ph-avatar ph-avatar-sm" aria-hidden="true">👩‍🦱</div>
                       <div class="dev-head-txt"><span class="ph-hi">Good Morning 👋</span><span class="dev-name">Ananya</span></div>
                       <span class="ph-streak">🔥 14</span>
+                      <span class="ph-bell">🔔<i class="ph-bell-badge">4</i></span>
                     </div>
                     <div class="ph-card ph-steps">
                       <div class="ph-card-top">
@@ -781,20 +817,31 @@
                       </div>
                     </div>
                     <div class="ph-row">
-                      <div class="ph-card ph-hr"><div class="ph-card-head"><span class="ph-pulse" aria-hidden="true"></span><span class="ph-label">Heart Rate</span></div><div class="dev-num dev-num-sm">72<span class="ph-unit">bpm</span></div></div>
-                      <div class="ph-card ph-cal"><div class="ph-card-head"><span class="ph-emoji">🔥</span><span class="ph-label">Calories</span></div><div class="dev-num dev-num-sm">1,240<span class="ph-unit">kcal</span></div></div>
+                      <div class="ph-card ph-metric ph-metric--sm"><span class="ph-mt-ico" style="--ic:#F43F5E;--icb:rgba(244,63,94,0.16)">❤️</span><div class="ph-mt-lbl">Heart Rate</div><div class="ph-mt-val ph-mt-val--sm">72<span class="ph-unit">BPM</span></div><div class="ph-mt-sub">Resting · Normal</div></div>
+                      <div class="ph-card ph-metric ph-metric--sm"><span class="ph-mt-ico" style="--ic:#FB923C;--icb:rgba(251,146,60,0.16)">🔥</span><div class="ph-mt-lbl">Calories</div><div class="ph-mt-val ph-mt-val--sm">1,847<span class="ph-unit">kcal</span></div><div class="ph-mt-sub">482 remaining</div></div>
                     </div>
-                    <div class="ph-card ph-ai">
-                      <div class="ph-ai-icon" aria-hidden="true">✨</div>
-                      <div class="ph-ai-body"><div class="ph-label">AI Insight</div><div class="ph-ai-text">Great progress this week</div></div>
-                      <div class="ph-pill">+12%</div>
+                    <div class="ph-row ph-row--3">
+                      <div class="ph-card ph-metric ph-metric--xs"><span class="ph-mt-ico" style="--ic:#22D3EE;--icb:rgba(34,211,238,0.16)">💧</span><div class="ph-mt-lbl">Water</div><div class="ph-mt-val ph-mt-val--xs">1.8<span class="ph-unit">L</span></div></div>
+                      <div class="ph-card ph-metric ph-metric--xs"><span class="ph-mt-ico" style="--ic:#A78BFA;--icb:rgba(167,139,250,0.16)">😴</span><div class="ph-mt-lbl">Sleep</div><div class="ph-mt-val ph-mt-val--xs">7.4<span class="ph-unit">hrs</span></div></div>
+                      <div class="ph-card ph-metric ph-metric--xs"><span class="ph-mt-ico" style="--ic:#A3E635;--icb:rgba(163,230,53,0.16)">🧠</span><div class="ph-mt-lbl">Stress</div><div class="ph-mt-val ph-mt-val--xs">Low</div></div>
+                    </div>
+                    <div class="ph-card ph-ai ph-ai--sm">
+                      <div class="ph-ai-head">
+                        <span class="ph-ai-icon" aria-hidden="true">✨</span>
+                        <span class="ph-ai-title">AI Insights</span>
+                        <span class="ph-chip">New</span>
+                      </div>
+                      <ul class="ph-ai-list">
+                        <li>Great progress this week! Hit step goal 5 days in a row.</li>
+                      </ul>
                     </div>
                   </div>
+                  <div class="ph-fab ph-fab--sm" aria-hidden="true">+</div>
                   <div class="ph-nav">
                     <div class="ph-tab active"><span>🏠</span>Home</div>
                     <div class="ph-tab"><span>📊</span>Progress</div>
-                    <div class="ph-tab"><span>🏋️</span>Workouts</div>
                     <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-tab"><span>👤</span>Account</div>
                     <div class="ph-nav-ind" aria-hidden="true"></div>
                   </div>
                 </div>
@@ -807,13 +854,24 @@
                 <div class="screen screen-tiny screen-tint-l">
                   <div class="screen-orbs" aria-hidden="true"></div>
                   <div class="ph-status"><span>9:41</span></div>
-                  <div class="dev-title">Workouts</div>
-                  <div class="dev-list">
-                    <div class="dev-item"><span class="ph-emoji">🏃</span><div><b>Morning Run</b><small>Today 7:20 AM</small></div><em>412 kcal</em></div>
-                    <div class="dev-item"><span class="ph-emoji">🏋️</span><div><b>Upper Body</b><small>Yesterday</small></div><em>298 kcal</em></div>
-                    <div class="dev-item"><span class="ph-emoji">🧘</span><div><b>Yoga Flow</b><small>2 days ago</small></div><em>145 kcal</em></div>
+                  <div class="dev-page">
+                    <div class="dev-title">Workouts</div>
+                    <div class="dev-cats">
+                      <div class="dev-cat"><span>🏃</span>Running</div>
+                      <div class="dev-cat"><span>🏋️</span>Strength</div>
+                      <div class="dev-cat"><span>🧘</span>Yoga</div>
+                      <div class="dev-cat"><span>🚴</span>Cycling</div>
+                      <div class="dev-cat"><span>🏊</span>Swimming</div>
+                      <div class="dev-cat"><span>🥊</span>Sports</div>
+                    </div>
+                    <div class="dev-btn">▶ Start Quick Workout</div>
                   </div>
-                  <div class="dev-btn">▶ Start Workout</div>
+                  <div class="ph-nav">
+                    <div class="ph-tab active"><span>🏠</span>Home</div>
+                    <div class="ph-tab"><span>📊</span>Progress</div>
+                    <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-tab"><span>👤</span>Account</div>
+                  </div>
                 </div>
               </div>
               <div class="dev-tag">Workouts</div>
@@ -825,13 +883,30 @@
                 <div class="screen screen-tiny screen-tint-l">
                   <div class="screen-orbs" aria-hidden="true"></div>
                   <div class="ph-status"><span>9:41</span></div>
-                  <div class="dev-title">Activity</div>
-                  <div class="dev-metrics">
-                    <div class="dev-m"><span>👟</span><b>12,847</b><i>Steps</i></div>
-                    <div class="dev-m"><span>❤️</span><b>72</b><i>Heart Rate</i></div>
-                    <div class="dev-m"><span>😴</span><b>7h 42m</b><i>Sleep</i></div>
-                    <div class="dev-m"><span>💧</span><b>1.9L</b><i>Hydration</i></div>
-                    <div class="dev-m"><span>🧘</span><b>Low</b><i>Stress</i></div>
+                  <div class="dev-page">
+                    <div class="dev-title">Activity Log</div>
+                    <div class="dev-tabs"><span>Steps</span><span class="on">Heart Rate</span><span>Sleep</span></div>
+                    <svg class="dev-chart" viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="devFill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
+                          <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path class="area-fill" d="M0 58 C20 50 34 62 54 44 C74 26 92 52 116 34 C140 16 160 40 184 22 C206 6 224 26 240 14 V80 H0 Z" fill="url(#devFill)" />
+                      <path pathLength="1" class="line-draw" d="M0 58 C20 50 34 62 54 44 C74 26 92 52 116 34 C140 16 160 40 184 22 C206 6 224 26 240 14" />
+                    </svg>
+                    <div class="dev-metrics">
+                      <div class="dev-m"><span>💓</span><b>72</b><i>Resting BPM</i></div>
+                      <div class="dev-m"><span>🔺</span><b>142</b><i>Peak BPM</i></div>
+                      <div class="dev-m"><span>📉</span><b>−8%</b><i>vs last week</i></div>
+                    </div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="ph-tab active"><span>🏠</span>Home</div>
+                    <div class="ph-tab"><span>📊</span>Progress</div>
+                    <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-tab"><span>👤</span>Account</div>
                   </div>
                 </div>
               </div>
@@ -843,19 +918,32 @@
                 <div class="screen screen-tiny screen-tint-r">
                   <div class="screen-orbs" aria-hidden="true"></div>
                   <div class="ph-status"><span>9:41</span></div>
-                  <div class="dev-title">Progress</div>
-                  <svg class="dev-chart" viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="devFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
-                        <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
-                      </linearGradient>
-                    </defs>
-                    <path class="area-fill" d="M0 60 C24 56 40 40 60 42 C84 44 100 28 124 24 C148 22 168 20 190 16 C210 12 224 12 240 8 V80 H0 Z" fill="url(#devFill)" />
-                    <path pathLength="1" class="line-draw" d="M0 60 C24 56 40 42 60 42 C84 44 100 28 124 24 C148 22 168 16 190 16 C210 12 224 12 240 8" />
-                  </svg>
-                  <div class="dev-ai-summary"><b>✨ Monthly Summary</b><span>Outstanding month — 19/30 step goals hit.</span></div>
-                  <div class="dev-badges"><span>🏅</span><span>💪</span><span>🎯</span></div>
+                  <div class="dev-page">
+                    <div class="dev-head-row"><span class="dev-title">Progress</span><span class="dev-seg"><span>Week</span><span class="on">Month</span></span></div>
+                    <div class="dev-stats">
+                      <div class="dev-stat"><em>24</em><span>Workouts</span></div>
+                      <div class="dev-stat"><em>19/30</em><span>Active Days</span></div>
+                      <div class="dev-stat"><em>9.8k</em><span>Avg Steps</span></div>
+                    </div>
+                    <svg class="dev-chart" viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="devFill2" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#22D3EE" stop-opacity="0.35" />
+                          <stop offset="1" stop-color="#22D3EE" stop-opacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path class="area-fill" d="M0 60 C24 56 40 40 60 42 C84 44 100 28 124 24 C148 22 168 20 190 16 C210 12 224 12 240 8 V80 H0 Z" fill="url(#devFill2)" />
+                      <path pathLength="1" class="line-draw" d="M0 60 C24 56 40 42 60 42 C84 44 100 28 124 24 C148 22 168 16 190 16 C210 12 224 12 240 8" />
+                    </svg>
+                    <div class="dev-ai-summary"><b>✨ AI Monthly Summary</b><span>Outstanding month — 19/30 step goals hit, resting HR improved by 8 BPM.</span></div>
+                    <div class="dev-badges"><span>🔥</span><span>👟</span><span>🏃</span><span class="locked">🧘</span></div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="ph-tab"><span>🏠</span>Home</div>
+                    <div class="ph-tab active"><span>📊</span>Progress</div>
+                    <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-tab"><span>👤</span>Account</div>
+                  </div>
                 </div>
               </div>
               <div class="dev-tag">Progress Review</div>
@@ -867,10 +955,21 @@
                 <div class="screen screen-tiny screen-tint-r">
                   <div class="screen-orbs" aria-hidden="true"></div>
                   <div class="ph-status"><span>9:41</span></div>
-                  <div class="dev-title">Community</div>
-                  <div class="dev-challenge"><span class="ph-emoji">👟</span><div><b>Weekly 70K</b><i>3d left</i></div><em>72%</em></div>
-                  <div class="dev-challenge cyan"><span class="ph-emoji">💧</span><div><b>Hydration Month</b><i>18d left</i></div><em>54%</em></div>
-                  <div class="dev-lb"><b>🥇 Ananya S.</b><b>🥈 Rahul K.</b><b>🥉 Priya M.</b></div>
+                  <div class="dev-page">
+                    <div class="dev-head-row"><span class="dev-title">Community</span><span class="dev-join">+ Join</span></div>
+                    <div class="dev-challenge"><span class="ph-emoji">👟</span><div><b>Weekly 70K</b><i>3d left</i></div><em>72%</em></div>
+                    <div class="dev-challenge cyan"><span class="ph-emoji">💧</span><div><b>Hydration Month</b><i>18d left</i></div><em>54%</em></div>
+                    <div class="dev-lb-h">🏆 Leaderboard</div>
+                    <div class="dev-lb"><b>🥇 Ananya S.</b><em>86,420</em></div>
+                    <div class="dev-lb"><b>🥈 Rahul K.</b><em>84,110</em></div>
+                    <div class="dev-lb"><b>🥉 Priya M.</b><em>81,905</em></div>
+                  </div>
+                  <div class="ph-nav">
+                    <div class="ph-tab"><span>🏠</span>Home</div>
+                    <div class="ph-tab"><span>📊</span>Progress</div>
+                    <div class="ph-tab active"><span>👥</span>Community</div>
+                    <div class="ph-tab"><span>👤</span>Account</div>
+                  </div>
                 </div>
               </div>
               <div class="dev-tag">Community</div>
@@ -882,20 +981,34 @@
                 <div class="screen screen-tiny screen-tint-r">
                   <div class="screen-orbs" aria-hidden="true"></div>
                   <div class="ph-status"><span>9:41</span></div>
-                  <div class="dev-profile">
-                    <div class="dev-avatar" aria-hidden="true">👩‍🦱</div>
-                    <b>Ananya Sharma</b>
-                    <span>Fitness · Tech</span>
+                  <div class="dev-page">
+                    <div class="dev-head-row"><span class="dev-title">Account</span><span class="dev-gear">⚙️</span></div>
+                    <div class="dev-profile">
+                      <div class="dev-avatar" aria-hidden="true">👩‍🦱</div>
+                      <b>Ananya Sharma</b>
+                      <span>ananya@fitpulse.app</span>
+                      <i class="dev-plan">⭐ FitPulse Pro</i>
+                    </div>
+                    <div class="dev-stats">
+                      <div class="dev-stat"><em class="ph-count" data-count="247">0</em><span>Workouts</span></div>
+                      <div class="dev-stat"><em>100🔥</em><span>Day Streak</span></div>
+                      <div class="dev-stat"><em>18</em><span>Badges</span></div>
+                    </div>
+                    <div class="dev-menu">
+                      <div class="dev-menurow"><span>✏️</span>Edit Profile<i>›</i></div>
+                      <div class="dev-menurow"><span>🎯</span>Goals &amp; Progress<i>›</i></div>
+                      <div class="dev-menurow"><span>⌚</span>Device Sync<i>›</i></div>
+                    </div>
                   </div>
-                  <div class="dev-stats">
-                    <div class="dev-stat"><em class="ph-count" data-count="21">0</em><span>Day streak</span></div>
-                    <div class="dev-stat"><em>18</em><span>Badges</span></div>
-                    <div class="dev-stat"><em>4.9</em><span>Goal rate</span></div>
+                  <div class="ph-nav">
+                    <div class="ph-tab"><span>🏠</span>Home</div>
+                    <div class="ph-tab"><span>📊</span>Progress</div>
+                    <div class="ph-tab"><span>👥</span>Community</div>
+                    <div class="ph-tab active"><span>👤</span>Account</div>
                   </div>
-                  <div class="dev-badges dev-badges-row"><span>🥇</span><span>🏅</span><span>🎖️</span><span>🚀</span></div>
                 </div>
               </div>
-              <div class="dev-tag">Profile</div>
+              <div class="dev-tag">Account</div>
             </div>
 
           </div>

@@ -147,15 +147,19 @@
         { l: 'Workouts', v: '247', i: '🏋️', c: C.green },
         { l: 'Longest Streak', v: '42d', i: '🔥', c: C.red }
       ],
+      /* `g` mirrors ACCOUNT_MENU.group / ACCOUNT_GROUPS in the product's
+         data module — it is how the web Account route arranges the same
+         entries into its four section cards. */
       menu: [
-        { i: '✏️', l: 'Edit Profile', s: 'Update your information', c: C.green },
-        { i: '🎯', l: 'Goals & Progress', s: 'Track your milestones', c: C.cyan },
-        { i: '⌚', l: 'Device Sync', s: 'Manage connected devices', c: C.lime },
-        { i: '⭐', l: 'Subscription', s: 'FitPulse Pro · Active', c: C.orange },
-        { i: '🏆', l: 'Personal Records', s: 'Your best performances', c: C.purple },
-        { i: '🔒', l: 'Privacy & Security', s: 'Manage your data', c: '#6B7280' },
-        { i: '🚪', l: 'Sign Out', s: '', c: C.red }
+        { i: '✏️', l: 'Edit Profile', s: 'Update your information', c: C.green, g: 'Profile' },
+        { i: '🎯', l: 'Goals & Progress', s: 'Track your milestones', c: C.cyan, g: 'Health & Fitness' },
+        { i: '⌚', l: 'Device Sync', s: 'Manage connected devices', c: C.lime, g: 'Health & Fitness' },
+        { i: '⭐', l: 'Subscription', s: 'FitPulse Pro · Active', c: C.orange, g: 'Subscription' },
+        { i: '🏆', l: 'Personal Records', s: 'Your best performances', c: C.purple, g: 'Health & Fitness' },
+        { i: '🔒', l: 'Privacy & Security', s: 'Manage your data', c: '#6B7280', g: 'Privacy & Security' },
+        { i: '🚪', l: 'Sign Out', s: '', c: C.red, g: 'Privacy & Security' }
       ],
+      groups: ['Profile', 'Health & Fitness', 'Subscription', 'Privacy & Security'],
       footer: 'FitPulse v3.2.1 · Member since Jan 2024'
     },
     settings: [
@@ -303,10 +307,12 @@
   function sHome(o) {
     o = o || {};
     var body = '<div class="fpw__grid">' +
-      '<section class="fpw__card fpw__w4 fpw__card--fill"><div class="fpw__hero"><div class="fpw__hav">' + D.profile.avatar + '</div>' +
+      '<section class="fpw__card fpw__w4"><div class="fpw__hero"><div class="fpw__hav">' + D.profile.avatar + '</div>' +
       '<div><div class="fpw__hgreet">' + D.profile.greet + '</div><div class="fpw__hname">' + D.profile.name + '</div></div></div>' +
-      '<div class="fpw__chips"><span class="fpw__chip fpw__chip--or">🔥 ' + D.profile.streak + '</span>' +
-      '<span class="fpw__chip">🎯 128% of goal</span></div></section>' +
+      /* the product's greeting card carries the streak chip only, and it
+         is a plain .fp-card — it stretches to the row height with its
+         content at the top, not distributed with space-between. */
+      '<div class="fpw__chips"><span class="fpw__chip fpw__chip--or">🔥 ' + D.profile.streak + '</span></div></section>' +
 
       '<section class="fpw__card fpw__w8"><header class="fpw__chead"><div class="fpw__ctitle">Today\'s Steps</div>' +
       tag(D.goalLabel, C.green) + '</header>' +
@@ -404,67 +410,68 @@
     o = o || {};
     var cm = D.community;
     var body = '<div class="fpw__grid">' +
-      '<section class="fpw__card fpw__w7 fpw__card--a"><header class="fpw__chead"><div class="fpw__ctitle">' + cm.challenge.title + '</div>' +
-      tag(cm.challenge.end, C.orange) + '</header><p class="fpw__body">' + cm.challenge.d + '</p>' +
-      '<div class="fpw__pbar" style="margin-top:16px"><i style="--w:' + cm.challenge.pct + '%"></i></div>' +
-      '<div class="fpw__meta"><span>' + cm.challenge.pct + '% of ' + cm.challenge.total.toLocaleString('en-US') + ' steps</span>' +
-      '<span style="color:' + C.green + '">' + cm.challenge.reward + '</span></div></section>' +
-      '<section class="fpw__card fpw__w5"><header class="fpw__chead"><div class="fpw__ctitle">Your Week</div></header>' +
-      '<div class="fpw__strip" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + cm.stats.map(function (s) {
-        return '<div class="fpw__stripitem"><div class="fpw__stripv">' + s.v + '</div><div class="fpw__stripl">' + s.l + '</div></div>';
-      }).join('') + '</div><div style="display:flex;gap:10px;margin-top:16px">' +
-      '<button class="fpw__btn fpw__btn--pri">Join Challenge</button><button class="fpw__btn">Invite People</button></div></section>' +
-      '<section class="fpw__card fpw__w5"><header class="fpw__chead"><div class="fpw__ctitle">Leaderboard</div>' + tag(cm.boardTag, C.cyan) + '</header>' +
-      cm.board.map(function (b) {
-        return '<div class="fpw__row"' + (b.you ? ' style="background:rgba(22,163,74,.10);border-radius:12px;padding:12px 10px"' : '') + '>' +
-          '<span class="fpw__rico" style="background:transparent;border:none;font-size:15px">' + b.r + '</span>' +
-          '<span class="fpw__rbody"><span class="fpw__rlabel">' + b.e + ' ' + b.n + '</span></span>' +
-          '<span class="fpw__rright"><span class="fpw__rval" style="color:' + (b.you ? C.green : C.orange) + '">' + b.s + '</span></span></div>';
+      '<div class="fpw__pagehead"><button class="fpw__btn fpw__btn--pri"><span>+</span> Join Challenge</button></div>' +
+      '<div class="fpw__w12 fpw__sectitle">Active Challenges</div>' +
+      cm.active.map(function (a) {
+        return '<section class="fpw__card fpw__w6"><div class="fpw__chal"><span class="fpw__chalico" ' + ico(a.i, a.c) + '>' + a.i + '</span>' +
+          '<div class="fpw__chalbody"><div class="fpw__chaltitle">' + a.t + '</div>' +
+          '<div class="fpw__chalend">' + a.e + '</div>' +
+          '<div class="fpw__pbar"><i style="--w:' + a.p + '%;background:' + a.c + '"></i></div>' +
+          '<div class="fpw__chalpct" style="color:' + a.c + '">' + a.p + '%</div></div></div></section>';
+      }).join('') +
+      '<section class="fpw__card fpw__w5"><header class="fpw__chead"><div class="fpw__ctitle">🏆 Leaderboard</div>' +
+      tag(cm.boardTag, C.orange) + '</header>' +
+      cm.board.map(function (b, i) {
+        return '<div class="fpw__lb' + (b.you ? ' is-you' : '') + '"' +
+          (i < cm.board.length - 1 ? ' style="border-bottom:1px solid var(--fp-track)"' : '') + '>' +
+          '<span class="fpw__lbrank">' + b.r + '</span><span class="fpw__lbav">' + b.e + '</span>' +
+          '<span class="fpw__lbname">' + b.n + '</span><span class="fpw__lbscore">' + b.s + '</span></div>';
       }).join('') + '</section>' +
-      '<section class="fpw__card fpw__w7"><header class="fpw__chead"><div class="fpw__ctitle">Friends Feed</div>' +
-      '<button class="fpw__btn">Share Progress</button></header>' +
-      cm.feed.map(function (p) {
-        return '<div class="fpw__row"><span class="fpw__rico" ' + ico(p.e, C.green) + '">' + p.e + '</span>' +
-          '<span class="fpw__rbody"><span class="fpw__rlabel">' + p.n + ' <span style="color:var(--fp-muted);font-weight:500">' + p.w + '</span></span>' +
-          '<span class="fpw__rsub" style="font-size:12.5px;margin-top:4px">' + p.m + '</span></span>' +
-          '<span class="fpw__rright"><span class="fpw__rval" style="color:var(--fp-muted);font-size:12.5px">♡ ' + p.l + '</span></span></div>';
-      }).join('') + '</section>' +
-      '<section class="fpw__card fpw__w12"><header class="fpw__chead"><div class="fpw__ctitle">Active Challenges</div></header>' +
-      '<div class="fpw__strip" style="grid-template-columns:repeat(2,minmax(0,1fr))">' + cm.active.map(function (a) {
-        return '<div class="fpw__stripitem"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">' +
-          '<span class="fpw__rico" ' + ico(a.i, a.c) + '">' + a.i + '</span>' +
-          '<span class="fpw__rbody"><span class="fpw__rlabel">' + a.t + '</span><span class="fpw__rsub">' + a.e + '</span></span>' +
-          tag(a.p + '%', a.c) + '</div>' +
-          '<div class="fpw__pbar"><i style="--w:' + a.p + '%;background:' + a.c + '"></i></div></div>';
-      }).join('') + '</div></section></div>';
+      '<section class="fpw__card fpw__w7"><header class="fpw__chead"><div class="fpw__ctitle">Friends Activity</div></header>' +
+      cm.feed.map(function (p, i) {
+        return '<div class="fpw__post"' + (i < cm.feed.length - 1 ? ' style="margin-bottom:12px"' : '') + '>' +
+          '<div class="fpw__posthead"><span class="fpw__postav">' + p.e + '</span>' +
+          '<span class="fpw__postwho"><span class="fpw__postname">' + p.n + '</span>' +
+          '<span class="fpw__posttime">' + p.w + '</span></span></div>' +
+          '<p class="fpw__postmsg">' + p.m + '</p>' +
+          '<div class="fpw__postacts">' +
+          '<span class="fpw__postbtn"><span class="fpw__postbtnico">\u{1F90D}</span> ' + p.l + '</span>' +
+          '<span class="fpw__postbtn"><span class="fpw__postbtnico">\u{1F4AC}</span> Comment</span>' +
+          '<span class="fpw__postbtn"><span class="fpw__postbtnico">\u2197\uFE0F</span> Share</span>' +
+          '</div></div>';
+      }).join('') + '</section></div>';
     return shell({ active: 'community', title: 'Community', sub: 'Challenges, friends & achievements', theme: o.theme, body: body });
   }
+  /* The product's Account route keeps a 5-column profile card and a
+     7-column stack of the four grouped section cards. The "Personal
+     Records" card and the full-width footer card that used to sit here
+     are not part of the web route - there Personal Records is a modal
+     and the version line lives inside the profile card. */
   function sAccount(o) {
     o = o || {};
     var a = D.account;
     var body = '<div class="fpw__grid">' +
-      '<section class="fpw__card fpw__w4"><div class="fpw__hero" style="margin-bottom:14px">' +
-      '<div class="fpw__hav">' + a.avatar + '</div><div><div class="fpw__hgreet">' + a.name + '</div>' +
-      '<div class="fpw__hname" style="font-size:16px">' + a.email + '</div></div></div>' +
-      '<div class="fpw__chips"><span class="fpw__chip">' + a.plan + '</span></div>' +
-      '<div class="fpw__strip" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px">' +
-      a.stats.map(function (s) {
-        return '<div class="fpw__stripitem" style="padding:12px"><div class="fpw__stripv" style="font-size:17px">' + s.v +
-          '</div><div class="fpw__stripl">' + s.l + '</div></div>';
-      }).join('') + '</div></section>' +
-      '<section class="fpw__card fpw__w4"><header class="fpw__chead"><div class="fpw__ctitle">Personal Records</div></header>' +
-      a.records.map(function (r) {
-        return row({ i: r.i, c: r.c, n: r.l, w: '', v: r.v, k: r.c });
-      }).join('') + '</section>' +
-      '<section class="fpw__card fpw__w4"><header class="fpw__chead"><div class="fpw__ctitle">Account</div></header>' +
-      a.menu.slice(0, 4).map(function (m) {
-        return row({ i: m.i, c: m.c, n: m.l, w: m.s, v: '›', k: 'var(--fp-muted)' });
-      }).join('') + '</section>' +
-      '<section class="fpw__card fpw__w12"><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">' +
-      '<div><div class="fpw__ctitle">' + a.footer + '</div>' +
-      '<p class="fpw__csub">Profile, goals, device sync, subscription, privacy and sign out all live in the same account area.</p></div>' +
-      '<div style="display:flex;gap:10px"><button class="fpw__btn">Edit Profile</button>' +
-      '<button class="fpw__btn" style="color:' + C.red + '">Sign Out</button></div></div></section></div>';
+      '<div class="fpw__pagehead"><button class="fpw__btn">\u2699\uFE0F Settings</button></div>' +
+      '<section class="fpw__card fpw__w5 fpw__card--profile"><div class="fpw__profile">' +
+        '<div class="fpw__profileav">' + a.avatar + '<span class="fpw__profileedit">\u270F\uFE0F</span></div>' +
+        '<div class="fpw__profilename">' + a.name + '</div>' +
+        '<div class="fpw__profilemail">' + a.email + '</div>' +
+        ' ' + tag(a.plan, C.lime) +
+        '<div class="fpw__profilestats">' + a.stats.map(function (s) {
+          return '<div class="fpw__profilestat"><div class="fpw__profilevalue">' + s.v + '</div>' +
+            '<div class="fpw__profilestatlabel">' + s.l + '</div></div>';
+        }).join('') + '</div></div>' +
+        '<div class="fpw__profilefoot">' + a.footer + '</div></section>' +
+      '<div class="fpw__w7 fpw__stack">' + a.groups.map(function (g) {
+        return '<section class="fpw__card"><header class="fpw__chead"><div class="fpw__ctitle">' + g + '</div></header>' +
+          a.menu.filter(function (m) { return m.g === g; }).map(function (m) {
+            return '<div class="fpw__mrow' + (m.l === 'Sign Out' ? ' is-danger' : '') + '">' +
+              '<span class="fpw__mrowico" ' + ico(m.i, m.c) + '>' + m.i + '</span>' +
+              '<span class="fpw__mrowbody"><span class="fpw__mrowlabel">' + m.l + '</span>' +
+              (m.s ? '<span class="fpw__mrowsub">' + m.s + '</span>' : '') + '</span>' +
+              (m.l === 'Sign Out' ? '' : '<span class="fpw__mrowarrow">\u203A</span>') + '</div>';
+          }).join('') + '</section>';
+      }).join('') + '</div></div>';
     return shell({ active: 'account', title: 'Account', theme: o.theme, body: body });
   }
   function sSettings(o) {

@@ -793,7 +793,18 @@
          always the design width for that viewport, so the replica lays
          out as a genuine desktop shell and is scaled down to fit the
          (--bf-max capped) frame. */
-      var dims = { desktop: [1200, 750], tablet: [1024, 860], mobile: [430, 900] };
+      /* ONE design canvas for the whole desktop shell. Every browser
+         frame that shows the Fitnpulse web app reports 1440×900 — the
+         real desktop viewport the product is specified at (and the one
+         the live ?presentation=web iframe on slide 15 actually runs at).
+         The replica is a fixed-size canvas that is then zoomed to fit
+         the slide, so a narrower canvas would NOT just scale the mockup
+         down: it would re-run the product's own auto-fit rules at a
+         smaller width (the 5-metric strip needs 989px and only has 880
+         at 1200, so it wrapped) and the same Home screen would read as
+         a different app on slide 7 than on slide 4. 1440 keeps one
+         dashboard everywhere. */
+      var dims = { desktop: [1440, 900], tablet: [1024, 860], mobile: [430, 900] };
       function paint() {
         if (!host) return;
         var mode = opts[active].getAttribute('data-w');
@@ -818,6 +829,16 @@
           if (app) {
             if (mode === 'tablet') app.setAttribute('data-collapsed', 'true');
             else app.removeAttribute('data-collapsed');
+            /* The product reflows its dashboard under a max-width media
+               query — but a replica frame is a fixed canvas that is then
+               zoomed, so @media would measure the DECK viewport, not the
+               canvas, and the tablet preview would keep the 1440 desktop
+               grid. data-tablet mirrors the product's own ≤1279 block
+               (tighter top bar / content padding, 16px grid gap, the
+               3/4/5 → 6 and 7/8 → 12 two-column spans, hidden user
+               name) so the tablet option previews the real adaptation. */
+            if (mode === 'tablet') app.setAttribute('data-tablet', 'true');
+            else app.removeAttribute('data-tablet');
           }
         }
         var label = $('[data-rsp-label]', group);

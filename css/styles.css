@@ -295,8 +295,15 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .screen-orbs::before, .screen-orbs::after {
   content: ""; position: absolute; border-radius: 50%; filter: blur(46px);
 }
-.screen-orbs::before { width: 240px; height: 240px; top: -60px; right: -80px; background: radial-gradient(circle, rgba(22, 163, 74, 0.3), transparent 70%); }
-.screen-orbs::after { width: 220px; height: 220px; bottom: 20%; left: -90px; background: radial-gradient(circle, rgba(8, 145, 178, 0.26), transparent 70%); }
+/* At full phone size these orbs read as ambient depth. Inside a 200px
+   wide tiny screen a 240px orb covers the entire viewport and tints
+   every card green, which is what made this row look nothing like the
+   app. Scale them to the tiny frame and ease the alpha so the cards
+   keep their real fill colour. */
+.screen-orbs::before { width: 150px; height: 150px; top: -40px; right: -50px; background: radial-gradient(circle, rgba(22, 163, 74, 0.22), transparent 70%); }
+.screen-orbs::after { width: 140px; height: 140px; bottom: 18%; left: -56px; background: radial-gradient(circle, rgba(8, 145, 178, 0.18), transparent 70%); }
+.screen-tiny .screen-orbs::before { width: 150px; height: 150px; }
+.screen-tiny .screen-orbs::after { width: 140px; height: 140px; }
 
 /* ---- phone atoms ---- */
 .ph-status {
@@ -354,11 +361,69 @@ html:not(.js) [data-bars] > div { height: var(--h, 60%); }
 .ph-card-head { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
 .ph-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--c-bright); box-shadow: 0 0 8px var(--c-bright); animation: hr-pulse 1.6s ease-in-out infinite; display: inline-block; }
 .ph-emoji { font-size: 11px; line-height: 1; }
-.ph-ai { margin: 10px 16px 0; display: flex; align-items: center; gap: 10px; }
-.ph-ai-icon { width: 30px; height: 30px; border-radius: 10px; background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.22); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.ph-ai-body { flex: 1; }
-.ph-ai-text { font-size: 11.5px; font-weight: 600; color: #e9f0f9; }
-.ph-pill { font-size: 10.5px; font-weight: 800; color: #4ade80; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.25); border-radius: 100px; padding: 4px 10px; white-space: nowrap; }
+/* ---- metric cards (heart rate / calories / water / sleep / stress) ----
+   The real app renders every metric the same way: a tinted icon tile on
+   top, then the label, then the value + unit, then a muted sub-line
+   ("Resting · Normal", "482 remaining", "Goal: 2.5L"). Heart Rate and
+   Calories sit two-up; Water / Sleep / Stress sit three-up below them.
+   --ic / --icb carry the per-metric accent from the markup.            */
+.ph-metric { display: flex; flex-direction: column; align-items: flex-start; }
+.ph-mt-ico {
+  width: 30px; height: 30px; border-radius: 10px; margin-bottom: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+  background: var(--icb, rgba(52, 211, 153, 0.12));
+  border: 1px solid color-mix(in srgb, var(--ic, #22D3EE) 28%, transparent);
+}
+.ph-mt-lbl { font-size: 10px; color: var(--muted); font-weight: 600; }
+.ph-mt-val {
+  font-family: var(--font-head); font-weight: 800; font-size: 19px;
+  color: #f2f7fb; letter-spacing: -0.02em; line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.ph-mt-val .ph-unit { font-size: 10.5px; font-weight: 600; margin-left: 3px; }
+.ph-mt-sub { font-size: 9px; color: #6d7d92; font-weight: 500; margin-top: 2px; }
+.ph-row--3 > .ph-card { min-width: 0; padding: 10px 9px; }
+.ph-mt-val--sm { font-size: 16px; }
+.ph-metric--sm .ph-mt-ico { width: 24px; height: 24px; border-radius: 8px; font-size: 12px; margin-bottom: 5px; }
+.ph-metric--sm .ph-mt-val { font-size: 16px; }
+.ph-mt-val--xs { font-size: 14px; }
+.ph-metric--xs { padding: 8px 7px; }
+.ph-metric--xs .ph-mt-ico { width: 20px; height: 20px; border-radius: 7px; font-size: 10px; margin-bottom: 4px; }
+.ph-metric--xs .ph-mt-lbl { font-size: 9px; }
+.ph-metric--xs .ph-mt-val { font-size: 13px; }
+
+/* ---- AI Insights card --------------------------------------------
+   The app shows this as a full-width card with a green left rule, the
+   "New" pill, and one bulleted insight per line. */
+.ph-ai { margin: 10px 16px 0; border-left: 2px solid var(--g-bright); }
+.ph-ai--sm { margin: 9px 12px 0; }
+.ph-ai-head { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.ph-ai-icon { width: 22px; height: 22px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.22); }
+.ph-ai-title { font-family: var(--font-head); font-size: 12px; font-weight: 800; color: #f2f7fb; }
+.ph-chip { font-size: 8.5px; font-weight: 800; color: var(--c-bright); background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.28); border-radius: 100px; padding: 2px 7px; white-space: nowrap; }
+.ph-ai-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.ph-ai-list li { position: relative; padding-left: 12px; font-size: 10.5px; line-height: 1.45; color: var(--text-2); }
+.ph-ai-list li::before { content: ""; position: absolute; left: 0; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--g-bright); }
+
+/* ---- quick-log FAB (real app floats it above the tab bar) ---- */
+.ph-fab {
+  position: absolute; right: 16px; bottom: 74px; z-index: 6;
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 300; line-height: 1;
+  color: #fff; background: linear-gradient(135deg, #16A34A, #0E7490);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  box-shadow: 0 10px 26px rgba(22, 163, 74, 0.45);
+}
+.ph-fab--sm { width: 30px; height: 30px; font-size: 16px; right: 12px; bottom: 54px; }
+
+/* NOTE: the previous single-line .ph-ai / .ph-ai-icon / .ph-ai-body /
+   .ph-ai-text / .ph-pill rules (a compact icon + sentence + delta chip)
+   were removed. The app renders AI Insights as a full-width card with a
+   green left rule, a "New" pill and one bulleted insight per line, so
+   the atoms above (.ph-ai, .ph-ai-head, .ph-ai-title, .ph-chip,
+   .ph-ai-list) replace them outright. */
 
 .ph-nav {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
@@ -376,6 +441,39 @@ html:not(.js) [data-bars] > div { height: var(--h, 60%); }
   background: var(--grad-bright); box-shadow: 0 0 12px rgba(34, 211, 238, 0.55);
   left: 9%; width: 16%; transition: left 0.3s ease;
 }
+
+/* ── Phone density tuning ─────────────────────────────────────────
+   Both frames now carry the app's real Home stack — header, steps
+   card, 2-up metrics, 3-up metrics, AI insights — above a tab bar,
+   and at 302×652 / 216×452 that stack no longer fit. These tighten
+   the atoms just enough for it to land above the tab bar, and the
+   header row is compacted so "Good Morning 👋" stays on one line the
+   way it does in the app instead of wrapping and stealing a row. */
+.ph-header { gap: 8px; padding: 12px 18px 0; }
+.ph-avatar { width: 36px; height: 36px; font-size: 18px; }
+.ph-hi { font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph-name { font-size: 15px; white-space: nowrap; }
+.ph-streak { font-size: 9.5px; padding: 4px 7px; }
+.ph-bell { width: 28px; height: 28px; border-radius: 9px; font-size: 13px; }
+.ph-card { padding: 10px 12px; }
+.ph-bars { height: 30px; }
+.ph-num { font-size: 22px; }
+.ph-up { margin: 3px 0 6px; }
+.ph-days { margin-top: 3px; }
+.ph-row { margin-top: 7px; }
+.ph-mt-ico { width: 25px; height: 25px; font-size: 13px; margin-bottom: 4px; }
+.ph-mt-val { font-size: 18px; }
+.ph-mt-sub { font-size: 8.5px; margin-top: 1px; }
+.ph-ai { margin-top: 8px; padding: 8px 10px; }
+.ph-ai-head { margin-bottom: 4px; }
+.ph-ai-icon { width: 20px; height: 20px; font-size: 11px; border-radius: 6px; }
+.ph-ai-title { font-size: 11.5px; }
+.ph-ai-list { gap: 3px; }
+.ph-ai-list li { font-size: 9.5px; line-height: 1.35; }
+.ph-fab { bottom: 70px; width: 38px; height: 38px; font-size: 20px; }
+/* the status bar inside the phone is already inset by the frame */
+.screen-home .ph-status, .screen-tiny .ph-status { padding-top: 18px; }
+
 /* Floating chips */
 .float-chip {
   position: absolute; display: flex; align-items: center; gap: 10px; z-index: 7;
@@ -468,11 +566,40 @@ html:not(.js) [data-bars] > div { height: var(--h, 60%); }
 .sc-mini-spark svg { width: 100%; height: 100%; }
 .showcase-phone { position: relative; z-index: 3; animation: float 6.5s ease-in-out infinite; }
 
-/* phone-sm variant */
+/* phone-sm variant — the app's Progress screen */
 .phone-sm { width: 258px; height: 524px; border-radius: 44px; }
 .phone-sm .screen { inset: 11px; border-radius: 34px; }
-.sm-hello { text-align: center; padding: 4px 0 12px; position: relative; z-index: 1; }
-.sm-hello .ph-num { font-size: 30px; }
+.ph-screen-sm {
+  position: relative; z-index: 1; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; gap: 8px; padding: 4px 13px 0;
+}
+.sm-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sm-title { font-family: var(--font-head); font-size: 15px; font-weight: 800; color: #f2f7fb; }
+.sm-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 100px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); }
+.sm-seg span { padding: 3px 8px; border-radius: 100px; font-size: 8.5px; font-weight: 700; color: var(--muted); }
+.sm-seg span.on { background: var(--g-soft); color: #04140c; }
+.sm-stats { display: flex; gap: 6px; }
+.sm-stats > div { flex: 1; text-align: center; padding: 7px 3px; border-radius: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
+.sm-stats b { display: block; font-family: var(--font-head); font-size: 13px; font-weight: 800; color: var(--g-soft); font-variant-numeric: tabular-nums; }
+.sm-stats small { font-size: 7.5px; color: var(--muted); font-weight: 600; }
+.sm-card { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 14px; padding: 9px 10px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.sm-card-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.sm-card-h b { font-size: 10.5px; font-weight: 700; color: #e9f0f9; }
+.sm-card-h span { font-size: 8.5px; font-weight: 700; color: var(--g-bright); }
+.sm-chart { width: 100%; height: 74px; display: block; }
+.sm-chart .line-draw { stroke: var(--g-bright); }
+.sm-axis { display: flex; justify-content: space-between; margin-top: 4px; font-size: 7.5px; color: #6d7d92; font-weight: 600; }
+.sm-bmi { display: flex; align-items: center; gap: 8px; }
+.sm-bmi-ico { width: 26px; height: 26px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.24); flex-shrink: 0; }
+.sm-bmi div { display: flex; flex-direction: column; }
+.sm-bmi small { font-size: 8.5px; color: var(--muted); font-weight: 600; }
+.sm-bmi b { font-family: var(--font-head); font-size: 16px; font-weight: 800; color: #f2f7fb; line-height: 1.1; }
+.sm-chip { margin-left: auto; font-size: 8px; font-weight: 700; color: var(--g-bright); background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.28); border-radius: 100px; padding: 3px 8px; white-space: nowrap; }
+.sm-ai { border-left: 2px solid var(--c-bright); }
+.sm-ai b { display: block; font-size: 10px; font-weight: 700; color: #e9f0f9; margin-bottom: 3px; }
+.sm-ai p { font-size: 9.5px; line-height: 1.5; color: var(--text-2); }
+.screen-sm .ph-nav { padding: 8px 6px 14px; }
+.screen-sm .ph-tab span { font-size: 14px; }
 .screen-sm .ph-steps { margin-top: 0; border-radius: 0; background: rgba(255,255,255,0.03); border-left: 0; border-right: 0; }
 /* ---------- 3 · Features ---------- */
 .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; 
@@ -783,30 +910,97 @@ html:not(.js) .area-fill { opacity: 1; }
 .p-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 /* ---------- 8 · App Experience ---------- */
 .experience { background: linear-gradient(180deg, #070a12, #05070c); overflow: hidden; }
-.exp-stage { position: relative; min-height: 540px; display: flex; align-items: center; justify-content: center; }
+.exp-stage { position: relative; min-height: 560px; display: flex; align-items: center; justify-content: center; }
 .exp-glow {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 940px; height: 460px;
-  background: radial-gradient(closest-side, rgba(8, 145, 178, 0.2), rgba(22, 163, 74, 0.12), transparent 78%);
-  filter: blur(48px);
+  width: 900px; height: 420px;
+  background: radial-gradient(closest-side, rgba(8, 145, 178, 0.13), rgba(22, 163, 74, 0.07), transparent 76%);
+  filter: blur(52px);
 }
 .devices { display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 2; }
-.device { position: relative; flex-shrink: 0; animation: float 7s ease-in-out infinite; }
-.device .phone { animation: none; }
-/* Order: Activity · Workouts · Dashboard(center) · Progress · Community · Profile */
+
+/* Cover-flow resting state.
+   Every screen shares ONE blur value and ONE dim level. The previous
+   ladder (none / 1.2px / 1.8px over four opacity steps) made the outer
+   phones read as broken rather than recessive — at 216px wide the text
+   was already tight, and three different blur levels read as a mistake
+   rather than as depth. */
+.device {
+  position: relative; flex-shrink: 0;
+  transform: scale(0.9) translateY(16px);
+  filter: blur(2.6px);
+  opacity: 0.42;
+  z-index: 1;
+  transition: transform 0.8s var(--ease), filter 0.8s var(--ease), opacity 0.8s var(--ease);
+}
+.device .phone { animation: float 7s ease-in-out infinite; }
+/* Visual order: Activity · Workouts · Dashboard · Progress · Community · Account */
 .dev-l2 { order: 1; }
 .dev-l1 { order: 2; }
 .dev-front { order: 3; }
 .dev-r1 { order: 4; }
 .dev-r2 { order: 5; }
 .dev-r3 { order: 6; }
-.dev-front { z-index: 5; order: 3; margin-top: -16px; }
-.dev-front .phone { transform: scale(1.07); box-shadow: 0 54px 110px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.16); }
-.dev-l1 { z-index: 2; margin-right: -30px; opacity: 0.78; margin-top: 26px; animation-delay: 0.6s; }
-.dev-l2 { z-index: 1; margin-right: -40px; opacity: 0.5; filter: blur(1.2px); margin-top: 52px; animation-delay: 1.2s; }
-.dev-r1 { z-index: 2; margin-left: -30px; opacity: 0.78; margin-top: 26px; animation-delay: 0.9s; }
-.dev-r2 { z-index: 1; margin-left: -40px; opacity: 0.5; filter: blur(1.2px); margin-top: 52px; animation-delay: 1.5s; }
-.dev-r3 { z-index: 0; margin-left: -46px; opacity: 0.36; filter: blur(1.8px); margin-top: 76px; animation-delay: 2s; }
+
+.dev-front {
+  margin-top: -14px;
+  transform: scale(1.08) translateY(-12px);
+  filter: blur(0); opacity: 1; z-index: 6;
+}
+.dev-front .phone { box-shadow: 0 54px 110px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.16); }
+.dev-l1 { margin-right: -18px; margin-top: 22px; }
+.dev-l2 { margin-right: -26px; margin-top: 44px; }
+.dev-r1 { margin-left: -18px; margin-top: 22px; }
+.dev-r2 { margin-left: -26px; margin-top: 44px; }
+.dev-r3 { margin-left: -30px; margin-top: 62px; }
+
+/* ── Spotlight carousel (desktop only) ────────────────────────
+   One screen at a time takes focus: it scales up, sharpens and
+   rides to the front while the other five drop back behind the
+   same shared blur. 24s lap over 6 screens = 4s dwell each.
+
+   The stagger is a NEGATIVE delay, so lap 1 is already mid-cycle
+   the moment the section scrolls into view — a visitor never lands
+   on a frozen first frame.
+
+   --i is assigned by DOM position below. Dashboard is written
+   first in the markup but sits in the middle of the row, so DOM
+   order is not visual order; mapping --i explicitly is what makes
+   the carousel travel left-to-right.
+
+   z-index steps rather than eases: it is an integer, and a ramp
+   would slide the focused phone through its neighbours instead of
+   arriving in front of them. */
+@keyframes dev-spotlight {
+  0%, 13%   { transform: scale(1.09) translateY(-14px); filter: blur(0); opacity: 1; z-index: 6; }
+  20%, 93%  { transform: scale(0.9) translateY(16px); filter: blur(2.6px); opacity: 0.42; z-index: 1; }
+  100%      { transform: scale(1.09) translateY(-14px); filter: blur(0); opacity: 1; z-index: 6; }
+}
+.devices > .device:nth-child(1) { --i: 2; } /* Dashboard    — DOM 1, centre of the row */
+.devices > .device:nth-child(2) { --i: 1; } /* Workouts     */
+.devices > .device:nth-child(3) { --i: 0; } /* Activity Log — carousel starts here */
+.devices > .device:nth-child(4) { --i: 3; } /* Progress     */
+.devices > .device:nth-child(5) { --i: 4; } /* Community    */
+.devices > .device:nth-child(6) { --i: 5; } /* Account      */
+
+/* The label under each phone joins the same carousel, so the focused
+   screen's name lights up with it instead of the green caption staying
+   welded to Dashboard while someone else is on stage. Same duration and
+   the same negative delay, so the two never drift apart. */
+@keyframes dev-tag-focus {
+  0%, 13%, 100% { color: var(--g-soft); border-color: rgba(74, 222, 128, 0.35); background: rgba(6, 20, 12, 0.8); }
+  20%, 93% { color: var(--muted); border-color: var(--border); background: rgba(6, 11, 17, 0.72); }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .device {
+    animation: dev-spotlight 24s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: calc(var(--i, 0) * -4s);
+  }
+  .device .dev-tag {
+    animation: dev-tag-focus 24s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: calc(var(--i, 0) * -4s);
+  }
+}
 .dev-tag {
   position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
   font-family: var(--font-head); font-size: 11px; font-weight: 600; color: var(--muted);
@@ -820,9 +1014,15 @@ html:not(.js) .area-fill { opacity: 1; }
 .phone-tiny { width: 216px; height: 452px; border-radius: 36px; padding: 8px; animation: none; }
 .phone-tiny::after { top: 7px; width: 82px; height: 22px; }
 .phone-tiny .screen { inset: 9px; border-radius: 28px; }
-.screen-tint-t { background: linear-gradient(160deg, #0b1622, #0a151f 40%, #0d101f); }
-.screen-tint-l { background: linear-gradient(160deg, #0a1520, #0a1522 55%, #0a111c); }
-.screen-tint-r { background: linear-gradient(160deg, #0a1320, #0b1522 55%, #0a0f1c); }
+/* The app paints its own background with --fp-bg (see src/index.css:
+   dark = linear-gradient(145deg,#05070d 0%,#0a111d 45%,#06080f 100%)).
+   These tints were a hand-picked bluer/greener set that fought the
+   section glow and washed the whole row green. Match the product, and
+   keep the three variants within a hair of each other so the row reads
+   as six screens of one app rather than six different apps. */
+.screen-tint-t { background: linear-gradient(145deg, #05070d 0%, #0a111d 45%, #06080f 100%); }
+.screen-tint-l { background: linear-gradient(145deg, #05070e 0%, #09101b 45%, #06090e 100%); }
+.screen-tint-r { background: linear-gradient(145deg, #05070c 0%, #0a101c 45%, #06080e 100%); }
 .screen-tiny .ph-status { padding: 16px 16px 0; font-size: 10px; }
 .dev-title { font-family: var(--font-head); font-weight: 800; font-size: 16px; color: #fff; padding: 12px 16px 6px; position: relative; z-index: 1; }
 .dev-head { display: flex; align-items: center; gap: 9px; padding: 10px 14px 0; position: relative; z-index: 1; }
@@ -864,6 +1064,85 @@ html:not(.js) .area-fill { opacity: 1; }
 .dev-stat em { font-style: normal; font-family: var(--font-head); font-weight: 800; font-size: 15px; color: var(--g-soft); display: block; font-variant-numeric: tabular-nums; }
 .dev-stat span { font-size: 8.5px; color: var(--muted); }
 .dev-badges-row { padding-bottom: 12px; justify-content: center; gap: 7px; }
+
+/* tiny-phone screens — the app's real per-screen structure */
+.dev-page { flex: 1; min-height: 0; overflow: hidden; }
+.dev-head-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px 6px; }
+.dev-head-row .dev-title { padding: 0; }
+.dev-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 100px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
+.dev-seg span { padding: 3px 7px; border-radius: 100px; font-size: 7.5px; font-weight: 700; color: var(--muted); }
+.dev-seg span.on { background: var(--g-soft); color: #04140c; }
+.dev-join { font-size: 8.5px; font-weight: 800; color: var(--g-soft); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.28); border-radius: 100px; padding: 4px 9px; white-space: nowrap; }
+.dev-gear { font-size: 14px; }
+.dev-plan { font-style: normal; font-size: 8.5px; font-weight: 700; color: var(--g-soft); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.28); border-radius: 100px; padding: 3px 9px; margin-top: 4px; }
+.dev-tabs { display: flex; gap: 4px; margin: 6px 14px 0; }
+.dev-tabs span { padding: 4px 9px; border-radius: 100px; font-size: 8.5px; font-weight: 700; color: var(--muted); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); white-space: nowrap; }
+.dev-tabs span.on { background: var(--g); border-color: transparent; color: #fff; }
+.dev-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin: 10px 14px 0; }
+.dev-cat { display: flex; align-items: center; gap: 6px; padding: 8px 9px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 11px; font-size: 9.5px; font-weight: 600; color: var(--text-2); }
+.dev-cat span { font-size: 14px; }
+.dev-lb-h { margin: 8px 14px 0; font-size: 10px; font-weight: 700; color: #fff; }
+.dev-lb { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 14px 0; padding: 6px 10px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 11px; position: relative; z-index: 1; }
+.dev-lb b { font-family: var(--font-head); font-size: 10px; font-weight: 600; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dev-lb em { font-style: normal; font-family: var(--font-head); font-size: 9.5px; font-weight: 800; color: var(--g-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dev-badges .locked { opacity: 0.35; }
+.dev-menu { display: flex; flex-direction: column; gap: 5px; margin: 9px 14px 0; }
+.dev-menurow { display: flex; align-items: center; gap: 7px; padding: 7px 9px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 10px; font-size: 9.5px; font-weight: 600; color: var(--text-2); }
+.dev-menurow span { font-size: 12px; }
+.dev-menurow i { font-style: normal; margin-left: auto; color: var(--muted); }
+.dev-chart { height: 62px; }
+.dev-profile { padding: 10px 0 6px; }
+.dev-avatar { width: 42px; height: 42px; font-size: 21px; }
+.dev-profile b { font-size: 12px; margin-top: 4px; }
+.dev-profile span { font-size: 8.5px; }
+.dev-stats { padding: 7px 14px 0; }
+.dev-stat { padding: 6px 3px; }
+.dev-stat em { font-size: 13px; }
+.dev-stat span { font-size: 7.5px; }
+.dev-btn { margin: 10px 14px 0; font-size: 11px; padding: 9px; }
+.dev-ai-summary { margin: 7px 14px 0; font-size: 9px; padding: 8px 10px; }
+.dev-badges { padding: 7px 14px 0; }
+.dev-badges span { width: 26px; height: 26px; font-size: 12px; }
+.dev-metrics { padding: 7px 14px 0; gap: 6px; }
+.dev-challenge { margin: 7px 14px 0; padding: 8px 10px; }
+/* the tab bar inside the tiny phones */
+.screen-tiny .ph-nav { padding: 7px 5px 12px; }
+.screen-tiny .ph-tab { font-size: 7px; }
+.screen-tiny .ph-tab span { font-size: 12px; }
+
+/* 216×452 frames: the app's Home stack is scaled down a further step so
+   header + steps + 2-up + 3-up clear the tab bar. Anything still below
+   the fold fades out rather than being sliced, which is what the real
+   scrolling screen looks like in a still frame. */
+.screen-tiny .ph-status { padding-top: 14px; }
+.screen-tiny .ph-header { padding: 10px 12px 0; }
+.screen-tiny .dev-head { gap: 7px; padding: 9px 12px 0; }
+.screen-tiny .ph-avatar-sm { width: 28px; height: 28px; font-size: 14px; }
+.screen-tiny .dev-name { font-size: 12px; }
+.screen-tiny .ph-streak { font-size: 8px; padding: 3px 6px; }
+.screen-tiny .ph-bell { width: 22px; height: 22px; font-size: 10px; border-radius: 7px; }
+.screen-tiny .ph-bell-badge { width: 12px; height: 12px; font-size: 7px; top: -4px; right: -4px; }
+.screen-tiny .ph-avatar { width: 30px; height: 30px; font-size: 15px; }
+.screen-tiny .ph-name { font-size: 13px; }
+.screen-tiny .ph-hi { font-size: 8.5px; }
+.screen-tiny .ph-streak { font-size: 8px; padding: 3px 6px; }
+.screen-tiny .ph-bell { width: 24px; height: 24px; font-size: 11px; border-radius: 8px; }
+.screen-tiny .ph-steps { margin: 10px 12px 0; }
+.screen-tiny .ph-card { padding: 9px 10px; }
+.screen-tiny .ph-num { font-size: 19px; }
+.screen-tiny .ph-bars { height: 24px; }
+.screen-tiny .ph-row { padding: 0 12px; margin-top: 6px; }
+.screen-tiny .ph-mt-ico { width: 21px; height: 21px; font-size: 11px; border-radius: 7px; margin-bottom: 4px; }
+.screen-tiny .ph-mt-lbl { font-size: 8.5px; }
+.screen-tiny .ph-mt-val { font-size: 15px; }
+.screen-tiny .ph-mt-val--xs { font-size: 12px; }
+.screen-tiny .ph-metric--xs { padding: 7px 6px; }
+.screen-tiny .ph-metric--xs .ph-mt-ico { width: 17px; height: 17px; font-size: 9px; }
+.screen-tiny .ph-mt-sub { display: none; }
+.screen-tiny .ph-fab--sm { bottom: 48px; }
+.dev-page { -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%); mask-image: linear-gradient(to bottom, #000 92%, transparent 100%); }
+
+
 /* ---------- 9 · Testimonial / Persona ---------- */
 .persona-card {
   position: relative; max-width: 780px; margin: 0 auto; overflow: hidden;
@@ -1202,6 +1481,20 @@ html:not(.js) .area-fill { opacity: 1; }
   background: linear-gradient(145deg, #F0FDF4 0%, #DCFCE7 16%, #CFFAFE 42%, #E0F2FE 60%, #FAFAFF 82%, #FDF4FF 100%);
 }
 [data-theme="light"] .screen-sm .ph-steps { background: rgba(0,0,0,0.018); }
+/* Light: the Progress screen in the showcase phone (same reason as the
+   .ph-mt-* overrides above — these are dark-theme near-white by default). */
+[data-theme="light"] .sm-title { color: var(--text); }
+[data-theme="light"] .sm-stats > div,
+[data-theme="light"] .sm-card { background: rgba(255,255,255,0.62); border-color: var(--border); }
+[data-theme="light"] .sm-card-h b { color: var(--text); }
+[data-theme="light"] .sm-bmi b { color: var(--text); }
+[data-theme="light"] .sm-ai b { color: var(--text); }
+[data-theme="light"] .sm-ai p { color: var(--text-2); }
+[data-theme="light"] .sm-stats small,
+[data-theme="light"] .sm-bmi small,
+[data-theme="light"] .sm-seg span { color: var(--muted); }
+[data-theme="light"] .sm-axis { color: #94A3B8; }
+[data-theme="light"] .sm-seg { background: rgba(255,255,255,0.62); border-color: var(--border); }
 [data-theme="light"] .screen-tint-t {
   background: linear-gradient(160deg, #F0FDF4 0%, #E8F0FA 40%, #FFFFFF 100%);
 }
@@ -1239,6 +1532,16 @@ html:not(.js) .area-fill { opacity: 1; }
 [data-theme="light"] .ph-tab { color: #94A3B8; }
 [data-theme="light"] .ph-ai-text { color: var(--text); }
 [data-theme="light"] .ph-pill { color: var(--g-soft); background: rgba(22,163,74,0.12); border-color: rgba(74,222,128,0.3); }
+
+/* Light: the metric / AI / FAB atoms added for the real-app screens.
+   Without these the value, title and insight text keep the dark-theme
+   near-white fill and disappear against the light screen gradient. */
+[data-theme="light"] .ph-mt-val { color: var(--text); }
+[data-theme="light"] .ph-mt-lbl { color: var(--muted); }
+[data-theme="light"] .ph-mt-sub { color: #94A3B8; }
+[data-theme="light"] .ph-ai-title { color: var(--text); }
+[data-theme="light"] .ph-ai-list li { color: var(--text-2); }
+[data-theme="light"] .ph-fab { border-color: rgba(22,163,74,0.28); box-shadow: 0 10px 26px rgba(22,163,74,0.24); }
 [data-theme="light"] .screen-orbs::before { background: radial-gradient(circle, rgba(22,163,74,0.3), transparent 70%); }
 [data-theme="light"] .screen-orbs::after { background: radial-gradient(circle, rgba(8,145,178,0.24), transparent 70%); }
 
@@ -1552,10 +1855,22 @@ html:not(.js) .area-fill { opacity: 1; }
 [data-theme="light"] .dev-challenge,
 [data-theme="light"] .dev-lb,
 [data-theme="light"] .dev-stat,
-[data-theme="light"] .dev-badges span {
+[data-theme="light"] .dev-badges span,
+[data-theme="light"] .dev-cat,
+[data-theme="light"] .dev-menurow {
   background: rgba(255,255,255,0.54);
   border-color: var(--border);
 }
+[data-theme="light"] .dev-cats { gap: 6px; }
+[data-theme="light"] .dev-cat { color: var(--text-2); }
+[data-theme="light"] .dev-tabs span { background: rgba(255,255,255,0.54); border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .dev-tabs span.on { color: #fff; }
+[data-theme="light"] .dev-menurow { color: var(--text-2); }
+[data-theme="light"] .dev-lb b { color: var(--text-2); }
+[data-theme="light"] .dev-lb-h { color: var(--text); }
+[data-theme="light"] .dev-ai-summary { background: rgba(255,255,255,0.54); color: var(--text-2); }
+[data-theme="light"] .dev-ai-summary b { color: var(--text); }
+[data-theme="light"] .dev-btn { box-shadow: 0 8px 22px rgba(22,163,74,0.22); }
 
 /* ── Light: testimonial ── */
 [data-theme="light"] .persona-card {

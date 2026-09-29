@@ -403,25 +403,76 @@
   <div class="island"></div>
   <div class="screen">
     <div class="blobs"></div>
-    <div style="position:relative;z-index:2;padding-bottom:16px">
+    <div class="scroll nf-bg" style="padding:6px 0 16px;position:relative;z-index:2">
       <div class="sb"><span>9:41</span><span class="r"><span>●●●</span><span>5G</span><span>🔋</span></span></div>
       <div class="pad" style="display:flex;align-items:center;justify-content:space-between;margin:6px 0 20px">
         <div class="row"><div class="avatar">👩‍🦱</div><div><div class="m" style="font-size:12px">Good Morning 👋</div><div style="font-size:17px;font-weight:800;color:var(--t)">Ananya</div></div></div>
-        <div class="row"><div class="glass" style="padding:5px 10px;font-size:11px;font-weight:700;color:var(--og)">🔥 14 streak</div><div class="glass" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px">🔔</div></div>
+        <div class="row">
+          <div class="glass" style="padding:5px 10px;font-size:11px;font-weight:700;color:var(--og);display:flex;gap:4;align-items:center">🔥<span>14 streak</span></div>
+          <div class="glass" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;position:relative">🔔<span style="position:absolute;top:5px;right:5px;width:14px;height:14px;border-radius:50%;background:var(--rd);color:#fff;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center">4</span></div>
+        </div>
       </div>
-      <div class="pad" style="opacity:.25">
-        <div class="glass" style="padding:18px;border-radius:22px"><div style="display:flex;justify-content:space-between"><div><div class="m" style="font-size:11px">Today's Steps</div><div style="font-size:34px;font-weight:900;color:var(--t)">12,847</div><div class="ac" style="font-size:11px">↑ 28% vs yesterday</div></div><span class="tag">128% Goal</span></div><div class="bars" style="height:44px;margin-top:10px"><div class="bar" style="--h:55%"></div><div class="bar" style="--h:68%"></div><div class="bar" style="--h:60%"></div><div class="bar" style="--h:80%"></div><div class="bar" style="--h:70%"></div><div class="bar" style="--h:90%"></div><div class="bar hi" style="--h:100%"></div></div></div>
+      <div class="pad mb12">
+        <div class="glass" style="padding:18px 18px 14px;border-radius:22px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div><div class="m" style="font-size:11px;margin-bottom:1px;font-weight:600">Today's Steps</div><div style="font-size:34px;font-weight:900;color:var(--t);letter-spacing:-1px">12,847</div><div class="ac" style="font-size:11px;font-weight:700">↑ 28% vs yesterday</div></div>
+            <span class="tag">128% Goal</span>
+          </div>
+          <div class="bars" style="height:44px;margin-top:10px;gap:4">
+            <div class="bar" style="--h:55%;--bar:rgba(22,163,74,0.4)"></div><div class="bar" style="--h:68%;--bar:rgba(22,163,74,0.4)"></div><div class="bar" style="--h:60%;--bar:rgba(22,163,74,0.4)"></div><div class="bar" style="--h:80%;--bar:rgba(22,163,74,0.4)"></div><div class="bar" style="--h:70%;--bar:rgba(22,163,74,0.4)"></div><div class="bar" style="--h:90%;--bar:rgba(22,163,74,0.55)"></div><div class="bar hi" style="--h:100%"></div>
+          </div>
+          <div class="axis" style="margin-top:5px"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        </div>
       </div>
+      <div class="pad" style="display:flex;gap:10;margin-bottom:10">
+        <div class="glass" style="flex:1;padding:12px;border-radius:16px"><div class="icon" style="margin-bottom:8px;--ibg:rgba(220,38,38,0.15);--ib:rgba(220,38,38,0.25)">❤️</div><div class="m" style="font-size:10.5px;font-weight:600">Heart Rate</div><div style="font-size:20px;font-weight:800;color:var(--t)">72 <span class="m" style="font-size:11px;font-weight:500">BPM</span></div><div class="m" style="font-size:10px">Resting · Normal</div></div>
+        <div class="glass" style="flex:1;padding:12px;border-radius:14px"><div class="icon" style="margin-bottom:8px;--ibg:rgba(234,88,12,0.15);--ib:rgba(234,88,12,0.25)">🔥</div><div class="m" style="font-size:10.5px;font-weight:600">Calories</div><div style="font-size:20px;font-weight:800;color:var(--t)">1,847 <span class="m" style="font-size:11px;font-weight:500">kcal</span></div><div class="m" style="font-size:10px">482 remaining</div></div>
+      </div>
+      <div class="pad" style="display:flex;gap:10;margin-bottom:12">
+        <div class="glass" style="flex:1;padding:12px;border-radius:14px;text-align:center;min-width:0"><div style="font-size:22px">💧</div><div style="font-size:20px;font-weight:800;color:var(--t)">1.8<span class="m" style="font-size:11px;font-weight:500">L</span></div><div class="m" style="font-size:9.5px">Water · 2.5L</div></div>
+        <div class="glass" style="flex:1;padding:12px;border-radius:14px;text-align:center;min-width:0"><div style="font-size:22px">😴</div><div style="font-size:20px;font-weight:800;color:var(--t)">7.4<span class="m" style="font-size:11px;font-weight:500">hrs</span></div><div class="m" style="font-size:9.5px">Sleep · Deep 2.1h</div></div>
+        <div class="glass" style="flex:1;padding:12px;border-radius:14px;text-align:center;min-width:0"><div style="font-size:22px">🧠</div><div style="font-size:20px;font-weight:800;color:var(--t)">Low</div><div class="m" style="font-size:9.5px">Stress · 24/100</div></div>
+      </div>
+<!-- HOME-MID -->
+      <div class="pad mb12">
+        <div class="glass" style="padding:14px 16px;border-radius:18px;border-left:4px solid var(--g)">
+          <div style="display:flex;align-items:center;gap:8;margin-bottom:8px"><span style="font-size:20px">✨</span><div style="font-size:14px;font-weight:700;color:var(--t)">AI Insights</div><span class="tag" style="--tagc:var(--cy);--tagbg:rgba(8,145,178,0.18);--tagb:rgba(8,145,178,0.35)">New</span></div>
+          <div style="display:flex;gap:8;margin-bottom:6px;align-items:flex-start"><span class="ac" style="font-size:12px;margin-top:2px">●</span><p class="t2" style="margin:0;font-size:12.5px;line-height:1.5">Great progress this week! Hit step goal 5 days in a row.</p></div>
+          <div style="display:flex;gap:8;margin-bottom:6px;align-items:flex-start"><span class="ac" style="font-size:12px;margin-top:2px">●</span><p class="t2" style="margin:0;font-size:12.5px;line-height:1.5">Heart rate improved by 8% — cardio sessions are working!</p></div>
+          <div style="display:flex;gap:8;align-items:flex-start"><span class="ac" style="font-size:12px;margin-top:2px">●</span><p class="t2" style="margin:0;font-size:12.5px;line-height:1.5">Consider a rest day — recovery maximizes muscle gains.</p></div>
+        </div>
+      </div>
+      <div class="pad mb12">
+        <div class="glass" style="padding:14px 16px;border-radius:18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:14px;font-weight:700;color:var(--t)">🏆 Weekly Challenge</span><span class="tag" style="--tagc:var(--og);--tagbg:rgba(234,88,12,0.18);--tagb:rgba(234,88,12,0.35)">3 days left</span></div>
+          <div class="m" style="font-size:12px;margin-bottom:8px">10,000 Steps Every Day</div>
+          <div class="track" style="margin-bottom:6px"><div class="fill" style="--w:72%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px"><span class="m" style="font-weight:500">72% completed</span><span class="ac" style="font-weight:700">1,247 participants</span></div>
+        </div>
+      </div>
+      <div class="pad">
+        <div class="glass row" style="justify-content:space-between;padding:12px 18px;border-radius:18px;border:1px solid rgba(22,163,74,0.2)">
+          <div class="row"><div class="icon" style="--ibg:rgba(22,163,74,0.18)">🏋️</div><div><div style="font-size:14px;font-weight:700;color:var(--t)">Start Workout</div><div class="m" style="font-size:11px">Today: Upper body strength</div></div></div>
+          <span class="ac" style="font-size:18px">›</span>
+        </div>
+      </div>
+      <div style="height:88px"></div>
     </div>
-    <div style="position:absolute;top:0;left:0;right:0;z-index:6;background:var(--notif);backdrop-filter:blur(30px);border-radius:0 0 28px 28px;padding:14px 18px 20px;border-bottom:1px solid var(--border)">
+    <div class="nav" style="--off:15%">
+      <button class="on"><span class="e">🏠</span>Home</button>
+      <button><span class="e">📊</span>Progress</button>
+      <button><span class="e">👥</span>Community</button>
+      <button><span class="e">👤</span>Account</button>
+    </div>
+    <div class="nf-sheet">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:18px;font-weight:800;color:var(--t)">Notifications</span><span class="m" style="font-size:13px;font-weight:600">Clear all</span></div>
       <div style="display:flex;gap:12;padding:10px 0;border-bottom:1px solid var(--border)"><div class="icon mo" style="--ibg:rgba(234,88,12,0.15);--ib:rgba(234,88,12,0.25)">🏆</div><div class="grow"><div style="font-size:13px;font-weight:700;color:var(--t)">Challenge Complete!</div><div class="m" style="font-size:11.5px;margin-top:2px">You finished the Weekly 70K Steps challenge.</div></div><div class="m" style="font-size:10px;flex-shrink:0">2m ago</div></div>
       <div style="display:flex;gap:12;padding:10px 0;border-bottom:1px solid var(--border)"><div class="icon mo" style="--ibg:rgba(22,163,74,0.15);--ib:rgba(22,163,74,0.25)">👥</div><div class="grow"><div style="font-size:13px;font-weight:700;color:var(--t)">Rahul liked your post</div><div class="m" style="font-size:11.5px;margin-top:2px">"5K personal best" got 14 reactions!</div></div><div class="m" style="font-size:10px;flex-shrink:0">18m ago</div></div>
       <div style="display:flex;gap:12;padding:10px 0;border-bottom:1px solid var(--border)"><div class="icon mo" style="--ibg:rgba(8,145,178,0.15);--ib:rgba(8,145,178,0.25)">🎯</div><div class="grow"><div style="font-size:13px;font-weight:700;color:var(--t)">Daily Goal Reached</div><div class="m" style="font-size:11.5px;margin-top:2px">You hit 10,000 steps today. Keep it up!</div></div><div class="m" style="font-size:10px;flex-shrink:0">1h ago</div></div>
       <div style="display:flex;gap:12;padding:10px 0"><div class="icon mo" style="--ibg:rgba(220,38,38,0.15);--ib:rgba(220,38,38,0.25)">❤️</div><div class="grow"><div style="font-size:13px;font-weight:700;color:var(--t)">Heart Rate Alert</div><div class="m" style="font-size:11.5px;margin-top:2px">Resting HR improved: 72 → 68 BPM this week.</div></div><div class="m" style="font-size:10px;flex-shrink:0">3h ago</div></div>
       <div class="btn sm" style="width:100%;margin-top:12px;background:var(--glass);border:1px solid rgba(22,163,74,0.3);color:var(--g);box-shadow:none">View All Notifications</div>
-    </div>
-  </div>
+</div>
+</div>
 </div>
 <!-- 13 -->
 <section class="phone-label reveal" id="s13">
