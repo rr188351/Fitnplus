@@ -273,206 +273,95 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 }
 .hero-scroll span { width: 3px; height: 8px; border-radius: 3px; background: var(--grad-bright); animation: scroll-dot 1.8s ease-in-out infinite; }
 /* ---------- Phone frame ---------- */
+/* ── Phone frame ──────────────────────────────────────────────
+   Ported from the case-study master device (.phn in mobilecase.css)
+   so the promo phones and the case-study phones are the same object:
+   a two-layer metal body (a 112° edge-light sweep over a 155° barrel
+   gradient), a four-part contact shadow, an inner bezel seam and a
+   glass-front specular sheen. The hardware is CONSTANT across themes
+   in the case study; here it re-tints for light so the phone still
+   reads as a physical object on a pale page.
+   ::before = bezel seam + sheen, ::after = dynamic island, and the
+   physical side buttons come from the .phone-rail child. */
 .phone {
-  width: 302px; height: 652px; border-radius: 52px; flex-shrink: 0; position: relative;
-  background: linear-gradient(180deg, #1b2531, #12161f 72%, #0f131b);
-  padding: 10px; box-shadow:
-    0 46px 100px rgba(0, 0, 0, 0.62),
-    0 0 0 1px rgba(255, 255, 255, 0.09),
-    inset 0 1px 1px rgba(255, 255, 255, 0.14);
+  --rail-t: 130px; --rail-h: 56px;      /* left  (volume)      */
+  --rail-t2: 160px; --rail-h2: 86px;    /* right (side button) */
+  --screen-w: 276;                      /* 302 - 2(border) - 2(12px inset) */
+  width: 302px; height: 652px; border-radius: 46px; flex-shrink: 0;
+  position: relative; padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 68%, rgba(255, 255, 255, 0.05) 100%),
+    linear-gradient(155deg, #20242b 0%, #0c0f14 48%, #05070a 100%);
+  box-shadow:
+    0 44px 90px rgba(0, 0, 0, 0.62),
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(52, 211, 153, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  transform-style: preserve-3d;
 }
+/* inner bezel seam + glass-front specular sheen (top-left key light with a
+   faint bottom-right return) — one layer, matching .phn::before/::after */
+.phone::before {
+  content: ""; position: absolute; inset: 7px; border-radius: 40px; pointer-events: none; z-index: 55;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.085) 0%, rgba(255, 255, 255, 0.02) 16%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 74%, rgba(255, 255, 255, 0.04) 100%);
+}
+/* dynamic island — floats over the display, above the glass layers */
 .phone::after {
-  content: ""; position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
-  width: 116px; height: 28px; background: #04060b; border-radius: 18px; z-index: 60;
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.06);
+  content: ""; position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
+  width: 96px; height: 24px; border-radius: 13px; z-index: 60;
+  background: radial-gradient(ellipse at 30% 0%, #13151a, #050609 90%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+/* physical side buttons — titanium rail, sits just proud of the frame */
+.phone-rail { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3; }
+.phone-rail::before, .phone-rail::after {
+  content: ""; position: absolute; width: 4px; border-radius: 3px;
+  background: linear-gradient(180deg, #3d434b, #14161a 42%, #23272d 78%, #3a4046);
+  box-shadow: inset 1px 0 1px rgba(255, 255, 255, 0.22), inset -1px 0 1px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+.phone-rail::before { top: var(--rail-t); left: -3px; height: var(--rail-h); }
+.phone-rail::after {
+  top: var(--rail-t2); right: -3px; height: var(--rail-h2);
+  box-shadow: inset -1px 0 1px rgba(255, 255, 255, 0.18), inset 1px 0 1px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .screen {
-  position: absolute; inset: 12px; border-radius: 42px; overflow: hidden; z-index: 1;
+  position: absolute; inset: 12px; border-radius: 34px; overflow: hidden; z-index: 1;
   background: linear-gradient(160deg, #0b1622 0%, #0a151f 32%, #0b1220 60%, #0d101f 100%);
   display: flex; flex-direction: column;
 }
-.screen-orbs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.screen-orbs::before, .screen-orbs::after {
-  content: ""; position: absolute; border-radius: 50%; filter: blur(46px);
-}
-/* At full phone size these orbs read as ambient depth. Inside a 200px
-   wide tiny screen a 240px orb covers the entire viewport and tints
-   every card green, which is what made this row look nothing like the
-   app. Scale them to the tiny frame and ease the alpha so the cards
-   keep their real fill colour. */
-.screen-orbs::before { width: 150px; height: 150px; top: -40px; right: -50px; background: radial-gradient(circle, rgba(22, 163, 74, 0.22), transparent 70%); }
-.screen-orbs::after { width: 140px; height: 140px; bottom: 18%; left: -56px; background: radial-gradient(circle, rgba(8, 145, 178, 0.18), transparent 70%); }
-.screen-tiny .screen-orbs::before { width: 150px; height: 150px; }
-.screen-tiny .screen-orbs::after { width: 140px; height: 140px; }
+/* ── Live app embed ────────────────────────────────────────────
+   Each phone hosts the real deployed PWA rather than a hand-built copy
+   of the UI, so the promo can never drift from the product and every
+   screen is genuinely interactive.
 
-/* ---- phone atoms ---- */
-.ph-status {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 22px 22px 0; font-size: 12px; font-weight: 600; color: #8fa0b6;
-  letter-spacing: 0.3px; position: relative; z-index: 1; flex-shrink: 0;
-}
-.ph-header { display: flex; align-items: center; gap: 10px; padding: 14px 22px 0; position: relative; z-index: 1; }
-.ph-avatar {
-  width: 42px; height: 42px; border-radius: 50%; background: var(--grad); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 21px;
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
-}
-.ph-ident { flex: 1; min-width: 0; }
-.ph-hi { font-size: 10px; color: var(--muted); font-weight: 600; }
-.ph-name { font-size: 16px; font-weight: 800; font-family: var(--font-head); color: #edf3fb; }
-.ph-streak { font-size: 10.5px; font-weight: 700; color: #fb923c; background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.28); padding: 5px 9px; border-radius: 10px; white-space: nowrap; }
-.ph-bell { width: 32px; height: 32px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 15px; position: relative; }
-.ph-bell-badge { position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; border-radius: 50%; background: #dc2626; color: #fff; font-size: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 1.5px solid #0a111c; }
+   The app ships an embed presentation (/?embed=1) that lays itself out
+   at a fixed 430px design width and magnifies by max(1, innerWidth/430)
+   — it only ever scales UP. Our screens are all narrower than 430px, so
+   the iframe is given a full 430px of LAYOUT width (the app applies no
+   zoom of its own) and the whole frame is scaled down to the screen with
+   a transform. Sizing the iframe itself would not work: the app reads
+   innerWidth to pick its layout, so a narrow iframe would drop it into
+   its <768px branch and clip the design.
 
-.ph-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border); border-radius: 18px; padding: 13px 14px;
-  position: relative; z-index: 1;
+   --screen-w is the inner display width in px — phone width minus its
+   border and its .screen inset — and is restated wherever a breakpoint
+   resizes the frame. The iframe height is divided by the same ratio so
+   the scaled result lands exactly on the screen: both axes use one
+   scale factor. An exact fit matters because the app pins its own
+   bottom nav to 100dvh, so any mismatch would clip that nav or leave a
+   gap under it. */
+.app-frame {
+  position: absolute; top: 0; left: 0;
+  width: 430px;
+  height: calc(100% * 430 / var(--screen-w));
+  transform: scale(calc(var(--screen-w) / 430));
+  transform-origin: 0 0;
+  border: 0; display: block; background: transparent;
 }
-.ph-steps { margin: 12px 16px 0; }
-.ph-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-.ph-label { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; }
-.ph-num { font-family: var(--font-head); font-weight: 900; font-size: 25px; color: #f2f7fb; letter-spacing: -0.02em; line-height: 1.12; font-variant-numeric: tabular-nums; }
-.ph-inline { font-size: 19px; }
-.ph-unit { font-size: 11px; font-weight: 600; color: var(--muted); margin-left: 5px; }
-.ph-tag { font-size: 9px; font-weight: 700; color: var(--g-soft); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.26); border-radius: 100px; padding: 4px 9px; white-space: nowrap; }
-.ph-up { font-size: 10px; color: var(--g-bright); font-weight: 600; margin: 3px 0 9px; }
-.ph-bars { display: flex; gap: 6px; height: 40px; align-items: flex-end; position: relative; z-index: 1; }
-.ph-bars > div {
-  flex: 1; height: 0; border-radius: 4px 4px 0 0;
-  background: rgba(22, 163, 74, 0.3);
-  transition: height 0.9s var(--ease);
-}
-.ph-bars > div.hot { background: linear-gradient(180deg, #34D399, #0891B2); box-shadow: 0 0 14px rgba(34, 211, 238, 0.4); }
-[data-bars].in-view > div { height: var(--h, 60%); }
-[data-bars].in-view > div:nth-child(1) { transition-delay: 0.08s; }
-[data-bars].in-view > div:nth-child(2) { transition-delay: 0.14s; }
-[data-bars].in-view > div:nth-child(3) { transition-delay: 0.2s; }
-[data-bars].in-view > div:nth-child(4) { transition-delay: 0.26s; }
-[data-bars].in-view > div:nth-child(5) { transition-delay: 0.32s; }
-[data-bars].in-view > div:nth-child(6) { transition-delay: 0.38s; }
-[data-bars].in-view > div:nth-child(7) { transition-delay: 0.44s; }
-html:not(.js) [data-bars] > div { height: var(--h, 60%); }
-.ph-days { display: flex; justify-content: space-between; margin-top: 5px; font-size: 8.5px; color: #6d7d92; font-weight: 600; letter-spacing: 0.05em; position: relative; z-index: 1; }
-.ph-days .hot { color: var(--g-soft); }
-.ph-row { display: flex; gap: 8px; padding: 0 16px; margin-top: 8px; position: relative; z-index: 1; }
-.ph-row > .ph-card { flex: 1; }
-.ph-card-head { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
-.ph-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--c-bright); box-shadow: 0 0 8px var(--c-bright); animation: hr-pulse 1.6s ease-in-out infinite; display: inline-block; }
-.ph-emoji { font-size: 11px; line-height: 1; }
-/* ---- metric cards (heart rate / calories / water / sleep / stress) ----
-   The real app renders every metric the same way: a tinted icon tile on
-   top, then the label, then the value + unit, then a muted sub-line
-   ("Resting · Normal", "482 remaining", "Goal: 2.5L"). Heart Rate and
-   Calories sit two-up; Water / Sleep / Stress sit three-up below them.
-   --ic / --icb carry the per-metric accent from the markup.            */
-.ph-metric { display: flex; flex-direction: column; align-items: flex-start; }
-.ph-mt-ico {
-  width: 30px; height: 30px; border-radius: 10px; margin-bottom: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px; flex-shrink: 0;
-  background: var(--icb, rgba(52, 211, 153, 0.12));
-  border: 1px solid color-mix(in srgb, var(--ic, #22D3EE) 28%, transparent);
-}
-.ph-mt-lbl { font-size: 10px; color: var(--muted); font-weight: 600; }
-.ph-mt-val {
-  font-family: var(--font-head); font-weight: 800; font-size: 19px;
-  color: #f2f7fb; letter-spacing: -0.02em; line-height: 1.15;
-  font-variant-numeric: tabular-nums;
-}
-.ph-mt-val .ph-unit { font-size: 10.5px; font-weight: 600; margin-left: 3px; }
-.ph-mt-sub { font-size: 9px; color: #6d7d92; font-weight: 500; margin-top: 2px; }
-.ph-row--3 > .ph-card { min-width: 0; padding: 10px 9px; }
-.ph-mt-val--sm { font-size: 16px; }
-.ph-metric--sm .ph-mt-ico { width: 24px; height: 24px; border-radius: 8px; font-size: 12px; margin-bottom: 5px; }
-.ph-metric--sm .ph-mt-val { font-size: 16px; }
-.ph-mt-val--xs { font-size: 14px; }
-.ph-metric--xs { padding: 8px 7px; }
-.ph-metric--xs .ph-mt-ico { width: 20px; height: 20px; border-radius: 7px; font-size: 10px; margin-bottom: 4px; }
-.ph-metric--xs .ph-mt-lbl { font-size: 9px; }
-.ph-metric--xs .ph-mt-val { font-size: 13px; }
-
-/* ---- AI Insights card --------------------------------------------
-   The app shows this as a full-width card with a green left rule, the
-   "New" pill, and one bulleted insight per line. */
-.ph-ai { margin: 10px 16px 0; border-left: 2px solid var(--g-bright); }
-.ph-ai--sm { margin: 9px 12px 0; }
-.ph-ai-head { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-.ph-ai-icon { width: 22px; height: 22px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.22); }
-.ph-ai-title { font-family: var(--font-head); font-size: 12px; font-weight: 800; color: #f2f7fb; }
-.ph-chip { font-size: 8.5px; font-weight: 800; color: var(--c-bright); background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.28); border-radius: 100px; padding: 2px 7px; white-space: nowrap; }
-.ph-ai-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-.ph-ai-list li { position: relative; padding-left: 12px; font-size: 10.5px; line-height: 1.45; color: var(--text-2); }
-.ph-ai-list li::before { content: ""; position: absolute; left: 0; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--g-bright); }
-
-/* ---- quick-log FAB (real app floats it above the tab bar) ---- */
-.ph-fab {
-  position: absolute; right: 16px; bottom: 74px; z-index: 6;
-  width: 42px; height: 42px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; font-weight: 300; line-height: 1;
-  color: #fff; background: linear-gradient(135deg, #16A34A, #0E7490);
-  border: 1px solid rgba(74, 222, 128, 0.4);
-  box-shadow: 0 10px 26px rgba(22, 163, 74, 0.45);
-}
-.ph-fab--sm { width: 30px; height: 30px; font-size: 16px; right: 12px; bottom: 54px; }
-
-/* NOTE: the previous single-line .ph-ai / .ph-ai-icon / .ph-ai-body /
-   .ph-ai-text / .ph-pill rules (a compact icon + sentence + delta chip)
-   were removed. The app renders AI Insights as a full-width card with a
-   green left rule, a "New" pill and one bulleted insight per line, so
-   the atoms above (.ph-ai, .ph-ai-head, .ph-ai-title, .ph-chip,
-   .ph-ai-list) replace them outright. */
-
-.ph-nav {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
-  display: flex; justify-content: space-around; align-items: flex-end;
-  padding: 12px 8px 20px;
-  background: rgba(9, 14, 23, 0.84);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-}
-.ph-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 8.5px; color: #6d7d92; font-weight: 600; position: relative; z-index: 2; font-family: var(--font-head); }
-.ph-tab span { font-size: 16px; line-height: 1; }
-.ph-tab.active { color: var(--g-soft); }
-.ph-nav-ind {
-  position: absolute; top: 0; height: 2.5px; border-radius: 0 0 4px 4px;
-  background: var(--grad-bright); box-shadow: 0 0 12px rgba(34, 211, 238, 0.55);
-  left: 9%; width: 16%; transition: left 0.3s ease;
-}
-
-/* ── Phone density tuning ─────────────────────────────────────────
-   Both frames now carry the app's real Home stack — header, steps
-   card, 2-up metrics, 3-up metrics, AI insights — above a tab bar,
-   and at 302×652 / 216×452 that stack no longer fit. These tighten
-   the atoms just enough for it to land above the tab bar, and the
-   header row is compacted so "Good Morning 👋" stays on one line the
-   way it does in the app instead of wrapping and stealing a row. */
-.ph-header { gap: 8px; padding: 12px 18px 0; }
-.ph-avatar { width: 36px; height: 36px; font-size: 18px; }
-.ph-hi { font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ph-name { font-size: 15px; white-space: nowrap; }
-.ph-streak { font-size: 9.5px; padding: 4px 7px; }
-.ph-bell { width: 28px; height: 28px; border-radius: 9px; font-size: 13px; }
-.ph-card { padding: 10px 12px; }
-.ph-bars { height: 30px; }
-.ph-num { font-size: 22px; }
-.ph-up { margin: 3px 0 6px; }
-.ph-days { margin-top: 3px; }
-.ph-row { margin-top: 7px; }
-.ph-mt-ico { width: 25px; height: 25px; font-size: 13px; margin-bottom: 4px; }
-.ph-mt-val { font-size: 18px; }
-.ph-mt-sub { font-size: 8.5px; margin-top: 1px; }
-.ph-ai { margin-top: 8px; padding: 8px 10px; }
-.ph-ai-head { margin-bottom: 4px; }
-.ph-ai-icon { width: 20px; height: 20px; font-size: 11px; border-radius: 6px; }
-.ph-ai-title { font-size: 11.5px; }
-.ph-ai-list { gap: 3px; }
-.ph-ai-list li { font-size: 9.5px; line-height: 1.35; }
-.ph-fab { bottom: 70px; width: 38px; height: 38px; font-size: 20px; }
-/* the status bar inside the phone is already inset by the frame */
-.screen-home .ph-status, .screen-tiny .ph-status { padding-top: 18px; }
 
 /* Floating chips */
 .float-chip {
@@ -566,41 +455,18 @@ html:not(.js) [data-bars] > div { height: var(--h, 60%); }
 .sc-mini-spark svg { width: 100%; height: 100%; }
 .showcase-phone { position: relative; z-index: 3; animation: float 6.5s ease-in-out infinite; }
 
-/* phone-sm variant — the app's Progress screen */
-.phone-sm { width: 258px; height: 524px; border-radius: 44px; }
-.phone-sm .screen { inset: 11px; border-radius: 34px; }
-.ph-screen-sm {
-  position: relative; z-index: 1; flex: 1; min-height: 0; overflow: hidden;
-  display: flex; flex-direction: column; gap: 8px; padding: 4px 13px 0;
+/* phone-sm variant — the showcase phone (Progress). */
+/* Size variants stay CONCENTRIC with the frame: inner radius must equal
+   outer radius − inset, or the bezel shows a wedge at the corners. */
+.phone-sm {
+  width: 258px; height: 524px; border-radius: 40px;
+  --screen-w: 234;                      /* 258 - 2(border) - 2(11px inset) */
+  --rail-t: 104px; --rail-h: 45px; --rail-t2: 128px; --rail-h2: 69px;
 }
-.sm-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.sm-title { font-family: var(--font-head); font-size: 15px; font-weight: 800; color: #f2f7fb; }
-.sm-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 100px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); }
-.sm-seg span { padding: 3px 8px; border-radius: 100px; font-size: 8.5px; font-weight: 700; color: var(--muted); }
-.sm-seg span.on { background: var(--g-soft); color: #04140c; }
-.sm-stats { display: flex; gap: 6px; }
-.sm-stats > div { flex: 1; text-align: center; padding: 7px 3px; border-radius: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
-.sm-stats b { display: block; font-family: var(--font-head); font-size: 13px; font-weight: 800; color: var(--g-soft); font-variant-numeric: tabular-nums; }
-.sm-stats small { font-size: 7.5px; color: var(--muted); font-weight: 600; }
-.sm-card { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 14px; padding: 9px 10px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.sm-card-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-.sm-card-h b { font-size: 10.5px; font-weight: 700; color: #e9f0f9; }
-.sm-card-h span { font-size: 8.5px; font-weight: 700; color: var(--g-bright); }
-.sm-chart { width: 100%; height: 74px; display: block; }
-.sm-chart .line-draw { stroke: var(--g-bright); }
-.sm-axis { display: flex; justify-content: space-between; margin-top: 4px; font-size: 7.5px; color: #6d7d92; font-weight: 600; }
-.sm-bmi { display: flex; align-items: center; gap: 8px; }
-.sm-bmi-ico { width: 26px; height: 26px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.24); flex-shrink: 0; }
-.sm-bmi div { display: flex; flex-direction: column; }
-.sm-bmi small { font-size: 8.5px; color: var(--muted); font-weight: 600; }
-.sm-bmi b { font-family: var(--font-head); font-size: 16px; font-weight: 800; color: #f2f7fb; line-height: 1.1; }
-.sm-chip { margin-left: auto; font-size: 8px; font-weight: 700; color: var(--g-bright); background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.28); border-radius: 100px; padding: 3px 8px; white-space: nowrap; }
-.sm-ai { border-left: 2px solid var(--c-bright); }
-.sm-ai b { display: block; font-size: 10px; font-weight: 700; color: #e9f0f9; margin-bottom: 3px; }
-.sm-ai p { font-size: 9.5px; line-height: 1.5; color: var(--text-2); }
-.screen-sm .ph-nav { padding: 8px 6px 14px; }
-.screen-sm .ph-tab span { font-size: 14px; }
-.screen-sm .ph-steps { margin-top: 0; border-radius: 0; background: rgba(255,255,255,0.03); border-left: 0; border-right: 0; }
+.phone-sm .screen { inset: 11px; border-radius: 29px; }
+.phone-sm::before { inset: 6px; border-radius: 34px; }
+.phone-sm::after { top: 10px; width: 84px; height: 21px; border-radius: 12px; }
+
 /* ---------- 3 · Features ---------- */
 .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; 
 }
@@ -1000,6 +866,13 @@ html:not(.js) .area-fill { opacity: 1; }
     animation: dev-tag-focus 24s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     animation-delay: calc(var(--i, 0) * -4s);
   }
+  /* Reading a screen or tapping its tabs should not be a moving-target
+     game: freeze the lap while the pointer is over the row (or while a tab
+     inside it holds focus), and resume in phase on the way out. */
+  .devices:hover .device,
+  .devices:hover .device .dev-tag,
+  .devices:focus-within .device,
+  .devices:focus-within .device .dev-tag { animation-play-state: paused; }
 }
 .dev-tag {
   position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
@@ -1011,137 +884,14 @@ html:not(.js) .area-fill { opacity: 1; }
 .dev-front .dev-tag { color: var(--g-soft); }
 
 /* tiny phones */
-.phone-tiny { width: 216px; height: 452px; border-radius: 36px; padding: 8px; animation: none; }
-.phone-tiny::after { top: 7px; width: 82px; height: 22px; }
-.phone-tiny .screen { inset: 9px; border-radius: 28px; }
-/* The app paints its own background with --fp-bg (see src/index.css:
-   dark = linear-gradient(145deg,#05070d 0%,#0a111d 45%,#06080f 100%)).
-   These tints were a hand-picked bluer/greener set that fought the
-   section glow and washed the whole row green. Match the product, and
-   keep the three variants within a hair of each other so the row reads
-   as six screens of one app rather than six different apps. */
-.screen-tint-t { background: linear-gradient(145deg, #05070d 0%, #0a111d 45%, #06080f 100%); }
-.screen-tint-l { background: linear-gradient(145deg, #05070e 0%, #09101b 45%, #06090e 100%); }
-.screen-tint-r { background: linear-gradient(145deg, #05070c 0%, #0a101c 45%, #06080e 100%); }
-.screen-tiny .ph-status { padding: 16px 16px 0; font-size: 10px; }
-.dev-title { font-family: var(--font-head); font-weight: 800; font-size: 16px; color: #fff; padding: 12px 16px 6px; position: relative; z-index: 1; }
-.dev-head { display: flex; align-items: center; gap: 9px; padding: 10px 14px 0; position: relative; z-index: 1; }
-.ph-avatar-sm { width: 34px; height: 34px; font-size: 17px; }
-.dev-head-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.dev-name { font-family: var(--font-head); font-weight: 800; font-size: 13px; color: #fff; }
-.dev-num { font-family: var(--font-head); font-weight: 900; font-size: 18px; color: #f2f7fb; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.dev-num-sm { font-size: 16px; }
-.dev-page { position: relative; z-index: 1; }
-.dev-list { display: flex; flex-direction: column; gap: 8px; padding: 10px 14px 0; position: relative; z-index: 1; }
-.dev-item { display: flex; align-items: center; gap: 9px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 12px; padding: 9px 11px; font-size: 11px; }
-.dev-item b { font-family: var(--font-head); font-size: 11.5px; color: #fff; display: block; }
-.dev-item small { font-size: 9px; color: var(--muted); }
-.dev-item em { font-style: normal; font-weight: 700; color: #fb923c; font-size: 10px; margin-left: auto; white-space: nowrap; }
-.dev-btn { margin: 10px 14px 0; padding: 10px; border-radius: 12px; background: var(--grad); color: #fff; font-family: var(--font-head); font-weight: 700; font-size: 12px; text-align: center; box-shadow: 0 8px 22px rgba(22, 163, 74, 0.35); position: relative; z-index: 1; }
-.dev-metrics { display: flex; flex-direction: column; gap: 7px; padding: 8px 14px 0; position: relative; z-index: 1; }
-.dev-m { display: flex; align-items: center; gap: 9px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 12px; padding: 8px 11px; }
-.dev-m span { font-size: 15px; }
-.dev-m b { font-family: var(--font-head); font-size: 12.5px; color: #fff; margin-left: auto; font-variant-numeric: tabular-nums; }
-.dev-m i { font-style: normal; font-size: 9.5px; color: var(--muted); width: 66px; text-align: right; }
-.dev-chart { width: calc(100% - 28px); height: 90px; margin: 4px 14px 0; position: relative; z-index: 1; }
-.dev-ai-summary { background: rgba(255, 255, 255, 0.045); border-left: 3px solid var(--c-bright); border-radius: 0 12px 12px 0; margin: 8px 14px 0; padding: 9px 11px; font-size: 10px; color: var(--text-2); line-height: 1.5; position: relative; z-index: 1; }
-.dev-ai-summary b { font-family: var(--font-head); color: #fff; display: block; font-size: 10.5px; margin-bottom: 2px; }
-.dev-badges { display: flex; gap: 6px; padding: 8px 14px 0; position: relative; z-index: 1; }
-.dev-badges span { width: 30px; height: 30px; border-radius: 9px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.dev-challenge { display: flex; align-items: center; gap: 9px; margin: 8px 14px 0; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; position: relative; z-index: 1; }
-.dev-challenge b { font-family: var(--font-head); font-size: 11.5px; color: #fff; display: block; }
-.dev-challenge i { font-size: 9px; color: var(--muted); font-style: normal; }
-.dev-challenge em { font-style: normal; font-weight: 800; color: var(--g-soft); font-size: 11px; margin-left: auto; }
-.dev-challenge.cyan em { color: var(--c-bright); }
-.dev-lb { display: flex; flex-direction: column; gap: 6px; margin: 8px 14px 0; padding: 10px 12px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 12px; position: relative; z-index: 1; }
-.dev-lb b { font-family: var(--font-head); font-size: 10.5px; font-weight: 600; color: var(--text-2); }
-.dev-profile { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 12px 0 8px; position: relative; z-index: 1; }
-.dev-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 10px 24px rgba(22, 163, 74, 0.4); }
-.dev-profile b { font-family: var(--font-head); font-size: 13px; color: #fff; margin-top: 6px; }
-.dev-profile span { font-size: 9.5px; color: var(--muted); }
-.dev-stats { display: flex; gap: 6px; padding: 8px 14px 0; position: relative; z-index: 1; }
-.dev-stat { flex: 1; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 11px; padding: 8px 4px; text-align: center; }
-.dev-stat em { font-style: normal; font-family: var(--font-head); font-weight: 800; font-size: 15px; color: var(--g-soft); display: block; font-variant-numeric: tabular-nums; }
-.dev-stat span { font-size: 8.5px; color: var(--muted); }
-.dev-badges-row { padding-bottom: 12px; justify-content: center; gap: 7px; }
-
-/* tiny-phone screens — the app's real per-screen structure */
-.dev-page { flex: 1; min-height: 0; overflow: hidden; }
-.dev-head-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px 6px; }
-.dev-head-row .dev-title { padding: 0; }
-.dev-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 100px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
-.dev-seg span { padding: 3px 7px; border-radius: 100px; font-size: 7.5px; font-weight: 700; color: var(--muted); }
-.dev-seg span.on { background: var(--g-soft); color: #04140c; }
-.dev-join { font-size: 8.5px; font-weight: 800; color: var(--g-soft); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.28); border-radius: 100px; padding: 4px 9px; white-space: nowrap; }
-.dev-gear { font-size: 14px; }
-.dev-plan { font-style: normal; font-size: 8.5px; font-weight: 700; color: var(--g-soft); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.28); border-radius: 100px; padding: 3px 9px; margin-top: 4px; }
-.dev-tabs { display: flex; gap: 4px; margin: 6px 14px 0; }
-.dev-tabs span { padding: 4px 9px; border-radius: 100px; font-size: 8.5px; font-weight: 700; color: var(--muted); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); white-space: nowrap; }
-.dev-tabs span.on { background: var(--g); border-color: transparent; color: #fff; }
-.dev-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin: 10px 14px 0; }
-.dev-cat { display: flex; align-items: center; gap: 6px; padding: 8px 9px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 11px; font-size: 9.5px; font-weight: 600; color: var(--text-2); }
-.dev-cat span { font-size: 14px; }
-.dev-lb-h { margin: 8px 14px 0; font-size: 10px; font-weight: 700; color: #fff; }
-.dev-lb { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 14px 0; padding: 6px 10px; background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border); border-radius: 11px; position: relative; z-index: 1; }
-.dev-lb b { font-family: var(--font-head); font-size: 10px; font-weight: 600; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dev-lb em { font-style: normal; font-family: var(--font-head); font-size: 9.5px; font-weight: 800; color: var(--g-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.dev-badges .locked { opacity: 0.35; }
-.dev-menu { display: flex; flex-direction: column; gap: 5px; margin: 9px 14px 0; }
-.dev-menurow { display: flex; align-items: center; gap: 7px; padding: 7px 9px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 10px; font-size: 9.5px; font-weight: 600; color: var(--text-2); }
-.dev-menurow span { font-size: 12px; }
-.dev-menurow i { font-style: normal; margin-left: auto; color: var(--muted); }
-.dev-chart { height: 62px; }
-.dev-profile { padding: 10px 0 6px; }
-.dev-avatar { width: 42px; height: 42px; font-size: 21px; }
-.dev-profile b { font-size: 12px; margin-top: 4px; }
-.dev-profile span { font-size: 8.5px; }
-.dev-stats { padding: 7px 14px 0; }
-.dev-stat { padding: 6px 3px; }
-.dev-stat em { font-size: 13px; }
-.dev-stat span { font-size: 7.5px; }
-.dev-btn { margin: 10px 14px 0; font-size: 11px; padding: 9px; }
-.dev-ai-summary { margin: 7px 14px 0; font-size: 9px; padding: 8px 10px; }
-.dev-badges { padding: 7px 14px 0; }
-.dev-badges span { width: 26px; height: 26px; font-size: 12px; }
-.dev-metrics { padding: 7px 14px 0; gap: 6px; }
-.dev-challenge { margin: 7px 14px 0; padding: 8px 10px; }
-/* the tab bar inside the tiny phones */
-.screen-tiny .ph-nav { padding: 7px 5px 12px; }
-.screen-tiny .ph-tab { font-size: 7px; }
-.screen-tiny .ph-tab span { font-size: 12px; }
-
-/* 216×452 frames: the app's Home stack is scaled down a further step so
-   header + steps + 2-up + 3-up clear the tab bar. Anything still below
-   the fold fades out rather than being sliced, which is what the real
-   scrolling screen looks like in a still frame. */
-.screen-tiny .ph-status { padding-top: 14px; }
-.screen-tiny .ph-header { padding: 10px 12px 0; }
-.screen-tiny .dev-head { gap: 7px; padding: 9px 12px 0; }
-.screen-tiny .ph-avatar-sm { width: 28px; height: 28px; font-size: 14px; }
-.screen-tiny .dev-name { font-size: 12px; }
-.screen-tiny .ph-streak { font-size: 8px; padding: 3px 6px; }
-.screen-tiny .ph-bell { width: 22px; height: 22px; font-size: 10px; border-radius: 7px; }
-.screen-tiny .ph-bell-badge { width: 12px; height: 12px; font-size: 7px; top: -4px; right: -4px; }
-.screen-tiny .ph-avatar { width: 30px; height: 30px; font-size: 15px; }
-.screen-tiny .ph-name { font-size: 13px; }
-.screen-tiny .ph-hi { font-size: 8.5px; }
-.screen-tiny .ph-streak { font-size: 8px; padding: 3px 6px; }
-.screen-tiny .ph-bell { width: 24px; height: 24px; font-size: 11px; border-radius: 8px; }
-.screen-tiny .ph-steps { margin: 10px 12px 0; }
-.screen-tiny .ph-card { padding: 9px 10px; }
-.screen-tiny .ph-num { font-size: 19px; }
-.screen-tiny .ph-bars { height: 24px; }
-.screen-tiny .ph-row { padding: 0 12px; margin-top: 6px; }
-.screen-tiny .ph-mt-ico { width: 21px; height: 21px; font-size: 11px; border-radius: 7px; margin-bottom: 4px; }
-.screen-tiny .ph-mt-lbl { font-size: 8.5px; }
-.screen-tiny .ph-mt-val { font-size: 15px; }
-.screen-tiny .ph-mt-val--xs { font-size: 12px; }
-.screen-tiny .ph-metric--xs { padding: 7px 6px; }
-.screen-tiny .ph-metric--xs .ph-mt-ico { width: 17px; height: 17px; font-size: 9px; }
-.screen-tiny .ph-mt-sub { display: none; }
-.screen-tiny .ph-fab--sm { bottom: 48px; }
-.dev-page { -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%); mask-image: linear-gradient(to bottom, #000 92%, transparent 100%); }
-
+.phone-tiny {
+  width: 216px; height: 452px; border-radius: 34px; padding: 9px; animation: none;
+  --screen-w: 196;                        /* 216 - 2(border) - 2(9px inset) */
+  --rail-t: 90px; --rail-h: 39px; --rail-t2: 111px; --rail-h2: 60px;
+}
+.phone-tiny::before { inset: 6px; border-radius: 28px; }
+.phone-tiny::after { top: 8px; width: 72px; height: 19px; border-radius: 11px; }
+.phone-tiny .screen { inset: 9px; border-radius: 25px; }
 
 /* ---------- 9 · Testimonial / Persona ---------- */
 .persona-card {
@@ -1279,13 +1029,12 @@ html:not(.js) .area-fill { opacity: 1; }
   .btn-lg { padding: 14px 24px; font-size: 15px; }
   .hero-chips { gap: 8px; }
   .chip { font-size: 12px; padding: 7px 11px; }
-  .phone { width: 268px; height: 580px; border-radius: 46px; }
+  .phone { width: 268px; height: 580px; border-radius: 46px; --screen-w: 246; }
   .phone .screen { inset: 10px; border-radius: 36px; }
-  .ph-num { font-size: 22px; }
   .showcase-stage { min-height: 0; flex-direction: column; padding-top: 10px; }
   .showcase-card { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; max-width: 420px; margin: 0 auto 12px; }
   .showcase-phone { order: -1; margin-bottom: 14px; }
-  .showcase-phone .phone-sm { width: 236px; height: 480px; }
+  .showcase-phone .phone-sm { width: 236px; height: 480px; --screen-w: 212; }
   .fc-1, .fc-2, .fc-3 { display: none; }
   .devices { overflow-x: auto; justify-content: flex-start; padding: 24px 20px 58px; gap: 20px; scroll-snap-type: x mandatory; }
   .device { scroll-snap-align: center; margin: 0 !important; transform: none; opacity: 1 !important; filter: none !important; }
@@ -1310,7 +1059,7 @@ html:not(.js) .area-fill { opacity: 1; }
   .dc-bars-chart { gap: 7px; }
   .dc-days, .dc-bar i { display: none; }
   .dev-tag { font-size: 10px; }
-  .phone-tiny { width: 196px; height: 412px; }
+  .phone-tiny { width: 196px; height: 412px; --screen-w: 176; }
 }
 
 /* ---------- Motion-safe only ---------- */
@@ -1469,81 +1218,46 @@ html:not(.js) .area-fill { opacity: 1; }
 }
 [data-theme="light"] .hero-scroll { border-color: rgba(0,0,0,0.12); }
 
-/* ── Light: phone frame + screen (mirrors app light screens) ── */
+/* ── Light: phone frame + screen (mirrors app light screens) ──
+   The case study keeps its hardware constant across themes, but on a
+   pale page a near-black slab reads as a sticker rather than an
+   object. Light gets polished aluminium instead: the same two-layer
+   construction, re-lit from the top-left, with a warm-neutral barrel
+   instead of the graphite one. */
 [data-theme="light"] .phone {
-  background: linear-gradient(180deg, #F1F5F9, #E2E8F0 72%, #F1F5F9);
-  box-shadow: 0 46px 100px rgba(0,0,0,0.10),
-    0 0 0 1px rgba(255,255,255,0.38),
-    inset 0 1px 1px rgba(255,255,255,0.22);
+  border-color: rgba(15, 23, 42, 0.10);
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.15) 22%, rgba(255, 255, 255, 0) 68%, rgba(255, 255, 255, 0.55) 100%),
+    linear-gradient(155deg, #FFFFFF 0%, #EEF2F7 46%, #D8E0EA 100%);
+  box-shadow:
+    0 44px 90px rgba(15, 23, 42, 0.15),
+    0 12px 28px rgba(15, 23, 42, 0.10),
+    0 2px 6px rgba(15, 23, 42, 0.07),
+    0 0 0 1px rgba(22, 163, 74, 0.10),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(15, 23, 42, 0.05);
 }
-[data-theme="light"] .phone::after { background: #CBD5E1; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
+[data-theme="light"] .phone::before {
+  border-color: rgba(15, 23, 42, 0.06);
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.12) 16%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 74%, rgba(255, 255, 255, 0.4) 100%);
+}
+/* The island stays dark — it is a cut-out in the panel, not a themed
+   surface, so a pale island would read as a printed label. */
+[data-theme="light"] .phone::after {
+  background: radial-gradient(ellipse at 30% 0%, #2A3140, #12161F 90%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.14), 0 0 0 1px rgba(15, 23, 42, 0.12);
+}
+[data-theme="light"] .phone-rail::before,
+[data-theme="light"] .phone-rail::after {
+  background: linear-gradient(180deg, #E7ECF3, #AEBACB 42%, #C9D4E1 78%, #E7ECF3);
+  box-shadow: inset 1px 0 1px rgba(255, 255, 255, 0.9), inset -1px 0 1px rgba(15, 23, 42, 0.18), 0 1px 3px rgba(15, 23, 42, 0.16);
+}
+[data-theme="light"] .phone-rail::after {
+  box-shadow: inset -1px 0 1px rgba(255, 255, 255, 0.9), inset 1px 0 1px rgba(15, 23, 42, 0.18), 0 1px 3px rgba(15, 23, 42, 0.16);
+}
 [data-theme="light"] .screen {
   background: linear-gradient(145deg, #F0FDF4 0%, #DCFCE7 16%, #CFFAFE 42%, #E0F2FE 60%, #FAFAFF 82%, #FDF4FF 100%);
 }
-[data-theme="light"] .screen-sm .ph-steps { background: rgba(0,0,0,0.018); }
-/* Light: the Progress screen in the showcase phone (same reason as the
-   .ph-mt-* overrides above — these are dark-theme near-white by default). */
-[data-theme="light"] .sm-title { color: var(--text); }
-[data-theme="light"] .sm-stats > div,
-[data-theme="light"] .sm-card { background: rgba(255,255,255,0.62); border-color: var(--border); }
-[data-theme="light"] .sm-card-h b { color: var(--text); }
-[data-theme="light"] .sm-bmi b { color: var(--text); }
-[data-theme="light"] .sm-ai b { color: var(--text); }
-[data-theme="light"] .sm-ai p { color: var(--text-2); }
-[data-theme="light"] .sm-stats small,
-[data-theme="light"] .sm-bmi small,
-[data-theme="light"] .sm-seg span { color: var(--muted); }
-[data-theme="light"] .sm-axis { color: #94A3B8; }
-[data-theme="light"] .sm-seg { background: rgba(255,255,255,0.62); border-color: var(--border); }
-[data-theme="light"] .screen-tint-t {
-  background: linear-gradient(160deg, #F0FDF4 0%, #E8F0FA 40%, #FFFFFF 100%);
-}
-[data-theme="light"] .screen-tint-l {
-  background: linear-gradient(160deg, #ECFDF5 0%, #F0F9FF 55%, #FFFFFF);
-}
-[data-theme="light"] .screen-tint-r {
-  background: linear-gradient(160deg, #EFF6FF 0%, #F0F9FF 55%, #F8FAFC);
-}
-
-/* ── Light: phone atoms ── */
-[data-theme="light"] .ph-status { color: #64748A; }
-[data-theme="light"] .ph-name { color: var(--text); }
-[data-theme="light"] .ph-num,
-[data-theme="light"] .ph-inline { color: var(--text); }
-[data-theme="light"] .ph-up { color: var(--g-bright); }
-[data-theme="light"] .ph-streak { color: #EA580C; background: rgba(251,146,60,0.12); border-color: rgba(251,146,60,0.34); }
-[data-theme="light"] .ph-bell { background: rgba(0,0,0,0.035); border-color: var(--border); }
-[data-theme="light"] .ph-bell-badge { border-color: #CBD5E1; }
-[data-theme="light"] .ph-card {
-  background: rgba(255, 255, 255, 0.54);
-  border-color: var(--border);
-}
-[data-theme="light"] .ph-card .ph-label { color: var(--muted); }
-[data-theme="light"] .ph-tag { background: rgba(22,163,74,0.12); border-color: rgba(74,222,128,0.32); }
-[data-theme="light"] .ph-days { color: #94A3B8; }
-[data-theme="light"] .ph-days .hot { color: var(--g-soft); }
-[data-theme="light"] .ph-bars > div { background: rgba(22,163,74,0.38); }
-[data-theme="light"] .ph-bars > div.hot { box-shadow: 0 0 14px rgba(34,211,238,0.42); }
-[data-theme="light"] .ph-pills .ph-steps { border-left: 0; }
-[data-theme="light"] .ph-nav {
-  background: rgba(255, 255, 255, 0.82);
-  border-top-color: var(--border);
-}
-[data-theme="light"] .ph-tab { color: #94A3B8; }
-[data-theme="light"] .ph-ai-text { color: var(--text); }
-[data-theme="light"] .ph-pill { color: var(--g-soft); background: rgba(22,163,74,0.12); border-color: rgba(74,222,128,0.3); }
-
-/* Light: the metric / AI / FAB atoms added for the real-app screens.
-   Without these the value, title and insight text keep the dark-theme
-   near-white fill and disappear against the light screen gradient. */
-[data-theme="light"] .ph-mt-val { color: var(--text); }
-[data-theme="light"] .ph-mt-lbl { color: var(--muted); }
-[data-theme="light"] .ph-mt-sub { color: #94A3B8; }
-[data-theme="light"] .ph-ai-title { color: var(--text); }
-[data-theme="light"] .ph-ai-list li { color: var(--text-2); }
-[data-theme="light"] .ph-fab { border-color: rgba(22,163,74,0.28); box-shadow: 0 10px 26px rgba(22,163,74,0.24); }
-[data-theme="light"] .screen-orbs::before { background: radial-gradient(circle, rgba(22,163,74,0.3), transparent 70%); }
-[data-theme="light"] .screen-orbs::after { background: radial-gradient(circle, rgba(8,145,178,0.24), transparent 70%); }
 
 /* ── Light: floating chips ── */
 [data-theme="light"] .float-chip {
@@ -1843,34 +1557,6 @@ html:not(.js) .area-fill { opacity: 1; }
 [data-theme="light"] .dev-front .phone {
   box-shadow: 0 54px 110px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.46), inset 0 1px 1px rgba(255,255,255,0.28);
 }
-[data-theme="light"] .dev-title,
-[data-theme="light"] .dev-name,
-[data-theme="light"] .dev-item b,
-[data-theme="light"] .dev-m b,
-[data-theme="light"] .dev-challenge b,
-[data-theme="light"] .dev-profile b { color: var(--text); }
-[data-theme="light"] .dev-num { color: var(--text); }
-[data-theme="light"] .dev-item,
-[data-theme="light"] .dev-m,
-[data-theme="light"] .dev-challenge,
-[data-theme="light"] .dev-lb,
-[data-theme="light"] .dev-stat,
-[data-theme="light"] .dev-badges span,
-[data-theme="light"] .dev-cat,
-[data-theme="light"] .dev-menurow {
-  background: rgba(255,255,255,0.54);
-  border-color: var(--border);
-}
-[data-theme="light"] .dev-cats { gap: 6px; }
-[data-theme="light"] .dev-cat { color: var(--text-2); }
-[data-theme="light"] .dev-tabs span { background: rgba(255,255,255,0.54); border-color: var(--border); color: var(--muted); }
-[data-theme="light"] .dev-tabs span.on { color: #fff; }
-[data-theme="light"] .dev-menurow { color: var(--text-2); }
-[data-theme="light"] .dev-lb b { color: var(--text-2); }
-[data-theme="light"] .dev-lb-h { color: var(--text); }
-[data-theme="light"] .dev-ai-summary { background: rgba(255,255,255,0.54); color: var(--text-2); }
-[data-theme="light"] .dev-ai-summary b { color: var(--text); }
-[data-theme="light"] .dev-btn { box-shadow: 0 8px 22px rgba(22,163,74,0.22); }
 
 /* ── Light: testimonial ── */
 [data-theme="light"] .persona-card {
@@ -1923,10 +1609,6 @@ html:not(.js) .area-fill { opacity: 1; }
 }
 
 /* ── Light: small badge accents ── */
-[data-theme="light"] .ph-ai-icon {
-  background: rgba(34,211,238,0.14);
-  border-color: rgba(34,211,238,0.3);
-}
 [data-theme="light"] .sc-ic {
   background: rgba(52,211,153,0.16);
   border-color: rgba(52,211,153,0.32);

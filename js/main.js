@@ -152,6 +152,7 @@
       root.dataset.theme = t;
       btn.setAttribute('aria-pressed', t === 'dark');
       try { localStorage.setItem(STORAGE_KEY, t); } catch (_) {}
+      syncEmbedTheme();
     }
 
     var saved = null;
@@ -171,11 +172,52 @@
     });
   }
 
+  /* ---------- Live app embeds (theme bridge) ----------
+     Sections 1, 2 and 8 host the real deployed PWA inside small phone
+     shells as scaled iframes. A nested browsing context does not share
+     localStorage or cookies, so the app cannot see the visitor's saved
+     'fp-theme' choice and would always boot light. The bundle exposes a
+     postMessage API for exactly this: mirror the promo theme into every
+     embed, on load and whenever the visitor flips the toggle. The same
+     pattern is used by showcase/script.js for its web frame. */
+
+  function appFrames() {
+    return Array.prototype.slice.call(document.querySelectorAll('.app-frame'));
+  }
+
+  function syncEmbedTheme() {
+    var theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    appFrames().forEach(function (f) {
+      if (f.contentWindow) {
+        /* File:// pages have a null origin, and a specific target origin
+           fails against a not-yet-loaded file frame — so broadcast '*'
+           like showcase/script.js does. The payload is a cosmetic theme
+           hint with no secrets, and the bundle keys on message.type only. */
+        try { f.contentWindow.postMessage({ type: 'FP_SET_THEME', theme: theme }, '*'); }
+        catch (_) { /* frame still booting, the load handler resends */ }
+      }
+    });
+  }
+
+  function initAppEmbeds() {
+    if (!appFrames().length) return;
+    /* The app registers its message listener when React mounts, which
+       happens after the frame's load event — so send twice: once
+       immediately for already-cached frames, once on load, and once more
+       just after for a first-run cold bundle. All are cheap no-ops. */
+    var hello = function () { syncEmbedTheme(); setTimeout(syncEmbedTheme, 400); };
+    appFrames().forEach(function (f) {
+      f.addEventListener('load', hello);
+    });
+    hello();
+  }
+
   /* ---------- Boot ---------- */
   function boot() {
     initTheme();
     initRings();
     initNav();
+    initAppEmbeds();
 
     if (reduced || !('IntersectionObserver' in window)) {
       /* Show everything statically */
