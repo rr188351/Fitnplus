@@ -65,7 +65,10 @@
   /* ---------- Viewport reveals ---------- */
   var io;
   function observe() {
-    var targets = document.querySelectorAll('.reveal, [data-bars], [data-ring], [data-count]');
+    /* .how-flow carries the .how-line connector, which draws itself via
+       .in-view. The line is a sibling of the steps (not inside one), so
+       the steps revealing does not cover it — watch the container too. */
+    var targets = document.querySelectorAll('.reveal, [data-bars], [data-ring], [data-count], .how-flow');
     io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -221,7 +224,7 @@
 
     if (reduced || !('IntersectionObserver' in window)) {
       /* Show everything statically */
-      document.querySelectorAll('.reveal, [data-bars], [data-ring]').forEach(function (el) {
+      document.querySelectorAll('.reveal, [data-bars], [data-ring], .how-flow').forEach(function (el) {
         el.classList.add('in-view');
       });
       document.querySelectorAll('.ring-fill').forEach(function (fill) {

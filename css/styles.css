@@ -342,25 +342,34 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
    at a fixed 430px design width and magnifies by max(1, innerWidth/430)
    — it only ever scales UP. Our screens are all narrower than 430px, so
    the iframe is given a full 430px of LAYOUT width (the app applies no
-   zoom of its own) and the whole frame is scaled down to the screen with
-   a transform. Sizing the iframe itself would not work: the app reads
-   innerWidth to pick its layout, so a narrow iframe would drop it into
-   its <768px branch and clip the design.
+   zoom of its own) and the frame is fit to the screen with the CSS
+   `zoom` property — NOT `transform: scale()`. That distinction is the
+   sharpness fix: transform scales a rasterised bitmap (fractional ratios
+   like 276/430 = 0.642 blur text, and GPU-resampled SVG/canvas charts
+   shimmer or drop thin strokes), while zoom re-lays-out at the fitted
+   size so text, SVG rings and recharts paths rasterise crisply at the
+   device pixel grid with correct sub-pixel AA.
 
    --screen-w is the inner display width in px — phone width minus its
    border and its .screen inset — and is restated wherever a breakpoint
-   resizes the frame. The iframe height is divided by the same ratio so
-   the scaled result lands exactly on the screen: both axes use one
-   scale factor. An exact fit matters because the app pins its own
-   bottom nav to 100dvh, so any mismatch would clip that nav or leave a
-   gap under it. */
+   resizes the frame. Height stays 100%: zoom shrinks layout and paint
+   together, so the app's 100dvh bottom nav always lands exactly on the
+   screen bottom with no gap or clipping. The @supports fallback keeps
+   the old transform-scale fit for ancient browsers without zoom. */
 .app-frame {
   position: absolute; top: 0; left: 0;
   width: 430px;
-  height: calc(100% * 430 / var(--screen-w));
-  transform: scale(calc(var(--screen-w) / 430));
-  transform-origin: 0 0;
+  height: 100%;
+  zoom: calc(var(--screen-w) / 430);
   border: 0; display: block; background: transparent;
+}
+@supports not (zoom: 1) {
+  .app-frame {
+    zoom: normal;
+    height: calc(100% * 430 / var(--screen-w));
+    transform: scale(calc(var(--screen-w) / 430));
+    transform-origin: 0 0;
+  }
 }
 
 /* Floating chips */
@@ -623,14 +632,31 @@ html:not(.js) .area-fill { opacity: 1; }
 .dc-total { font-family: var(--font-head); font-weight: 900; font-size: 28px; color: #f2f7fb; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
 .dc-total small { font-size: 13px; color: var(--muted); font-weight: 600; }
 
-/* bars chart */
-.dc-bars-chart { flex: 1; display: flex; align-items: flex-end; gap: 12px; padding-top: 14px; }
+/* bars chart — .dc-bars spans 3 grid rows, so the card has a definite
+   height and the chart flexes to fill it; the bars then resolve their
+   --h percentages against that definite height. The min-height keeps the
+   chart from collapsing to nothing on short/1-column layouts. */
+.dc-bars-chart { flex: 1; min-height: 200px; display: flex; align-items: flex-end; gap: 12px; padding-top: 14px; }
 .dc-bar {
   flex: 1; height: 0; position: relative;
   background: linear-gradient(180deg, rgba(22, 163, 74, 0.85), rgba(22, 163, 74, 0.22));
   border-radius: 8px 8px 3px 3px;
   transition: height 1s var(--ease);
 }
+/* Grow each bar to its --h once the card enters view. This rule is the
+   whole chart: without it the bars stay at height 0 and the card renders
+   as an empty box with a "Weekly Steps" heading and nothing under it. */
+.in-view .dc-bar { height: var(--h); }
+/* staggered growth so the week reads left-to-right */
+.in-view .dc-bar:nth-child(1) { transition-delay: 0ms; }
+.in-view .dc-bar:nth-child(2) { transition-delay: 70ms; }
+.in-view .dc-bar:nth-child(3) { transition-delay: 140ms; }
+.in-view .dc-bar:nth-child(4) { transition-delay: 210ms; }
+.in-view .dc-bar:nth-child(5) { transition-delay: 280ms; }
+.in-view .dc-bar:nth-child(6) { transition-delay: 350ms; }
+.in-view .dc-bar:nth-child(7) { transition-delay: 420ms; }
+/* no-JS / pre-reveal: show the bars immediately rather than as stubs */
+html:not(.js) .dc-bar { height: var(--h); }
 .dc-bar.hot { background: linear-gradient(180deg, #34D399, #0891B2); box-shadow: 0 0 22px rgba(34, 211, 238, 0.35); }
 .dc-bar i { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-style: normal; font-family: var(--font-head); font-size: 9.5px; color: var(--muted); font-weight: 600; opacity: 0; transition: opacity 0.4s ease 1.2s; white-space: nowrap; }
 .in-view .dc-bar i { opacity: 1; }
@@ -658,7 +684,14 @@ html:not(.js) .area-fill { opacity: 1; }
   height: 2px; border-radius: 2px;
   background: linear-gradient(90deg, rgba(34, 211, 238, 0.05), rgba(34, 211, 238, 0.6), rgba(34, 211, 238, 0.05));
   box-shadow: 0 0 14px rgba(34, 211, 238, 0.35);
+  /* Draws itself left-to-right behind the three steps, matching the
+     .reveal timing of the cards. Without .in-view it just sits there
+     at full width while the steps fade in around it. */
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform 1.1s var(--ease) 0.15s;
 }
+.in-view .how-line { transform: scaleX(1); }
+html:not(.js) .how-line { transform: scaleX(1); }
 .how-step { position: relative; text-align: center; padding: 0 16px; }
 .how-num {
   font-family: var(--font-head); font-weight: 900; font-size: 46px; line-height: 1;
@@ -786,18 +819,29 @@ html:not(.js) .area-fill { opacity: 1; }
 .devices { display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 2; }
 
 /* Cover-flow resting state.
-   Every screen shares ONE blur value and ONE dim level. The previous
-   ladder (none / 1.2px / 1.8px over four opacity steps) made the outer
-   phones read as broken rather than recessive — at 216px wide the text
-   was already tight, and three different blur levels read as a mistake
-   rather than as depth. */
+
+   NO `filter: blur()` here — that was the actual "slightly blur" culprit.
+   A filter on an ancestor of an <iframe> forces the whole embedded
+   document to be rasterised into a texture and then run through a
+   Gaussian blur. The app inside is already scaled (see .app-frame: the
+   430px design is fitted into the 196px screen with `zoom`), so a blur
+   on top of that is the second raster pass over an already-resampled
+   image, and the casualties are exactly the small marks — 1px dividers,
+   9.5px chart labels, recharts stroke weights. Hence "low quality"
+   rather than "intentionally soft".
+
+   `transform: scale(0.9)` is kept, and it is NOT what blurs the content:
+   the 0.9 also shrinks the LAYOUT box, so the six phones fit the row
+   (removing it makes the first and last overflow the container). A
+   fractional transform does cost some crispness, so the focused state
+   below uses scale(1) — exactly 1:1, no resampling at all — and the
+   unfocused 0.9 is a mild downscale, which stays legible. */
 .device {
   position: relative; flex-shrink: 0;
   transform: scale(0.9) translateY(16px);
-  filter: blur(2.6px);
-  opacity: 0.42;
+  opacity: 0.55;
   z-index: 1;
-  transition: transform 0.8s var(--ease), filter 0.8s var(--ease), opacity 0.8s var(--ease);
+  transition: transform 0.8s var(--ease), opacity 0.8s var(--ease);
 }
 .device .phone { animation: float 7s ease-in-out infinite; }
 /* Visual order: Activity · Workouts · Dashboard · Progress · Community · Account */
@@ -810,8 +854,8 @@ html:not(.js) .area-fill { opacity: 1; }
 
 .dev-front {
   margin-top: -14px;
-  transform: scale(1.08) translateY(-12px);
-  filter: blur(0); opacity: 1; z-index: 6;
+  transform: scale(1) translateY(-12px);
+  opacity: 1; z-index: 6;
 }
 .dev-front .phone { box-shadow: 0 54px 110px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.16); }
 .dev-l1 { margin-right: -18px; margin-top: 22px; }
@@ -821,9 +865,13 @@ html:not(.js) .area-fill { opacity: 1; }
 .dev-r3 { margin-left: -30px; margin-top: 62px; }
 
 /* ── Spotlight carousel (desktop only) ────────────────────────
-   One screen at a time takes focus: it scales up, sharpens and
-   rides to the front while the other five drop back behind the
-   same shared blur. 24s lap over 6 screens = 4s dwell each.
+   One screen at a time takes focus: it comes forward at 1:1 and rides
+   to the front while the other five drop back to a shared dim level.
+   24s lap over 6 screens = 4s dwell each.
+
+   The focused key is scale(1) — a true 1:1 with no resampling — and no
+   key carries a blur. See the .device note above for why a filter on
+   an iframe ancestor is what actually cost the screens their quality.
 
    The stagger is a NEGATIVE delay, so lap 1 is already mid-cycle
    the moment the section scrolls into view — a visitor never lands
@@ -838,9 +886,9 @@ html:not(.js) .area-fill { opacity: 1; }
    would slide the focused phone through its neighbours instead of
    arriving in front of them. */
 @keyframes dev-spotlight {
-  0%, 13%   { transform: scale(1.09) translateY(-14px); filter: blur(0); opacity: 1; z-index: 6; }
-  20%, 93%  { transform: scale(0.9) translateY(16px); filter: blur(2.6px); opacity: 0.42; z-index: 1; }
-  100%      { transform: scale(1.09) translateY(-14px); filter: blur(0); opacity: 1; z-index: 6; }
+  0%, 13%   { transform: scale(1) translateY(-14px); opacity: 1; z-index: 6; }
+  20%, 93%  { transform: scale(0.9) translateY(16px); opacity: 0.55; z-index: 1; }
+  100%      { transform: scale(1) translateY(-14px); opacity: 1; z-index: 6; }
 }
 .devices > .device:nth-child(1) { --i: 2; } /* Dashboard    — DOM 1, centre of the row */
 .devices > .device:nth-child(2) { --i: 1; } /* Workouts     */
